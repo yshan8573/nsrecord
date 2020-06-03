@@ -1,71 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ include file="/WEB-INF/views/common/header.jsp"%>
 
-<c:set var="path" value="${pageContext.request.contextPath}" />
 
-<!DOCTYPE html>
-<html lang="ko">
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 
-<head>
+	<div class="jumbotron">
+		<h1>NSRecord</h1>
+		<div>자전거 덕후들의 최대 애착 어플리케이션인 ‘스트라바’가 최근 대부분의 서비스를 유료로 전환했다.</div>
+		<div>‘운동 보조 어플리케이션’이 아닌 ‘SNS’로 활용하던 자전거 덕후, 즉 자덕들은 갈곳을 잃었다.
+			스트라바를 대체할만한 SNS플랫폼이 없기 때문이다.</div>
+		<div>‘코스(GPX)’공유‘ 및 ‘구간별 순위 측정‘</div>
+		<div>‘게시판’등 SNS 성형이 강한 기능들만을 모아 자덕들에게 희망을 주기로 한다.</div>
+		<div>이것이 ‘NS.RECORD’ 프로젝트의 시작이다.</div>
 
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- 위 3개의 메타 태그는 *반드시* head 태그의 처음에 와야합니다; 어떤 다른 콘텐츠들은 반드시 이 태그들 *다음에* 와야 합니다 -->
-  <title>Insert title here</title>
 
-  <!-- 합쳐지고 최소화된 최신 CSS -->
-  <link rel="stylesheet" href="${path }/resources/bootstrap/css/bootstrap.min.css">
+		</pre>
+	</div>
 
-  <!-- 부가적인 테마 -->
-  <link rel="stylesheet" href="${path }/resources/bootstrap/css/bootstrap-theme.min.css">
 
-  <!-- 사용자 css -->
-  <link rel="stylesheet" href="${path }/resources/css/mainCss.css">
 
-  <!-- JQuery -->
-  <script src="${path }/resources/js/jquery-3.3.1.min.js"></script>
-
-</head>
-
-<body>
-
-  <nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
-          aria-expanded="false" aria-controls="navbar">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="#">NSRecord</a>
-      </div>
-      <div id="navbar" class="collapse navbar-collapse">
-        <ul class="nav navbar-nav">
-          <li class="active"><a href="#">Home</a></li>
-          <li><a href="#about">GPX</a></li>
-          <li><a href="#contact">커뮤니티</a></li>
-        </ul>
-      </div>
-      <!--/.nav-collapse -->
-    </div>
-  </nav>
-
-  <div class="container">
-
-    <div class="starter-template">
-      <h1>NSRRecord</h1>
-      <p class="lead">메인 페이지입니다.</p>
-    </div>
-
-  </div><!-- /.container -->
-
-</body>
-
-</html>
+	<%@ include file="/WEB-INF/views/common/footer.jsp"%>
