@@ -17,5 +17,8 @@
 <div>
 	<input type="button" value="stravaSample Page" onclick="javascript:location.href='<%=contextPath%>/staravaSample'"/>
 </div>
+<div>
+	<input type="button" value="main Page" onclick="javascript:location.href='<%=contextPath%>/home'"/>
+</div>
 </body>
 </html>

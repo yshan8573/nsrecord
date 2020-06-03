@@ -12,8 +12,8 @@
   <meta charset="UTF-8">
   
   <!-- strava css link -->
-  <link href="<%= contextPath %>/resources/css/strava/stravaCss.css" rel="stylesheet" type="text/css">
-  <link href="<%= contextPath %>/resources/css/strava/stravaCss1.css" rel="stylesheet" type="text/css">
+  <link href="<%= contextPath %>/resources/strava/css/stravaCss.css" rel="stylesheet" type="text/css">
+  <link href="<%= contextPath %>/resources/strava/css/strava/stravaCss1.css" rel="stylesheet" type="text/css">
   
   <title>stravaHome</title>
 </head>
