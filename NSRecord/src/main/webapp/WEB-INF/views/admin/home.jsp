@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-<%@ include file="common/head.jsp" %>
+<%@ include file="../common/head.jsp" %>
 
 <body class="hold-transition skin-blue sidebar-mini">
 	<div class="wrapper">
@@ -45,7 +45,7 @@
 
 	<!-- REQUIRED JS SCRIPTS -->
 
-	<%@ include file="common/plugin_js.jsp" %>
+	<%@ include file="../common/plugin_js.jsp" %>
 
 </body>
 
