@@ -1,16 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-<%@ include file="include/head.jsp" %>
+<%@ include file="common/head.jsp" %>
 
 <body class="hold-transition skin-blue sidebar-mini">
 	<div class="wrapper">
 
 		<!-- Main Header -->
-		<%@ include file="include/main_header.jsp" %>
+		<%@ include file="common/main_header.jsp" %>
 
 		<!-- Left side column. contains the logo and sidebar -->
-		<%@ include file="include/left_column.jsp" %>
+		<%@ include file="common/left_column.jsp" %>
 
 		<!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper">
@@ -38,14 +38,14 @@
 		<!-- /.content-wrapper -->
 
 		<!-- Main Footer -->
-		<%@ include file="include/main_footer.jsp" %>
+		<%@ include file="common/main_footer.jsp" %>
 
 	</div>
 	<!-- ./wrapper -->
 
 	<!-- REQUIRED JS SCRIPTS -->
 
-	<%@ include file="include/plugin_js.jsp" %>
+	<%@ include file="common/plugin_js.jsp" %>
 
 </body>
 
