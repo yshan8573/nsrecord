@@ -21,5 +21,5 @@
 		<property name="username" value="nsr"></property>
 		<property name="password" value="nsr"></property>
 	</bean>
-	
+	 
 </beans>
