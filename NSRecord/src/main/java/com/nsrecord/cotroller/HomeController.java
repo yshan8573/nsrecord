@@ -41,9 +41,14 @@ public class HomeController {
 		return "stravaSample/stravaHome";
 	}
 	
-	@RequestMapping(value = "/home")
-	public String home(Model model) {
-		return "home";
+	@RequestMapping(value = "/userHome")
+	public String userHome(Model model) {
+		return "user/home";
+	}
+	
+	@RequestMapping(value = "/adminHome")
+	public String adminHome(Model model) {
+		return "admin/home";
 	}
 	  
 }
