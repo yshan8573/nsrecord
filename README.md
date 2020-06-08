@@ -7,7 +7,7 @@
  - Oracle Database 11g Express Edition
  - Encoding : UTF-8
 
-# nsrecord 기획
+# 기획
 <img src="https://user-images.githubusercontent.com/64110645/83994138-76b24200-a990-11ea-91e4-7f9d437df590.JPG"><Br>
 <img src="https://user-images.githubusercontent.com/64110645/83994142-79ad3280-a990-11ea-93c7-1f7b8781f592.JPG"><Br>
 <img src="https://user-images.githubusercontent.com/64110645/83994145-7c0f8c80-a990-11ea-844d-da66e64c75d5.JPG"><Br>
