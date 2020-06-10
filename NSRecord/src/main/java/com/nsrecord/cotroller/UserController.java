@@ -2,8 +2,11 @@ package com.nsrecord.cotroller;
 
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.nsrecord.dto.UserInfo;
@@ -12,28 +15,46 @@ import com.nsrecord.service.UserService;
 @Controller
 public class UserController {
 	
+	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+	
 	@Autowired
 	private UserService service;
 
 	@RequestMapping(value = "user/userlogin")
 	public String userlogin() {
+		logger.info("this is a userlogin Method");
 		
 		return "user/user/user_login";
 	}
 	
 	@RequestMapping(value = "user/userloginEnd")
-	public String userloginEnd(UserInfo user, HttpSession session) {
+	public String userloginEnd(Model model, UserInfo user, HttpSession session) {
+		logger.info("this is a userloginEnd Method");
 		
 		UserInfo result = service.userSelectOne(user);
-		if(result != null) {
-			session.setAttribute("loginEmail", user.getU_email());
+		
+		String path = "";
+		if(result != null && user.getU_email().equals(result.getU_email())) {
+			if(user.getU_pwd().equals(result.getU_pwd())) {
+				path = "redirect:/userHome";
+				session.setAttribute("loginEmail", user.getU_email());
+			} else {
+				path = "common/msg";
+				model.addAttribute("msg","비밀번호를 다시 입력해 주시기 바랍니다.");
+				model.addAttribute("loc","/user/userlogin");
+			}
+		} else {
+			path = "common/msg";
+			model.addAttribute("msg","이메일를 다시 입력해 주시기 바랍니다.");
+			model.addAttribute("loc","/user/userlogin");
 		}
 		
-		return "redirect:/userHome";
+		return path;
 	}
 	
 	@RequestMapping(value = "user/userlogout")
 	public String userlogout(HttpSession session) {
+		logger.info("this is a userlogout Method");
 		
 		if(session.getAttribute("loginEmail") != null) {
 			session.removeAttribute("loginEmail");

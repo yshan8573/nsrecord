@@ -55,7 +55,7 @@
 					}
 					else if(categoryLoc == "community") {
 						console.log("loc : " + categoryLoc);
-						$('.gpx').addClass('active');
+						$('.community').addClass('active');
 					}
 				}
 			})
@@ -84,9 +84,9 @@
 					<span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
 				</a>
 				<ul class="treeview-menu">
-					<li><a href="#">공지사항</a></li>
-					<li><a href="#">Q&A</a></li>
-					<li><a href="#">자유게시판</a></li>
+					<li><a href="javascript:location.href='<c:url value="/"/>community/noticeBoard'">공지사항</a></li>
+					<li><a href="javascript:location.href='<c:url value="/"/>community/qnaBoard'">Q&A</a></li>
+					<li><a href="javascript:location.href='<c:url value="/"/>community/freeBoard'">자유게시판</a></li>
 				</ul>
 			</li>
 		</ul>
