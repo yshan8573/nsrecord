@@ -1,4 +1,4 @@
-package com.nsrecord.model.vo;
+package com.nsrecord.dto;
 
 //게시판에서 글을 보여줄 때 조건들을 저장하는 vo객체
 public class BoardSearch {

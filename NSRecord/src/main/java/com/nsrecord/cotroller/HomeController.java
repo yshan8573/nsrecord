@@ -43,12 +43,12 @@ public class HomeController {
 	
 	@RequestMapping(value = "/userHome")
 	public String userHome(Model model) {
-		return "user/home";
+		return "user/user_home";
 	}
 	
 	@RequestMapping(value = "/adminHome")
 	public String adminHome(Model model) {
-		return "admin/home";
+		return "admin/admin_home";
 	}
 	
 }

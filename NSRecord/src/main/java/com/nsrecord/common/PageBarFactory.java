@@ -1,6 +1,6 @@
 package com.nsrecord.common;
 
-import com.nsrecord.model.vo.BoardSearch;
+import com.nsrecord.dto.BoardSearch;
 
 public class PageBarFactory {
 
