@@ -23,6 +23,9 @@
 	<resources mapping="/dist/**" location="/resources/adminLTE/dist/" />
 	<resources mapping="/css/**" location="/resources/css/" />
 	
+	<!-- strava예제 경로 설정 -->
+	<resources mapping="/strava/**" location="/resources/strava/" />
+	
 	
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->

@@ -40,5 +40,35 @@ public class CommunityController {
 		
 		return "user/community/freeBoard";
 	}
+	
+	@RequestMapping(value = "adminCommunity/adminNoticeBoard")
+	public String adminNoticeBoard(Model model) {
+		logger.info("this is a adminNoticeList Method");
+		
+		// 사이드 메뉴 'active' 설정 flag
+		model.addAttribute("categoryLoc", "community");
+		
+		return "admin/community/admin_noticeBoard";
+	}
+	
+	@RequestMapping(value = "adminCommunity/adminQnaBoard")
+	public String adminQnaBoard(Model model) {
+		logger.info("this is a adminQnaList Method");
+		
+		// 사이드 메뉴 'active' 설정 flag
+		model.addAttribute("categoryLoc", "community");
+		
+		return "admin/community/admin_qnaBoard";
+	}
+	
+	@RequestMapping(value = "adminCommunity/adminFreeBoard")
+	public String adminFreeBoard(Model model) {
+		logger.info("this is a adminFreeBoardList Method");
+		
+		// 사이드 메뉴 'active' 설정 flag
+		model.addAttribute("categoryLoc", "community");
+		
+		return "admin/community/admin_freeBoard";
+	}
 
 }

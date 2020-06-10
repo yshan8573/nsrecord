@@ -20,5 +20,15 @@ public class GpxController {
 		
 		return "user/gpx/gpxBoard";
 	}
+	
+	@RequestMapping(value = "adminGpx/adminGpxList")
+	public String adminGpxList(Model model) {
+		logger.info("this is a adminGpxList Method");
+		
+		// 사이드 메뉴 'active' 설정 flag
+		model.addAttribute("categoryLoc", "gpx");
+		
+		return "admin/gpx/admin_gpxList";
+	}
 
 }

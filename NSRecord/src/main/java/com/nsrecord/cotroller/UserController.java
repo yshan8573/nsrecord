@@ -27,6 +27,26 @@ public class UserController {
 		return "user/user/user_login";
 	}
 	
+	@RequestMapping(value = "adminUser/adminUserList")
+	public String adminUserList(Model model) {
+		logger.info("this is a adminUserList Method");
+		
+		// 사이드 메뉴 'active' 설정 flag
+		model.addAttribute("categoryLoc", "user");
+		
+		return "admin/user/admin_userList";
+	}
+	
+	@RequestMapping(value = "adminUser/adminUserLeaveList")
+	public String adminUserLeaveList(Model model) {
+		logger.info("this is a adminUserLeaveList Method");
+		
+		// 사이드 메뉴 'active' 설정 flag
+		model.addAttribute("categoryLoc", "user");
+		
+		return "admin/user/admin_userLeaveList";
+	}
+	
 	@RequestMapping(value = "user/userloginEnd")
 	public String userloginEnd(Model model, UserInfo user, HttpSession session) {
 		logger.info("this is a userloginEnd Method");

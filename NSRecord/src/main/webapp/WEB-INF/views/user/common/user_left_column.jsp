@@ -65,11 +65,11 @@
 			<li class="header">MENU</li>
 			<!-- Optionally, you can add icons to the links -->
 			<li class="home">
-				<a href="javascript:location.href='<c:url value="/"/>userHome'"><i class="fa fa-link"></i><span>HOME</span></a>
+				<a href="javascript:location.href='<c:url value="/"/>userHome'"><i class="fa fa-home"></i><span>HOME</span></a>
 			</li>
 			<li class="gpx treeview">
 				<a href="#">
-					<i class="fa fa-link"></i>
+					<i class="fa fa-map"></i>
 					<span>GPX</span>
 					<span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
 				</a>
@@ -79,7 +79,7 @@
 			</li>
 			<li class="community treeview">
 				<a href="#">
-					<i class="fa fa-link"></i>
+					<i class="fa fa-commenting"></i>
 					<span>Community</span>
 					<span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
 				</a>
