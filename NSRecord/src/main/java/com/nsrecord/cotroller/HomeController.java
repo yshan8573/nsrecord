@@ -38,20 +38,28 @@ public class HomeController {
 	
 	@RequestMapping(value = "/staravaSample")
 	public String staravaSample(Model model) {
+		logger.info("this is a staravaSample Method");
+		
 		return "stravaSample/stravaHome";
 	}
 	
 	@RequestMapping(value = "/userHome")
 	public String userHome(Model model) {
+		logger.info("this is a userHome Method");
 		
+		// 사이드 메뉴 'active' 설정 flag
 		model.addAttribute("categoryLoc", "home");
+		
 		return "user/user_home";
 	}
 	
 	@RequestMapping(value = "/adminHome")
 	public String adminHome(Model model) {
+		logger.info("this is a adminHome Method");
 		
+		// 사이드 메뉴 'active' 설정 flag
 		model.addAttribute("categoryLoc", "home");
+		
 		return "admin/admin_home";
 	}
 	  

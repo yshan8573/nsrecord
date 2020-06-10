@@ -35,11 +35,11 @@
 
             <form action="<c:url value='/'/>user/userloginEnd" method="post">
               <div class="form-group has-feedback">
-                <input type="text" class="form-control" placeholder="Email" name="u_email">
+                <input type="text" class="form-control" placeholder="Email" name="u_email" required="required">
                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
               </div>
               <div class="form-group has-feedback">
-                <input type="password" class="form-control" placeholder="u_pwd">
+                <input type="password" class="form-control" placeholder="password" name="u_pwd" required="required">
                 <span class="glyphicon glyphicon-lock form-control-feedback"></span>
               </div>
               <div class="row">

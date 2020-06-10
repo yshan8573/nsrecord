@@ -20,7 +20,7 @@
 					Admin Main <small>Optional description</small>
 				</h1>
 				<ol class="breadcrumb">
-					<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+					<li><a href="javascript:location.href='<c:url value="/"/>adminHome'"><i class="fa fa-home"></i> Home</a></li>
 				</ol>
 			</section>
 
