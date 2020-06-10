@@ -24,9 +24,7 @@
 			<!-- Main content -->
 			<section class="content container-fluid">
 
-				<!--------------------------
-        | Your Page Content Here |
-        -------------------------->
+				<h1>userHome 입니다.</h1>
 
 			</section>
 			<!-- /.content -->

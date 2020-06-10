@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <aside class="main-sidebar">
 
@@ -36,21 +39,45 @@
 		</form>
 		 -->
 		<!-- /.search form -->
+		<script type="text/javascript">
 		
-		
-		
-
+			$(function() {
+				var categoryLoc = "${categoryLoc}";
+				if(categoryLoc != null) {
+					if(categoryLoc == "home") {
+						console.log("loc : " + categoryLoc);
+						$('.home').addClass('active');
+						
+					}
+					else if(categoryLoc == "gpx") {
+						console.log("loc : " + categoryLoc);
+						$('.gpx').addClass('active');
+					}
+					else if(categoryLoc == "community") {
+						console.log("loc : " + categoryLoc);
+						$('.gpx').addClass('active');
+					}
+				}
+			})
+		</script>
 		<!-- Sidebar Menu -->
 		<ul class="sidebar-menu" data-widget="tree">
 			<li class="header">MENU</li>
 			<!-- Optionally, you can add icons to the links -->
-			<li class="active">
-				<a href="#"><i class="fa fa-link"></i><span>HOME</span></a>
+			<li class="home">
+				<a href="javascript:location.href='<c:url value="/"/>userHome'"><i class="fa fa-link"></i><span>HOME</span></a>
 			</li>
-			<li>
-				<a href="#"><i class="fa fa-link"></i><span>GPX</span></a>
+			<li class="gpx treeview">
+				<a href="#">
+					<i class="fa fa-link"></i>
+					<span>GPX</span>
+					<span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+				</a>
+				<ul class="treeview-menu">
+					<li><a href="javascript:location.href='<c:url value="/"/>gpx/gpxBoard'">GPX공유게시판</a></li>
+				</ul>
 			</li>
-			<li class="treeview">
+			<li class="community treeview">
 				<a href="#">
 					<i class="fa fa-link"></i>
 					<span>Community</span>

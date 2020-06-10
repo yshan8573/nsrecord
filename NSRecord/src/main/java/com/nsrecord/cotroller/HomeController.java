@@ -43,11 +43,15 @@ public class HomeController {
 	
 	@RequestMapping(value = "/userHome")
 	public String userHome(Model model) {
+		
+		model.addAttribute("categoryLoc", "home");
 		return "user/user_home";
 	}
 	
 	@RequestMapping(value = "/adminHome")
 	public String adminHome(Model model) {
+		
+		model.addAttribute("categoryLoc", "home");
 		return "admin/admin_home";
 	}
 	
