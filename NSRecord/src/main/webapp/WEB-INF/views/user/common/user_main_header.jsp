@@ -28,12 +28,12 @@
 				<div class="navbar-custom-menu flexBox">
 					<c:choose>
 						<c:when test="${loginEmail == null}">
-							<button type="button" class="btn btn-sm bg-gray color-palette" onclick="javascript:location.href='<c:url value="/"/>member/userlogin'" style="margin: 10px">Login</button>
+							<button type="button" class="btn btn-sm bg-gray color-palette" onclick="javascript:location.href='<c:url value="/"/>user/userlogin'" style="margin: 10px">Login</button>
 					 		<button type="button" class="btn btn-sm bg-gray color-palette" onclick="" style="margin: 10px">SignIn</button>
 						</c:when>
 						<c:otherwise>
 							<div>${loginEmail } 님, 환영합니다.</div>
-							<button type="button" class="btn btn-sm bg-gray color-palette" onclick="javascript:location.href='<c:url value="/"/>member/userlogout'" style="margin: 10px">Logout</button>
+							<button type="button" class="btn btn-sm bg-gray color-palette" onclick="javascript:location.href='<c:url value="/"/>user/userlogout'" style="margin: 10px">Logout</button>
 						</c:otherwise>
 					</c:choose>
 				</div>

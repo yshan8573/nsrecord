@@ -6,33 +6,33 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.nsrecord.dto.Member;
-import com.nsrecord.service.MemberService;
+import com.nsrecord.dto.UserInfo;
+import com.nsrecord.service.UserService;
 
 @Controller
-public class MemberController {
+public class UserController {
 	
 	@Autowired
-	private MemberService service;
+	private UserService service;
 
-	@RequestMapping(value = "member/userlogin")
+	@RequestMapping(value = "user/userlogin")
 	public String userlogin() {
 		
-		return "user/member/user_login";
+		return "user/user/user_login";
 	}
 	
-	@RequestMapping(value = "member/userloginEnd")
-	public String memberloginEnd(Member member, HttpSession session) {
+	@RequestMapping(value = "user/userloginEnd")
+	public String userloginEnd(UserInfo user, HttpSession session) {
 		
-		Member result = service.memberSelectOne(member);
+		UserInfo result = service.userSelectOne(user);
 		if(result != null) {
-			session.setAttribute("loginEmail", member.getM_email());
+			session.setAttribute("loginEmail", user.getU_email());
 		}
 		
 		return "redirect:/userHome";
 	}
 	
-	@RequestMapping(value = "member/userlogout")
+	@RequestMapping(value = "user/userlogout")
 	public String userlogout(HttpSession session) {
 		
 		if(session.getAttribute("loginEmail") != null) {

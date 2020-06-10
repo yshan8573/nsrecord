@@ -4,17 +4,17 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.nsrecord.dto.Member;
+import com.nsrecord.dto.UserInfo;
 
 @Repository
-public class MemberDaoImpl implements MemberDao {
+public class UserDaoImpl implements UserDao {
 	
 	@Autowired
 	private SqlSessionTemplate session;
 
 	@Override
-	public Member memberSelectOne(Member member) {
-		return session.selectOne("member.memberSelectOne",member);
+	public UserInfo userSelectOne(UserInfo user) {
+		return session.selectOne("user.userSelectOne",user);
 	}
 	
 }
