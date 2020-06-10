@@ -54,5 +54,5 @@ public class HomeController {
 		model.addAttribute("categoryLoc", "home");
 		return "admin/admin_home";
 	}
-	
+	  
 }
