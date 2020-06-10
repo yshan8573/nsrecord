@@ -40,7 +40,6 @@
 				<input class="btn btn-primary btn-sm" type="button" value="adminHome"
 					onclick="javascript:location.href='<%=contextPath%>/adminHome'" />
 			</div>
-			<h1>작업 테스트</h1>
 			
 			<%@ include file="common/plugin_js.jsp" %>
 		</div>
