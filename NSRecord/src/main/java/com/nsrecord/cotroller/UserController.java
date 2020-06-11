@@ -1,5 +1,7 @@
 package com.nsrecord.cotroller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -30,7 +32,10 @@ public class UserController {
 	@RequestMapping(value = "adminUser/adminUserList")
 	public String adminUserList(Model model) {
 		logger.info("this is a adminUserList Method");
+		List<UserInfo> userList =
+				service.admin_userList();
 		
+		model.addAttribute("list",userList);
 		// 사이드 메뉴 'active' 설정 flag
 		model.addAttribute("categoryLoc", "user");
 		
