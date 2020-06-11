@@ -42,10 +42,10 @@
 		<script type="text/javascript">
 		
 			$(function() {
-				var categoryLoc = "${categoryLoc}";
+				var categoryLoc = "${categoryLoc}"; //request.getparam... 
 				if(categoryLoc != null) {
 					if(categoryLoc == "home") {
-						console.log("loc : " + categoryLoc);
+						console.log("loc : " + categoryLoc); //syso
 						$('.home').addClass('active');
 						
 					}

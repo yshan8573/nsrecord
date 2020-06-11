@@ -133,5 +133,4 @@ public class UserInfo {
 		this.u_cycle = u_cycle;
 	}
 	
-	
 }
