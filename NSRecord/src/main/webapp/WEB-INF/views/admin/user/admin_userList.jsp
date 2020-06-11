@@ -6,7 +6,16 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <%@ include file="../../common/head.jsp" %>
+<style>
+h1 {
+	text-align:center;
+}
+table{
+	margin: auto;
+	text-align:center;
+}
 
+</style>
 <body class="hold-transition skin-blue sidebar-mini">
   <div class="wrapper">
 
@@ -33,7 +42,35 @@
       <!-- Main content -->
       <section class="content container-fluid">
 
-		<h1>작업 공간입니다.</h1>
+		<table border="1">
+			<c:choose>
+				<c:when test="${fn:length(list)>0 }">
+					<tr>
+						<th>회원코드</th>
+						<th>이메일</th>
+						<th>이름</th>
+						<th>닉네임</th>
+						<th>전화번호</th>
+						<th>등록일</th>
+						<th>상태</th>
+						<th>자전거 모델</th>
+					</tr>
+				</c:when>
+			</c:choose>
+			<c:forEach var="userInfo" items="${list}">
+				<tr>
+					<td>${userInfo.u_seq }</td>
+					<td>${userInfo.u_email }</td>
+					<td>${userInfo.u_name }</td>
+					<td>${userInfo.u_nickname }</td>
+					<td>${userInfo.u_phone }</td>
+					<td>${userInfo.u_enrolldate }</td>
+					<td>${userInfo.u_status }</td>
+					<td>${userInfo.u_cycle}</td>
+				</tr>
+			
+			</c:forEach>
+		</table>
 
       </section>
       <!-- /.content -->

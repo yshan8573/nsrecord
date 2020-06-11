@@ -1,10 +1,8 @@
 package com.nsrecord.dto;
 
-import java.util.Date;
-
 public class UserInfo {
 
-	private int u_no;
+	private int u_seq;
 	private String u_email;
 	private String u_pwd;
 	private String u_name;
@@ -12,18 +10,20 @@ public class UserInfo {
 	private String u_phone;
 	private String u_originalImage;
 	private String u_renamedImage;
-	private Date u_enrolldate;
+	private String u_enrolldate;
 	private String u_grade;
 	private String u_status;
+	private String u_cycle;
 	
 	public UserInfo() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public UserInfo(int u_no, String u_email, String u_pwd, String u_name, String u_nickname, String u_phone,
-			String u_originalImage, String u_renamedImage, Date u_enrolldate, String u_grade, String u_status) {
+	public UserInfo(int u_seq, String u_email, String u_pwd, String u_name, String u_nickname, String u_phone,
+			String u_originalImage, String u_renamedImage, String u_enrolldate, String u_grade, String u_status,
+			String u_cycle) {
 		super();
-		this.u_no = u_no;
+		this.u_seq = u_seq;
 		this.u_email = u_email;
 		this.u_pwd = u_pwd;
 		this.u_name = u_name;
@@ -34,14 +34,15 @@ public class UserInfo {
 		this.u_enrolldate = u_enrolldate;
 		this.u_grade = u_grade;
 		this.u_status = u_status;
+		this.u_cycle = u_cycle;
 	}
 
-	public int getU_no() {
-		return u_no;
+	public int getU_seq() {
+		return u_seq;
 	}
 
-	public void setU_no(int u_no) {
-		this.u_no = u_no;
+	public void setU_seq(int u_seq) {
+		this.u_seq = u_seq;
 	}
 
 	public String getU_email() {
@@ -100,11 +101,11 @@ public class UserInfo {
 		this.u_renamedImage = u_renamedImage;
 	}
 
-	public Date getU_enrolldate() {
+	public String getU_enrolldate() {
 		return u_enrolldate;
 	}
 
-	public void setU_enrolldate(Date u_enrolldate) {
+	public void setU_enrolldate(String u_enrolldate) {
 		this.u_enrolldate = u_enrolldate;
 	}
 
@@ -123,5 +124,14 @@ public class UserInfo {
 	public void setU_status(String u_status) {
 		this.u_status = u_status;
 	}
+
+	public String getU_cycle() {
+		return u_cycle;
+	}
+
+	public void setU_cycle(String u_cycle) {
+		this.u_cycle = u_cycle;
+	}
+	
 	
 }

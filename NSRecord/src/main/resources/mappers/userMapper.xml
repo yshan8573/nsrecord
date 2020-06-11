@@ -6,7 +6,7 @@
 <mapper namespace="user">
 
 	<select id="userSelectOne" parameterType="userInfo" resultType="userInfo">
-		SELECT * FROM USER_INFO WHERE u_email=#{u_email}
+		SELECT * FROM USER_INFO
 	</select>
 
 
