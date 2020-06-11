@@ -3,6 +3,6 @@
 <configuration>
 	<typeAliases>
 		<typeAlias type="com.nsrecord.dto.UserInfo" alias="userInfo" />
-		
+		<typeAlias type="com.nsrecord.dto.GpxDto" alias="gpxDto"/>
 	</typeAliases>
 </configuration>

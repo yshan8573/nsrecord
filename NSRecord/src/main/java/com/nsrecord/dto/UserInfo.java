@@ -12,7 +12,7 @@ public class UserInfo {
 	private String u_phone;
 	private String u_originalImage;
 	private String u_renamedImage;
-	private Date u_enrolldate;
+	private String u_enrolldate;
 	private String u_grade;
 	private String u_status;
 	
@@ -21,7 +21,7 @@ public class UserInfo {
 	}
 
 	public UserInfo(int u_no, String u_email, String u_pwd, String u_name, String u_nickname, String u_phone,
-			String u_originalImage, String u_renamedImage, Date u_enrolldate, String u_grade, String u_status) {
+			String u_originalImage, String u_renamedImage, String u_enrolldate, String u_grade, String u_status) {
 		super();
 		this.u_no = u_no;
 		this.u_email = u_email;
@@ -100,11 +100,11 @@ public class UserInfo {
 		this.u_renamedImage = u_renamedImage;
 	}
 
-	public Date getU_enrolldate() {
+	public String getU_enrolldate() {
 		return u_enrolldate;
 	}
 
-	public void setU_enrolldate(Date u_enrolldate) {
+	public void setU_enrolldate(String u_enrolldate) {
 		this.u_enrolldate = u_enrolldate;
 	}
 
