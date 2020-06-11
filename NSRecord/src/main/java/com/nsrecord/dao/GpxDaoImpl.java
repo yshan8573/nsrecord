@@ -15,7 +15,7 @@ public class GpxDaoImpl implements GpxDao {
 	@Autowired
 	private SqlSessionTemplate session;
 	
-	private String queryprefix="gpx.";
+	private String queryprefix="gpx.";		
 
 	@Override
 	public List<GpxDto> selectGpxBoardAllList() {

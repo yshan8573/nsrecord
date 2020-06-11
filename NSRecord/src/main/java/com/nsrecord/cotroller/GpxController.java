@@ -54,6 +54,7 @@ public class GpxController {
 	}
 	
 	
+	//유저 글쓰기 폼
 	@RequestMapping(value = "gpx/gpxInsertForm")
 	public String gpxInsertForm() {
 		logger.info("this is a gpxInsertForm Method");
@@ -65,6 +66,7 @@ public class GpxController {
 	}
 	
 	
+	//유저 글쓰기 폼 결과 = redirect를 통해 gpxBoard로 이동
 	@RequestMapping(value = "gpx/gpxInsertResult")
 	public String gpxInsertResult(@RequestParam HashMap<String, String> paramMap ) {
 		logger.info("this is a gpxInsertForm Method");
