@@ -96,10 +96,11 @@
 												</thead>
 												
 												<tbody>
-												<c:forEach var="gpxList" items="${ gpxList}" varStatus="i">
+												<c:forEach var="gpxList" items="${gpxList}" varStatus="i">
+												
 													<tr role="row" class="odd">
 														<td class="sorting_1">${gpxList.g_seq }</td>
-														<td>${gpxList.g_title }</td>
+														<td><a href="<%=contextPath%>/gpx/gpxBoardSelectOne?g_seq=${gpxList.g_seq }">${gpxList.g_title }</a></td>
 														<td>${gpxList.u_nickname }</td>
 														<td>${gpxList.g_count }</td>
 														<td>${gpxList.g_recommand }</td>

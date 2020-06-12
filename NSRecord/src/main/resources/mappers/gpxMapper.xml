@@ -24,6 +24,37 @@
 </select>
 
 
+	<insert id="insertGpxBoard" parameterType="com.nsrecord.dto.GpxDto">
+	INSERT INTO GPX
+	(G_SEQ, 
+	U_SEQ,
+	G_CONTENT,
+	G_DATE,
+	G_TITLE,
+	U_NICKNAME)
+	VALUES(GPX_SEQ.NEXTVAL,
+	#{u_seq},
+	#{g_content},
+	 sysdate,
+	#{g_title},
+	#{u_nickname})
+
+	</insert>
+
+
+	<select id="selectGpxBoardOne" parameterType="int"
+	resultType="com.nsrecord.dto.GpxDto">
+	
+	SELECT G_SEQ, 
+		   G_TITLE, 
+		   G_CONTENT 
+	FROM GPX
+	WHERE G_SEQ = #{g_seq}
+	
+	
+	
+	
+	</select>
 
 
 

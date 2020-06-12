@@ -235,6 +235,18 @@ public class GpxDto {
 		this.g_reply = g_reply;
 		this.g_status = g_status;
 	}
+
+
+
+
+
+	@Override
+	public String toString() {
+		return "GpxDto [g_seq=" + g_seq + ", u_seq=" + u_seq + ", g_content=" + g_content + ", g_date=" + g_date
+				+ ", g_title=" + g_title + ", g_ori=" + g_ori + ", g_re=" + g_re + ", u_nickname=" + u_nickname
+				+ ", g_count=" + g_count + ", g_recommand=" + g_recommand + ", g_reply=" + g_reply + ", g_status="
+				+ g_status + "]";
+	}
 	
 	
 	

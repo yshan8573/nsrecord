@@ -62,7 +62,10 @@ public class UserController {
 		if(result != null && user.getU_email().equals(result.getU_email())) {
 			if(user.getU_pwd().equals(result.getU_pwd())) {
 				path = "redirect:/userHome";
-				session.setAttribute("loginEmail", user.getU_email());
+				session.setAttribute("loginEmail", result.getU_email());
+				session.setAttribute("loginUser", result);
+				
+				
 			} else {
 				path = "common/msg";
 				model.addAttribute("msg","비밀번호를 다시 입력해 주시기 바랍니다.");
@@ -83,6 +86,7 @@ public class UserController {
 		
 		if(session.getAttribute("loginEmail") != null) {
 			session.removeAttribute("loginEmail");
+			session.removeAttribute("loGinUser");
 		}
 		
 		return "redirect:/userHome";
