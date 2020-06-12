@@ -53,7 +53,7 @@ public class CommunityController {
 		model.addAttribute("categoryLoc", "community");
 		List<FreeBoardDto> freeBoardList = communityServiceImpl.selectFreeBoardAllList();
 		model.addAttribute("freeBoardList", freeBoardList);
-		return "user/community/freeBoard";
+		return "user/community/freeBoard"; 
 	}
 	
 	@RequestMapping(value="/community/freeBoardContent")
