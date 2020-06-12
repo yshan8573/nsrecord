@@ -70,9 +70,11 @@ public class CommunityController {
 	}
 	
 	@RequestMapping(value="/community/freeBoardWriteEnd")
+	//HashMap(name(String), value(String)
 	public String freeBoardWriteEnd(@RequestParam HashMap<String, String> writeEnd) {
+		System.out.println("writeEnd=" + writeEnd);
 		communityServiceImpl.freeBoardWriteEnd(writeEnd);
-		return "redirect:/selectFreeBoardContent";
+		return "redirect:/community/freeBoard";
 	}
 
 	

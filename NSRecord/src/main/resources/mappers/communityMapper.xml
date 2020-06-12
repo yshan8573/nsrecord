@@ -31,9 +31,9 @@
 	
 	<insert id="freeBoardWriteEnd" parameterType="java.util.HashMap">
 		INSERT INTO BOARD
-		(B_SEQ, B_SEQ, U_SEQ, B_TITLE, B_CONTENT, B_DATE )
+		(B_SEQ, B_TITLE, B_CONTENT, B_DATE )
 		VALUES
-		(B_SEQ_BOARD.NEXTVAL, ${b_title}, ${b_content}, SYSDATE)
+		(BOARD_SEQ.NEXTVAL, #{b_title}, #{b_content}, SYSDATE)
 	</insert>
 
 </mapper>

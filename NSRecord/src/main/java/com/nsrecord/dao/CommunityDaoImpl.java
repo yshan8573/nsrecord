@@ -33,6 +33,7 @@ public class CommunityDaoImpl implements ICommunityDao {
 	
 	@Override
 	public void freeBoardWriteEnd(HashMap<String, String> writeEnd) {
+		System.out.println("writeEndDao=" + writeEnd);
 		session.insert("communityMapper.freeBoardWriteEnd", writeEnd);
 	}
 }

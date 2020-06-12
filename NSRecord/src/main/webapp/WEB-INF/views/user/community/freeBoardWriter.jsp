@@ -40,7 +40,7 @@
 					<div class="col-xs-12">
 						<div class="box">
 							<div class="box-body">
-								<form action="<c:url value='/'/>Community/freeBoardWriteEnd" method="post">
+								<form action="<%=contextPath%>/community/freeBoardWriteEnd" method="post">
 									<div class="form-group">
 										<label>제목</label>
 										<input name="b_title" type="text" class="form-control" placeholder="입력하세요.." required="required">
