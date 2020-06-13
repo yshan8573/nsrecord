@@ -1,5 +1,6 @@
 package com.nsrecord.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,11 +19,27 @@ public class GpxServiceImpl implements GpxService {
 	@Autowired
 	private ICommunityDao dao;
 
+	//전체 조회
 	@Override
 	public List<GpxDto> selectGpxBoardAllList() {
 		
 		return gpxDao.selectGpxBoardAllList();
 	}
 
+	//글 등록
+	@Override
+	public void insertGpxBoard(GpxDto dto) {
+		
+	gpxDao.insertGpxBoard(dto);		
+		
+	}//method end
+	
+	
+	//글 선택조회
+	@Override
+	public GpxDto selectGpxBoardOne(int g_seq) {
+		
+		return gpxDao.selectGpxBoardOne(g_seq);
+	}
 	
 }
