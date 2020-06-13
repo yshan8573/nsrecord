@@ -9,6 +9,7 @@ import com.nsrecord.dto.GpxDto;
 
 import com.nsrecord.dao.ICommunityDao;
 
+@Service
 public class GpxServiceImpl implements GpxService {
 
 	@Autowired
