@@ -59,10 +59,10 @@ public class UserController {
 		UserInfo result = service.userSelectOne(user);
 		
 		String path = "";
-		if(result != null && user.getU_email().equals(result.getU_email())) {
+		if(result != null) {
 			if(user.getU_pwd().equals(result.getU_pwd())) {
 				path = "redirect:/userHome";
-				session.setAttribute("loginEmail", user.getU_email());
+				session.setAttribute("loginUser", result);
 			} else {
 				path = "common/msg";
 				model.addAttribute("msg","비밀번호를 다시 입력해 주시기 바랍니다.");

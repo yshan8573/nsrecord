@@ -3,6 +3,37 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="community">
+<mapper namespace="communityMapper">
+
+	<select id="freeBoardList" resultType="com.nsrecord.dto.FreeBoardDto">
+	SELECT B_SEQ,
+		   U_SEQ,
+		   B_TITLE,
+		   B_REPLY,
+		   TO_CHAR(B_DATE, 'YYYY-MM-DD-HH24:MI:SS') AS B_DATE,
+		   B_COUNT,
+		   U_NICKNAME,
+		   B_STATUS
+	FROM BOARD
+	ORDER BY B_SEQ DESC	
+	</select>
+	
+	<select id="freeBoardContent" parameterType="int" resultType="com.nsrecord.dto.FreeBoardDto">
+	SELECT B_SEQ,
+		   B_TITLE,
+		   TO_CHAR(B_DATE, 'YYYY-MM-DD-HH24:MI:SS') AS B_DATE,
+		   B_COUNT,
+		   U_NICKNAME,
+		   B_CONTENT
+	FROM BOARD
+	WHERE B_SEQ = #{b_seq}	
+	</select>
+	
+	<insert id="freeBoardWriteEnd" parameterType="java.util.HashMap">
+		INSERT INTO BOARD
+		(B_SEQ, B_TITLE, B_CONTENT, B_DATE )
+		VALUES
+		(BOARD_SEQ.NEXTVAL, #{b_title}, #{b_content}, SYSDATE)
+	</insert>
 
 </mapper>

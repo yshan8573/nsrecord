@@ -7,22 +7,21 @@ import org.springframework.stereotype.Service;
 import com.nsrecord.dao.GpxDao;
 import com.nsrecord.dto.GpxDto;
 
-@Service
+import com.nsrecord.dao.ICommunityDao;
+
 public class GpxServiceImpl implements GpxService {
 
 	@Autowired
 	private GpxDao gpxDao;
+	
+	@Autowired
+	private ICommunityDao dao;
 
 	@Override
 	public List<GpxDto> selectGpxBoardAllList() {
 		
 		return gpxDao.selectGpxBoardAllList();
 	}
-	
-	
-	
-	
-	
-	
+
 	
 }

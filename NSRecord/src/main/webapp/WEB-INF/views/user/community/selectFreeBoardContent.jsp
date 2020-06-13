@@ -19,49 +19,42 @@
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
 
-
-
       <!-- Main content -->
       <section class="content container-fluid">
 
-		<h1>자유 게시판</h1>
+
+
+
+
+
+
+<h1>자유 게시판</h1>
 <hr width=80%>
+
 <table>
-	<c:choose>
-		<c:when test="${fn:length(list) > 0 }">
-			<tr>
-				<td>번호</td>
-				<td>제목</td>
-				<td>글쓴이</td>
-				<td>조회수</td>
-				<td>댓글수</td>
-				<td>작성일</td>
-			</tr>
-		</c:when>
-	</c:choose>
-	<c:forEach var="freeBoard" items="${freeBoardList}">
-		<tr>
-			<td>${freeBoard.b_seq}</td>
-			<td>
-				<a href="<%=contextPath%>/freeBoardContent">
-					${freeBoard.b_title}
-				</a>
-			</td>
-			<td>${freeBoard.n_nickname}</td>
-			<td>${freeBoard.b_count}</td>
-			<td>${freeBoard.b_reply}</td>
-			<td>${freeBoard.b_date}</td>
-		</tr>
-	</c:forEach>
+	<tr>
+		<td>${FreeBoardDto.b_seq}</td>
+		<td>${FreeBoardDto.b_title}</td>
+		<td>${FreeBoardDto.u_nickname}</td>
+	<tr>	
+	<tr>
+		<td>${FreeBoardDto.b_count}</td>
+		<td>${FreeBoardDto.b_date}</td>
+	</tr>
+	<tr>
+		<td>${FreeBoardDto.b_content}</td>
+	</tr>	
 
 
 </table>
-<a href="<%=contextPath%>/community/freeBoardWriter">글쓰기</a>
+
+
+
+
+
 
       </section>
       <!-- /.content -->
-
-
 
     </div>
     <!-- /.content-wrapper -->
