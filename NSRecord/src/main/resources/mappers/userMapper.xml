@@ -9,5 +9,23 @@
 		SELECT * FROM USER_INFO
 	</select>
 
-
+	<insert id="insertUser" parameterType="userInfo">
+		INSERT INTO USER_INFO(
+			U_SEQ,
+			U_EMAIL,
+			U_PWD,
+			U_NAME,
+			U_NICKNAME,
+			U_PHONE,
+			U_CYCLE
+		) VALUES(
+			USER_SEQ.NEXTVAL,
+			#{u_email},
+			#{u_pwd},
+			#{u_name},
+			#{u_nickname},
+			#{u_phone},
+			#{u_cycle}
+		)
+	</insert>
 </mapper>

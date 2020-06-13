@@ -24,4 +24,9 @@ public class UserServiceImpl implements UserService {
 		return dao.admin_userList();
 	}
 	
+	@Override
+	public void insertUser(UserInfo user) {
+		dao.insertUser(user);
+	}
+	
 }

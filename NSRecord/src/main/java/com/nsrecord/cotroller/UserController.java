@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
 
 import com.nsrecord.dto.UserInfo;
 import com.nsrecord.service.UserService;
@@ -28,7 +30,28 @@ public class UserController {
 		
 		return "user/user/user_login";
 	}
+//	 회원가입 폼 페이지
+	@RequestMapping(value = "user/userSignIn")
+	public String userSignIn() {
+		logger.info("this is a userlogin Method");
+		
+		return "user/user/user_SignIn";
+	}
 	
+	@RequestMapping(value = "user/userSignInResult")
+	public String userSignIn(UserInfo user) {
+		logger.info("this is a userlogin Method");
+		
+		service.insertUser(user);
+		
+		return "redirect:/user/userlogin";
+	}
+	
+	
+	
+	
+	
+	//관리자 페이지 -> 회원리스트 출력
 	@RequestMapping(value = "adminUser/adminUserList")
 	public String adminUserList(Model model) {
 		logger.info("this is a adminUserList Method");

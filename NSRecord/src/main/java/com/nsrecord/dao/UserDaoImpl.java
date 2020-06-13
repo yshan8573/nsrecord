@@ -34,4 +34,15 @@ public class UserDaoImpl implements UserDao {
 		
 	}
 	
+	@Override
+	public void insertUser(UserInfo user) {
+		System.out.println(user.toString());
+		session.insert("user.insertUser", user);
+	}
+	
+	
+	
+	
+	
+	
 }
