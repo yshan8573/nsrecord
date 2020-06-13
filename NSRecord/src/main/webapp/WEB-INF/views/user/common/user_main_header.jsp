@@ -33,7 +33,7 @@
 									<button type="button" class="btn btn-sm bg-gray color-palette" onclick="javascript:location.href='<c:url value="/"/>user/userlogin'" style="margin: 10px">Login</button>
 								</li>
 								<li>
-									<button type="button" class="btn btn-sm bg-gray color-palette" onclick="" style="margin: 10px">SignIn</button>
+									<button type="button" class="btn btn-sm bg-gray color-palette" onclick="javascript:location.href='<c:url value="/"/>user/userSignIn'" style="margin: 10px">SignIn</button>
 								</li>
 							</c:when>
 							<c:otherwise>

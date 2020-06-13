@@ -9,4 +9,6 @@ public interface UserDao {
 	public UserInfo userSelectOne(UserInfo user);
 	
 	public List<UserInfo> admin_userList();
+	
+	public void insertUser(UserInfo user);
 }
