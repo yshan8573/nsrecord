@@ -104,8 +104,8 @@ public class UserController {
 	public String userlogout(HttpSession session) {
 		logger.info("this is a userlogout Method");
 		
-		if(session.getAttribute("loginEmail") != null) {
-			session.removeAttribute("loGinUser");
+		if(session.getAttribute("loginUser") != null) {
+			session.removeAttribute("loginUser");
 		}
 		
 		return "redirect:/userHome";

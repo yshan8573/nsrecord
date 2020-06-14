@@ -28,7 +28,7 @@
 				<div class="navbar-custom-menu">
 					<ul class="nav navbar-nav">
 						<c:choose>
-							<c:when test="${loginEmail == null}">
+							<c:when test="${loginUser == null}">
 								<li>
 									<button type="button" class="btn btn-sm bg-gray color-palette" onclick="javascript:location.href='<c:url value="/"/>user/userlogin'" style="margin: 10px">Login</button>
 								</li>
@@ -40,7 +40,7 @@
 								<li class="user user-menu">
 									<a href="#">
 										<img src="<c:url value="/"/>dist/img/profile.png" class="user-image" alt="User Image" style="background-color: white;">
-										<span class="hidden-xs">${loginEmail }</span>
+										<span class="hidden-xs">${loginUser.u_email }</span>
 									</a>
 								</li>
 								<li>
