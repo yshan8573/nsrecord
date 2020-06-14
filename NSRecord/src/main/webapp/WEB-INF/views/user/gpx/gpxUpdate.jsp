@@ -12,7 +12,7 @@
 			<script>
 			$(document).ready(function() {
 			$("#updateGpxBoard").click(function() {
-			var url = "<%=contextPath%>"+"/gpx/gpxUpdateForm";
+			var url = "<%=contextPath%>"+"/gpx/gpxUpdate";
 			$("#gpxBoardJquery").attr("action",url);
 			$("#gpxBoardJquery").submit();
 			})	
@@ -58,13 +58,12 @@
 						<div class="box">
 							<div class="box-body">
 								<form id="gpxBoardJquery" method="post">
-								<input type="hidden"  name="u_seq" value="${GpxDto.u_seq }">
 									<div class="form-group">
 										<label>제목</label>
-									<input name="g_title" type="text" class="form-control" value="${GpxDto.g_title }" readonly>
+									<input name="g_title" type="text" class="form-control" value="${GpxDto.g_title }" >
 									</div>
 									<div class="form-group">
-									<textarea id="g_content" name="g_content" readonly="readonly">${GpxDto.g_content }</textarea>
+									<textarea id="g_content" name="g_content" >${GpxDto.g_content }</textarea>
 									<input type="button" value="수정" id="updateGpxBoard">
 									<input type="button" value="삭제" id="deleteGpxBoard">
 									</div>

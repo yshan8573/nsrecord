@@ -18,7 +18,8 @@ public interface GpxDao {
 	//글 선택조회
 	public GpxDto selectGpxBoardOne(int g_seq);
 	
-	
+	//수정
+	public void updateGpxBoard(GpxDto dto);
 	
 	
 	

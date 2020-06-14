@@ -39,9 +39,18 @@ public class GpxServiceImpl implements GpxService {
 	}
 	
 	
+	//수정
+	@Override
+	public void updateGpxBoardUpdate(GpxDto dto) {
+		
+	gpxDao.updateGpxBoard(dto);
+		
+	}
 	
 	
 	
 	
 	
-}
+	
+	
+}//class end

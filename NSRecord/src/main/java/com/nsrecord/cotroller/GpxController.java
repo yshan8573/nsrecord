@@ -1,6 +1,5 @@
 package com.nsrecord.cotroller;
 
-import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -104,19 +103,39 @@ public class GpxController {
 		return "user/gpx/gpxSelectOne";		
 	}
 	
+	//수정1
+	@RequestMapping(value = "gpx/gpxUpdateForm")
+	public String gpxUpdateForm(@RequestParam("g_seq") int g_seq, @RequestParam("u_seq") int u_seq, Model model, GpxDto dto, HttpSession sesseion) {
 	
+	
+	UserInfo user = (UserInfo) sesseion.getAttribute("loginUser");
+	dto.setU_seq(user.getU_seq());	
+	dto.setU_nickname(user.getU_nickname());
+	dto.setU_seq(user.getU_seq());
+	System.out.println("수정1 = "+dto.getU_seq());
+	GpxDto GpxDto = 
+	gpxServiceImpl.selectGpxBoardOne(g_seq);
+	model.addAttribute("GpxDto",GpxDto);
+	
+	
+	return "user/gpx/gpxUpdate";	
+	}
+	
+	//수정2
 	@RequestMapping(value = "gpx/gpxUpdate")
-	public String gpxUpdate(GpxDto dto, RedirectAttributes redirectAttributes) {
-		
+	public String gpxUpdateResut(GpxDto dto, RedirectAttributes redirectAttributes, HttpSession sesseion) {
 	
+		System.out.println("수정2");
 		
+	UserInfo user = (UserInfo) sesseion.getAttribute("loginUser");
+	dto.setU_seq(user.getU_seq());	
+	dto.setU_nickname(user.getU_nickname());
+	gpxServiceImpl.updateGpxBoardUpdate(dto);	
 		
 	redirectAttributes.addAttribute("g_seq", dto.getG_seq());	
 		
-	return "redirect:/gpx/gpxBoardSelectOne";	
+	return "redirect:/gpx/gpxBoard";	
 	}
-	
-	
 	
 	
 	

@@ -50,11 +50,16 @@
 		   G_CONTENT 
 	FROM GPX
 	WHERE G_SEQ = #{g_seq}
-	
-	
-	
-	
+
 	</select>
+
+	<update id="updateGpxBoard" parameterType="com.nsrecord.dto.GpxDto">
+	UPDATE GPX
+	SET G_TITLE = #{g_title},
+	G_CONTENT = #{g_content}
+	WHERE U_SEQ = #{u_seq}
+	
+	</update>
 
 
 

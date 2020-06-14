@@ -18,6 +18,8 @@ public interface GpxService {
 	//선택 조회
 	public GpxDto selectGpxBoardOne(int g_seq);
 	
+	//수정
+	public void updateGpxBoardUpdate(GpxDto dto);
 	
 	
 }//inter end
