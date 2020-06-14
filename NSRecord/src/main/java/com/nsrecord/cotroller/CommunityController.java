@@ -3,6 +3,8 @@ package com.nsrecord.cotroller;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +15,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.nsrecord.dto.FreeBoardDto;
 import com.nsrecord.dto.Notice;
+import com.nsrecord.dto.UserInfo;
 import com.nsrecord.service.CommunityServiceImpl;
+import com.nsrecord.service.ICommunityService;
+import com.nsrecord.service.UserService;
 
 @Controller
 public class CommunityController {
@@ -21,7 +26,13 @@ public class CommunityController {
 	private static final Logger logger = LoggerFactory.getLogger(CommunityController.class);
 	
 	@Autowired
+	private ICommunityService iCommunityService;
+	
+	@Autowired
 	private CommunityServiceImpl communityServiceImpl;
+	
+	@Autowired
+	private UserService userService;
 
 //=====================공지게시판(사용자)======================//	
 	@RequestMapping(value = "community/noticeBoard")
@@ -83,6 +94,11 @@ public class CommunityController {
 	public String adminNoticeBoard(Model model) {
 		logger.info("this is a adminNoticeBoard Method");
 		
+		// 공지사항 리스트 가져오기
+		List<Notice> nResult = iCommunityService.selectNoticeBoardAll();
+		
+		model.addAttribute("noticeList",nResult);
+		
 		// 사이드 메뉴 'active' 설정 flag
 		model.addAttribute("categoryLoc", "community");
 		
@@ -122,12 +138,33 @@ public class CommunityController {
 	}
 
 	@RequestMapping(value = "adminCommunity/adminNoticeBoardWriteEnd")
-	public String adminNoticeBoardWriteEnd(Notice notice, Model model) {
+	public String adminNoticeBoardWriteEnd(Notice notice, Model model, HttpSession session) {
 		logger.info("this is a adminNoticeBoardWriteEnd Method");
 		
+		
+		// admin 계정 임의 생성 session 추가 (관리자 페이지 로그인 기능 추가 시 삭제 에정) - Start
+		
+		UserInfo loginUser = (UserInfo)session.getAttribute("loginUser");
+		if(loginUser != null) {
+			session.removeAttribute("loginUser");
+		}
+
+		UserInfo user = new UserInfo();
+		user.setU_email("admin");
+		UserInfo result = userService.userSelectOne(user);// admin 계정 정보 가져오기
+		
+		session.setAttribute("loginUser", result); // admin 계정 정보 session 저장
+		
+		// admin 계정 임의 생성 session 추가 (관리자 페이지 로그인 기능 추가 시 삭제 에정) - End
+		
+		
+		// admin 정보 공지사항 객체에 저장
+		loginUser = (UserInfo)session.getAttribute("loginUser");
+		notice.setU_seq(loginUser.getU_seq());
+		
 		// 글 작성 저장
-		System.out.println(notice.getN_title());
-		System.out.println(notice.getN_content());
+		iCommunityService.insertNoticeBoard(notice);
+		
 		
 		// 사이드 메뉴 'active' 설정 flag
 		model.addAttribute("categoryLoc", "community");

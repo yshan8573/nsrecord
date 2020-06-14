@@ -70,120 +70,51 @@
 									</div>
 									<div class="row">
 										<div class="col-sm-12">
-											<table id="example1" class="table table-bordered table-striped dataTable"
+											<table id="adminNoticeBoard" class="table table-bordered table-striped dataTable"
 												role="grid" aria-describedby="example1_info">
 												<thead>
 													<tr role="row">
 														<th class="sorting_asc" tabindex="0" aria-controls="example1"
 															rowspan="1" colspan="1" aria-sort="ascending"
 															aria-label="Rendering engine: activate to sort column descending"
-															style="width: 185px;">Rendering engine</th>
+															style="width: 185px;">NO</th>
 														<th class="sorting" tabindex="0" aria-controls="example1"
 															rowspan="1" colspan="1"
 															aria-label="Browser: activate to sort column ascending"
-															style="width: 228px;">Browser</th>
+															style="width: 228px;">작성일시</th>
 														<th class="sorting" tabindex="0" aria-controls="example1"
 															rowspan="1" colspan="1"
 															aria-label="Platform(s): activate to sort column ascending"
-															style="width: 202px;">Platform(s)</th>
+															style="width: 202px;">제목</th>
 														<th class="sorting" tabindex="0" aria-controls="example1"
 															rowspan="1" colspan="1"
 															aria-label="Engine version: activate to sort column ascending"
-															style="width: 158px;">Engine version</th>
+															style="width: 158px;">작성자</th>
 														<th class="sorting" tabindex="0" aria-controls="example1"
 															rowspan="1" colspan="1"
 															aria-label="CSS grade: activate to sort column ascending"
-															style="width: 115px;">CSS grade</th>
+															style="width: 115px;">조회수</th>
 													</tr>
 												</thead>
 												<tbody>
-													<tr role="row" class="odd">
-														<td class="sorting_1">Gecko</td>
-														<td>Firefox 1.0</td>
-														<td>Win 98+ / OSX.2+</td>
-														<td>1.7</td>
-														<td>A</td>
-													</tr>
-													<tr role="row" class="even">
-														<td class="sorting_1">Gecko</td>
-														<td>Firefox 1.5</td>
-														<td>Win 98+ / OSX.2+</td>
-														<td>1.8</td>
-														<td>A</td>
-													</tr>
-													<tr role="row" class="odd">
-														<td class="sorting_1">Gecko</td>
-														<td>Firefox 2.0</td>
-														<td>Win 98+ / OSX.2+</td>
-														<td>1.8</td>
-														<td>A</td>
-													</tr>
-													<tr role="row" class="even">
-														<td class="sorting_1">Gecko</td>
-														<td>Firefox 3.0</td>
-														<td>Win 2k+ / OSX.3+</td>
-														<td>1.9</td>
-														<td>A</td>
-													</tr>
-													<tr role="row" class="odd">
-														<td class="sorting_1">Gecko</td>
-														<td>Camino 1.0</td>
-														<td>OSX.2+</td>
-														<td>1.8</td>
-														<td>A</td>
-													</tr>
-													<tr role="row" class="even">
-														<td class="sorting_1">Gecko</td>
-														<td>Camino 1.5</td>
-														<td>OSX.3+</td>
-														<td>1.8</td>
-														<td>A</td>
-													</tr>
-													<tr role="row" class="odd">
-														<td class="sorting_1">Gecko</td>
-														<td>Netscape 7.2</td>
-														<td>Win 95+ / Mac OS 8.6-9.2</td>
-														<td>1.7</td>
-														<td>A</td>
-													</tr>
-													<tr role="row" class="even">
-														<td class="sorting_1">Gecko</td>
-														<td>Netscape Browser 8</td>
-														<td>Win 98SE+</td>
-														<td>1.7</td>
-														<td>A</td>
-													</tr>
-													<tr role="row" class="odd">
-														<td class="sorting_1">Gecko</td>
-														<td>Netscape Navigator 9</td>
-														<td>Win 98+ / OSX.2+</td>
-														<td>1.8</td>
-														<td>A</td>
-													</tr>
-													<tr role="row" class="even">
-														<td class="sorting_1">Gecko</td>
-														<td>Mozilla 1.0</td>
-														<td>Win 95+ / OSX.1+</td>
-														<td>1</td>
-														<td>A</td>
-													</tr>
+													<c:forEach var="noticeList" items="${noticeList }">
+														<tr role="row" class="odd">
+															<td class="sorting_1">${noticeList.n_seq }</td>
+															<td>${noticeList.n_seq }</td>
+															<td>${noticeList.n_title }</td>
+															<td>${noticeList.u_email }</td>
+															<td>${noticeList.n_count }</td>
+														</tr>
+													</c:forEach>
+													
 												</tbody>
-												<tfoot>
-													<tr>
-														<th rowspan="1" colspan="1">Rendering engine</th>
-														<th rowspan="1" colspan="1">Browser</th>
-														<th rowspan="1" colspan="1">Platform(s)</th>
-														<th rowspan="1" colspan="1">Engine version</th>
-														<th rowspan="1" colspan="1">CSS grade</th>
-													</tr>
-												</tfoot>
 											</table>
 										</div>
 									</div>
 									<div class="row">
 										<div class="col-sm-5">
 											<div class="dataTables_info" id="example1_info" role="status"
-												aria-live="polite">Showing 1 to 10 of 57 entries</div>
+												aria-live="polite"></div>
 										</div>
 										<div class="col-sm-7">
 											<div class="dataTables_paginate paging_simple_numbers"

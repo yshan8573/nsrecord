@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.nsrecord.dto.FreeBoardDto;
+import com.nsrecord.dto.Notice;
 
 @Repository
 public class CommunityDaoImpl implements ICommunityDao {
@@ -36,4 +37,16 @@ public class CommunityDaoImpl implements ICommunityDao {
 		System.out.println("writeEndDao=" + writeEnd);
 		session.insert("communityMapper.freeBoardWriteEnd", writeEnd);
 	}
+
+	@Override
+	public List<Notice> selectNoticeBoardAll() {
+		return session.selectList(queryprefix+"selectNoticeBoardAll");
+	}
+
+	@Override
+	public int insertNoticeBoard(Notice notice) {
+		System.out.println(notice.toString());
+		return session.insert(queryprefix+"insertNoticeBoard", notice);
+	}
+	
 }
