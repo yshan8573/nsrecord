@@ -25,19 +25,25 @@
 
 
 	<insert id="insertGpxBoard" parameterType="com.nsrecord.dto.GpxDto">
-	INSERT INTO GPX
-	(G_SEQ, 
-	U_SEQ,
-	G_CONTENT,
-	G_DATE,
-	G_TITLE,
-	U_NICKNAME)
-	VALUES(GPX_SEQ.NEXTVAL,
-	#{u_seq},
-	#{g_content},
-	 sysdate,
-	#{g_title},
-	#{u_nickname})
+	INSERT INTO GPX (
+		G_SEQ, 
+		U_SEQ,
+		G_CONTENT,
+		G_DATE,
+		G_TITLE,
+		U_NICKNAME,
+		G_ORI,
+		G_RE
+	) VALUES (
+		GPX_SEQ.NEXTVAL,
+		#{u_seq},
+		#{g_content},
+		 sysdate,
+		#{g_title},
+		#{u_nickname},
+		#{g_ori},
+		#{g_re}
+	)
 
 	</insert>
 

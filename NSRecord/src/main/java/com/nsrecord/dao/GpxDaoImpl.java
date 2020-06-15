@@ -36,7 +36,7 @@ public class GpxDaoImpl implements GpxDao {
 	@Override
 	public void insertGpxBoard(GpxDto dto) {
 	
-	System.out.println(dto.getU_nickname());
+	System.out.println(dto.toString());
 	session.insert(queryprefix+"insertGpxBoard", dto);	
 		
 	}//method end

@@ -83,7 +83,7 @@ public class GpxController {
 		System.out.println("파일인서트");
 	
 	UserInfo user = (UserInfo) sesseion.getAttribute("loginUser");
-	System.out.println(user.getU_nickname());
+//	System.out.println(user.getU_nickname());
 	
 	String saveDir = re.getSession().getServletContext().getRealPath("/resource/uploadGpx");
 	File gpx = new File(saveDir);
@@ -114,11 +114,13 @@ public class GpxController {
 		
 	}
 	re.setAttribute("GpxDto", dto);
-	System.out.println(dto);
 
-	
+	System.out.println("g_ori : " + g_ori);
+	System.out.println("g_re : " + g_re);
 	dto.setU_seq(user.getU_seq());	
 	dto.setU_nickname(user.getU_nickname());
+	dto.setG_ori(g_ori);
+	dto.setG_re(g_re);
 	
 	gpxServiceImpl.insertGpxBoard(dto);	
 	
