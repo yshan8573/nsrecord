@@ -49,4 +49,9 @@ public class CommunityServiceImpl implements ICommunityService {
 	public List<FreeBoardDto> replyContent(int b_seq) {
 		return communityDaoImpl.replyContent(b_seq);
 	}
+	
+	@Override
+	public void deleteReply(int r_seq) {
+		communityDaoImpl.deleteReply(r_seq);
+	}
 }

@@ -120,6 +120,16 @@ public class CommunityController {
 		return "redirect:/freeBoardContent";
 	}
 	
+	//자유게시판 댓글 수정
+	//###############해야 됨.#################
+	
+	//자유게시판 댓글 삭제
+	@RequestMapping(value="/community/deleteReply")
+	public String deleteReply(@RequestParam("r_seq") int r_seq) {
+		communityServiceImpl.deleteReply(r_seq);		
+		return "redirect:/freeBoardContent";
+	}
+	
 //=====================공지게시판(관리자)======================//	
 	@RequestMapping(value = "adminCommunity/adminNoticeBoard")
 	public String adminNoticeBoard(Model model) {

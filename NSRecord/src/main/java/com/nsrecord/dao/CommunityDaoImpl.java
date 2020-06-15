@@ -56,4 +56,9 @@ public class CommunityDaoImpl implements ICommunityDao {
 	public List<FreeBoardDto> replyContent(int b_seq) {
 		return session.selectList("communityMapper.replyContent", b_seq);
 	}
+	
+	@Override
+	public void deleteReply(int r_seq) {
+		session.delete("communityMapper.deleteReply", r_seq);
+	}
 }

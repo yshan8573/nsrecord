@@ -27,4 +27,7 @@ public interface ICommunityDao {
 	
 	//댓글 내용
 	public List<FreeBoardDto> replyContent(int b_seq);
+	
+	//댓글 삭제
+	public void deleteReply(int r_seq);
 }

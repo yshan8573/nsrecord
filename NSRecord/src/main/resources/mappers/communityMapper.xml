@@ -69,4 +69,10 @@
 		ORDER BY R_SEQ DESC		
 	</select>
 	
+	<delete id="deleteReply" parameterType="int">
+		DELETE FROM REPLY
+		WHERE R_SEQ = #{r_seq}	
+	</delete>
+	
+	
 </mapper>

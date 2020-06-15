@@ -21,6 +21,18 @@
 			$("#freeBoardUpdate").submit();
 		});
 	});
+	$(document).ready(function(){
+		$("#updateReply").click(function(){
+			var url = "<%=contextPath%>" + "/community/updateReply";
+			$("#replyUpdate").attr("action", url);
+			$("#replyUpdate").submit();
+		});
+		$("#deleteReply").click(function(){
+			var url = "<%=contextPath%>" + "/community/deleteReply";
+			$("#replyUpdate").attr("action", url);
+			$("#replyUpdate").submit();
+		});
+	});
 </script>
 
 
@@ -78,15 +90,27 @@
 </table>
 </form>
 
+<form id="replyUpdate">
 <table>
 	<c:forEach var="replyDto" items="${replyDto}"> 
 	<tr>
 		<td>${replyDto.u_nickname}</td>
 		<td>${replyDto.r_content}</td>
 		<td>${replyDto.r_date}</td>
+		<td>
+			<input tyep="hidden" name="r_seq" value="${replyDto.r_seq}">
+			<input type="hidden" name="b_seq" value="${replyDto.b_seq}">
+			<input type="hidden" name="u_seq" value="${replyDto.u_seq}">
+			<input type="hidden" name="r_content" value="${replyDto.r_content}">
+			<input type="hidden" name="u_nickname" value="${replyDto.u_nickname}">
+			<input type="hidden" name="r_date" value="${replyDto.r_date}">
+			<input type="button" id="updateReply" value="수정">
+			<input type="button" id="deleteReply" value="삭제">
+		</td>
 	</tr>
 	</c:forEach>
 </table>
+</form>
 
 
 <form action="<%=contextPath%>/community/reply">
