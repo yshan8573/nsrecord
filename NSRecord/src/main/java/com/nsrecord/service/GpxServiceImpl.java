@@ -46,7 +46,22 @@ public class GpxServiceImpl implements GpxService {
 	gpxDao.updateGpxBoard(dto);
 		
 	}
+
+	//삭제
+	@Override
+	public void deleteGpxBoard(int g_seq) {
+		
+		gpxDao.deleteGpxBoard(g_seq);
+	}
 	
+	//조건 조회
+	@Override
+	public List<GpxDto> gpxWhereList() {
+		
+		
+		return gpxDao.gpxWhereList();
+	}
+
 	
 	
 	

@@ -47,7 +47,8 @@
 	
 	SELECT G_SEQ, 
 		   G_TITLE, 
-		   G_CONTENT 
+		   G_CONTENT, 
+		   U_SEQ
 	FROM GPX
 	WHERE G_SEQ = #{g_seq}
 
@@ -57,9 +58,37 @@
 	UPDATE GPX
 	SET G_TITLE = #{g_title},
 	G_CONTENT = #{g_content}
-	WHERE U_SEQ = #{u_seq}
+	WHERE G_SEQ = #{g_seq}
 	
 	</update>
+
+	<delete id="deleteGpxBoard" parameterType="int">
+	DELETE FROM GPX
+	WHERE G_SEQ = #{g_seq}
+		
+	</delete>
+
+	<select id="gpxWhereList" parameterType="com.nsrecord.dto.GpxDto" resultType="gpxDto">
+	SELECT G_SEQ,
+				 G_TITLE,
+				 U_NICKNAME,
+				 G_COUNT,
+				 G_RECOMMAND
+	FROM GPX
+	WHERE 1=1
+	<if test="g_title != null and g_title !=''">
+	AND G_TITLE LIKE '%' ||#{g_title}|| '%'
+	</if>
+	<if test="u_nickname !=null and u_nickname !=''">
+	AND U_NICKNAME LIKE '%' ||#{u_nickname}||'%'
+	</if>
+
+	ORDER BY G_SEQ DESC
+	
+	
+	
+	</select>
+
 
 
 

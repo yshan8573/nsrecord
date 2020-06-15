@@ -44,7 +44,7 @@ public class GpxDaoImpl implements GpxDao {
 	//글 선택조회
 	@Override
 	public GpxDto selectGpxBoardOne(int g_seq) {
-		System.out.println("g_seq"+g_seq);
+		System.out.println("g_seq 선택조회="+g_seq);
 		GpxDto GpxDto = 
 		session.selectOne(queryprefix+"selectGpxBoardOne", g_seq);
 		
@@ -60,7 +60,32 @@ public class GpxDaoImpl implements GpxDao {
 		System.out.println("닉네임 = "+dto.getU_nickname());
 		session.update(queryprefix+"updateGpxBoard", dto);
 	}
-	
+
+
+
+	@Override
+	public void deleteGpxBoard(int g_seq) {
+		System.out.println("DeleteGpxDao 접근");
+		session.delete(queryprefix+"deleteGpxBoard", g_seq);
+		
+		
+	}
+
+
+	//조건 조회
+	@Override
+	public List<GpxDto> gpxWhereList() {
+		System.out.println("조건조회 Dao접근");
+		List<GpxDto> gpxWhereList = 
+				new ArrayList<GpxDto>();
+		
+		gpxWhereList = session.selectList(queryprefix+"gpxWhereList");
+		
+		return gpxWhereList;
+	}
+
+
+
 	
 	
 	

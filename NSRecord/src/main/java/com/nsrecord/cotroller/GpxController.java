@@ -30,7 +30,7 @@ public class GpxController {
 	@RequestMapping(value = "gpx/gpxBoard")
 	public String gpxBoard(Model model) {
 		logger.info("this is a userlogin Method");
-		
+
 		// 사이드 메뉴 'active' 설정 flag
 		model.addAttribute("categoryLoc", "gpx");
 		
@@ -88,7 +88,7 @@ public class GpxController {
 	return "redirect:/gpx/gpxBoard";
 	}
 	
-	
+	//상세 조회
 	@RequestMapping(value = "gpx/gpxBoardSelectOne")
 	public String gpxSelectOne(@RequestParam("g_seq") int g_seq, Model model) {
 		logger.info("this is a gpxSelectOne Method");
@@ -134,11 +134,40 @@ public class GpxController {
 		
 	redirectAttributes.addAttribute("g_seq", dto.getG_seq());	
 		
-	return "redirect:/gpx/gpxBoard";	
+	return "redirect:/gpx/gpxBoardSelectOne";	
+	}
+	
+	//삭제
+	@RequestMapping( value = "gpx/gpxDelete")
+	public String gpxDelete(@RequestParam("u_seq") int u_seq, 
+			@RequestParam("g_seq") int g_seq, GpxDto dto, HttpSession session) {
+		 
+		UserInfo user = (UserInfo) session.getAttribute("loginUser");
+		dto.setU_seq(user.getU_seq());	
+		dto.setU_nickname(user.getU_nickname());
+		gpxServiceImpl.deleteGpxBoard(g_seq);
+		
+		
+		return "redirect:/gpx/gpxBoard";
 	}
 	
 	
-	
+	//조건 조회
+	@RequestMapping(value = "gpx/gpxWhere")
+	public String gpxWhere(@RequestParam GpxDto dto, Model model, HttpSession session) {
+		System.out.println("조건조회컨트롤러");
+		
+		
+		UserInfo user = (UserInfo) session.getAttribute("loginUser");
+		dto.setU_nickname(user.getU_nickname());
+		
+		
+		List<GpxDto> gpxWhereList = 
+				gpxServiceImpl.gpxWhereList();
+		model.addAttribute("gpxWhereList", gpxWhereList);
+		
+		return "user/gpx/gpxWhere";
+	}
 	
 	
 }//class end

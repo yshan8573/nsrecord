@@ -21,5 +21,12 @@ public interface GpxService {
 	//수정
 	public void updateGpxBoardUpdate(GpxDto dto);
 	
+	//삭제
+	public void deleteGpxBoard(int g_seq);
+	
+	//조건 조회
+	public List<GpxDto> gpxWhereList();
+	
+	
 	
 }//inter end

@@ -18,17 +18,7 @@
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
-	<script>
-			$(document).ready(function() {
-			$("#whereGpxBoard").click(function() {
-			var url = "<%=contextPath%>"+"/gpx/gpxWhere";
-			$("#gpxBoardJquery").attr("action",url);
-			$("#gpxBoardJquery").submit();
-			})
-			
-			})//function end
-			
-		</script>
+
 
       <!-- Main content -->
       <section class="content container-fluid">
@@ -70,10 +60,10 @@
 										</div>
 										<div class="col-sm-6">
 											<div id="example1_filter" class="dataTables_filter">
-											<form id="whereGpxBoard" method="post">
+											<form action="<c:url value='/'/>gpx/gpxWhere" id="whereGpxBoard" method="post">
 												<label>Search:<input type="search" class="form-control input-sm"
-														placeholder="" aria-controls="example1"></label>
-														<input type="button" id="whereGpxBoard" value="검색">
+														placeholder="" aria-controls="example1" name="search"></label>
+														<button type="submit" class="btn btn-primary" >검색</button>
 												</form>
 											</div>
 										</div>
@@ -108,14 +98,14 @@
 												</thead>
 												
 												<tbody>
-												<c:forEach var="gpxList" items="${gpxList}" varStatus="i">
+												<c:forEach var="gpxWhereList" items="${gpxWhereList}" varStatus="i">
 												
 													<tr role="row" class="odd">
-														<td class="sorting_1">${gpxList.g_seq }</td>
-														<td><a href="<%=contextPath%>/gpx/gpxBoardSelectOne?g_seq=${gpxList.g_seq }">${gpxList.g_title }</a></td>
-														<td>${gpxList.u_nickname }</td>
-														<td>${gpxList.g_count }</td>
-														<td>${gpxList.g_recommand }</td>
+														<td class="sorting_1">${gpxWhereList.g_seq }</td>
+														<td><a href="<%=contextPath%>/gpx/gpxBoardSelectOne?g_seq=${gpxWhereList.g_seq }">${gpxWhereList.g_title }</a></td>
+														<td>${gpxWhereList.u_nickname }</td>
+														<td>${gpxWhereList.g_count }</td>
+														<td>${gpxWhereList.g_recommand }</td>
 													</tr>
 												</c:forEach>
 												</tbody>
