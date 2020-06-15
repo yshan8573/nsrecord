@@ -41,16 +41,42 @@ public class GpxController {
 		// 사이드 메뉴 'active' 설정 flag
 		model.addAttribute("categoryLoc", "gpx");
 		
-		
 		//gpxBoard 전체 리스트 출력
 		List<GpxDto> gpxBoardAllList =
 				gpxServiceImpl.selectGpxBoardAllList();
 		model.addAttribute("gpxList", gpxBoardAllList);
 		
-		
-		
-		
 		return "user/gpx/gpxBoard";
+	}
+	
+	@RequestMapping(value = "gpx/gpxRanking")
+	public String gpxRanking(Model model) {
+		logger.info("this is a gpxRanking Method");
+
+		// 사이드 메뉴 'active' 설정 flag
+		model.addAttribute("categoryLoc", "gpx");
+		
+		return "user/gpx/gpxRanking";
+	}
+	
+	@RequestMapping(value = "gpx/myGpxBoard")
+	public String myGpxBoard(Model model) {
+		logger.info("this is a myGpxBoard Method");
+
+		// 사이드 메뉴 'active' 설정 flag
+		model.addAttribute("categoryLoc", "myGpx");
+		
+		return "user/myPage/myGpxBoard";
+	}
+	
+	@RequestMapping(value = "gpx/myGpxRanking")
+	public String myGpxRanking(Model model) {
+		logger.info("this is a myGpxRanking Method");
+
+		// 사이드 메뉴 'active' 설정 flag
+		model.addAttribute("categoryLoc", "myGpx");
+		
+		return "user/myPage/myGpxRanking";
 	}
 	
 	@RequestMapping(value = "adminGpx/adminGpxList")

@@ -44,25 +44,22 @@
 			$(function() {
 				var categoryLoc = "${categoryLoc}"; //request.getparam... 
 				if(categoryLoc != null) {
-					if(categoryLoc == "home") {
-						console.log("loc : " + categoryLoc); //syso
-						$('.home').addClass('active');
-						
-					}
-					else if(categoryLoc == "gpx") {
-						console.log("loc : " + categoryLoc);
-						$('.gpx').addClass('active');
-					}
-					else if(categoryLoc == "community") {
-						console.log("loc : " + categoryLoc);
-						$('.community').addClass('active');
+					console.log("loc : " + categoryLoc); //syso
+					
+					switch (categoryLoc) {
+						case "home": $('.home').addClass('active'); break;
+						case "gpx": $('.gpx').addClass('active'); break;
+						case "community": $('.community').addClass('active'); break;
+						case "myUser": $('.myUser').addClass('active'); break;
+						case "myGpx": $('.myGpx').addClass('active'); break;
+						case "myCommunity": $('.myCommunity').addClass('active'); break;
 					}
 				}
 			})
 		</script>
 		<!-- Sidebar Menu -->
 		<ul class="sidebar-menu" data-widget="tree">
-			<li class="header">MENU</li>
+			<li class="header">Main Menu</li>
 			<!-- Optionally, you can add icons to the links -->
 			<li class="home">
 				<a href="javascript:location.href='<c:url value="/"/>userHome'"><i class="fa fa-home"></i><span>HOME</span></a>
@@ -75,6 +72,7 @@
 				</a>
 				<ul class="treeview-menu">
 					<li><a href="javascript:location.href='<c:url value="/"/>gpx/gpxBoard'">GPX공유게시판</a></li>
+					<li><a href="javascript:location.href='<c:url value="/"/>gpx/gpxRanking'">GPX랭킹</a></li>
 				</ul>
 			</li>
 			<li class="community treeview">
@@ -89,6 +87,38 @@
 					<li><a href="javascript:location.href='<c:url value="/"/>community/freeBoard'">자유게시판</a></li>
 				</ul>
 			</li>
+			
+			<c:choose>
+				<c:when test="${loginUser != null}">
+					<li class="header">My Page</li>
+					<li class="myUser">
+						<a href="<c:url value="/"/>user/myUserInfo"><i class="fa fa-user"></i> <span>마이 정보</span></a>
+					</li>
+					<li class="myGpx treeview">
+						<a href="#">
+							<i class="fa fa-map"></i>
+							<span>My GPX</span>
+							<span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+						</a>
+						<ul class="treeview-menu">
+							<li><a href="javascript:location.href='<c:url value="/"/>gpx/myGpxBoard'">마이 GPX 공유 관리</a></li>
+							<li><a href="javascript:location.href='<c:url value="/"/>gpx/myGpxRanking'">마이 GPX 랭킹 등록 관리</a></li>
+						</ul>
+					</li>
+					<li class="myCommunity treeview">
+						<a href="#">
+							<i class="fa fa-commenting"></i>
+							<span>My Community</span>
+							<span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+						</a>
+						<ul class="treeview-menu">
+							<li><a href="javascript:location.href='<c:url value="/"/>community/myFreeBoard'">마이 게시글 관리</a></li>
+							<li><a href="javascript:location.href='<c:url value="/"/>community/myReply'">마이 댓글 관리</a></li>
+						</ul>
+					</li>
+				</c:when>
+			</c:choose>
+			
 		</ul>
 		<!-- /.sidebar-menu -->
 	</section>

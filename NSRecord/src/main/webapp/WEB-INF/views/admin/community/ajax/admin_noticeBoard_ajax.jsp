@@ -36,8 +36,7 @@
 		</div>
 		<div class="row">
 			<div class="col-sm-12">
-				<table id="adminNoticeBoard" class="table table-bordered table-striped dataTable" role="grid"
-					aria-describedby="example1_info">
+				<table id="adminNoticeBoard" class="table table-bordered table-hover dataTable" role="grid" aria-describedby="example2_info">
 					<thead>
 						<tr role="row">
 							<th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"

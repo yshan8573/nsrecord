@@ -28,6 +28,7 @@ public class UserController {
 		
 		return "user/user/user_login";
 	}
+	
 //	 회원가입 폼 페이지
 	@RequestMapping(value = "user/userSignIn")
 	public String userSignIn() {
@@ -109,5 +110,15 @@ public class UserController {
 		}
 		
 		return "redirect:/userHome";
+	}
+	
+	@RequestMapping(value = "user/myUserInfo")
+	public String myUserInfo(Model model) {
+		logger.info("this is a myUserInfo Method");
+		
+		// 사이드 메뉴 'active' 설정 flag
+		model.addAttribute("categoryLoc", "myUser");
+		
+		return "user/myPage/user_myUserInfo";
 	}
 }

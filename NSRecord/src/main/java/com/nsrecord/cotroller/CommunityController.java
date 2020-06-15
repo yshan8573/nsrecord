@@ -252,6 +252,26 @@ public class CommunityController {
 			
 			return "admin/community/admin_freeBoard";
 		}
+			
+		@RequestMapping(value = "community/myFreeBoard")
+		public String myFreeBoard(Model model) {
+			logger.info("this is a myFreeBoard Method");
+			
+			// 사이드 메뉴 'active' 설정 flag
+			model.addAttribute("categoryLoc", "myCommunity");
+			
+			return "user/myPage/myFreeBoard";
+		}
+	
+		@RequestMapping(value = "community/myReply")
+		public String myReply(Model model) {
+			logger.info("this is a myReply Method");
+			
+			// 사이드 메뉴 'active' 설정 flag
+			model.addAttribute("categoryLoc", "myCommunity");
+			
+			return "user/myPage/myReply";
+		}
 
 }
 
