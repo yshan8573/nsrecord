@@ -8,7 +8,10 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.nsrecord.dto.BoardPager;
 import com.nsrecord.dto.FreeBoardDto;
+import com.nsrecord.dto.Notice;
+import com.nsrecord.dto.SearchDto;
 
 @Repository
 public class CommunityDaoImpl implements ICommunityDao {
@@ -61,4 +64,21 @@ public class CommunityDaoImpl implements ICommunityDao {
 	public void deleteReply(int r_seq) {
 		session.delete("communityMapper.deleteReply", r_seq);
 	}
+
+	@Override
+	public int selectNoticeBoardCount(SearchDto searchDto) {
+		return session.selectOne(queryprefix+"selectNoticeBoardCount",searchDto);
+	}
+
+	@Override
+	public List<Notice> selectNoticeBoardAll(BoardPager boardPager) {
+		return session.selectList(queryprefix+"selectNoticeBoardAll",boardPager);
+	}
+
+	@Override
+	public int insertNoticeBoard(Notice notice) {
+		System.out.println(notice.toString());
+		return session.insert(queryprefix+"insertNoticeBoard", notice);
+	}
+	
 }

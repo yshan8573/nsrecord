@@ -5,30 +5,32 @@
 
 <mapper namespace="communityMapper">
 
-	<select id="freeBoardList" resultType="com.nsrecord.dto.FreeBoardDto">
-	SELECT B_SEQ,
-		   U_SEQ,
-		   B_TITLE,
-		   B_REPLY,
-		   TO_CHAR(B_DATE, 'YYYY-MM-DD-HH24:MI:SS') AS B_DATE,
-		   B_COUNT,
-		   U_NICKNAME,
-		   B_STATUS
-	FROM BOARD
-	ORDER BY B_SEQ DESC	
+	<select id="freeBoardList"
+		resultType="com.nsrecord.dto.FreeBoardDto">
+		SELECT B_SEQ,
+		U_SEQ,
+		B_TITLE,
+		B_REPLY,
+		TO_CHAR(B_DATE, 'YYYY-MM-DD-HH24:MI:SS') AS B_DATE,
+		B_COUNT,
+		U_NICKNAME,
+		B_STATUS
+		FROM BOARD
+		ORDER BY B_SEQ DESC
 	</select>
-	
-	<select id="freeBoardContent" parameterType="int" resultType="com.nsrecord.dto.FreeBoardDto">
-	SELECT B_SEQ,
-		   B_TITLE,
-		   TO_CHAR(B_DATE, 'YYYY-MM-DD-HH24:MI:SS') AS B_DATE,
-		   B_COUNT,
-		   U_NICKNAME,
-		   B_CONTENT
-	FROM BOARD
-	WHERE B_SEQ = #{b_seq}	
+
+	<select id="freeBoardContent" parameterType="int"
+		resultType="com.nsrecord.dto.FreeBoardDto">
+		SELECT B_SEQ,
+		B_TITLE,
+		TO_CHAR(B_DATE, 'YYYY-MM-DD-HH24:MI:SS') AS B_DATE,
+		B_COUNT,
+		U_NICKNAME,
+		B_CONTENT
+		FROM BOARD
+		WHERE B_SEQ = #{b_seq}
 	</select>
-	
+
 	<insert id="freeBoardWriteEnd" parameterType="java.util.HashMap">
 		INSERT INTO BOARD
 		(B_SEQ, U_SEQ, U_NICKNAME, B_TITLE, B_CONTENT, B_DATE)
@@ -74,5 +76,54 @@
 		WHERE R_SEQ = #{r_seq}	
 	</delete>
 	
+	<insert id="insertNoticeBoard" parameterType="notice">
+		INSERT INTO NOTICE
+		VALUES(
+		NOTICE_SEQ.NEXTVAL,
+		#{u_seq},
+		#{n_title},
+		#{n_content},
+		default,
+		default,
+		default
+		)
+	</insert>
+
+	<select id="selectNoticeBoardCount" parameterType="searchDto"
+		resultType="_int">
+		SELECT COUNT(*)
+		FROM NOTICE
+		WHERE 1 = 1
+		<include refid="search"></include>
+	</select>
 	
+	<select id="selectNoticeBoardAll"
+		parameterType="com.nsrecord.dto.BoardPager" resultType="notice">
+		<include refid="pagingHeader"></include>
+		SELECT A.*, U_EMAIL
+		FROM NOTICE A
+		JOIN USER_INFO UI
+		ON (A.U_SEQ = UI.U_SEQ)
+		WHERE 1 = 1
+		<include refid="search"></include>
+		<include refid="pagingFooter"></include>
+	</select>
+
+	<sql id="search">
+		<choose>
+			<when test="searchSort != ''">
+				AND ${searchSort} like '%'||#{searchVal}||'%'
+			</when>
+		</choose>
+	</sql>
+
+	<sql id="pagingHeader">
+		SELECT * FROM (
+		SELECT ROWNUM AS rn, A.* FROM (
+	</sql>
+	<sql id="pagingFooter">
+		) A
+		) WHERE rn BETWEEN #{start} AND #{end}
+	</sql>
+
 </mapper>

@@ -4,5 +4,7 @@
 	<typeAliases>
 		<typeAlias type="com.nsrecord.dto.UserInfo" alias="userInfo" />
 		<typeAlias type="com.nsrecord.dto.GpxDto" alias="gpxDto"/>
+		<typeAlias type="com.nsrecord.dto.Notice" alias="notice"/>
+		<typeAlias type="com.nsrecord.dto.SearchDto" alias="searchDto"/>
 	</typeAliases>
 </configuration>

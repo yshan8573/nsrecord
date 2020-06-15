@@ -14,10 +14,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.nsrecord.dto.BoardPager;
 import com.nsrecord.dto.FreeBoardDto;
 import com.nsrecord.dto.Notice;
+import com.nsrecord.dto.SearchDto;
 import com.nsrecord.dto.UserInfo;
 import com.nsrecord.service.CommunityServiceImpl;
+import com.nsrecord.service.ICommunityService;
+import com.nsrecord.service.UserService;
 
 @Controller
 public class CommunityController {
@@ -25,7 +29,13 @@ public class CommunityController {
 	private static final Logger logger = LoggerFactory.getLogger(CommunityController.class);
 	
 	@Autowired
+	private ICommunityService iCommunityService;
+	
+	@Autowired
 	private CommunityServiceImpl communityServiceImpl;
+	
+	@Autowired
+	private UserService userService;
 
 //=====================공지게시판(사용자)======================//	
 	@RequestMapping(value = "community/noticeBoard")
@@ -140,29 +150,42 @@ public class CommunityController {
 		
 		return "admin/community/admin_noticeBoard";
 	}
+	
+	@RequestMapping(value = "adminCommunity/adminNoticeBoardAjax")
+	public String adminNoticeBoardAjax(
+			@RequestParam(value = "cPage", defaultValue = "1") int cPage,
+			@RequestParam(value = "searchSort", defaultValue = "") String searchSort,
+			@RequestParam(value = "searchVal", defaultValue = "") String searchVal,
+			Model model) {
+		logger.info("this is a adminNoticeBoardAjax Method");
+		
+		// 검색 객체 값 넣기
+		SearchDto searchDto = new SearchDto(searchSort, searchVal);
+		
+		// 공지사항 리스트 총 레코드 가져오기
+		int nCount = iCommunityService.selectNoticeBoardCount(searchDto);
+		
+		int curPage = cPage; // 현재 출력 페이지
+		
+		// 페이지 객체에 값 저장 (nCount: 리스트 총 레코드 갯수 / curPage: 현재 출력 페이지)
+		BoardPager boardPager = new BoardPager(nCount, curPage);
+		
+		// 페이지 객체에 검색 정보 저장
+		boardPager.setSearchSort(searchSort);
+		boardPager.setSearchVal(searchVal);
+		
+		// 공지사항 리스트 가져오기
+		List<Notice> nResult = iCommunityService.selectNoticeBoardAll(boardPager);
+		
+		model.addAttribute("noticeList",nResult);
+		model.addAttribute("boardPager",boardPager);
+		
+		// 사이드 메뉴 'active' 설정 flag
+		model.addAttribute("categoryLoc", "community");
+		
+		return "admin/community/ajax/admin_noticeBoard_ajax";
+	}
 
-//=====================질문게시판(관리자)======================//		
-	@RequestMapping(value = "adminCommunity/adminQnaBoard")
-	public String adminQnaBoard(Model model) {
-		logger.info("this is a adminQnaBoard Method");
-		
-		// 사이드 메뉴 'active' 설정 flag
-		model.addAttribute("categoryLoc", "community");
-		
-		return "admin/community/admin_qnaBoard";
-	}
-	
-//=====================자유게시판(관리자)======================//	
-	@RequestMapping(value = "adminCommunity/adminFreeBoard")
-	public String adminFreeBoard(Model model) {
-		logger.info("this is a adminFreeBoard Method");
-		
-		// 사이드 메뉴 'active' 설정 flag
-		model.addAttribute("categoryLoc", "community");
-		
-		return "admin/community/admin_freeBoard";
-	}
-	
 	@RequestMapping(value = "adminCommunity/adminNoticeBoardWrite")
 	public String adminNoticeBoardWrite(Model model) {
 		logger.info("this is a adminNoticeBoardWrite Method");
@@ -174,16 +197,61 @@ public class CommunityController {
 	}
 
 	@RequestMapping(value = "adminCommunity/adminNoticeBoardWriteEnd")
-	public String adminNoticeBoardWriteEnd(Notice notice, Model model) {
+	public String adminNoticeBoardWriteEnd(Notice notice, Model model, HttpSession session) {
 		logger.info("this is a adminNoticeBoardWriteEnd Method");
 		
+		
+		// admin 계정 임의 생성 session 추가 (관리자 페이지 로그인 기능 추가 시 삭제 에정) - Start
+		
+		UserInfo loginUser = (UserInfo)session.getAttribute("loginUser");
+		if(loginUser != null) {
+			session.removeAttribute("loginUser");
+		}
+
+		UserInfo user = new UserInfo();
+		user.setU_email("admin");
+		UserInfo result = userService.userSelectOne(user);// admin 계정 정보 가져오기
+		
+		session.setAttribute("loginUser", result); // admin 계정 정보 session 저장
+		
+		// admin 계정 임의 생성 session 추가 (관리자 페이지 로그인 기능 추가 시 삭제 에정) - End
+		
+		
+		// admin 정보 공지사항 객체에 저장
+		loginUser = (UserInfo)session.getAttribute("loginUser");
+		notice.setU_seq(loginUser.getU_seq());
+		
 		// 글 작성 저장
-		System.out.println(notice.getN_title());
-		System.out.println(notice.getN_content());
+		iCommunityService.insertNoticeBoard(notice);
+		
 		
 		// 사이드 메뉴 'active' 설정 flag
 		model.addAttribute("categoryLoc", "community");
 		
 		return "redirect:/adminCommunity/adminNoticeBoard";
 	}
+	
+	//=====================질문게시판(관리자)======================//		
+		@RequestMapping(value = "adminCommunity/adminQnaBoard")
+		public String adminQnaBoard(Model model) {
+			logger.info("this is a adminQnaBoard Method");
+			
+			// 사이드 메뉴 'active' 설정 flag
+			model.addAttribute("categoryLoc", "community");
+			
+			return "admin/community/admin_qnaBoard";
+		}
+		
+	//=====================자유게시판(관리자)======================//	
+		@RequestMapping(value = "adminCommunity/adminFreeBoard")
+		public String adminFreeBoard(Model model) {
+			logger.info("this is a adminFreeBoard Method");
+			
+			// 사이드 메뉴 'active' 설정 flag
+			model.addAttribute("categoryLoc", "community");
+			
+			return "admin/community/admin_freeBoard";
+		}
+
 }
+

@@ -7,11 +7,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.nsrecord.dao.CommunityDaoImpl;
+import com.nsrecord.dao.ICommunityDao;
+import com.nsrecord.dto.BoardPager;
 import com.nsrecord.dto.FreeBoardDto;
+import com.nsrecord.dto.Notice;
+import com.nsrecord.dto.SearchDto;
 
 @Service
 public class CommunityServiceImpl implements ICommunityService {
 
+	@Autowired
+	private ICommunityDao iCommunityDao;
+	
 	@Autowired
 	private CommunityDaoImpl communityDaoImpl;
 	
@@ -28,6 +35,21 @@ public class CommunityServiceImpl implements ICommunityService {
 	@Override
 	public void freeBoardWriteEnd(HashMap<String, String> writeEnd) {
 		communityDaoImpl.freeBoardWriteEnd(writeEnd);
+	}
+
+	@Override
+	public int selectNoticeBoardCount(SearchDto searchDto) {
+		return iCommunityDao.selectNoticeBoardCount(searchDto);
+	}
+
+	@Override
+	public List<Notice> selectNoticeBoardAll(BoardPager boardPager) {
+		return iCommunityDao.selectNoticeBoardAll(boardPager);
+	}
+
+	@Override
+	public int insertNoticeBoard(Notice notice) {
+		return iCommunityDao.insertNoticeBoard(notice);
 	}
 	
 	@Override
