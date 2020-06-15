@@ -31,9 +31,42 @@
 	
 	<insert id="freeBoardWriteEnd" parameterType="java.util.HashMap">
 		INSERT INTO BOARD
-		(B_SEQ, B_TITLE, B_CONTENT, B_DATE )
+		(B_SEQ, U_SEQ, U_NICKNAME, B_TITLE, B_CONTENT, B_DATE)
 		VALUES
-		(BOARD_SEQ.NEXTVAL, #{b_title}, #{b_content}, SYSDATE)
+		(BOARD_SEQ.NEXTVAL, #{u_seq}, #{u_nickname}, #{b_title}, #{b_content}, SYSDATE)
 	</insert>
 
+	<update id="updateFreeBoardContentEnd" parameterType="java.util.HashMap">
+		UPDATE BOARD
+		SET
+			B_TITLE = #{b_title},
+			B_CONTENT = #{b_content}
+		WHERE B_SEQ = #{b_seq}
+	
+	</update>
+	
+	<delete id="deleteFreeBoardContent" parameterType="int">
+		DELETE FROM BOARD
+		WHERE B_SEQ = #{b_seq}	
+	</delete>
+	
+	<insert id="insertReply" parameterType="java.util.HashMap">
+	INSERT INTO REPLY
+		(R_SEQ, U_SEQ, U_NICKNAME, R_CONTENT, R_DATE, B_SEQ)
+		VALUES
+		(R_SEQ.NEXTVAL, #{u_seq}, #{u_nickname}, #{r_content}, SYSDATE, #{b_seq})
+	</insert>
+	
+	<select id="replyContent" resultType="com.nsrecord.dto.FreeBoardDto">
+		SELECT B_SEQ,
+		       U_SEQ,
+		       TO_CHAR(R_DATE, 'YYYY-MM-DD-HH24:MI:SS') AS R_DATE,
+		       U_NICKNAME,
+		       R_CONTENT,
+		       R_SEQ
+		FROM REPLY
+		WHERE B_SEQ = #{b_seq}
+		ORDER BY R_SEQ DESC		
+	</select>
+	
 </mapper>

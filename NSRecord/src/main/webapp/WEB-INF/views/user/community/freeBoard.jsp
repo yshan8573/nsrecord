@@ -26,9 +26,10 @@
 
 		<h1>자유 게시판</h1>
 <hr width=80%>
+
 <table>
 	<c:choose>
-		<c:when test="${fn:length(list) > 0 }">
+		<c:when test="${fn:length(freeBoardList) > 0 }">
 			<tr>
 				<td>번호</td>
 				<td>제목</td>
@@ -42,20 +43,15 @@
 	<c:forEach var="freeBoard" items="${freeBoardList}">
 		<tr>
 			<td>${freeBoard.b_seq}</td>
-			<td>
-				<a href="<%=contextPath%>/freeBoardContent">
-					${freeBoard.b_title}
-				</a>
-			</td>
-			<td>${freeBoard.n_nickname}</td>
+			<td><a href="<%=contextPath%>/freeBoardContent?b_seq=${freeBoard.b_seq}">${freeBoard.b_title}</a>			</td>
+			<td>${freeBoard.u_nickname}</td>
 			<td>${freeBoard.b_count}</td>
 			<td>${freeBoard.b_reply}</td>
 			<td>${freeBoard.b_date}</td>
 		</tr>
 	</c:forEach>
-
-
 </table>
+
 <a href="<%=contextPath%>/community/freeBoardWriter">글쓰기</a>
 
       </section>

@@ -11,12 +11,20 @@ public class FreeBoardDto {
 	private String u_nickname;
 	private char b_status;
 	private String b_content;
+	private int r_seq;
+	private String r_content;
+	private String r_date;
+	
+
+	
 	
 
 
 	public FreeBoardDto() {
 		
 	}
+	
+
 	
 	
 	
@@ -92,6 +100,27 @@ public class FreeBoardDto {
 		this.b_status = b_status;
 	}
 
+	public int getR_seq() {
+		return r_seq;
+	}
 
+	public void setR_seq(int r_seq) {
+		this.r_seq = r_seq;
+	}
 
+	public String getR_content() {
+		return r_content;
+	}
+
+	public void setR_content(String r_content) {
+		this.r_content = r_content;
+	}
+
+	public String getR_date() {
+		return r_date;
+	}
+
+	public void setR_date(String r_date) {
+		this.r_date = r_date;
+	}
 }

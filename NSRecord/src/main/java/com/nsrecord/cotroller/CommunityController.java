@@ -3,6 +3,8 @@ package com.nsrecord.cotroller;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,9 +12,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.nsrecord.dto.FreeBoardDto;
 import com.nsrecord.dto.Notice;
+import com.nsrecord.dto.UserInfo;
 import com.nsrecord.service.CommunityServiceImpl;
 
 @Controller
@@ -46,37 +50,75 @@ public class CommunityController {
 	
 	
 //=====================자유게시판(사용자)======================//	
+
+	//자유게시판 리스트 불러오기
 	@RequestMapping(value = "/community/freeBoard")
 	public String freeBoard(Model model) {
-		logger.info("this is a freeBoard Method");
-		// 사이드 메뉴 'active' 설정 flag
 		model.addAttribute("categoryLoc", "community");
 		List<FreeBoardDto> freeBoardList = communityServiceImpl.selectFreeBoardAllList();
 		model.addAttribute("freeBoardList", freeBoardList);
 		return "user/community/freeBoard"; 
 	}
 	
-	@RequestMapping(value="/community/freeBoardContent")
-	public String freeBoardContent(int b_seq, Model model) {
+	//자유게시판 게시 내용
+	@RequestMapping(value="/freeBoardContent")
+	public String freeBoardContent(int b_seq, Model model, HttpSession session) {
+		
 		FreeBoardDto FreeBoardDto = communityServiceImpl.selectFreeBoardContent(b_seq);
 		model.addAttribute("FreeBoardDto", FreeBoardDto);
+		//댓글 내용
+		List<FreeBoardDto> replyDto = communityServiceImpl.replyContent(FreeBoardDto.getB_seq());
+		model.addAttribute("replyDto", replyDto);
+		//댓글 작성 기능
+		UserInfo user = (UserInfo) session.getAttribute("loginUser");
+		model.addAttribute("User", user);
 		return "user/community/selectFreeBoardContent";
 	}
 	
-
+	//자유게시판 글쓰기
 	@RequestMapping(value="/community/freeBoardWriter")
-	public String freeBoardWriter() {
+	public String freeBoardWriter(HttpSession session, FreeBoardDto dto, Model model) {
+		UserInfo user = (UserInfo) session.getAttribute("loginUser");
+		model.addAttribute("User", user);
 		return "user/community/freeBoardWriter";
 	}
 	
+	//자유게시판 글쓰기 등록
 	@RequestMapping(value="/community/freeBoardWriteEnd")
 	//HashMap(name(String), value(String)
 	public String freeBoardWriteEnd(@RequestParam HashMap<String, String> writeEnd) {
-		System.out.println("writeEnd=" + writeEnd);
 		communityServiceImpl.freeBoardWriteEnd(writeEnd);
 		return "redirect:/community/freeBoard";
 	}
 
+	//자유게시한 글쓰기 수정
+	@RequestMapping(value="/community/updateFreeBoardContent")
+	public String updateFreeBoardContent(@RequestParam HashMap<String, String> paramMap, Model model) {
+		model.addAttribute("UpdateContent", paramMap);
+		return "user/community/updateFreeBoardContent";
+	}
+		
+	//자유게시판 글쓰기 수정 완료
+	@RequestMapping(value="/community/updateFreeBoardContentEnd")
+	public String updateFreeBoardContentEnd(@RequestParam HashMap<String, String> paramMap ) {
+		communityServiceImpl.updateFreeBoardContentEnd(paramMap);		
+		return "redirect:/community/freeBoard";
+	}
+	
+	//자유게시판 글쓰기 삭제
+	@RequestMapping(value="/community/deleteFreeBoardContent")
+	public String deleteFreeBoardContent(@RequestParam("b_seq") int b_seq) {
+		communityServiceImpl.deleteFreeBoardContent(b_seq);		
+		return "redirect:/community/freeBoard";
+	}
+	
+	//댓글 등록
+	@RequestMapping(value="/community/reply")
+	public String reply(@RequestParam HashMap<String, String> insertReply, @RequestParam("b_seq") int b_seq, RedirectAttributes redirectAttributes) {
+		communityServiceImpl.insertReply(insertReply);
+		redirectAttributes.addAttribute("b_seq", insertReply.get("b_seq"));
+		return "redirect:/freeBoardContent";
+	}
 	
 //=====================공지게시판(관리자)======================//	
 	@RequestMapping(value = "adminCommunity/adminNoticeBoard")

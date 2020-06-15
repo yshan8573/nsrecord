@@ -27,8 +27,26 @@ public class CommunityServiceImpl implements ICommunityService {
 	
 	@Override
 	public void freeBoardWriteEnd(HashMap<String, String> writeEnd) {
-		System.out.println("writeEndService=" + writeEnd);
 		communityDaoImpl.freeBoardWriteEnd(writeEnd);
 	}
 	
+	@Override
+	public void updateFreeBoardContentEnd(HashMap<String, String> paramMap) {
+		communityDaoImpl.updateFreeBoardContentEnd(paramMap);
+	}
+	
+	@Override
+	public void deleteFreeBoardContent(int b_seq) {
+		communityDaoImpl.deleteFreeBoardContent(b_seq);
+	}	
+	
+	@Override
+	public void insertReply(HashMap<String, String> insertReply) {
+		communityDaoImpl.insertReply(insertReply);
+	}
+	
+	@Override
+	public List<FreeBoardDto> replyContent(int b_seq) {
+		return communityDaoImpl.replyContent(b_seq);
+	}
 }

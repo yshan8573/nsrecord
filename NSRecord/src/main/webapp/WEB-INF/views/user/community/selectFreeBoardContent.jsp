@@ -7,6 +7,23 @@
 
 <%@ include file="../../common/head.jsp" %>
 
+<script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+	$(document).ready(function(){
+		$("#updateFreeBoardContent").click(function(){
+			var url = "<%=contextPath%>" + "/community/updateFreeBoardContent";
+			$("#freeBoardUpdate").attr("action", url);
+			$("#freeBoardUpdate").submit();
+		});
+		$("#deleteFreeBoardContent").click(function(){
+			var url = "<%=contextPath%>" + "/community/deleteFreeBoardContent";
+			$("#freeBoardUpdate").attr("action", url);
+			$("#freeBoardUpdate").submit();
+		});
+	});
+</script>
+
+
 <body class="hold-transition skin-blue sidebar-mini">
   <div class="wrapper">
 
@@ -30,25 +47,59 @@
 
 <h1>자유 게시판</h1>
 <hr width=80%>
-
-<table>
+<form id="freeBoardUpdate">
+<table border="1" >
 	<tr>
-		<td>${FreeBoardDto.b_seq}</td>
-		<td>${FreeBoardDto.b_title}</td>
-		<td>${FreeBoardDto.u_nickname}</td>
+		<td>글 번호: ${FreeBoardDto.b_seq}</td>
+		<td rowspan=2>글 제목: ${FreeBoardDto.b_title}</td>
+		<td>글쓴이: ${FreeBoardDto.u_nickname}</td>
 	<tr>	
 	<tr>
-		<td>${FreeBoardDto.b_count}</td>
-		<td>${FreeBoardDto.b_date}</td>
+		<td>조회수: ${FreeBoardDto.b_count}</td>
+		<td></td>
+		<td>작성일: ${FreeBoardDto.b_date}</td>
 	</tr>
 	<tr>
-		<td>${FreeBoardDto.b_content}</td>
-	</tr>	
+		<td colspan=3>${FreeBoardDto.b_content}</td>
+	</tr>
+	<tr>
+		<td>
+			<input type="hidden" name="b_seq" value="${FreeBoardDto.b_seq}">
+			<input type="hidden" name="b_title" value="${FreeBoardDto.b_title}">
+			<input type="hidden" name="u_nickname" value="${FreeBoardDto.u_nickname}">
+			<input type="hidden" name="b_count" value="${FreeBoardDto.b_count}">
+			<input type="hidden" name="b_date" value="${FreeBoardDto.b_date}">
+			<input type="hidden" name="b_content" value="${FreeBoardDto.b_content}">
+			<input type="hidden" name="u_seq" value="${FreeBoardDto.u_seq}">
+			<input type="button" id="updateFreeBoardContent" value="수정">
+			<input type="button" id="deleteFreeBoardContent" value="삭제">
+		</td>	
+	</tr>		
+</table>
+</form>
 
-
+<table>
+	<c:forEach var="replyDto" items="${replyDto}"> 
+	<tr>
+		<td>${replyDto.u_nickname}</td>
+		<td>${replyDto.r_content}</td>
+		<td>${replyDto.r_date}</td>
+	</tr>
+	</c:forEach>
 </table>
 
 
+<form action="<%=contextPath%>/community/reply">
+<table>
+	<tr>
+	<td><textarea id="r_content" name="r_content" required></textarea></td>
+	<td><input type='submit' value='등록'></td>
+	</tr>
+</table>
+	<input type="hidden" name="b_seq" value="${FreeBoardDto.b_seq}">
+	<input type="hidden" name="u_seq" value="${User.u_seq}">
+	<input type="hidden" name="u_nickname" value="${User.u_nickname}">
+</form>
 
 
 
