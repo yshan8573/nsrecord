@@ -13,8 +13,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.nsrecord.dto.BoardPager;
 import com.nsrecord.dto.FreeBoardDto;
 import com.nsrecord.dto.Notice;
+import com.nsrecord.dto.SearchDto;
 import com.nsrecord.dto.UserInfo;
 import com.nsrecord.service.CommunityServiceImpl;
 import com.nsrecord.service.ICommunityService;
@@ -88,45 +90,52 @@ public class CommunityController {
 		return "redirect:/community/freeBoard";
 	}
 
-	
 //=====================공지게시판(관리자)======================//	
 	@RequestMapping(value = "adminCommunity/adminNoticeBoard")
 	public String adminNoticeBoard(Model model) {
 		logger.info("this is a adminNoticeBoard Method");
-		
-		// 공지사항 리스트 가져오기
-		List<Notice> nResult = iCommunityService.selectNoticeBoardAll();
-		
-		model.addAttribute("noticeList",nResult);
 		
 		// 사이드 메뉴 'active' 설정 flag
 		model.addAttribute("categoryLoc", "community");
 		
 		return "admin/community/admin_noticeBoard";
 	}
+	
+	@RequestMapping(value = "adminCommunity/adminNoticeBoardAjax")
+	public String adminNoticeBoardAjax(
+			@RequestParam(value = "cPage", defaultValue = "1") int cPage,
+			@RequestParam(value = "searchSort", defaultValue = "") String searchSort,
+			@RequestParam(value = "searchVal", defaultValue = "") String searchVal,
+			Model model) {
+		logger.info("this is a adminNoticeBoardAjax Method");
+		
+		// 검색 객체 값 넣기
+		SearchDto searchDto = new SearchDto(searchSort, searchVal);
+		
+		// 공지사항 리스트 총 레코드 가져오기
+		int nCount = iCommunityService.selectNoticeBoardCount(searchDto);
+		
+		int curPage = cPage; // 현재 출력 페이지
+		
+		// 페이지 객체에 값 저장 (nCount: 리스트 총 레코드 갯수 / curPage: 현재 출력 페이지)
+		BoardPager boardPager = new BoardPager(nCount, curPage);
+		
+		// 페이지 객체에 검색 정보 저장
+		boardPager.setSearchSort(searchSort);
+		boardPager.setSearchVal(searchVal);
+		
+		// 공지사항 리스트 가져오기
+		List<Notice> nResult = iCommunityService.selectNoticeBoardAll(boardPager);
+		
+		model.addAttribute("noticeList",nResult);
+		model.addAttribute("boardPager",boardPager);
+		
+		// 사이드 메뉴 'active' 설정 flag
+		model.addAttribute("categoryLoc", "community");
+		
+		return "admin/community/ajax/admin_noticeBoard_ajax";
+	}
 
-//=====================질문게시판(관리자)======================//		
-	@RequestMapping(value = "adminCommunity/adminQnaBoard")
-	public String adminQnaBoard(Model model) {
-		logger.info("this is a adminQnaBoard Method");
-		
-		// 사이드 메뉴 'active' 설정 flag
-		model.addAttribute("categoryLoc", "community");
-		
-		return "admin/community/admin_qnaBoard";
-	}
-	
-//=====================자유게시판(관리자)======================//	
-	@RequestMapping(value = "adminCommunity/adminFreeBoard")
-	public String adminFreeBoard(Model model) {
-		logger.info("this is a adminFreeBoard Method");
-		
-		// 사이드 메뉴 'active' 설정 flag
-		model.addAttribute("categoryLoc", "community");
-		
-		return "admin/community/admin_freeBoard";
-	}
-	
 	@RequestMapping(value = "adminCommunity/adminNoticeBoardWrite")
 	public String adminNoticeBoardWrite(Model model) {
 		logger.info("this is a adminNoticeBoardWrite Method");
@@ -171,4 +180,28 @@ public class CommunityController {
 		
 		return "redirect:/adminCommunity/adminNoticeBoard";
 	}
+	
+	//=====================질문게시판(관리자)======================//		
+		@RequestMapping(value = "adminCommunity/adminQnaBoard")
+		public String adminQnaBoard(Model model) {
+			logger.info("this is a adminQnaBoard Method");
+			
+			// 사이드 메뉴 'active' 설정 flag
+			model.addAttribute("categoryLoc", "community");
+			
+			return "admin/community/admin_qnaBoard";
+		}
+		
+	//=====================자유게시판(관리자)======================//	
+		@RequestMapping(value = "adminCommunity/adminFreeBoard")
+		public String adminFreeBoard(Model model) {
+			logger.info("this is a adminFreeBoard Method");
+			
+			// 사이드 메뉴 'active' 설정 flag
+			model.addAttribute("categoryLoc", "community");
+			
+			return "admin/community/admin_freeBoard";
+		}
+
 }
+

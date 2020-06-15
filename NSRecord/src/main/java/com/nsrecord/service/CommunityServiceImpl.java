@@ -8,8 +8,10 @@ import org.springframework.stereotype.Service;
 
 import com.nsrecord.dao.CommunityDaoImpl;
 import com.nsrecord.dao.ICommunityDao;
+import com.nsrecord.dto.BoardPager;
 import com.nsrecord.dto.FreeBoardDto;
 import com.nsrecord.dto.Notice;
+import com.nsrecord.dto.SearchDto;
 
 @Service
 public class CommunityServiceImpl implements ICommunityService {
@@ -37,8 +39,13 @@ public class CommunityServiceImpl implements ICommunityService {
 	}
 
 	@Override
-	public List<Notice> selectNoticeBoardAll() {
-		return iCommunityDao.selectNoticeBoardAll();
+	public int selectNoticeBoardCount(SearchDto searchDto) {
+		return iCommunityDao.selectNoticeBoardCount(searchDto);
+	}
+
+	@Override
+	public List<Notice> selectNoticeBoardAll(BoardPager boardPager) {
+		return iCommunityDao.selectNoticeBoardAll(boardPager);
 	}
 
 	@Override
