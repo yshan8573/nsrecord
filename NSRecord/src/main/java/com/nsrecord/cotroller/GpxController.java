@@ -99,7 +99,7 @@ public class GpxController {
 		int rndNum = (int)(Math.random()*1000);
 		g_re = sdf.format(new Date(System.currentTimeMillis()))+"_"+rndNum+ext;
 		
-		try {
+		try { 
 			 
 			gpxFile.transferTo(new File(saveDir+"/"+g_re));
 			dto.setG_re(g_re);
