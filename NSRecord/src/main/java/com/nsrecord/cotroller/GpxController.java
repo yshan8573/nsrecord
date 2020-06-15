@@ -151,10 +151,10 @@ public class GpxController {
 		return "redirect:/gpx/gpxBoard";
 	}
 	
-	
+	//수정중
 	//조건 조회
 	@RequestMapping(value = "gpx/gpxWhere")
-	public String gpxWhere(@RequestParam GpxDto dto, Model model, HttpSession session) {
+	public String gpxWhere(@RequestParam("search") String search, @RequestParam GpxDto dto, Model model, HttpSession session) {
 		System.out.println("조건조회컨트롤러");
 		
 		
