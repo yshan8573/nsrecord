@@ -1,7 +1,12 @@
 package com.nsrecord.cotroller;
 
+import java.io.File;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -11,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.nsrecord.dto.GpxDto;
@@ -71,12 +77,45 @@ public class GpxController {
 	
 	//유저 글쓰기 폼 결과 = redirect를 통해 gpxBoard로 이동
 	@RequestMapping(value = "gpx/gpxInsertResult")
-	public String gpxInsertResult(GpxDto dto, HttpSession sesseion) {
+	public String gpxInsertResult(GpxDto dto, HttpSession sesseion, 
+			MultipartFile gpxFile, String g_ori, String g_re, HttpServletRequest re ) throws ParseException {
 		logger.info("this is a gpxInsert Method");
-		
+		System.out.println("파일인서트");
 	
 	UserInfo user = (UserInfo) sesseion.getAttribute("loginUser");
 	System.out.println(user.getU_nickname());
+	
+	String saveDir = re.getSession().getServletContext().getRealPath("/resource/uploadGpx");
+	File gpx = new File(saveDir);
+	if(!gpx.exists()) {
+		gpx.mkdir();
+	}
+	//단일 파일
+	if(gpxFile != null && !gpxFile.isEmpty()) {
+	
+		g_ori = gpxFile.getOriginalFilename();
+		String ext = g_ori.substring(g_ori.indexOf("."));
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy_MM_dd_HHmmssSSS");
+		int rndNum = (int)(Math.random()*1000);
+		g_re = sdf.format(new Date(System.currentTimeMillis()))+"_"+rndNum+ext;
+		
+		try {
+			
+			gpxFile.transferTo(new File(saveDir+"/"+g_re));
+			dto.setG_re(g_re);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}//if end
+	else {
+		dto.setG_re(g_ori);
+		
+	}
+	re.setAttribute("GpxDto", dto);
+	System.out.println(dto);
+
 	
 	dto.setU_seq(user.getU_seq());	
 	dto.setU_nickname(user.getU_nickname());

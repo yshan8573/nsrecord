@@ -39,7 +39,7 @@
 					<div class="col-xs-12">
 						<div class="box">
 							<div class="box-body">
-								<form action="<c:url value='/'/>gpx/gpxInsertResult" method="post">
+								<form action="<c:url value='/'/>gpx/gpxInsertResult" method="post" enctype="multipart/form-data">
 									<div class="form-group">
 										<label>제목</label>
 										<input name="g_title" type="text" class="form-control" placeholder="입력하세요.." required="required">
@@ -47,6 +47,11 @@
 									<div class="form-group">
 										<textarea id="g_content" name="g_content" required="required"></textarea>
 									</div>
+									<!-- 파일 업로드 -->
+									<div class="form-group">
+                 					 <label for="gpxFile">GPX파일 업로드</label>
+                 					 <input type="file" id="gpxFile" name="gpxFile">
+               					 </div>
 									<script>
 										$(function () {
 											CKEDITOR.replace('g_content')
