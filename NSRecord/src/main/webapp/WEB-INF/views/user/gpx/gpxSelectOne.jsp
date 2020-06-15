@@ -10,14 +10,28 @@
 			
 			<!-- JQUERY 함수 편집중 함수 편집중 -->
 			<script>
+			<%-- 업데이트 버튼 --%>
 			$(document).ready(function() {
 			$("#updateGpxBoard").click(function() {
-			var url = "<%=contextPath%>"+"/gpx/gpxUpdate";
+			var url = "<%=contextPath%>"+"/gpx/gpxUpdateForm";
 			$("#gpxBoardJquery").attr("action",url);
 			$("#gpxBoardJquery").submit();
 			})	
+			<%-- 목록 버튼 --%>
+			$("#gpxBoard").click(function() {
+				var url = "<%=contextPath%>"+"/gpx/gpxBoard";
+				$("#gpxBoardJquery").attr("action",url);
+				$("#gpxBoardJquery").submit();
+				})	
+				<%-- 삭제 버튼 --%>
+			$("#deleteGpxBoard").click(function() {
+					var url = "<%=contextPath%>"+"/gpx/gpxDelete";
+					$("#gpxBoardJquery").attr("action",url);
+					$("#gpxBoardJquery").submit();
+					})	
 			
-			
+					
+					
 			})//function end
 			
 			</script>
@@ -58,6 +72,8 @@
 						<div class="box">
 							<div class="box-body">
 								<form id="gpxBoardJquery" method="post">
+								<input type="hidden"  name="u_seq" value="${GpxDto.u_seq }">
+								<input type="hidden" name="g_seq" value="${GpxDto.g_seq }">
 									<div class="form-group">
 										<label>제목</label>
 									<input name="g_title" type="text" class="form-control" value="${GpxDto.g_title }" readonly>
@@ -66,6 +82,7 @@
 									<textarea id="g_content" name="g_content" readonly="readonly">${GpxDto.g_content }</textarea>
 									<input type="button" value="수정" id="updateGpxBoard">
 									<input type="button" value="삭제" id="deleteGpxBoard">
+									<input type="button" value="목록" id = "gpxBoard">
 									</div>
 									<script>
 										$(function () {

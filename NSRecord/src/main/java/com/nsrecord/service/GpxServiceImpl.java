@@ -1,14 +1,13 @@
 package com.nsrecord.service;
 
-import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.nsrecord.dao.GpxDao;
-import com.nsrecord.dto.GpxDto;
 
+import com.nsrecord.dao.GpxDao;
 import com.nsrecord.dao.ICommunityDao;
+import com.nsrecord.dto.GpxDto;
 
 @Service
 public class GpxServiceImpl implements GpxService {
@@ -42,4 +41,29 @@ public class GpxServiceImpl implements GpxService {
 		return gpxDao.selectGpxBoardOne(g_seq);
 	}
 	
-}
+	
+	//수정
+	@Override
+	public void updateGpxBoardUpdate(GpxDto dto) {
+		
+	gpxDao.updateGpxBoard(dto);
+		
+	}
+
+	//삭제
+	@Override
+	public void deleteGpxBoard(int g_seq) {
+		
+		gpxDao.deleteGpxBoard(g_seq);
+	}
+	
+	//조건 조회
+	@Override
+	public List<GpxDto> gpxWhereList() {
+		
+		
+		return gpxDao.gpxWhereList();
+	}
+	
+	
+}//class end

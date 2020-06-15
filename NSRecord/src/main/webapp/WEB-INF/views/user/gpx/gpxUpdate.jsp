@@ -6,7 +6,32 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <%@ include file="../../common/head.jsp"%>
-
+			
+			
+			<!-- JQUERY 함수 편집중 함수 편집중 -->
+			<script>
+			<%-- 업데이트 버튼 --%>
+			$(document).ready(function() {
+			$("#updateGpxBoard").click(function() {
+			var url = "<%=contextPath%>"+"/gpx/gpxUpdate";
+			$("#gpxBoardJquery").attr("action",url);
+			$("#gpxBoardJquery").submit();
+			})	
+			
+			
+			<%-- 목록 버튼 --%>
+			$("#gpxBoard").click(function() {
+				var url = "<%=contextPath%>"+"/gpx/gpxBoard";
+				$("#gpxBoardJquery").attr("action",url);
+				$("#gpxBoardJquery").submit();
+				})	
+			
+			})//function end
+			
+			</script>
+			
+			
+			
 <body class="hold-transition skin-blue sidebar-mini">
 	<div class="wrapper">
 
@@ -21,8 +46,7 @@
 			<!-- Content Header (Page header) -->
 			<section class="content-header">
 				<h1>
-					GPX<small>GPX 글쓰기</small>
-				</h1>
+					GPX 게시글 조회<small>GPX 게시글 조회</small></h1>
 				<ol class="breadcrumb">
 					<li><a href="javascript:location.href='<c:url value=" /" />nsrecord/gpx/gpxBoard'"><i
 							class="fa fa-home"></i>Home</a></li>
@@ -33,32 +57,31 @@
 
 
 			<!-- Main content -->
+			<%-- Form에 JQuery 함수 적용중 --%>
 			<section class="content container-fluid">
 
 				<div class="row">
 					<div class="col-xs-12">
 						<div class="box">
 							<div class="box-body">
-								<form action="<c:url value='/'/>gpx/gpxInsertResult" method="post" enctype="multipart/form-data">
+								<form id="gpxBoardJquery" method="post">
+								<input type="hidden"  name="u_seq" value="${GpxDto.u_seq }">
+								<input type="hidden" name="g_seq" value="${GpxDto.g_seq }">
 									<div class="form-group">
 										<label>제목</label>
-										<input name="g_title" type="text" class="form-control" placeholder="입력하세요.." required="required">
+									<input name="g_title" type="text" class="form-control" value="${GpxDto.g_title }" >
 									</div>
 									<div class="form-group">
-										<textarea id="g_content" name="g_content" required="required"></textarea>
+									<textarea id="g_content" name="g_content" >${GpxDto.g_content }</textarea>
+									<input type="button" value="수정완료" id="updateGpxBoard">
+									<input type="button" value="목록" id = "gpxBoard">
 									</div>
-									<!-- 파일 업로드 -->
-									<div class="form-group">
-                 					 <label for="gpxFile">GPX파일 업로드</label>
-                 					 <input type="file" id="gpxFile" name="gpxFile">
-               					 </div>
 									<script>
 										$(function () {
 											CKEDITOR.replace('g_content')
 										})
 									</script>
 									<div class="form-group" style="text-align: right;">
-										<input type="submit" class="btn btn-primary" value="작성완료"/>
 									</div>
 								</form>
 							</div>
