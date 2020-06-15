@@ -1,7 +1,6 @@
 package com.nsrecord.dao;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -17,6 +16,8 @@ public class GpxDaoImpl implements GpxDao {
 	private SqlSessionTemplate session;
 	
 	private String queryprefix="gpx.";		
+	
+	
 	
 	//전체 조회
 	@Override

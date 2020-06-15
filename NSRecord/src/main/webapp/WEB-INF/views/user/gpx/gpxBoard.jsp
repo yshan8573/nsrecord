@@ -71,22 +71,13 @@
 										
 										<!-- 페이징, 검색기능 작성중 -->
 										<div class="col-sm-6">
-<!-- 												<select id="searchType" name="searchType"> -->
-<!-- 												<option value="">검색조건</option> -->
-<!-- 												<option value="g_title">제목</option> -->
-<!-- 												<option value="g_content">내용</option> -->
-<!-- 												<option value="u_nickname">작성자</option> -->
-<!-- 												<option value="gg">제목+내용</option> -->
-<!-- 												<option value="all">전체조건</option> -->
-<!-- 												</select> -->
-<!-- 												<input class="form-control" type="text" id="keyword" name="keyword" -->
-<!-- 												value="pageMaker.">  -->
-<!-- 											<div id="example1_filter" class="dataTables_filter"> -->
-<%-- 											<form action="<c:url value='/'/>gpx/gpxWhere" id="whereGpxBoard" method="post"> --%>
-<!-- 												<label>Search:<input type="search" class="form-control input-sm" -->
-<!-- 														placeholder="" aria-controls="example1" name="search"></label> -->
-<!-- 														<button type="submit" class="btn btn-primary" >검색</button> -->
-<!-- 												</form> -->
+ 						
+											<div id="example1_filter" class="dataTables_filter"> -->
+											<form action="<c:url value='/'/>gpx/gpxWhere" id="whereGpxBoard" method="post">
+ 												<label>Search:<input type="search" class="form-control input-sm" 
+													placeholder="" aria-controls="example1" name="search"></label> 
+ 														<button type="submit" class="btn btn-primary" >검색</button> 
+											</form> 
 											</div>
 										</div>
 									</div>
