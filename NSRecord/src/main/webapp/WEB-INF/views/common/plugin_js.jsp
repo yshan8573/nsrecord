@@ -13,6 +13,10 @@
 	<script src="<c:url value='/'/>dist/js/adminlte.min.js"></script>
 	<!-- CK Editor -->
 	<script src="<c:url value='/'/>bower_components/ckeditor/ckeditor.js"></script>
+	<!-- ChartJS -->
+	<script src="<c:url value='/'/>bower_components/chart.js/Chart.js"></script>
+	<!-- FastClick -->
+	<script src="<c:url value='/'/>bower_components/fastclick/fastclick.js"></script>
 
 	<!-- Optionally, you can add Slimscroll and FastClick plugins.
      Both of these plugins are recommended to enhance the
