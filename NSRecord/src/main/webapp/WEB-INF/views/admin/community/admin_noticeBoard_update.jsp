@@ -21,12 +21,12 @@
 			<!-- Content Header (Page header) -->
 			<section class="content-header">
 				<h1>
-					Notice Board Write<small>공지사항 글쓰기</small>
+					Notice Board Update<small>공지사항 수정</small>
 				</h1>
 				<ol class="breadcrumb">
-					<li><a href="javascript:location.href='<c:url value="/" />adminHome'"><i class="fa fa-home"></i>Home</a></li>
-					<li><a href="javascript:location.href='<c:url value="/" />adminCommunity/adminNoticeBoard'">Notice Board</a></li>
-					<li class="active">Write</li>
+					<li><a href="javascript:location.href='<%=contextPath%>/adminHome'"><i class="fa fa-home"></i>Home</a></li>
+					<li><a href="javascript:location.href='<%=contextPath%>/adminCommunity/adminNoticeBoard'">Notice Board</a></li>
+					<li class="active">Update</li>
 				</ol>
 			</section>
 
@@ -37,13 +37,13 @@
 					<div class="col-xs-12">
 						<div class="box">
 							<div class="box-body">
-								<form action="<c:url value='/'/>adminCommunity/adminNoticeBoardWriteEnd" method="post">
+								<form action="<%=contextPath%>/adminCommunity/adminNoticeBoardUpdateEnd" method="post">
 									<div class="form-group">
 										<label>제목</label>
-										<input name="n_title" type="text" class="form-control" placeholder="입력하세요.." required="required">
+										<input name="n_title" type="text" class="form-control" placeholder="입력하세요.." value="${notice.n_title }" required="required">
 									</div>
 									<div class="form-group">
-										<textarea id="n_content" name="n_content" required="required"></textarea>
+										<textarea id="n_content" name="n_content" required="required">${notice.n_content }</textarea>
 									</div>
 									<script>
 										$(function () {
@@ -51,7 +51,8 @@
 										})
 									</script>
 									<div class="form-group" style="text-align: right;">
-										<input type="submit" class="btn btn-primary" value="작성완료"/>
+										<input type="hidden" name="n_seq" value="${notice.n_seq }"/>
+										<input type="submit" class="btn btn-primary" value="수정완료"/>
 									</div>
 								</form>
 							</div>
