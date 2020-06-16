@@ -11,27 +11,27 @@
 	var searchSort = "";
 	var searchVal = "";
 
-	$(function() {
+	$(function () {
 		// 페이지 처음 접근시 리스트 표시 좌표
 		noticeBoardAjaxfn(1);
 	})
-	
+
 	// 리스트 Ajax 처리
 	function noticeBoardAjaxfn(cPage) {
 		$.ajax({
-			url: "<c:url value="/" />adminCommunity/adminNoticeBoardAjax",
+			url: "<c:url value="/ "/>adminCommunity/adminNoticeBoardAjax",
 			data: {
 				"cPage": cPage,
 				"searchSort": searchSort,
 				"searchVal": searchVal,
-				},
+			},
 			dataType: "html",
-			success: function(data) {
+			success: function (data) {
 				$('#admin_noticeBoardId').html(data);
 			}
 		})
 	}
-	
+
 	//search ----------------------
 	function searchBoxFn() {
 		searchSort = $('#searchSort').val();
@@ -58,7 +58,7 @@
 					Notice Board <small>공지사항 관리</small>
 				</h1>
 				<ol class="breadcrumb">
-					<li><a href="javascript:location.href='<c:url value="/" />adminHome'"><i class="fa fa-home"></i>
+					<li><a href="javascript:location.href='<c:url value=" /" />adminHome'"><i class="fa fa-home"></i>
 						Home</a></li>
 					<li class="active">Notice Board</li>
 				</ol>
@@ -81,7 +81,40 @@
 									</div>
 								</div>
 							</div>
-							<div class="box-body" id="admin_noticeBoardId">
+							<div class="box-body">
+
+
+
+
+								<div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+									<div class="row">
+										<div class="col-sm-6"></div>
+										<div class="col-sm-6">
+											<div id="example1_filter" class="dataTables_filter">
+												<form action="javascript:searchBoxFn()">
+													<div class="box-tools">
+														<select class="form-control" name="searchSort" id="searchSort">
+															<option value="n_seq">번호</option>
+															<option value="n_title">제목</option>
+														</select>
+														<div class="input-group input-group-sm" style="width: 150px;">
+															<input type="text" name="searchVal" id="searchVal"
+																class="form-control pull-right" placeholder="Search">
+															<div class="input-group-btn">
+																<button type="submit" class="btn btn-default"><i
+																		class="fa fa-search"></i></button>
+															</div>
+														</div>
+													</div>
+												</form>
+											</div>
+
+										</div>
+									</div>
+
+									<div id="admin_noticeBoardId"></div>
+
+								</div>
 							</div>
 						</div>
 					</div>
