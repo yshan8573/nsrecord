@@ -64,8 +64,21 @@ public class UserController {
 		
 		return msg;  
 	}
-
-	
+//	닉네임 중복체크
+	@RequestMapping(value = "/user/nickcheck", method = RequestMethod.GET)
+	@ResponseBody
+	public String nickcheck(@RequestParam("u_nickname") String u_nickname) {
+		
+		int result = service.nickcheck(u_nickname.trim());
+		String msg;
+		if(result > 0) {
+			msg = "1";
+		} else {
+			msg = "0";
+		}
+		
+		return msg;  
+	}
 	
 	
 	

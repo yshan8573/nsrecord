@@ -40,14 +40,19 @@ public class UserDaoImpl implements UserDao {
 		session.insert("user.insertUser", user);
 	}
 	
-	
+	// 이메일 중복체크
 	@Override
 	public int idcheck(String u_email) {
 		
 		return session.selectOne("user.idcheck", u_email); 
 	}
 	
-	
+	// 닉네임 중복체크
+	@Override
+	public int nickcheck(String u_nickname) {
+		
+		return session.selectOne("user.nickcheck", u_nickname); 
+	}
 	
 	
 }
