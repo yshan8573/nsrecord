@@ -13,4 +13,7 @@ public interface UserService {
 	
 	// 회원가입 insert
 	public void insertUser(UserInfo user);
+
+	// 이메일 중복체크
+	public int idcheck(String u_email);
 }

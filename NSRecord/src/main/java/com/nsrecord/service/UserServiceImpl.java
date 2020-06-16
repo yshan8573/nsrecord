@@ -29,4 +29,7 @@ public class UserServiceImpl implements UserService {
 		dao.insertUser(user);
 	}
 	
+	public int idcheck(String u_email) {
+		return dao.idcheck(u_email);
+	}
 }

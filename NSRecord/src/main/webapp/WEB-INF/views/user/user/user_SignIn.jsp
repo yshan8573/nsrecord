@@ -17,7 +17,56 @@ table{
 }
 
 </style>
+<script>
+// 아이디 유효성 검사(1 = 중복 / 0 != 중복)
+$(function(){
+	
 
+	$("#u_email").blur(function() {
+		// id = "id_reg" / name = "userId"
+		var u_email = $('#u_email').val();
+		
+		
+		
+		$.ajax({
+			url : '${pageContext.request.contextPath}/user/idcheck?u_email='+ u_email,
+			type : 'get',
+			dataType : 'text',
+			success : function(data) {
+				console.log("1 = 중복o / 0 = 중복x : "+ data);	
+				
+				
+				var email = /([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+				
+				if (u_email == "") {
+						
+						$("#id_check").text("이메일을 입력해주세요");
+						$("#id_check").css("color", "red");
+						
+					} else if(!email.test($("input[id='u_email']").val())){
+	
+							$('#id_check').text('올바르지않은 이메일 형식입니다');
+							$('#id_check').css('color', 'red');
+										
+							
+						} else if(data == 1){
+							
+						$('#id_check').text("이미 사용중인 아이디입니다.");
+						$('#id_check').css('color', 'red');
+						
+						} else {
+							$('#id_check').text("사용가능한 아이디입니다.");
+							$('#id_check').css('color', 'blue');
+					}
+							
+					
+					}, error : function() {
+							console.log("실패");
+				}
+			});
+		});
+})
+</script>
 <body class="hold-transition skin-blue sidebar-mini">
 	
 	<!-- Main Header -->
@@ -36,11 +85,14 @@ table{
 			</tr>
 			<tr>
 				<th>E-mail</th>
-				<td><input type="text" id="id" name="u_email"><input type="button" value="중복검사"></td>
+				<td>
+					<input type="text" id="u_email" name="u_email">
+					<div id="id_check"></div>
+				</td>
 			</tr>
 			<tr>
 				<th>비밀번호</th>
-				<td><input type="password" id="pwd" name="u_pwd"> ※ 6~15자 영문/숫자/특수문자 포함</td>
+				<td><input type="password" id="pwd" name="u_pwd" maxlength="15"> ※ 6~15자 영문/숫자/특수문자 포함</td>
 			</tr>
 			<tr>
 				<th>비밀번호 확인</th>
@@ -56,7 +108,10 @@ table{
 			</tr>	
 			<tr>
 				<th>닉네임</th>
-				<td><input type="text" name="u_nickname"><input type="button" value="중복검사"></td>
+				<td>
+					<input type="text" name="u_nickname">
+					<div class = "nick_check"></div>
+				</td>
 			</tr>
 			<tr>
 				<th>자전거 모델</th>

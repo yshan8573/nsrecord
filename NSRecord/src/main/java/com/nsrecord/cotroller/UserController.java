@@ -10,6 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.nsrecord.dto.UserInfo;
 import com.nsrecord.service.UserService;
@@ -46,6 +49,22 @@ public class UserController {
 		return "redirect:/user/userlogin";
 	}
 	
+//	이메일 중복체크
+	@RequestMapping(value = "/user/idcheck", method = RequestMethod.GET)
+	@ResponseBody
+	public String idcheck(@RequestParam("u_email") String u_email) {
+		
+		int result = service.idcheck(u_email);
+		String msg;
+		if(result > 0) {
+			msg = "1";
+		} else {
+			msg = "0";
+		}
+		
+		return msg;  
+	}
+
 	
 	
 	
