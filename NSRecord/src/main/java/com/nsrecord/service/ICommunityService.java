@@ -33,6 +33,9 @@ public interface ICommunityService {
 	
 	//댓글 삭제
 	public void deleteReply(int r_seq);
+	
+	//댓글 수정
+	public void updateReplyEnd(HashMap<String, String> paramMap);
 
 	// 공지사항 레코드 전체 갯수 가져오기
 	public int selectNoticeBoardCount(SearchDto searchDto);
@@ -42,5 +45,5 @@ public interface ICommunityService {
 	
 	// 공지사항 작성
 	public int insertNoticeBoard(Notice notice);
-	
+
 }

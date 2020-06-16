@@ -66,6 +66,11 @@ public class CommunityDaoImpl implements ICommunityDao {
 	}
 
 	@Override
+	public void updateReplyEnd(HashMap<String, String> paramMap) {
+		session.update("communityMapper.updateReplyEnd", paramMap);
+	}
+	
+	@Override
 	public int selectNoticeBoardCount(SearchDto searchDto) {
 		return session.selectOne(queryprefix+"selectNoticeBoardCount",searchDto);
 	}

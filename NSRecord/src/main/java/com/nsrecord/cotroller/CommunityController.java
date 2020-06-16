@@ -77,7 +77,7 @@ public class CommunityController {
 		FreeBoardDto FreeBoardDto = communityServiceImpl.selectFreeBoardContent(b_seq);
 		model.addAttribute("FreeBoardDto", FreeBoardDto);
 		//댓글 내용
-		List<FreeBoardDto> replyDto = communityServiceImpl.replyContent(FreeBoardDto.getB_seq());
+		List<FreeBoardDto> replyDto = communityServiceImpl.replyContent(b_seq);
 		model.addAttribute("replyDto", replyDto);
 		//댓글 작성 기능
 		UserInfo user = (UserInfo) session.getAttribute("loginUser");
@@ -129,14 +129,22 @@ public class CommunityController {
 		redirectAttributes.addAttribute("b_seq", insertReply.get("b_seq"));
 		return "redirect:/freeBoardContent";
 	}
-	
+
+
 	//자유게시판 댓글 수정
-	//###############해야 됨.#################
+	@RequestMapping(value="/community/updateReplyEnd")
+	public String updateReplyEnd(@RequestParam HashMap<String, String> paramMap, RedirectAttributes redirectAttributes) {
+		System.out.println(paramMap.toString());
+		communityServiceImpl.updateReplyEnd(paramMap);
+		redirectAttributes.addAttribute("b_seq", paramMap.get("b_seq"));		
+		return "redirect:/freeBoardContent";
+	}
 	
 	//자유게시판 댓글 삭제
 	@RequestMapping(value="/community/deleteReply")
-	public String deleteReply(@RequestParam("r_seq") int r_seq) {
-		communityServiceImpl.deleteReply(r_seq);		
+	public String deleteReply(@RequestParam("r_seq") int r_seq, @RequestParam("b_seq") int b_seq, RedirectAttributes redirectAttributes) {
+		communityServiceImpl.deleteReply(r_seq);
+		redirectAttributes.addAttribute("b_seq", b_seq);
 		return "redirect:/freeBoardContent";
 	}
 	

@@ -76,4 +76,9 @@ public class CommunityServiceImpl implements ICommunityService {
 	public void deleteReply(int r_seq) {
 		communityDaoImpl.deleteReply(r_seq);
 	}
+	
+	@Override
+	public void updateReplyEnd(HashMap<String, String> paramMap) {
+		communityDaoImpl.updateReplyEnd(paramMap);
+	}
 }
