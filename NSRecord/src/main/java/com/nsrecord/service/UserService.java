@@ -16,4 +16,7 @@ public interface UserService {
 
 	// 이메일 중복체크
 	public int idcheck(String u_email);
+	
+	// 닉네임 중복체크
+	public int nickcheck(String u_nickname);
 }
