@@ -8,12 +8,12 @@
 <%@ include file="../../common/head.jsp"%>
 
 <script>
-	var searchSort = "";
-	var searchVal = "";
+	var searchSort = "";	//변수 초기화
+	var searchVal = "";		//변수 초기화
 
 	$(function () {
 		// 페이지 처음 접근시 리스트 표시 좌표
-		noticeBoardAjaxfn(1);
+		noticeBoardAjaxfn(1);	//현재 page =1 ->기본시작, 접근하는 순간 시작
 	})
 
 	// 리스트 Ajax 처리

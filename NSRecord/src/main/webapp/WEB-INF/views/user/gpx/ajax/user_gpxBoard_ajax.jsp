@@ -12,31 +12,38 @@
 <div class="row">
 	<div class="col-sm-12">
 		<table id="adminNoticeBoard" class="table table-bordered table-hover dataTable" role="grid">
-			<thead>
-				<tr role="row">
-					<th class="" tabindex="0" aria-controls="adminNoticeBoard" rowspan="1" colspan="1"
-						aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending"
-						style="width: 185px;">NO</th>
-					<th class="" tabindex="0" aria-controls="adminNoticeBoard" rowspan="1" colspan="1"
-						aria-label="Browser: activate to sort column ascending" style="width: 228px;">작성일시</th>
-					<th class="" tabindex="0" aria-controls="adminNoticeBoard" rowspan="1" colspan="1"
-						aria-label="Platform(s): activate to sort column ascending" style="width: 202px;">제목
-					</th>
-					<th class="" tabindex="0" aria-controls="adminNoticeBoard" rowspan="1" colspan="1"
-						aria-label="Engine version: activate to sort column ascending" style="width: 158px;">작성자
-					</th>
-					<th class="" tabindex="0" aria-controls="adminNoticeBoard" rowspan="1" colspan="1"
-						aria-label="CSS grade: activate to sort column ascending" style="width: 115px;">조회수</th>
-				</tr>
-			</thead>
+								<thead>
+													<tr role="row">
+														<th class="sorting_asc" tabindex="0" aria-controls="example1"
+															rowspan="1" colspan="1" aria-sort="ascending"
+															aria-label="Rendering engine: activate to sort column descending"
+															style="width: 185px;">글 번호</th>
+														<th class="sorting" tabindex="0" aria-controls="example1"
+															rowspan="1" colspan="1"
+															aria-label="Browser: activate to sort column ascending"
+															style="width: 228px;">제목</th>
+														<th class="sorting" tabindex="0" aria-controls="example1"
+															rowspan="1" colspan="1"
+															aria-label="Platform(s): activate to sort column ascending"
+															style="width: 202px;">작성자</th>
+														<th class="sorting" tabindex="0" aria-controls="example1"
+															rowspan="1" colspan="1"
+															aria-label="Engine version: activate to sort column ascending"
+															style="width: 158px;">조회수</th>
+														<th class="sorting" tabindex="0" aria-controls="example1"
+															rowspan="1" colspan="1"
+															aria-label="CSS grade: activate to sort column ascending"
+															style="width: 115px;">추천수</th>
+													</tr>
+												</thead>
 			<tbody>
-				<c:forEach var="noticeList" items="${noticeList }">
+				<c:forEach var="gpxList" items="${gpxList }">
 					<tr role="row">
-						<td class="">${noticeList.n_seq }</td>
-						<td>${noticeList.n_date }</td>
-						<td>${noticeList.n_title }</td>
-						<td>${noticeList.u_email }</td>
-						<td>${noticeList.n_count }</td>
+						<td class="">${gpxList.g_seq }</td>
+						<td>${gpxList.g_title }</td>
+						<td>${gpxList.u_nickname }</td>
+						<td>${gpxList.g_count }</td>
+						<td>${gpxList.g_recommand }</td>
 					</tr>
 				</c:forEach>
 
