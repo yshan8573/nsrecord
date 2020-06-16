@@ -11,4 +11,9 @@ public interface UserDao {
 	public List<UserInfo> admin_userList();
 	
 	public void insertUser(UserInfo user);
+
+	public int idcheck(String u_email);
+
+	
+
 }

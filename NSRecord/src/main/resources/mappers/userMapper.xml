@@ -28,4 +28,10 @@
 			#{u_cycle}
 		)
 	</insert>
+	
+	<select id="idcheck" resultType="int">
+		SELECT COUNT(*)
+		FROM USER_INFO
+		WHERE U_EMAIL = #{U_EMAIL}
+	</select>
 </mapper>
