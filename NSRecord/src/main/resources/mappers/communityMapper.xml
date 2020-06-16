@@ -76,6 +76,13 @@
 		WHERE R_SEQ = #{r_seq}	
 	</delete>
 	
+	<update id="updateReplyEnd" parameterType="java.util.HashMap">
+		UPDATE REPLY
+		SET
+			R_CONTENT = #{r_content}
+		WHERE R_SEQ = #{r_seq}
+	</update>
+	
 	<insert id="insertNoticeBoard" parameterType="notice">
 		INSERT INTO NOTICE
 		VALUES(

@@ -78,6 +78,11 @@ public class CommunityServiceImpl implements ICommunityService {
 	}
 
 	@Override
+	public void updateReplyEnd(HashMap<String, String> paramMap) {
+		communityDaoImpl.updateReplyEnd(paramMap);
+	}
+
+	@Override
 	public Notice selectNoticeBoardOne(Notice notice) {
 		return iCommunityDao.selectNoticeBoardOne(notice);
 	}
@@ -92,4 +97,5 @@ public class CommunityServiceImpl implements ICommunityService {
 		return iCommunityDao.deleteNoticeBoard(notice);
 	}
 	
+
 }
