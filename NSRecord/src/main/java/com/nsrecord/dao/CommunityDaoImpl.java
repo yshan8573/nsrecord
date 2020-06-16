@@ -80,5 +80,20 @@ public class CommunityDaoImpl implements ICommunityDao {
 		System.out.println(notice.toString());
 		return session.insert(queryprefix+"insertNoticeBoard", notice);
 	}
+
+	@Override
+	public Notice selectNoticeBoardOne(Notice notice) {
+		return session.selectOne(queryprefix+"selectNoticeBoardOne", notice);
+	}
+
+	@Override
+	public int updateNoticeBoard(Notice notice) {
+		return session.update(queryprefix+"updateNoticeBoard", notice);
+	}
+
+	@Override
+	public int deleteNoticeBoard(Notice notice) {
+		return session.delete(queryprefix+"deleteNoticeBoard", notice);
+	}
 	
 }

@@ -43,4 +43,13 @@ public interface ICommunityService {
 	// 공지사항 작성
 	public int insertNoticeBoard(Notice notice);
 	
+	// 공지사항 상세 보기
+	public Notice selectNoticeBoardOne(Notice notice);
+	
+	// 공지사항 수정하기
+	public int updateNoticeBoard(Notice notice);
+
+	// 공지사항 수정하기
+	public int deleteNoticeBoard(Notice notice);
+	
 }

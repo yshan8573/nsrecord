@@ -231,6 +231,88 @@ public class CommunityController {
 		return "redirect:/adminCommunity/adminNoticeBoard";
 	}
 	
+	@RequestMapping(value = "adminCommunity/adminNoticeBoardDetail")
+	public String adminNoticeBoardDetail(Notice notice, Model model) {
+		logger.info("this is a adminNoticeBoardDetail Method");
+		
+		Notice nResult = iCommunityService.selectNoticeBoardOne(notice);
+		model.addAttribute("notice", nResult);
+		
+		
+		// 사이드 메뉴 'active' 설정 flag
+		model.addAttribute("categoryLoc", "community");
+		
+		return "admin/community/admin_noticeBoard_detail";
+	}
+	
+
+	@RequestMapping(value = "adminCommunity/adminNoticeBoardUpdate")
+	public String adminNoticeBoardUpdate(Notice notice, Model model) {
+		logger.info("this is a adminNoticeBoardUpdate Method");
+		
+		Notice nResult = iCommunityService.selectNoticeBoardOne(notice);
+		model.addAttribute("notice", nResult);
+		
+		// 사이드 메뉴 'active' 설정 flag
+		model.addAttribute("categoryLoc", "community");
+		
+		return "admin/community/admin_noticeBoard_update";
+	}
+	
+	@RequestMapping(value = "adminCommunity/adminNoticeBoardUpdateEnd")
+	public String adminNoticeBoardUpdateEnd(Notice notice, Model model) {
+		logger.info("this is a adminNoticeBoardUpdateEnd Method");
+		
+		int nResult = iCommunityService.updateNoticeBoard(notice);
+		model.addAttribute("notice", nResult);
+		
+		String path = "common/msg";
+		String loc = "";
+		if(nResult > 0) {
+			loc = "/adminCommunity/adminNoticeBoardDetail?n_seq="+notice.getN_seq();
+			model.addAttribute("msg","업데이트 완료");
+			model.addAttribute("loc",loc);
+
+		} else {
+			loc = "/adminCommunity/adminNoticeBoardUpdate?n_seq="+notice.getN_seq();
+			model.addAttribute("msg","업데이트 실패");
+			model.addAttribute("loc",loc);
+		}
+		
+		// 사이드 메뉴 'active' 설정 flag
+		model.addAttribute("categoryLoc", "community");
+		
+		return path;
+	}
+	
+	
+	@RequestMapping(value = "adminCommunity/adminNoticeBoardDelete")
+	public String adminNoticeBoardDelete(Notice notice, Model model) {
+		logger.info("this is a adminNoticeBoardDelete Method");
+		
+		int nResult = iCommunityService.deleteNoticeBoard(notice);
+		model.addAttribute("notice", nResult);
+		
+		String path = "common/msg";
+		String loc = "";
+		if(nResult > 0) {
+			loc = "/adminCommunity/adminNoticeBoard";
+			model.addAttribute("msg","삭제 완료");
+			model.addAttribute("loc",loc);
+
+		} else {
+			loc = "/adminCommunity/adminNoticeBoard";
+			model.addAttribute("msg","삭제 실패");
+			model.addAttribute("loc",loc);
+		}
+		
+		// 사이드 메뉴 'active' 설정 flag
+		model.addAttribute("categoryLoc", "community");
+		
+		return path;
+	}
+	
+	
 	//=====================질문게시판(관리자)======================//		
 		@RequestMapping(value = "adminCommunity/adminQnaBoard")
 		public String adminQnaBoard(Model model) {
