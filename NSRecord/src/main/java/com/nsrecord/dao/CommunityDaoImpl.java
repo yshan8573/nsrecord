@@ -66,6 +66,11 @@ public class CommunityDaoImpl implements ICommunityDao {
 	}
 
 	@Override
+	public void updateReplyEnd(HashMap<String, String> paramMap) {
+		session.update("communityMapper.updateReplyEnd", paramMap);
+	}
+	
+	@Override
 	public int selectNoticeBoardCount(SearchDto searchDto) {
 		return session.selectOne(queryprefix+"selectNoticeBoardCount",searchDto);
 	}
@@ -79,6 +84,21 @@ public class CommunityDaoImpl implements ICommunityDao {
 	public int insertNoticeBoard(Notice notice) {
 		System.out.println(notice.toString());
 		return session.insert(queryprefix+"insertNoticeBoard", notice);
+	}
+
+	@Override
+	public Notice selectNoticeBoardOne(Notice notice) {
+		return session.selectOne(queryprefix+"selectNoticeBoardOne", notice);
+	}
+
+	@Override
+	public int updateNoticeBoard(Notice notice) {
+		return session.update(queryprefix+"updateNoticeBoard", notice);
+	}
+
+	@Override
+	public int deleteNoticeBoard(Notice notice) {
+		return session.delete(queryprefix+"deleteNoticeBoard", notice);
 	}
 	
 }

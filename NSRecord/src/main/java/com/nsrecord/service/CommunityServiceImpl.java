@@ -60,7 +60,7 @@ public class CommunityServiceImpl implements ICommunityService {
 	@Override
 	public void deleteFreeBoardContent(int b_seq) {
 		communityDaoImpl.deleteFreeBoardContent(b_seq);
-	}	
+	}
 	
 	@Override
 	public void insertReply(HashMap<String, String> insertReply) {
@@ -76,4 +76,26 @@ public class CommunityServiceImpl implements ICommunityService {
 	public void deleteReply(int r_seq) {
 		communityDaoImpl.deleteReply(r_seq);
 	}
+
+	@Override
+	public void updateReplyEnd(HashMap<String, String> paramMap) {
+		communityDaoImpl.updateReplyEnd(paramMap);
+	}
+
+	@Override
+	public Notice selectNoticeBoardOne(Notice notice) {
+		return iCommunityDao.selectNoticeBoardOne(notice);
+	}
+
+	@Override
+	public int updateNoticeBoard(Notice notice) {
+		return iCommunityDao.updateNoticeBoard(notice);
+	}
+
+	@Override
+	public int deleteNoticeBoard(Notice notice) {
+		return iCommunityDao.deleteNoticeBoard(notice);
+	}
+	
+
 }

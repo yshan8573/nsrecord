@@ -31,7 +31,7 @@
 			</thead>
 			<tbody>
 				<c:forEach var="noticeList" items="${noticeList }">
-					<tr role="row">
+					<tr role="row" onclick="javascript:location.href='<c:url value="/ "/>adminCommunity/adminNoticeBoardDetail?n_seq=${noticeList.n_seq }'">
 						<td class="">${noticeList.n_seq }</td>
 						<td>${noticeList.n_date }</td>
 						<td>${noticeList.n_title }</td>

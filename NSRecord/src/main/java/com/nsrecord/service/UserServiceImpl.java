@@ -29,4 +29,13 @@ public class UserServiceImpl implements UserService {
 		dao.insertUser(user);
 	}
 	
+	// 이메일 중복확인
+	public int idcheck(String u_email) {
+		return dao.idcheck(u_email);
+	}
+	
+	// 닉네임 중복확인
+	public int nickcheck(String u_nickname) {
+		return dao.nickcheck(u_nickname);
+	}
 }

@@ -58,8 +58,9 @@
 					Notice Board <small>공지사항 관리</small>
 				</h1>
 				<ol class="breadcrumb">
-					<li><a href="javascript:location.href='<c:url value=" /" />adminHome'"><i class="fa fa-home"></i>
-						Home</a></li>
+					<li><a href="javascript:location.href='<c:url value="/" />adminHome'">
+						<i class="fa fa-home"></i>Home</a>
+					</li>
 					<li class="active">Notice Board</li>
 				</ol>
 			</section>
@@ -77,14 +78,11 @@
 										<h3 class="box-title">공지사항 리스트</h3>
 										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 										<button type="button" class="btn btn-primary"
-											onclick="javascript:location.href='<c:url value='/'/>adminCommunity/adminNoticeBoardWrite'">글쓰기</button>
+											onclick="javascript:location.href='<%=contextPath%>/adminCommunity/adminNoticeBoardWrite'">글쓰기</button>
 									</div>
 								</div>
 							</div>
 							<div class="box-body">
-
-
-
 
 								<div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
 									<div class="row">
@@ -98,11 +96,9 @@
 															<option value="n_title">제목</option>
 														</select>
 														<div class="input-group input-group-sm" style="width: 150px;">
-															<input type="text" name="searchVal" id="searchVal"
-																class="form-control pull-right" placeholder="Search">
+															<input type="text" name="searchVal" id="searchVal" class="form-control pull-right" placeholder="Search">
 															<div class="input-group-btn">
-																<button type="submit" class="btn btn-default"><i
-																		class="fa fa-search"></i></button>
+																<button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
 															</div>
 														</div>
 													</div>

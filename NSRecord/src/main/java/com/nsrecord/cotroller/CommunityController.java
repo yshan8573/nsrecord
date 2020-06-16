@@ -77,7 +77,7 @@ public class CommunityController {
 		FreeBoardDto FreeBoardDto = communityServiceImpl.selectFreeBoardContent(b_seq);
 		model.addAttribute("FreeBoardDto", FreeBoardDto);
 		//댓글 내용
-		List<FreeBoardDto> replyDto = communityServiceImpl.replyContent(FreeBoardDto.getB_seq());
+		List<FreeBoardDto> replyDto = communityServiceImpl.replyContent(b_seq);
 		model.addAttribute("replyDto", replyDto);
 		//댓글 작성 기능
 		UserInfo user = (UserInfo) session.getAttribute("loginUser");
@@ -129,14 +129,22 @@ public class CommunityController {
 		redirectAttributes.addAttribute("b_seq", insertReply.get("b_seq"));
 		return "redirect:/freeBoardContent";
 	}
-	
+
+
 	//자유게시판 댓글 수정
-	//###############해야 됨.#################
+	@RequestMapping(value="/community/updateReplyEnd")
+	public String updateReplyEnd(@RequestParam HashMap<String, String> paramMap, RedirectAttributes redirectAttributes) {
+		System.out.println(paramMap.toString());
+		communityServiceImpl.updateReplyEnd(paramMap);
+		redirectAttributes.addAttribute("b_seq", paramMap.get("b_seq"));		
+		return "redirect:/freeBoardContent";
+	}
 	
 	//자유게시판 댓글 삭제
 	@RequestMapping(value="/community/deleteReply")
-	public String deleteReply(@RequestParam("r_seq") int r_seq) {
-		communityServiceImpl.deleteReply(r_seq);		
+	public String deleteReply(@RequestParam("r_seq") int r_seq, @RequestParam("b_seq") int b_seq, RedirectAttributes redirectAttributes) {
+		communityServiceImpl.deleteReply(r_seq);
+		redirectAttributes.addAttribute("b_seq", b_seq);
 		return "redirect:/freeBoardContent";
 	}
 	
@@ -230,6 +238,88 @@ public class CommunityController {
 		
 		return "redirect:/adminCommunity/adminNoticeBoard";
 	}
+	
+	@RequestMapping(value = "adminCommunity/adminNoticeBoardDetail")
+	public String adminNoticeBoardDetail(Notice notice, Model model) {
+		logger.info("this is a adminNoticeBoardDetail Method");
+		
+		Notice nResult = iCommunityService.selectNoticeBoardOne(notice);
+		model.addAttribute("notice", nResult);
+		
+		
+		// 사이드 메뉴 'active' 설정 flag
+		model.addAttribute("categoryLoc", "community");
+		
+		return "admin/community/admin_noticeBoard_detail";
+	}
+	
+
+	@RequestMapping(value = "adminCommunity/adminNoticeBoardUpdate")
+	public String adminNoticeBoardUpdate(Notice notice, Model model) {
+		logger.info("this is a adminNoticeBoardUpdate Method");
+		
+		Notice nResult = iCommunityService.selectNoticeBoardOne(notice);
+		model.addAttribute("notice", nResult);
+		
+		// 사이드 메뉴 'active' 설정 flag
+		model.addAttribute("categoryLoc", "community");
+		
+		return "admin/community/admin_noticeBoard_update";
+	}
+	
+	@RequestMapping(value = "adminCommunity/adminNoticeBoardUpdateEnd")
+	public String adminNoticeBoardUpdateEnd(Notice notice, Model model) {
+		logger.info("this is a adminNoticeBoardUpdateEnd Method");
+		
+		int nResult = iCommunityService.updateNoticeBoard(notice);
+		model.addAttribute("notice", nResult);
+		
+		String path = "common/msg";
+		String loc = "";
+		if(nResult > 0) {
+			loc = "/adminCommunity/adminNoticeBoardDetail?n_seq="+notice.getN_seq();
+			model.addAttribute("msg","업데이트 완료");
+			model.addAttribute("loc",loc);
+
+		} else {
+			loc = "/adminCommunity/adminNoticeBoardUpdate?n_seq="+notice.getN_seq();
+			model.addAttribute("msg","업데이트 실패");
+			model.addAttribute("loc",loc);
+		}
+		
+		// 사이드 메뉴 'active' 설정 flag
+		model.addAttribute("categoryLoc", "community");
+		
+		return path;
+	}
+	
+	
+	@RequestMapping(value = "adminCommunity/adminNoticeBoardDelete")
+	public String adminNoticeBoardDelete(Notice notice, Model model) {
+		logger.info("this is a adminNoticeBoardDelete Method");
+		
+		int nResult = iCommunityService.deleteNoticeBoard(notice);
+		model.addAttribute("notice", nResult);
+		
+		String path = "common/msg";
+		String loc = "";
+		if(nResult > 0) {
+			loc = "/adminCommunity/adminNoticeBoard";
+			model.addAttribute("msg","삭제 완료");
+			model.addAttribute("loc",loc);
+
+		} else {
+			loc = "/adminCommunity/adminNoticeBoard";
+			model.addAttribute("msg","삭제 실패");
+			model.addAttribute("loc",loc);
+		}
+		
+		// 사이드 메뉴 'active' 설정 flag
+		model.addAttribute("categoryLoc", "community");
+		
+		return path;
+	}
+	
 	
 	//=====================질문게시판(관리자)======================//		
 		@RequestMapping(value = "adminCommunity/adminQnaBoard")

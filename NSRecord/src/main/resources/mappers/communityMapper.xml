@@ -76,6 +76,13 @@
 		WHERE R_SEQ = #{r_seq}	
 	</delete>
 	
+	<update id="updateReplyEnd" parameterType="java.util.HashMap">
+		UPDATE REPLY
+		SET
+			R_CONTENT = #{r_content}
+		WHERE R_SEQ = #{r_seq}
+	</update>
+	
 	<insert id="insertNoticeBoard" parameterType="notice">
 		INSERT INTO NOTICE
 		VALUES(
@@ -88,6 +95,27 @@
 		default
 		)
 	</insert>
+	
+	<update id="updateNoticeBoard" parameterType="notice">
+		UPDATE NOTICE SET
+			N_TITLE = #{n_title},
+			N_CONTENT = #{n_content},
+			N_DATE = SYSDATE
+		WHERE N_SEQ = #{n_seq}
+	</update>
+	
+	<delete id="deleteNoticeBoard" parameterType="notice">
+		DELETE FROM NOTICE
+		WHERE N_SEQ = #{n_seq}
+	</delete>
+	
+	<select id="selectNoticeBoardOne" parameterType="notice" resultType="notice">
+		SELECT N.*, U_EMAIL
+		FROM NOTICE N
+		JOIN USER_INFO UI
+		ON (N.U_SEQ = UI.U_SEQ)
+		WHERE N.N_SEQ = #{n_seq}
+	</select>
 
 	<select id="selectNoticeBoardCount" parameterType="searchDto"
 		resultType="_int">
@@ -100,10 +128,10 @@
 	<select id="selectNoticeBoardAll"
 		parameterType="com.nsrecord.dto.BoardPager" resultType="notice">
 		<include refid="pagingHeader"></include>
-		SELECT A.*, U_EMAIL
-		FROM NOTICE A
+		SELECT N.*, U_EMAIL
+		FROM NOTICE N
 		JOIN USER_INFO UI
-		ON (A.U_SEQ = UI.U_SEQ)
+		ON (N.U_SEQ = UI.U_SEQ)
 		WHERE 1 = 1
 		<include refid="search"></include>
 		<include refid="pagingFooter"></include>

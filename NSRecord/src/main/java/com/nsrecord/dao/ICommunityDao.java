@@ -42,4 +42,17 @@ public interface ICommunityDao {
 	
 	//댓글 삭제
 	public void deleteReply(int r_seq);
+
+	//댓글 수정
+	public void updateReplyEnd(HashMap<String, String> paramMap);
+
+	// 공지사항 상세 보기
+	public Notice selectNoticeBoardOne(Notice notice);
+	
+	// 공지사항 수정하기
+	public int updateNoticeBoard(Notice notice);
+
+	// 공지사항 수정하기
+	public int deleteNoticeBoard(Notice notice);
+	
 }
