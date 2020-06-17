@@ -51,7 +51,6 @@ public class CommunityDaoImpl implements ICommunityDao {
 	
 	@Override
 	public void insertReply(HashMap<String, String> insertReply) {
-		System.out.println("댓글 오류" + insertReply.toString());
 		session.insert("communityMapper.insertReply", insertReply);
 	}
 	
@@ -69,10 +68,36 @@ public class CommunityDaoImpl implements ICommunityDao {
 	public void updateReplyEnd(HashMap<String, String> paramMap) {
 		session.update("communityMapper.updateReplyEnd", paramMap);
 	}
+
+	@Override
+	public int selectFreeBoardCount(SearchDto searchDto) {
+		return session.selectOne("communityMapper.selectFreeBoardCount", searchDto);
+	}
+	
+	@Override
+	public List<FreeBoardDto> selectFreeBoardAll(BoardPager boardPager){
+		return session.selectList("communityMapper.selectFreeBoardAll", boardPager);
+	}
+	
+	@Override
+	public void boardCountUpdate(int b_seq) { 
+		session.update("communityMapper.boardCountUpdate", b_seq); 
+	}
+	
+		@Override
+	public void countReply(int b_seq) {
+		session.update("communityMapper.countReply", b_seq);
+	}
+	
+	@Override
+	public void deCountReply(int b_seq) {
+		session.update("communityMapper.deCountReply", b_seq);
+	}
+
 	
 	@Override
 	public int selectNoticeBoardCount(SearchDto searchDto) {
-		return session.selectOne(queryprefix+"selectNoticeBoardCount",searchDto);
+		return session.selectOne(queryprefix+"selectNoticeBoardCount", searchDto);
 	}
 
 	@Override
@@ -100,5 +125,6 @@ public class CommunityDaoImpl implements ICommunityDao {
 	public int deleteNoticeBoard(Notice notice) {
 		return session.delete(queryprefix+"deleteNoticeBoard", notice);
 	}
+	
 	
 }

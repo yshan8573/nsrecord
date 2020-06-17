@@ -81,7 +81,32 @@ public class CommunityServiceImpl implements ICommunityService {
 	public void updateReplyEnd(HashMap<String, String> paramMap) {
 		communityDaoImpl.updateReplyEnd(paramMap);
 	}
-
+	
+	@Override
+	public int selectFreeBoardCount(SearchDto searchDto) {
+		return communityDaoImpl.selectFreeBoardCount(searchDto);
+	}
+	
+	@Override
+	public List<FreeBoardDto> selectFreeBoardAll(BoardPager boardPager){
+		return communityDaoImpl.selectFreeBoardAll(boardPager);
+	}
+	
+	@Override
+	public void boardCountUpdate(int b_seq) {
+		communityDaoImpl.boardCountUpdate(b_seq);
+	}
+	
+	@Override
+	public void countReply(int b_seq) {
+		communityDaoImpl.countReply(b_seq);
+	}
+	
+	@Override
+	public void deCountReply(int b_seq) {
+		communityDaoImpl.deCountReply(b_seq);
+	}
+	
 	@Override
 	public Notice selectNoticeBoardOne(Notice notice) {
 		return iCommunityDao.selectNoticeBoardOne(notice);
