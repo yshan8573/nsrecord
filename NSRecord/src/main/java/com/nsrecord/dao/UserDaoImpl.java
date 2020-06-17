@@ -23,7 +23,7 @@ public class UserDaoImpl implements UserDao {
 	}
 	
 	@Override
-	public List<UserInfo> admin_userList() {
+	public List<UserInfo> admin_userList() throws Exception {
 		List<UserInfo> userList = 
 				new ArrayList<UserInfo>();
 		
@@ -35,14 +35,14 @@ public class UserDaoImpl implements UserDao {
 	}
 	
 	@Override
-	public void insertUser(UserInfo user) {
+	public void insertUser(UserInfo user) throws Exception {
 		System.out.println(user.toString());
 		session.insert("user.insertUser", user);
 	}
 	
 	// 이메일 중복체크
 	@Override
-	public int idcheck(String u_email) {
+	public int idcheck(String u_email) throws Exception{
 		
 		return session.selectOne("user.idcheck", u_email); 
 	}

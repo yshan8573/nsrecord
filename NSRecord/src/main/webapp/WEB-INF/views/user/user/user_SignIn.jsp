@@ -84,7 +84,7 @@ $(function(){
 				var nickname = /^[\w\Wㄱ-ㅎㅏ-ㅣ가-힣]{2,7}$/;
 				
 				if(data == '1'){
-						alert('1');
+
 					$('#nick_check').text("이미 사용중인 닉네임입니다.");
 					$('#nick_check').css('color', 'red');
 					
@@ -114,7 +114,7 @@ $(function(){
 		});
 });
 
-//패스워드 중복 체크
+//패스워드 일치 체크
 $(function(){ 
 	
 	$("#pwd_success").hide(); 
@@ -125,23 +125,97 @@ $(function(){
 		var pwd1=$("#u_pwd").val(); 
 		var pwd2=$("#u_pwd2").val();
 		
-		if(pwd1 != "" || pwd2 != "") {
+		var password = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{6,15}$/;
+		
+			if(!password.test($("input[id='u_pwd']").val())){
 			
-			if(pwd1 == pwd2){
+				$('#pwd_check').text('6~15자 영문/숫자/특수문자 포함 입력해주세요');
+				$('#pwd_check').css('color', 'red');
 				
-				$("#pwd_success").show(); 
-				$("#pwd_success").css("color", "blue"); 
-				$("#pwd_fail").hide(); 
 				
 			} else {
-				
-				$("#pwd_success").hide(); 
-				$("#pwd_fail").show();
-				$("#pwd_fail").css("color", "red");
-			} 
-		} 
+					$("#pwd_check").hide();
+					
+					if(pwd1 != "" || pwd2 != "") {
+					
+					
+						if(pwd1 == pwd2){
+					
+							$("#pwd_success").show(); 
+							$("#pwd_success").css("color", "blue"); 
+							$("#pwd_fail").hide(); 
+							
+							
+						} else {
+					
+							$("#pwd_success").hide(); 
+							$("#pwd_fail").show();
+							$("#pwd_fail").css("color", "red");
+					} 
+				} 
+			}
+			
+			
 	}); 
 });
+// 휴대폰번호 정규식
+$(function(){ 
+	
+	$("#u_name").blur(function(){
+		var name = /^[가-힣]{2,6}$/;
+	
+		if (name.test($("input[id='u_name']").val())) {
+	
+			$("#name_check").text('');
+		} else {
+			$('#name_check').text('이름을 확인해주세요');
+			$('#name_check').css('color', 'red');
+		}		
+	}); 
+});
+
+//이름 정규식
+$(function(){ 
+	
+	$("#u_phone").blur(function(){
+		var phone = /^01([0|1|6|7|8|9]?)?([0-9]{3,4})?([0-9]{4})$/;
+
+		if (phone.test($("input[id='u_phone']").val())) {
+	
+			$("#phone_check").text('');
+		} else {
+			$('#phone_check').text('번호를 확인해주세요');
+			$('#phone_check').css('color', 'red');
+		}		
+	}); 
+});
+
+// onsubmit
+function checkSubmit() {
+	
+	if(form.u_phone.value == "") {
+		$('#phone_check').text('번호를 입력해주세요');
+		$('#phone_check').css('color', 'red');
+		
+		return false;
+	} 
+	
+	if(form.u_name.value == "") {
+		$('#name_check').text('이름을 입력해주세요');
+		$('#name_check').css('color', 'red');
+		
+		return false;
+		
+	} 
+	
+	if(form.u_cycle.value == "") {
+		$('#cycle_check').text('보유 자전거 모델을 입력해주세요');
+		$('#cycle_check').css('color', 'red');
+		return false;
+	}
+	
+	
+}
 
 </script>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -152,13 +226,15 @@ $(function(){
     <!-- Left side column. contains the logo and sidebar -->
     <%@ include file="../common/user_left_column.jsp" %>
 
-	<form action="<%=contextPath%>/user/userSignInResult" method="post">
+	<form action="<%=contextPath%>/user/userSignInResult" method="post" name="form" onsubmit="return checkSubmit();">
 		<h1>회원가입</h1>
 		<br>
 		<table border="1">
 			<tr>
 				<th>프로필</th>
-				<td><img src=""><input type="button" name="profile"></td>
+				<td>
+					<img src=""><input type="button" name="profile">
+				</td>
 			</tr>
 			<tr>
 				<th>E-mail</th>
@@ -169,23 +245,32 @@ $(function(){
 			</tr>
 			<tr>
 				<th>비밀번호</th>
-				<td><input type="password" id="u_pwd" name="u_pwd" maxlength="15" placeholder="PASSWORD"> ※ 6~15자 영문/숫자/특수문자 포함</td>
+				<td>
+					<input type="password" id="u_pwd" name="u_pwd" maxlength="15" placeholder="PASSWORD">
+				</td>
 			</tr>
 			<tr>
 				<th>비밀번호 확인</th>
 				<td>
-					<input type="password" id="u_pwd2" name="u_pwd2" maxlength="15" placeholder="CHECK PASSWORD"> ※ 6~15자 영문/숫자/특수문자 포함
+					<input type="password" id="u_pwd2" name="u_pwd2" maxlength="15" placeholder="CONFIRM PASSWORD">
+					<div id="pwd_check"></div>
 					<div id="pwd_success">비밀번호가 일치합니다</div>
 					<div id="pwd_fail">비밀번호가  일치하지 않습니다</div>
 				</td>
 			</tr>
 			<tr>
-				<th>전화번호</th>
-				<td><input type="text" name="u_phone" placeholder="PHONE"></td>
+				<th>휴대전화 ('-'없이 번호만 입력해주세요)</th>
+				<td>
+					<input type="text" id="u_phone" name="u_phone" placeholder="PHONE NUMBER">
+					<div id="phone_check"></div>
+				</td>
 			</tr>
 			<tr>
 				<th>이름</th>
-				<td><input type="text" name="u_name" placeholder="NAME"></td>
+				<td>
+					<input type="text" id="u_name" name="u_name" placeholder="NAME">
+					<div id="name_check"></div>
+				</td>
 			</tr>	
 			<tr>
 				<th>닉네임</th>
@@ -196,14 +281,20 @@ $(function(){
 			</tr>
 			<tr>
 				<th>자전거 모델</th>
-				<td><input type="text" name="u_cycle"></td>
+				<td>
+					<input type="text" id="u_cycle" name="u_cycle">
+					<div id="cycle_check"></div>
+				</td>
 			</tr>
 		</table>
 		<br>
 		<br>
 		<table>
 			<tr>
-				<td><input type="submit" id="sumit" value="회원가입"><input type="reset" value="취소"></td>
+				<td>
+					<input type="submit" id="sumit" name="submit" value="회원가입">
+					<input type="reset" value="취소">
+				</td>
 			</tr>
 		</table>
 	</form>
