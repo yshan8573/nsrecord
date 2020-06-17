@@ -86,13 +86,15 @@
 	<insert id="insertNoticeBoard" parameterType="notice">
 		INSERT INTO NOTICE
 		VALUES(
-		NOTICE_SEQ.NEXTVAL,
-		#{u_seq},
-		#{n_title},
-		#{n_content},
-		default,
-		default,
-		default
+			NOTICE_SEQ.NEXTVAL,
+			#{u_seq},
+			#{n_title},
+			#{n_content},
+			default,
+			default,
+			#{n_ori},
+			#{n_re},
+			default
 		)
 	</insert>
 	
