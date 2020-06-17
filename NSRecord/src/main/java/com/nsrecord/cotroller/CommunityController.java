@@ -68,15 +68,16 @@ public class CommunityController {
 	@RequestMapping(value = "/community/freeBoard")
 	public String freeBoard(Model model) {
 		model.addAttribute("categoryLoc", "community");
-		List<FreeBoardDto> freeBoardList = communityServiceImpl.selectFreeBoardAllList();
-		model.addAttribute("freeBoardList", freeBoardList);
 		return "user/community/freeBoard"; 
 	}
 	
 	//자유게시판 게시 내용
 	@RequestMapping(value="/freeBoardContent")
 	public String freeBoardContent(int b_seq, Model model, HttpSession session) {
-		
+		//조회수
+		communityServiceImpl.boardCountUpdate(b_seq);
+
+		//게시 내용
 		FreeBoardDto FreeBoardDto = communityServiceImpl.selectFreeBoardContent(b_seq);
 		model.addAttribute("FreeBoardDto", FreeBoardDto);
 		//댓글 내용
@@ -85,6 +86,7 @@ public class CommunityController {
 		//댓글 작성 기능
 		UserInfo user = (UserInfo) session.getAttribute("loginUser");
 		model.addAttribute("User", user);
+	
 		return "user/community/selectFreeBoardContent";
 	}
 	
@@ -121,7 +123,7 @@ public class CommunityController {
 	//자유게시판 글쓰기 삭제
 	@RequestMapping(value="/community/deleteFreeBoardContent")
 	public String deleteFreeBoardContent(@RequestParam("b_seq") int b_seq) {
-		communityServiceImpl.deleteFreeBoardContent(b_seq);		
+		communityServiceImpl.deleteFreeBoardContent(b_seq);
 		return "redirect:/community/freeBoard";
 	}
 	
@@ -129,16 +131,16 @@ public class CommunityController {
 	@RequestMapping(value="/community/reply")
 	public String reply(@RequestParam HashMap<String, String> insertReply, @RequestParam("b_seq") int b_seq, RedirectAttributes redirectAttributes) {
 		communityServiceImpl.insertReply(insertReply);
+		communityServiceImpl.countReply(b_seq);
 		redirectAttributes.addAttribute("b_seq", insertReply.get("b_seq"));
 		return "redirect:/freeBoardContent";
 	}
 
-
 	//자유게시판 댓글 수정
 	@RequestMapping(value="/community/updateReplyEnd")
 	public String updateReplyEnd(@RequestParam HashMap<String, String> paramMap, RedirectAttributes redirectAttributes) {
-		System.out.println(paramMap.toString());
 		communityServiceImpl.updateReplyEnd(paramMap);
+		//댓글 수정에 따른 조회수 카운트 교정
 		redirectAttributes.addAttribute("b_seq", paramMap.get("b_seq"));		
 		return "redirect:/freeBoardContent";
 	}
@@ -147,9 +149,47 @@ public class CommunityController {
 	@RequestMapping(value="/community/deleteReply")
 	public String deleteReply(@RequestParam("r_seq") int r_seq, @RequestParam("b_seq") int b_seq, RedirectAttributes redirectAttributes) {
 		communityServiceImpl.deleteReply(r_seq);
+		communityServiceImpl.deCountReply(b_seq);
 		redirectAttributes.addAttribute("b_seq", b_seq);
 		return "redirect:/freeBoardContent";
 	}
+	
+	@RequestMapping(value = "/community/freeBoardAjax")
+	public String freeBoardAjax(
+			@RequestParam(value = "cPage", defaultValue = "1") int cPage,
+			@RequestParam(value = "searchSort", defaultValue = "") String searchSort,
+			@RequestParam(value = "searchVal", defaultValue = "") String searchVal,
+			Model model) {
+	
+		// 검색 객체 값 넣기
+		SearchDto searchDto = new SearchDto(searchSort, searchVal);
+		
+		// 자유게시판 리스트 총 레코드 가져오기
+		int nCount = communityServiceImpl.selectFreeBoardCount(searchDto);
+		
+		int curPage = cPage; // 현재 출력 페이지
+		
+		// 페이지 객체에 값 저장 (nCount: 리스트 총 레코드 갯수 / curPage: 현재 출력 페이지)
+		BoardPager boardPager = new BoardPager(nCount, curPage);
+		
+		// 페이지 객체에 검색 정보 저장
+		boardPager.setSearchSort(searchSort);
+		boardPager.setSearchVal(searchVal);
+		
+		// 자유게시판 리스트 가져오기
+		List<FreeBoardDto> freeBoardResult = communityServiceImpl.selectFreeBoardAll(boardPager);
+		
+		model.addAttribute("freeBoardList",freeBoardResult);
+		model.addAttribute("boardPager",boardPager);
+		
+		// 사이드 메뉴 'active' 설정 flag
+		model.addAttribute("categoryLoc", "community");
+		
+		return "user/community/freeBoardAjax";
+	}
+	
+	
+	
 	
 //=====================공지게시판(관리자)======================//	
 	@RequestMapping(value = "adminCommunity/adminNoticeBoard")

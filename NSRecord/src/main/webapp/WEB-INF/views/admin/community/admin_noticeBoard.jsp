@@ -91,14 +91,14 @@
 											<div id="example1_filter" class="dataTables_filter">
 												<form action="javascript:searchBoxFn()">
 													<div class="box-tools">
-														<select class="form-control" name="searchSort" id="searchSort">
+<!--                     				요기가 검색-->		<select class="form-control" name="searchSort" id="searchSort">
 															<option value="n_seq">번호</option>
 															<option value="n_title">제목</option>
 														</select>
 														<div class="input-group input-group-sm" style="width: 150px;">
 															<input type="text" name="searchVal" id="searchVal" class="form-control pull-right" placeholder="Search">
 															<div class="input-group-btn">
-																<button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+<!--                                    요기까지     -->				<button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
 															</div>
 														</div>
 													</div>
@@ -108,7 +108,7 @@
 										</div>
 									</div>
 
-									<div id="admin_noticeBoardId"></div>
+<!--        Ajax 들어갈 위치 -->    	<div id="admin_noticeBoardId"></div>
 
 								</div>
 							</div>

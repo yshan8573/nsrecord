@@ -39,7 +39,6 @@
 						<td>${noticeList.n_count }</td>
 					</tr>
 				</c:forEach>
-
 			</tbody>
 		</table>
 	</div>

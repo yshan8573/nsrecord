@@ -5,22 +5,7 @@
 
 <mapper namespace="communityMapper">
 
-	<select id="freeBoardList"
-		resultType="com.nsrecord.dto.FreeBoardDto">
-		SELECT B_SEQ,
-		U_SEQ,
-		B_TITLE,
-		B_REPLY,
-		TO_CHAR(B_DATE, 'YYYY-MM-DD-HH24:MI:SS') AS B_DATE,
-		B_COUNT,
-		U_NICKNAME,
-		B_STATUS
-		FROM BOARD
-		ORDER BY B_SEQ DESC
-	</select>
-
-	<select id="freeBoardContent" parameterType="int"
-		resultType="com.nsrecord.dto.FreeBoardDto">
+	<select id="freeBoardContent" parameterType="int" resultType="com.nsrecord.dto.FreeBoardDto">
 		SELECT B_SEQ,
 		B_TITLE,
 		TO_CHAR(B_DATE, 'YYYY-MM-DD-HH24:MI:SS') AS B_DATE,
@@ -68,12 +53,12 @@
 		       R_SEQ
 		FROM REPLY
 		WHERE B_SEQ = #{b_seq}
-		ORDER BY R_SEQ DESC		
+		ORDER BY R_SEQ DESC
 	</select>
 	
 	<delete id="deleteReply" parameterType="int">
 		DELETE FROM REPLY
-		WHERE R_SEQ = #{r_seq}	
+		WHERE R_SEQ = #{r_seq}
 	</delete>
 	
 	<update id="updateReplyEnd" parameterType="java.util.HashMap">
@@ -81,6 +66,44 @@
 		SET
 			R_CONTENT = #{r_content}
 		WHERE R_SEQ = #{r_seq}
+	</update>
+	
+	<select id="selectFreeBoardCount" parameterType="com.nsrecord.dto.SearchDto" resultType="int">
+		SELECT COUNT(*)
+		FROM BOARD
+		WHERE 1 = 1
+		<include refid="search"></include>
+	</select>
+	
+	<select id="selectFreeBoardAll" parameterType="com.nsrecord.dto.BoardPager" resultType="com.nsrecord.dto.FreeBoardDto">
+		<include refid="pagingHeader"></include>
+		SELECT B.*
+		FROM BOARD B
+		WHERE 1 = 1
+		<include refid="search"></include>
+		ORDER BY B_SEQ DESC
+		<include refid="pagingFooter"></include>
+	</select>
+	
+	<update id="boardCountUpdate" parameterType="int"> 
+		UPDATE BOARD
+		SET
+		B_COUNT = B_COUNT+1
+		WHERE B_SEQ = #{b_seq}
+	</update>
+	
+	<update id="countReply" parameterType="int">
+		UPDATE BOARD
+		SET
+		B_REPLY = B_REPLY+1
+		WHERE B_SEQ = #{b_seq}
+	</update>
+	
+	<update id="deCountReply" parameterType="int">
+		UPDATE BOARD
+		SET
+		B_REPLY = B_REPLY-1
+		WHERE B_SEQ = #{b_seq}
 	</update>
 	
 	<insert id="insertNoticeBoard" parameterType="notice">
@@ -156,11 +179,11 @@
 
 	<sql id="pagingHeader">
 		SELECT * FROM (
-		SELECT ROWNUM AS rn, A.* FROM (
+		SELECT ROWNUM AS RN, A.* FROM (
 	</sql>
 	<sql id="pagingFooter">
 		) A
-		) WHERE rn BETWEEN #{start} AND #{end}
+		) WHERE RN BETWEEN #{start} AND #{end}
 	</sql>
 
 </mapper>

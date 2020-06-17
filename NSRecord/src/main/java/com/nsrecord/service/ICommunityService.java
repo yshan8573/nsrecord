@@ -37,11 +37,24 @@ public interface ICommunityService {
 	//댓글 수정
 	public void updateReplyEnd(HashMap<String, String> paramMap);
 
+	//자유게시판 레코드 전체 갯수 가져오기
+	public int selectFreeBoardCount(SearchDto searchDto);
+	
+	//자유게시판 리스트 출력(모두)
+	public List<FreeBoardDto> selectFreeBoardAll(BoardPager boardPager);
+	
 	// 공지사항 레코드 전체 갯수 가져오기
 	public int selectNoticeBoardCount(SearchDto searchDto);
 	
 	// 공지사항 리스트 출력(모두)
 	public List<Notice> selectNoticeBoardAll(BoardPager boardPager);
+	
+	//조회수
+	public void boardCountUpdate(int b_seq);
+	
+	//댓글수
+	public void countReply(int b_seq);
+	public void deCountReply(int b_seq);
 	
 	// 공지사항 작성
 	public int insertNoticeBoard(Notice notice);
@@ -54,5 +67,7 @@ public interface ICommunityService {
 
 	// 공지사항 수정하기
 	public int deleteNoticeBoard(Notice notice);
+	
+	
 
 }
