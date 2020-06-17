@@ -1,5 +1,6 @@
 package com.nsrecord.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import com.nsrecord.dao.GpxDao;
 import com.nsrecord.dao.ICommunityDao;
 import com.nsrecord.dto.BoardPager;
 import com.nsrecord.dto.GpxDto;
+import com.nsrecord.dto.GpxReplyDto;
 import com.nsrecord.dto.SearchDto;
 
 @Service
@@ -76,6 +78,33 @@ public class GpxServiceImpl implements GpxService {
 	public int selectGpxBoardCount(SearchDto searchDto) {
 		
 		return gpxDao.selectGpxBoardCount(searchDto);
+	}
+
+	
+	//댓글등록
+	@Override
+	public void insertGpxReply(GpxReplyDto dtoreply) {
+		
+		gpxDao.insertGpxReply(dtoreply);
+	}
+
+	
+	//댓글 내용
+	@Override
+	public List<GpxReplyDto> selectOneReply(int g_seq) {
+		
+		
+		
+		return  gpxDao.selectOneReply(g_seq);
+	}
+
+	
+	//댓글 수정
+	@Override
+	public void gpxReplyUpdate(HashMap<String, String> paramMap) {
+		
+	gpxDao.gpxReplyUpdate(paramMap);
+		
 	}
 	
 	

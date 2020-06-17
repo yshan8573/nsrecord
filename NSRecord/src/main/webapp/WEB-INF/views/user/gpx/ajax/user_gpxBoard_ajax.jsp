@@ -4,14 +4,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-
+<%String contextPath = request.getContextPath(); %>
 <script>
 
 
 </script>
 <div class="row">
 	<div class="col-sm-12">
-		<table id="adminNoticeBoard" class="table table-bordered table-hover dataTable" role="grid">
+		<table id="gpxBoard" class="table table-bordered table-hover dataTable" role="grid">
 								<thead>
 													<tr role="row">
 														<th class="sorting_asc" tabindex="0" aria-controls="example1"
@@ -40,7 +40,7 @@
 				<c:forEach var="gpxList" items="${gpxList }">
 					<tr role="row">
 						<td class="">${gpxList.g_seq }</td>
-						<td>${gpxList.g_title }</td>
+						<td onclick="javascript:location.href='<c:url value="/ "/>gpx/gpxBoardSelectOne?g_seq=${gpxList.g_seq }'"> ${gpxList.g_title }</td>
 						<td>${gpxList.u_nickname }</td>
 						<td>${gpxList.g_count }</td>
 						<td>${gpxList.g_recommand }</td>
@@ -60,7 +60,7 @@
 			<ul class="pagination">
 				<c:if test="${boardPager.curBlock > 1 }">
 					<li class="paginate_button previous disabled"><a
-							href="javascript:noticeBoardAjaxfn(${boardPager.prevPage})">Previous</a>
+							href="javascript:gpxBoardAjaxfn(${boardPager.prevPage})">Previous</a>
 					</li>
 				</c:if>
 				<c:forEach var="num" begin="${boardPager.blockBegin }" end="${boardPager.blockEnd }">
@@ -70,13 +70,13 @@
 							</li>
 						</c:when>
 						<c:otherwise>
-							<li class="paginate_button"><a href="javascript:noticeBoardAjaxfn(${num})">${num}</a></li>
+							<li class="paginate_button"><a href="javascript:gpxBoardAjaxfn(${num})">${num}</a></li>
 						</c:otherwise>
 					</c:choose>
 				</c:forEach>
 				<c:if test="${boardPager.curBlock <= boardPager.totBlock }">
 					<li class="paginate_button next" id="example1_next">
-						<a href="javascript:noticeBoardAjaxfn(${boardPager.nextPage})">Next</a>
+						<a href="javascript:gpxBoardAjaxfn(${boardPager.nextPage})">Next</a>
 					</li>
 				</c:if>
 			</ul>

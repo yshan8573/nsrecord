@@ -5,6 +5,7 @@ import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,6 +23,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.nsrecord.dto.BoardPager;
 import com.nsrecord.dto.GpxDto;
+import com.nsrecord.dto.GpxReplyDto;
 import com.nsrecord.dto.SearchDto;
 import com.nsrecord.dto.UserInfo;
 import com.nsrecord.service.GpxServiceImpl;
@@ -192,17 +194,24 @@ public class GpxController {
 	
 	//상세 조회
 	@RequestMapping(value = "gpx/gpxBoardSelectOne")
-	public String gpxSelectOne(@RequestParam("g_seq") int g_seq, Model model) {
+	public String gpxSelectOne(@RequestParam("g_seq") int g_seq, Model model, 
+			HttpSession session) {
 		logger.info("this is a gpxSelectOne Method");
 //		System.out.println("g_seq = "+g_seq);
-		
 		
 		GpxDto GpxDto = 
 		gpxServiceImpl.selectGpxBoardOne(g_seq);
 		model.addAttribute("GpxDto",GpxDto);
 		
+		UserInfo user = (UserInfo) session.getAttribute("loginUser");
+		model.addAttribute("user",user);
 		
-		return "user/gpx/gpxSelectOne";		
+		//댓글 내용
+		List<GpxReplyDto> gpxReply = gpxServiceImpl.selectOneReply(g_seq);
+		model.addAttribute("GpxReply",gpxReply);
+		
+		
+		return "user/gpx/gpxSelectOne";	
 	}
 	
 	//수정1
@@ -252,6 +261,39 @@ public class GpxController {
 		
 		return "redirect:/gpx/gpxBoard";
 	}
+	
+	//댓글 등록
+	@RequestMapping(value = "gpxBoardReply")
+	public String gpxreply(GpxReplyDto dtoreply, RedirectAttributes redirectAttribute, 
+			HttpSession session, GpxDto dto) {
+		
+		System.out.println("GPXREPLYCon"+dtoreply.toString());
+		
+		UserInfo user = (UserInfo) session.getAttribute("loginUser");
+		dto.setU_seq(user.getU_seq());
+		dto.setU_nickname(user.getU_nickname());
+		dto.setG_seq(dto.getG_seq());
+		
+		gpxServiceImpl.insertGpxReply(dtoreply);
+		
+		redirectAttribute.addAttribute("g_seq", dto.getG_seq());
+		return "redirect:/gpx/gpxBoardSelectOne";
+	}
+	
+	//댓글 수정
+	@RequestMapping(value = "gpx/gpxUpdateReply")
+	public String gpxReplyUpdate(@RequestParam HashMap<String, String> paramMap, RedirectAttributes redirectAttribute,
+			HttpSession session) {
+		
+		UserInfo user = (UserInfo) session.getAttribute("loginUser");
+	
+		gpxServiceImpl.gpxReplyUpdate(paramMap);
+		
+		redirectAttribute.addAttribute("g_seq", paramMap.get("g_seq"));
+		
+		return "redirect:/gpx/gpxBoardSelectOne";
+	}
+	
 	
 	
 	

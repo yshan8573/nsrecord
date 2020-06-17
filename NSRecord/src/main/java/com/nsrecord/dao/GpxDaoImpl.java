@@ -1,6 +1,7 @@
 package com.nsrecord.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.nsrecord.dto.BoardPager;
 import com.nsrecord.dto.GpxDto;
+import com.nsrecord.dto.GpxReplyDto;
 import com.nsrecord.dto.SearchDto;
 
 @Repository
@@ -98,7 +100,37 @@ public class GpxDaoImpl implements GpxDao {
 	}
 
 
+	//댓글 등록
+	@Override
+	public void insertGpxReply(GpxReplyDto dtoreply) {
+		
+		System.out.println("댓글Dao"+dtoreply.toString());
+		
+		session.insert(queryprefix+"insertGpxReply", dtoreply);
+		
+	
+	}
 
+
+	//댓글 조회
+	@Override
+	public List<GpxReplyDto> selectOneReply(int g_seq) {
+		
+		
+		
+		return session.selectList(queryprefix+"selectOneReply", g_seq);
+	}
+
+
+	//댓글 수정
+	@Override
+	public void gpxReplyUpdate(HashMap<String, String> paramMap) {
+	System.out.println("ReUpdateDao"+paramMap);
+	session.update(queryprefix+"gpxReplyUpdate", paramMap);
+	}
+
+
+	
 	
 	
 	

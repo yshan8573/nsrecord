@@ -5,6 +5,7 @@
 
 <mapper namespace="gpx">
 
+
 <select id = "gpxSelectAll" resultType="gpxDto"
 parameterType="com.nsrecord.dto.BoardPager" >
 <include refid="pagingHeader"></include>
@@ -123,7 +124,45 @@ parameterType="com.nsrecord.dto.BoardPager" >
 	) A
 	)WHERE rn BETWEEN #{start} AND #{end}	
 	</sql>
+	
+	
+	<insert id="insertGpxReply" parameterType="com.nsrecord.dto.GpxReplyDto">
+	INSERT INTO GPXREPLY(
+	GR_SEQ,
+	U_SEQ,
+	G_SEQ,
+	U_NICKNAME,
+	GR_CONTENT,
+	GR_DATE
+	)
+	VALUES(
+	GPXREPLY_SEQ.NEXTVAL,
+	#{u_seq},
+	#{g_seq},
+	#{u_nickname},
+	#{gr_content},
+	sysdate
+	)
+	
+	</insert>
+	
+	<select id="selectOneReply" resultType="com.nsrecord.dto.GpxReplyDto">
+	SELECT G_SEQ,
+	U_SEQ,
+	U_NICKNAME,
+	GR_CONTENT,
+	GR_SEQ
+	FROM GPXREPLY
+	WHERE G_SEQ = #{g_seq}
+	ORDER BY GR_SEQ DESC
+	
+	</select>
 
+	<update id="gpxReplyUpdate" parameterType="java.util.HashMap">
+	UPDATE GPXREPLY
+	SET GR_CONTENT = #{gr_content}
+	WHERE GR_SEQ = #{gr_seq}
+	</update>
 
 
 

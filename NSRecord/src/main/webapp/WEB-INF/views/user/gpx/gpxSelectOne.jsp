@@ -29,10 +29,25 @@
 					$("#gpxBoardJquery").attr("action",url);
 					$("#gpxBoardJquery").submit();
 					})	
-			
-					
-					
 			})//function end
+
+//댓글 수정 수정중			
+function gpxReplyUpdate(gr_seq, gr_content, g_seq) {
+ 				//alert("접근 = ["+'.'+gr_seq+"]["+gr_content+"]["+g_seq+"]");
+		  var location =  '#'+gr_seq;
+		  $(location).html("<textarea id='"+location+"' name='gr_content' rows='1' cols='50'>" + gr_content + "</textarea>");
+		  
+		  var btnLocation = '.GpxreplyUpdateButton' + gr_seq;
+		$(btnLocation).html('<input type="button" class="rBtnStyle" value="수정 완료" onclick="replyUpdateEnd(' + gr_seq+', \''+gr_content+'\', '+g_seq + ')">')
+	 }
+ function replyUpdateEnd(gr_seq, gr_content, g_seq){
+	var loc = '#'+gr_seq;
+	var value = document.getElementById(loc).value;
+	
+	location.href = '<%=contextPath%>/gpx/gpxUpdateReply?gr_seq=' + gr_seq + '&gr_content=' + value + '&g_seq=' + g_seq;
+				   }
+			
+			
 			
 			</script>
 			
@@ -74,6 +89,7 @@
 								<form id="gpxBoardJquery" method="post">
 								<input type="hidden"  name="u_seq" value="${GpxDto.u_seq }">
 								<input type="hidden" name="g_seq" value="${GpxDto.g_seq }">
+								<input type="hidden" name="u_nickname" value="${GpxDto.u_nickname }">
 									<div class="form-group">
 										<label>제목</label>
 									<input name="g_title" type="text" class="form-control" value="${GpxDto.g_title }" readonly>
@@ -96,7 +112,45 @@
 						</div>
 					</div>
 				</div>
+				
+				
+<form class="form-horizontal" id="gpxReplyUpdateJquery" method="post">
+<div class="post clearfix">
+<c:forEach var="GpxReply" items="${GpxReply }">
+                  <div class="user-block">
+                        <span class="username" >${GpxReply.u_nickname }	
+                        <input type="hidden" name="gr_seq" value="${GpxReply.gr_seq }">
+                         <p id = "grBox${gr_seq}">
+	                         	<div id='${GpxReply.gr_seq }' >${GpxReply.gr_content }</div>
+				                 <div class="GpxreplyUpdateButton${GpxReply.gr_seq }">
+				                <input type="button"  value="수정"  onclick="gpxReplyUpdate(${GpxReply.gr_seq },'${GpxReply.gr_content }',${GpxDto.g_seq })">
+				                </div>
+				                <input type="button"  value="삭제" id="gpxReplyDelete">	
+	                  		</p>	
+                        </span>
+                    <span class="description">${ GpxReply.gr_date}</span>
+                  </div>
+                </c:forEach>	
+              
+                  </div>	
+</form>	
 
+
+
+		
+<form class="form-horizontal" action=" <c:url value='/'/>gpxBoardReply"  method="post">
+					<input type="hidden" name="g_seq" value="${GpxDto.g_seq }">
+                    <input type="hidden" name="u_seq" value="${user.u_seq }">
+                    <input type="hidden" name="u_nickname" value="${user.u_nickname }">
+                    <div class="form-group margin-bottom-none">
+                      <div class="col-sm-9">
+                        <input class="form-control input-sm" placeholder="Response" id="gr_conetent" name="gr_content">
+                      </div>
+                      <div class="col-sm-3">
+                        <button type="submit" class="btn btn-danger pull-right btn-block btn-sm">댓글 등록</button>
+                      </div>
+                    </div>
+                  </form>
 			</section>
 			<!-- /.content -->
 
