@@ -5,7 +5,9 @@
 
 <mapper namespace="gpx">
 
-<select id = "gpxSelectAll" resultType="gpxDto">
+<select id = "gpxSelectAll" resultType="gpxDto"
+parameterType="com.nsrecord.dto.BoardPager" >
+<include refid="pagingHeader"></include>
 	SELECT G_SEQ,
 		   U_SEQ,
 		   G_CONTENT,
@@ -19,7 +21,9 @@
 		   G_REPLY,
 		   G_STATUS
 	FROM GPX
-
+	WHERE 1 = 1
+<include refid="search"></include>
+<include refid="pagingFooter"></include>
 
 </select>
 
@@ -94,6 +98,31 @@
 	
 	
 	</select>
+
+	<select id="selectGpxBoardCount" parameterType="searchDto"
+	resultType="_int">
+	SELECT COUNT(*)
+	FROM GPX
+	WHERE 1=1
+	<include refid="search"></include>
+	</select>
+	
+	<sql id="search">
+	<choose>
+	<when test="searchSort !=''">
+	AND ${searchSort} like '%'||#{searchVal}||'%'
+	</when>	
+	</choose>
+	</sql>
+	
+	<sql id="pagingHeader">
+	SELECT * FROM(
+	SELECT ROWNUM AS rn, A.* FROM (
+	</sql>
+	<sql id="pagingFooter">
+	) A
+	)WHERE rn BETWEEN #{start} AND #{end}	
+	</sql>
 
 
 

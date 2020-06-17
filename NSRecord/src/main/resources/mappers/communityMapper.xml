@@ -142,6 +142,13 @@
 			<when test="searchSort != ''">
 				AND ${searchSort} like '%'||#{searchVal}||'%'
 			</when>
+<!-- 			코드 축약 -->
+<!-- 			<when test="searchSort == 1"> -->
+<!-- 				AND n_seq like '%'||#{searchVal}||'%' -->
+<!-- 			</when> -->
+<!-- 			<when test="searchSort == 2"> -->
+<!-- 				AND n_title like '%'||#{searchVal}||'%' -->
+<!-- 			</when> -->
 		</choose>
 	</sql>
 

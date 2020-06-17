@@ -7,7 +7,9 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.nsrecord.dto.BoardPager;
 import com.nsrecord.dto.GpxDto;
+import com.nsrecord.dto.SearchDto;
 
 @Repository
 public class GpxDaoImpl implements GpxDao {
@@ -21,11 +23,11 @@ public class GpxDaoImpl implements GpxDao {
 	
 	//전체 조회
 	@Override
-	public List<GpxDto> selectGpxBoardAllList() {
+	public List<GpxDto> selectGpxBoardAllList(BoardPager boardPager) {
 	List<GpxDto> gpxDtoList = 
 			new ArrayList<GpxDto>();
 	
-	gpxDtoList = session.selectList(queryprefix+"gpxSelectAll");
+	gpxDtoList = session.selectList(queryprefix+"gpxSelectAll", boardPager);
 		
 		return gpxDtoList;
 	}
@@ -83,6 +85,16 @@ public class GpxDaoImpl implements GpxDao {
 		gpxWhereList = session.selectList(queryprefix+"gpxWhereList");
 		
 		return gpxWhereList;
+	}
+
+
+	//GPX게시판 레코드 전체 갯수 가져오기
+	@Override
+	public int selectGpxBoardCount(SearchDto searchDto) {
+		
+		
+		
+		return session.selectOne(queryprefix+"selectGpxBoardCount", searchDto);
 	}
 
 

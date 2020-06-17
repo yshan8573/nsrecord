@@ -20,7 +20,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.nsrecord.dto.BoardPager;
 import com.nsrecord.dto.GpxDto;
+import com.nsrecord.dto.SearchDto;
 import com.nsrecord.dto.UserInfo;
 import com.nsrecord.service.GpxServiceImpl;
 
@@ -36,17 +38,48 @@ public class GpxController {
 	
 	@RequestMapping(value = "gpx/gpxBoard")
 	public String gpxBoard(Model model) {
-		logger.info("this is a userlogin Method");
+		logger.info("this is a gpxBoard Method");
 
 		// 사이드 메뉴 'active' 설정 flag
 		model.addAttribute("categoryLoc", "gpx");
 		
+		return "user/gpx/gpxBoard";
+	}
+
+	@RequestMapping(value = "usergpx/userGpxBoardAjax")
+	public String userGpxBoardAjax(@RequestParam(value = "cPage", defaultValue = "1") int cPage,	//디폴트값 설정 -> 400Error 방지
+			@RequestParam(value = "searchSort", defaultValue = "") String searchSort,
+			@RequestParam(value = "searchVal", defaultValue = "") String searchVal,
+			Model model) {
+		logger.info("this is a userGpxBoardAjax Method");
+
+		// 사이드 메뉴 'active' 설정 flag
+		model.addAttribute("categoryLoc", "gpx");
+		
+		//검색 객체 값 넣기
+		SearchDto searchDto = new SearchDto(searchSort, searchVal);
+		
+		//GPX리스트 총 레코드 가져오기
+		int nCount = gpxServiceImpl.selectGpxBoardCount(searchDto);
+		
+		int curPage = cPage; //현재 출력 페이지
+		
+		//페이지 객체에 값 저장 (nCount: 리슽 총 레코드 갯수 / curPage: 현재 출력 페이지)
+		BoardPager boardPager = new BoardPager(nCount, curPage);
+		
+		//페이지 객체에 검색 정보 저장
+		boardPager.setSearchSort(searchSort);
+		boardPager.setSearchVal(searchVal);
+
+		
 		//gpxBoard 전체 리스트 출력
 		List<GpxDto> gpxBoardAllList =
-				gpxServiceImpl.selectGpxBoardAllList();
-		model.addAttribute("gpxList", gpxBoardAllList);
+				gpxServiceImpl.selectGpxBoardAllList(boardPager);
 		
-		return "user/gpx/gpxBoard";
+		model.addAttribute("gpxList", gpxBoardAllList);
+		model.addAttribute("boardPager",boardPager);
+		
+		return "user/gpx/ajax/user_gpxBoard_ajax";
 	}
 	
 	@RequestMapping(value = "gpx/gpxRanking")
@@ -112,6 +145,7 @@ public class GpxController {
 	UserInfo user = (UserInfo) sesseion.getAttribute("loginUser");
 //	System.out.println(user.getU_nickname());
 	
+	//파일 경로 설정
 	String saveDir = re.getSession().getServletContext().getRealPath("/resource/uploadGpx");
 	File gpx = new File(saveDir);
 	if(!gpx.exists()) {
@@ -219,23 +253,7 @@ public class GpxController {
 		return "redirect:/gpx/gpxBoard";
 	}
 	
-	//수정중
-	//조건 조회
-	@RequestMapping(value = "gpx/gpxWhere")
-	public String gpxWhere(@RequestParam("search") String search, @RequestParam GpxDto dto, Model model, HttpSession session) {
-		System.out.println("조건조회컨트롤러");
-		
-		
-		UserInfo user = (UserInfo) session.getAttribute("loginUser");
-		dto.setU_nickname(user.getU_nickname());
-		
-		
-		List<GpxDto> gpxWhereList = 
-				gpxServiceImpl.gpxWhereList();
-		model.addAttribute("gpxWhereList", gpxWhereList);
-		
-		return "user/gpx/gpxWhere";
-	}
+	
 	
 	
 }//class end

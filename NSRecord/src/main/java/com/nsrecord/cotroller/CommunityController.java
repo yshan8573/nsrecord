@@ -161,7 +161,7 @@ public class CommunityController {
 	
 	@RequestMapping(value = "adminCommunity/adminNoticeBoardAjax")
 	public String adminNoticeBoardAjax(
-			@RequestParam(value = "cPage", defaultValue = "1") int cPage,
+			@RequestParam(value = "cPage", defaultValue = "1") int cPage,	//디폴트값 설정 -> 400Error 방지
 			@RequestParam(value = "searchSort", defaultValue = "") String searchSort,
 			@RequestParam(value = "searchVal", defaultValue = "") String searchVal,
 			Model model) {
