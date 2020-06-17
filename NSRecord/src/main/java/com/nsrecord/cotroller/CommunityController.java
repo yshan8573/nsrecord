@@ -215,7 +215,7 @@ public class CommunityController {
 		
 		// 파일 업로드----------------------------- start
 		// 파일이 저장될 디텍토리 설정 
-		String path = "/ProjectData/upload/notice";
+		String path = "notice";
 		
 		//단일 파일 유무에 따라 notice 객체 저장
 		if(upFile != null && !upFile.isEmpty()) {

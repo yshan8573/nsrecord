@@ -7,6 +7,8 @@ import java.util.Date;
 import org.springframework.web.multipart.MultipartFile;
 
 public class FileUpload {
+	
+	private final String prePath = "/ProjectData/";
 
 	private MultipartFile upFile;
 	private String path;
@@ -17,7 +19,7 @@ public class FileUpload {
 	
 	public FileUpload(String path, MultipartFile upFile) {
 		
-		this.path = path;
+		this.path = this.prePath + path;
 		this.upFile = upFile;
 		
 		// 디텍토리 생성
