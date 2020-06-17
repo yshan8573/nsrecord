@@ -24,8 +24,12 @@
 					Notice Board Write<small>공지사항 글쓰기</small>
 				</h1>
 				<ol class="breadcrumb">
-					<li><a href="javascript:location.href='<c:url value="/" />adminHome'"><i class="fa fa-home"></i>Home</a></li>
-					<li><a href="javascript:location.href='<c:url value="/" />adminCommunity/adminNoticeBoard'">Notice Board</a></li>
+					<li><a
+						href="javascript:location.href='<c:url value="/" />adminHome'"><i
+							class="fa fa-home"></i>Home</a></li>
+					<li><a
+						href="javascript:location.href='<c:url value="/" />adminCommunity/adminNoticeBoard'">Notice
+							Board</a></li>
 					<li class="active">Write</li>
 				</ol>
 			</section>
@@ -37,21 +41,27 @@
 					<div class="col-xs-12">
 						<div class="box">
 							<div class="box-body">
-								<form action="<c:url value='/'/>adminCommunity/adminNoticeBoardWriteEnd" method="post">
+								<form action="<c:url value='/'/>adminCommunity/adminNoticeBoardWriteEnd" method="post" enctype="multipart/form-data">
 									<div class="form-group">
-										<label>제목</label>
-										<input name="n_title" type="text" class="form-control" placeholder="입력하세요.." required="required">
+										<label>제목</label> <input name="n_title" type="text"
+											class="form-control" placeholder="입력하세요.."
+											required="required">
 									</div>
 									<div class="form-group">
 										<textarea id="n_content" name="n_content" required="required"></textarea>
 									</div>
 									<script>
-										$(function () {
+										$(function() {
 											CKEDITOR.replace('n_content')
 										})
 									</script>
+									<div class="form-group">
+										<label for="inputFile">첨부 파일</label>
+										<input type="file" id="inputFile" name="upFile">
+										<p class="help-block">파일 첨부 공간입니다.</p>
+									</div>
 									<div class="form-group" style="text-align: right;">
-										<input type="submit" class="btn btn-primary" value="작성완료"/>
+										<input type="submit" class="btn btn-primary" value="작성완료" />
 									</div>
 								</form>
 							</div>

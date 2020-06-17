@@ -3,6 +3,7 @@ package com.nsrecord.cotroller;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -12,8 +13,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.nsrecord.common.FileUpload;
 import com.nsrecord.dto.BoardPager;
 import com.nsrecord.dto.FreeBoardDto;
 import com.nsrecord.dto.Notice;
@@ -205,8 +208,28 @@ public class CommunityController {
 	}
 
 	@RequestMapping(value = "adminCommunity/adminNoticeBoardWriteEnd")
-	public String adminNoticeBoardWriteEnd(Notice notice, Model model, HttpSession session) {
+	public String adminNoticeBoardWriteEnd(Notice notice,
+			@RequestParam(value = "upFile", required = false) MultipartFile upFile,
+			HttpServletRequest req, Model model, HttpSession session) {
 		logger.info("this is a adminNoticeBoardWriteEnd Method");
+		
+		// 파일 업로드----------------------------- start
+		// 파일이 저장될 디텍토리 설정 
+		String path = "notice";
+		
+		//단일 파일 유무에 따라 notice 객체 저장
+		if(upFile != null && !upFile.isEmpty()) {
+			
+			// path : 저장될 파일 경로, upFile : view에서 받아온 file 값
+			FileUpload ful = new FileUpload(path,upFile);
+			
+			notice.setN_ori(ful.getFileOriName());
+			notice.setN_re(ful.getFileReName());
+		} else {
+			notice.setN_ori("");
+			notice.setN_re("");
+		}
+		// 파일 업로드----------------------------- end
 		
 		
 		// admin 계정 임의 생성 session 추가 (관리자 페이지 로그인 기능 추가 시 삭제 에정) - Start
