@@ -266,6 +266,8 @@ public class GpxController {
 	UserInfo user = (UserInfo) sesseion.getAttribute("loginUser");
 	dto.setU_seq(user.getU_seq());	
 	dto.setU_nickname(user.getU_nickname());
+	dto.getG_ori();
+	System.out.println("파일추가수정 = "+dto.toString());
 	gpxServiceImpl.updateGpxBoardUpdate(dto);	
 		
 	redirectAttributes.addAttribute("g_seq", dto.getG_seq());	
