@@ -89,7 +89,7 @@ parameterType="com.nsrecord.dto.BoardPager" >
 	UPDATE GPX
 	SET G_TITLE = #{g_title},
 	G_CONTENT = #{g_content},
-	G_ORI = {#g_ori},
+	G_ORI = #{g_ori},
 	G_RE = #{g_re}
 	WHERE G_SEQ = #{g_seq}
 	

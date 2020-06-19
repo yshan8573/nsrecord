@@ -62,7 +62,7 @@ public class GpxDaoImpl implements GpxDao {
 	@Override
 	public void updateGpxBoard(GpxDto dto) {
 		
-		System.out.println("닉네임 = "+dto.getU_nickname());
+		System.out.println("닉네임 = "+dto.getU_nickname()+"수정파일 이름 : "+dto.getG_ori());
 		session.update(queryprefix+"updateGpxBoard", dto);
 	}
 
