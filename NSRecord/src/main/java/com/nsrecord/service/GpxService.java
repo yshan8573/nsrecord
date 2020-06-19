@@ -42,6 +42,9 @@ public interface GpxService {
 	//댓글 수정
 	public void gpxReplyUpdate(HashMap<String, String> paramMap);
 	
+	//댓글 삭제
+	public void deleteGpxReply(int g_seq);
+	
 	
 	
 }//inter end

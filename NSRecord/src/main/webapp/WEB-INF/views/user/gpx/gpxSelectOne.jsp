@@ -47,7 +47,11 @@ function gpxReplyUpdate(gr_seq, gr_content, g_seq) {
 	location.href = '<%=contextPath%>/gpx/gpxUpdateReply?gr_seq=' + gr_seq + '&gr_content=' + value + '&g_seq=' + g_seq;
 				   }
 			
-			
+function deleteGpxReply(g_seq) {
+	alert("접근 = "g_seq);
+	var location = '#'+g_seq;
+	$(location).
+}			
 			
 			</script>
 			
@@ -125,7 +129,7 @@ function gpxReplyUpdate(gr_seq, gr_content, g_seq) {
 				                 <div class="GpxreplyUpdateButton${GpxReply.gr_seq }">
 				                <input type="button"  value="수정"  onclick="gpxReplyUpdate(${GpxReply.gr_seq },'${GpxReply.gr_content }',${GpxDto.g_seq })">
 				                </div>
-				                <input type="button"  value="삭제" id="gpxReplyDelete">	
+				                <input type="button"  value="삭제" onclick="deleteGpxReply(${GpxReply.g_seq})">	
 	                  		</p>	
                         </span>
                     <span class="description">${ GpxReply.gr_date}</span>

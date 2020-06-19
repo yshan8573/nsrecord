@@ -164,6 +164,13 @@ parameterType="com.nsrecord.dto.BoardPager" >
 	WHERE GR_SEQ = #{gr_seq}
 	</update>
 
+	<delete id="deleteGpxReply" parameterType="int">
+	DELETE FROM GPXREPLY
+	WHERE G_SEQ #{g_seq}
+	
+	
+	</delete>
+
 
 
 </mapper>

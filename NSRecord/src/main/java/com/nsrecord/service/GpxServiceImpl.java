@@ -110,6 +110,20 @@ public class GpxServiceImpl implements GpxService {
 	
 	
 	
+	//댓글 삭제
+	@Override
+	public void deleteGpxReply(int g_seq) {
+	
+	gpxDao	.deleteGpxReply(g_seq);	
+	}
+
+	
+
+	
+	
+	
+	
+	
 	
 	
 }//class end

@@ -294,6 +294,17 @@ public class GpxController {
 		return "redirect:/gpx/gpxBoardSelectOne";
 	}
 	
+	//댓글 삭제
+	@RequestMapping(value = "gpx/gpxDeleteReply")
+	public String gpxReplyDelete(@RequestParam("gr_seq") int gr_seq, @RequestParam("g_seq") int g_seq,
+			HttpSession session, RedirectAttributes redirectAttribute) {
+		
+		gpxServiceImpl.deleteGpxReply(g_seq);
+		
+		redirectAttribute.addAttribute("g_seq", g_seq);
+		return "redirect:/gpx/gpxBoardSelectOne";
+	}
+	
 	
 	
 	
