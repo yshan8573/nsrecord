@@ -18,4 +18,9 @@ public interface UserDao {
 	// 닉네임 중복체크
 	public int nickcheck(String u_nickname);
 
+	// 회원정보 수정
+	public void userUpdate(UserInfo user) throws Exception;
+
+	
+
 }

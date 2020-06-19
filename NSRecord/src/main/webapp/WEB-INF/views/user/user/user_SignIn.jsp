@@ -67,7 +67,6 @@ $(function(){
 
 // 닉네임 중복 검사
 $(function(){
-	
 
 	$("#u_nickname").blur(function() {
 		// id = "u_nickname" / name = "u_nickname"
@@ -269,7 +268,6 @@ function checkSubmit() {
 				<th>이름</th>
 				<td>
 					<input type="text" id="u_name" name="u_name" placeholder="NAME">
-					<div id="name_check"></div>
 				</td>
 			</tr>	
 			<tr>

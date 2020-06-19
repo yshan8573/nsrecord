@@ -8,7 +8,7 @@
 	<select id="userSelectOne" parameterType="userInfo" resultType="userInfo">
 		SELECT * FROM USER_INFO WHERE U_EMAIL = #{u_email}
 	</select>
-
+<!-- 회원 등록 -->
 	<insert id="insertUser" parameterType="userInfo">
 		INSERT INTO USER_INFO(
 			U_SEQ,
@@ -29,15 +29,30 @@
 		)
 	</insert>
 	
+<!-- 회원 이메일 중복체크 -->
 	<select id="idcheck" parameterType="userInfo" resultType="int">
 		SELECT COUNT(*)
 		FROM USER_INFO
 		WHERE U_EMAIL = #{U_EMAIL}
 	</select>
 	
+<!-- 	회원 닉네임 중복체크 -->
 	<select id="nickcheck" parameterType="userInfo" resultType="int">
 		SELECT COUNT(*)
 		FROM USER_INFO
 		WHERE U_NICKNAME = #{U_NICKNAME}
 	</select>
+	
+<!-- 	회원 정보 수정 -->
+	<update id="updateUser">
+		UPDATE USER_INFO 
+		SET U_PWD = #{U_PWD},
+			U_NICKNAME = #{U_NICKNAME},
+			U_PHONE = #{U_PHONE},
+			U_CYCLE = #{U_CYCLE}
+		WHERE
+			U_EMAIL = #{U_EMAIL}
+			
+	</update>
+	
 </mapper>

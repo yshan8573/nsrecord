@@ -82,6 +82,7 @@ public class UserController {
 	
 	
 	
+	
 	//관리자 페이지 -> 회원리스트 출력
 	@RequestMapping(value = "adminUser/adminUserList")
 	public String adminUserList(Model model) throws Exception{
@@ -151,6 +152,23 @@ public class UserController {
 		// 사이드 메뉴 'active' 설정 flag
 		model.addAttribute("categoryLoc", "myUser");
 		
+		
 		return "user/myPage/user_myUserInfo";
 	}
+	// 회원 정보 수정
+		@RequestMapping(value="/userUpdateView", method = RequestMethod.GET)
+		public String userUpdateView() throws Exception{
+			
+			return "user/user/myPage/user_myUserInfo";
+		}
+
+		@RequestMapping(value="/userUpdate", method = RequestMethod.POST)
+		public String userUpdate(UserInfo user, HttpSession session) throws Exception{
+			
+			service.userUpdate(user);
+			
+			session.invalidate();
+			
+			return "redirect:/";
+		}
 }

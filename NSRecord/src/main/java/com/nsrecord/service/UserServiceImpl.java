@@ -19,14 +19,22 @@ public class UserServiceImpl implements UserService {
 		return dao.userSelectOne(user);
 	}
 	
+	// 전체 회원 목록
 	public List<UserInfo> admin_userList() throws Exception{
 		
 		return dao.admin_userList();
 	}
 	
+	// 회원가입
 	@Override
 	public void insertUser(UserInfo user) throws Exception{
 		dao.insertUser(user);
+	}
+	
+	//회원 정보 수정
+	@Override
+	public void userUpdate(UserInfo user) throws Exception {
+		dao.userUpdate(user);
 	}
 	
 	// 이메일 중복확인
