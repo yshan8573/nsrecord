@@ -43,6 +43,9 @@ public interface ICommunityService {
 	//자유게시판 리스트 출력(모두)
 	public List<FreeBoardDto> selectFreeBoardAll(BoardPager boardPager);
 	
+	//자유게시판 리스트 출력(모두)
+	public List<FreeBoardDto> adminSelectFreeBoardAll(BoardPager boardPager);
+	
 	// 공지사항 레코드 전체 갯수 가져오기
 	public int selectNoticeBoardCount(SearchDto searchDto);
 	

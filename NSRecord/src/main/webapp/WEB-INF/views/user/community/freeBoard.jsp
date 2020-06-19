@@ -96,6 +96,7 @@ tr, td {
       <section class="content container-fluid">
 
 		<h1>자유 게시판</h1>
+		
 <hr width=80%>
 
 

@@ -10,7 +10,7 @@
 %>
 
 
-	
+
 <table class='tStyle'>
 	<thead>
 	<c:choose>
@@ -22,26 +22,23 @@
 				<td>조회수</td>
 				<td>댓글수</td>
 				<td>작성일</td>
+				<td>상태</td>
 			</tr>
 		</c:when>
 	</c:choose>
 	</thead>
 	<tbody>
-	
-
-
 	<c:forEach var="freeBoard" items="${freeBoardList}">
-			<tr>
-				<td>${freeBoard.b_seq}</td>
-				<td><a href="<%=contextPath%>/freeBoardContent?b_seq=${freeBoard.b_seq}">${freeBoard.b_title}</a>			</td>
-				<td>${freeBoard.u_nickname}</td>
-				<td>${freeBoard.b_count}</td>
-				<td>${freeBoard.b_reply}</td>
-				<td>${freeBoard.b_date}</td>
-			</tr>
+		<tr>
+			<td>${freeBoard.b_seq}</td>
+			<td><a href="<%=contextPath%>/adminCommunity/adminFreeBoardContent?b_seq=${freeBoard.b_seq}">${freeBoard.b_title}</a>			</td>
+			<td>${freeBoard.u_nickname}</td>
+			<td>${freeBoard.b_count}</td>
+			<td>${freeBoard.b_reply}</td>
+			<td>${freeBoard.b_date}</td>
+			<td>${freeBoard.b_status}</td>
+		</tr>
 	</c:forEach>
-
-	
 	</tbody>
 </table>
 <br>

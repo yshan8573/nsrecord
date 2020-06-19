@@ -93,6 +93,11 @@ public class CommunityServiceImpl implements ICommunityService {
 	}
 	
 	@Override
+	public List<FreeBoardDto> adminSelectFreeBoardAll(BoardPager boardPager){
+		return communityDaoImpl.adminSelectFreeBoardAll(boardPager);
+	}
+	
+	@Override
 	public void boardCountUpdate(int b_seq) {
 		communityDaoImpl.boardCountUpdate(b_seq);
 	}

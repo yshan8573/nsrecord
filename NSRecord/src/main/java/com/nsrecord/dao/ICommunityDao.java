@@ -49,8 +49,12 @@ public interface ICommunityDao {
 	//자유게시판 레코드 전체 갯수 가져오기
 	public int selectFreeBoardCount(SearchDto searchDto);
 	
-	//자유게시판 리스트 출력(모두)
+	//자유게시판 리스트 출력(공개만)
 	public List<FreeBoardDto> selectFreeBoardAll(BoardPager boardPager);
+	
+	//자유게시판 리스트 출력(모두)
+	public List<FreeBoardDto> adminSelectFreeBoardAll(BoardPager boardPager);
+
 
 	//조회수
 	public void boardCountUpdate(int b_seq);
