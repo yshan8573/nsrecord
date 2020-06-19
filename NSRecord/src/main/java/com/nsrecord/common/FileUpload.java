@@ -23,7 +23,7 @@ public class FileUpload {
 		this.upFile = upFile;
 		
 		// 디텍토리 생성
-		setDir(path);
+		setDir();
 		
 		//원래 파일 명칭 변수 저장
 		this.FileOriName = upFile.getOriginalFilename();
@@ -33,7 +33,7 @@ public class FileUpload {
 		
 	}
 	
-	public void setDir(String path) {
+	public void setDir() {
 		File dir = new File(path);
 		if(!dir.exists()) {
 			// 디텍토리가 없을때 새로 생성

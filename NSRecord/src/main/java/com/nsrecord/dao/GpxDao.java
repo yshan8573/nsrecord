@@ -43,6 +43,6 @@ public interface GpxDao {
 	public void gpxReplyUpdate(HashMap<String, String> paramMap);
 	
 	//댓글 삭제
-	public void deleteGpxReply(int g_seq);
+	public void deleteGpxReply(int gr_seq);
 	
 }//inter end

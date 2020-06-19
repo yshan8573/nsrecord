@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.nsrecord.common.FileUpload;
 import com.nsrecord.dto.BoardPager;
 import com.nsrecord.dto.GpxDto;
 import com.nsrecord.dto.GpxReplyDto;
@@ -139,54 +140,42 @@ public class GpxController {
 	
 	//유저 글쓰기 폼 결과 = redirect를 통해 gpxBoard로 이동
 	@RequestMapping(value = "gpx/gpxInsertResult")
-	public String gpxInsertResult(GpxDto dto, HttpSession sesseion, 
-			MultipartFile gpxFile, String g_ori, String g_re, HttpServletRequest re ) throws ParseException {
+	public String gpxInsertResult(@RequestParam(value = "gpxFile", required = false) MultipartFile gpxFile, GpxDto dto, HttpSession sesseion, 
+	HttpServletRequest re, Model model) throws ParseException {
 		logger.info("this is a gpxInsert Method");
+		UserInfo user = (UserInfo) sesseion.getAttribute("loginUser");
+		dto.setU_seq(user.getU_seq());	
+		dto.setU_nickname(user.getU_nickname());
 		System.out.println("파일인서트");
 	
-	UserInfo user = (UserInfo) sesseion.getAttribute("loginUser");
+	
 //	System.out.println(user.getU_nickname());
 	
+	//파일 업로드 -----------------------------start
 	//파일 경로 설정
-	String saveDir = re.getSession().getServletContext().getRealPath("/resource/uploadGpx");
-	File gpx = new File(saveDir);
-	if(!gpx.exists()) {
-		gpx.mkdir();
-	}
-	//단일 파일
-	if(gpxFile != null && !gpxFile.isEmpty()) {
+	String path = "gpx";
+	System.out.println(gpxFile);
 	
-		g_ori = gpxFile.getOriginalFilename();
-		String ext = g_ori.substring(g_ori.indexOf("."));
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy_MM_dd_HHmmssSSS");
-		int rndNum = (int)(Math.random()*1000);
-		g_re = sdf.format(new Date(System.currentTimeMillis()))+"_"+rndNum+ext;
+	//단일 파일 유무에 따라 gpx객체 저장
+	if(gpxFile !=null && !gpxFile.isEmpty()) {
 		
-		try { 
-			 
-			gpxFile.transferTo(new File(saveDir+"/"+g_re));
-			dto.setG_re(g_re);
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-	}//if end
-	else {
-		dto.setG_re(g_ori);
+	//path : 저장될 파일 경로, gpxFile : view에서 받아온 file값
+	FileUpload ful = new FileUpload(path, gpxFile);
+	
+	dto.setG_ori(ful.getFileOriName());
+	dto.setG_re(ful.getFileReName());
+	
+	} else {
+		dto.setG_ori("");
+		dto.setG_re("");
 		
 	}
-	re.setAttribute("GpxDto", dto);
+//파일 업로드 --------------------------------end
+	
 
-	System.out.println("g_ori : " + g_ori);
-	System.out.println("g_re : " + g_re);
-	dto.setU_seq(user.getU_seq());	
-	dto.setU_nickname(user.getU_nickname());
-	dto.setG_ori(g_ori);
-	dto.setG_re(g_re);
 	
 	gpxServiceImpl.insertGpxBoard(dto);	
-	
+
 		
 		
 	return "redirect:/gpx/gpxBoard";
@@ -195,16 +184,29 @@ public class GpxController {
 	//상세 조회
 	@RequestMapping(value = "gpx/gpxBoardSelectOne")
 	public String gpxSelectOne(@RequestParam("g_seq") int g_seq, Model model, 
-			HttpSession session) {
+			HttpSession session, GpxDto dto) {
 		logger.info("this is a gpxSelectOne Method");
-//		System.out.println("g_seq = "+g_seq);
+		//		System.out.println("g_seq = "+g_seq);
+		
+		
+		
+		
 		
 		GpxDto GpxDto = 
 		gpxServiceImpl.selectGpxBoardOne(g_seq);
+		System.out.println("이값을 확인 : " + GpxDto.toString());
 		model.addAttribute("GpxDto",GpxDto);
+	
+		
+		
 		
 		UserInfo user = (UserInfo) session.getAttribute("loginUser");
 		model.addAttribute("user",user);
+		dto.getG_ori();
+		dto.getG_re();
+		
+		
+		System.out.println("파일 이름"+dto.toString());
 		
 		//댓글 내용
 		List<GpxReplyDto> gpxReply = gpxServiceImpl.selectOneReply(g_seq);
@@ -234,9 +236,32 @@ public class GpxController {
 	
 	//수정2
 	@RequestMapping(value = "gpx/gpxUpdate")
-	public String gpxUpdateResut(GpxDto dto, RedirectAttributes redirectAttributes, HttpSession sesseion) {
+	public String gpxUpdateResut(GpxDto dto, RedirectAttributes redirectAttributes, 
+			HttpSession sesseion, @RequestParam(value = "gpxFile", required = false) MultipartFile gpxFile) {
 	
 		System.out.println("수정2");
+		
+		//파일 업로드 -----------------------------start
+		//파일 경로 설정
+		String path = "gpx";
+		System.out.println(gpxFile);
+		
+		//단일 파일 유무에 따라 gpx객체 저장
+		if(gpxFile !=null && !gpxFile.isEmpty()) {
+			
+		//path : 저장될 파일 경로, gpxFile : view에서 받아온 file값
+		FileUpload ful = new FileUpload(path, gpxFile);
+		
+		dto.setG_ori(ful.getFileOriName());
+		dto.setG_re(ful.getFileReName());
+		
+		} else {
+			dto.setG_ori("");
+			dto.setG_re("");
+			
+		}
+	//파일 업로드 --------------------------------end
+		
 		
 	UserInfo user = (UserInfo) sesseion.getAttribute("loginUser");
 	dto.setU_seq(user.getU_seq());	
@@ -296,12 +321,18 @@ public class GpxController {
 	
 	//댓글 삭제
 	@RequestMapping(value = "gpx/gpxDeleteReply")
-	public String gpxReplyDelete(@RequestParam("gr_seq") int gr_seq, @RequestParam("g_seq") int g_seq,
-			HttpSession session, RedirectAttributes redirectAttribute) {
+	public String gpxReplyDelete(@RequestParam("gr_seq") int gr_seq, GpxDto dto, HttpSession session, RedirectAttributes redirectAttribute) {
 		
-		gpxServiceImpl.deleteGpxReply(g_seq);
+		UserInfo user = (UserInfo) session.getAttribute("loginUser");
+		System.out.println("Controller"+gr_seq);
 		
-		redirectAttribute.addAttribute("g_seq", g_seq);
+	
+		gpxServiceImpl.deleteGpxReply(gr_seq);
+		
+		
+		redirectAttribute.addAttribute("g_seq", dto.getG_seq());
+		System.out.println(dto.toString());
+		System.out.println("접근?");
 		return "redirect:/gpx/gpxBoardSelectOne";
 	}
 	

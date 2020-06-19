@@ -8,11 +8,39 @@
 <%@ include file="../../common/head.jsp"%>
 			
 			
+
+			
+			
 			<!-- JQUERY 함수 편집중 함수 편집중 -->
 			<script>
 			<%-- 업데이트 버튼 --%>
 			$(document).ready(function() {
 			$("#updateGpxBoard").click(function() {
+				
+			var subject = $("#g_title").val();
+			var content = $(".g_content").val();
+			
+			if(subject == ""){
+				alert("제목을 입력해주세요");
+				$("#g_title").focus();
+				return;
+			}
+			
+			if(content == "") {
+				alert("내용을 입력해 주세요");
+				$(".g_content").focus();
+				return;
+			}
+			var yn = confirm("게시글을 수정하시겠습니까?");
+			if(yn) {
+				
+				var fileCk = $("#inputFile").val();
+				if(fileCk == "") {
+					$("#inputFile").remove();
+				}
+			}
+				
+				
 			var url = "<%=contextPath%>"+"/gpx/gpxUpdate";
 			$("#gpxBoardJquery").attr("action",url);
 			$("#gpxBoardJquery").submit();
@@ -57,25 +85,31 @@
 
 
 			<!-- Main content -->
-			<%-- Form에 JQuery 함수 적용중 --%>
+			<%-- Form에 JQuery 함수 적용 --%>
 			<section class="content container-fluid">
 
 				<div class="row">
 					<div class="col-xs-12">
 						<div class="box">
 							<div class="box-body">
-								<form id="gpxBoardJquery" method="post">
+								<form id="gpxBoardJquery" method="post" enctype="multipart/form-data">
 								<input type="hidden"  name="u_seq" value="${GpxDto.u_seq }">
 								<input type="hidden" name="g_seq" value="${GpxDto.g_seq }">
 									<div class="form-group">
 										<label>제목</label>
-									<input name="g_title" type="text" class="form-control" value="${GpxDto.g_title }" >
+									<input name="g_title" type="text" class="form-control" id="g_title" value="${GpxDto.g_title }" >
 									</div>
 									<div class="form-group">
-									<textarea id="g_content" name="g_content" >${GpxDto.g_content }</textarea>
+									<textarea id="g_content" name="g_content" class="g_content">${GpxDto.g_content }</textarea>
 									<input type="button" value="수정완료" id="updateGpxBoard">
 									<input type="button" value="목록" id = "gpxBoard">
 									</div>
+									<!-- 파일 업로드 -->
+									<div class="form-group">
+                 					 <label for="inputFile">GPX 첨부파일</label>
+										<input type="file" id="inputFile" name="gpxFile" value="${GpxDto.g_ori }">이전 파일 이름 : ${GpxDto.g_ori }
+										<p class="help-block">파일 첨부 공간입니다.</p>
+               					 </div>
 									<script>
 										$(function () {
 											CKEDITOR.replace('g_content')

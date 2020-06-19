@@ -49,8 +49,9 @@
 									</div>
 									<!-- 파일 업로드 -->
 									<div class="form-group">
-                 					 <label for="gpxFile">GPX파일 업로드</label>
-                 					 <input type="file" id="gpxFile" name="gpxFile">
+                 					 <label for="inputFile">GPX 첨부파일</label>
+										<input type="file" id="inputFile" name="gpxFile">
+										<p class="help-block">파일 첨부 공간입니다.</p>
                					 </div>
 									<script>
 										$(function () {

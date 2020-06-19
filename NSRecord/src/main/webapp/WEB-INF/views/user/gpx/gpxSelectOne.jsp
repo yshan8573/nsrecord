@@ -31,7 +31,7 @@
 					})	
 			})//function end
 
-//댓글 수정 수정중			
+//댓글 수정			
 function gpxReplyUpdate(gr_seq, gr_content, g_seq) {
  				//alert("접근 = ["+'.'+gr_seq+"]["+gr_content+"]["+g_seq+"]");
 		  var location =  '#'+gr_seq;
@@ -43,16 +43,24 @@ function gpxReplyUpdate(gr_seq, gr_content, g_seq) {
  function replyUpdateEnd(gr_seq, gr_content, g_seq){
 	var loc = '#'+gr_seq;
 	var value = document.getElementById(loc).value;
-	
 	location.href = '<%=contextPath%>/gpx/gpxUpdateReply?gr_seq=' + gr_seq + '&gr_content=' + value + '&g_seq=' + g_seq;
 				   }
-			
-function deleteGpxReply(g_seq) {
-	alert("접근 = "g_seq);
-	var location = '#'+g_seq;
-	$(location).
-}			
-			
+
+ 
+ //댓글 삭제
+function deleteGpxReply(gr_seq, g_seq) {
+	alert("접근 = "+gr_seq)
+
+	location.href = '<c:url value="/"/>gpx/gpxDeleteReply?gr_seq='+gr_seq+ '&g_seq=' + g_seq;
+}
+ 
+ //파일 다운로드
+function fileDownload(path,oName,rName) {
+	oName=encodeURIComponent(oName);
+	location.href="<%= contextPath %>/fileDownload.do?path="+path+"&oName="+oName+"&rName="+rName;	
+	}
+ 
+ 
 			</script>
 			
 			
@@ -104,6 +112,19 @@ function deleteGpxReply(g_seq) {
 									<input type="button" value="삭제" id="deleteGpxBoard">
 									<input type="button" value="목록" id = "gpxBoard">
 									</div>
+									<!-- this row will not appear when printing -->
+				<div class="row no-print">
+					<div class="col-xs-6 flexBox" style="justify-content: flex-start;">
+					
+						<div>
+							<b >첨부파일 :</b>${GpxDto.g_ori }&nbsp;&nbsp;&nbsp;&nbsp;
+						</div>
+						<button type="button" class="btn btn-primary pull-right"
+							style="margin-right: 5px;"
+							onclick="fileDownload('gpx','${GpxDto.g_ori}','${GpxDto.g_re}');">
+							<i class="fa fa-download"></i> Download
+						</button>
+					</div>
 									<script>
 										$(function () {
 											CKEDITOR.replace('g_content')
@@ -129,7 +150,7 @@ function deleteGpxReply(g_seq) {
 				                 <div class="GpxreplyUpdateButton${GpxReply.gr_seq }">
 				                <input type="button"  value="수정"  onclick="gpxReplyUpdate(${GpxReply.gr_seq },'${GpxReply.gr_content }',${GpxDto.g_seq })">
 				                </div>
-				                <input type="button"  value="삭제" onclick="deleteGpxReply(${GpxReply.g_seq})">	
+				                <input type="button" class="gpxReplyDeleteButton"  value="삭제" onclick="deleteGpxReply(${GpxReply.gr_seq}, ${GpxDto.g_seq })">	
 	                  		</p>	
                         </span>
                     <span class="description">${ GpxReply.gr_date}</span>

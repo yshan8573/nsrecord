@@ -28,38 +28,58 @@ parameterType="com.nsrecord.dto.BoardPager" >
 
 </select>
 
-
+<!-- 
 	<insert id="insertGpxBoard" parameterType="com.nsrecord.dto.GpxDto">
-	INSERT INTO GPX (
-		G_SEQ, 
-		U_SEQ,
-		G_CONTENT,
-		G_DATE,
-		G_TITLE,
-		U_NICKNAME,
-		G_ORI,
-		G_RE
-	) VALUES (
-		GPX_SEQ.NEXTVAL,
-		#{u_seq},
-		#{g_content},
-		 sysdate,
-		#{g_title},
-		#{u_nickname},
-		#{g_ori},
-		#{g_re}
-	)
-
+		INSERT INTO GPX(
+			G_SEQ, 
+			U_SEQ,
+			G_CONTENT,
+			G_DATE,
+			G_TITLE,
+			U_NICKNAME,
+			G_ORI,
+			G_RE
+		) VALUES (
+			GPX_SEQ.NEXTVAL,
+			#{u_seq},
+			#{g_content},
+			 default,
+			#{g_title},
+			#{u_nickname},
+			#{g_ori},
+			#{g_re}
+		)
+	</insert>
+	 -->
+	<insert id="insertGpxBoard" parameterType="com.nsrecord.dto.GpxDto">
+		INSERT INTO GPX
+		VALUES (
+			GPX_SEQ.NEXTVAL,
+			#{u_seq},
+			#{g_content},
+			 default,
+			#{g_title},
+			#{g_ori},
+			#{g_re},
+			#{u_nickname},
+			default,
+			default,
+			default,
+			default
+		)
 	</insert>
 
 
 	<select id="selectGpxBoardOne" parameterType="int"
 	resultType="com.nsrecord.dto.GpxDto">
 	
-	SELECT G_SEQ, 
+	SELECT
+			G_SEQ, 
 		   G_TITLE, 
 		   G_CONTENT, 
-		   U_SEQ
+		   U_SEQ,
+		   G_ORI,
+		   G_RE
 	FROM GPX
 	WHERE G_SEQ = #{g_seq}
 
@@ -68,7 +88,9 @@ parameterType="com.nsrecord.dto.BoardPager" >
 	<update id="updateGpxBoard" parameterType="com.nsrecord.dto.GpxDto">
 	UPDATE GPX
 	SET G_TITLE = #{g_title},
-	G_CONTENT = #{g_content}
+	G_CONTENT = #{g_content},
+	G_ORI = {#g_ori},
+	G_RE = #{g_re}
 	WHERE G_SEQ = #{g_seq}
 	
 	</update>
@@ -164,9 +186,10 @@ parameterType="com.nsrecord.dto.BoardPager" >
 	WHERE GR_SEQ = #{gr_seq}
 	</update>
 
-	<delete id="deleteGpxReply" parameterType="int">
-	DELETE FROM GPXREPLY
-	WHERE G_SEQ #{g_seq}
+	<delete id="deleteGpxReply" parameterType="_int">
+	DELETE
+	FROM GPXREPLY
+	WHERE GR_SEQ =  #{gr_seq}
 	
 	
 	</delete>

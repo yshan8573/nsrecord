@@ -133,10 +133,10 @@ public class GpxDaoImpl implements GpxDao {
 	
 	//댓글 삭제
 	@Override
-	public void deleteGpxReply(int g_seq) {
-	System.out.println("deleteGpxReplyDao"+g_seq);
+	public void deleteGpxReply(int gr_seq) {
+	System.out.println("deleteGpxReplyDao"+gr_seq);
 		
-		session.delete(queryprefix+"deleteGpxReply", g_seq);
+		session.delete(queryprefix+"deleteGpxReply", gr_seq);
 	}
 
 
