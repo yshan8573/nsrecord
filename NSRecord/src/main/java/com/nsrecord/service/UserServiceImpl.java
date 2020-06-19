@@ -19,23 +19,23 @@ public class UserServiceImpl implements UserService {
 		return dao.userSelectOne(user);
 	}
 	
-	public List<UserInfo> admin_userList() {
+	public List<UserInfo> admin_userList() throws Exception{
 		
 		return dao.admin_userList();
 	}
 	
 	@Override
-	public void insertUser(UserInfo user) {
+	public void insertUser(UserInfo user) throws Exception{
 		dao.insertUser(user);
 	}
 	
 	// 이메일 중복확인
-	public int idcheck(String u_email) {
+	public int idcheck(String u_email) throws Exception{
 		return dao.idcheck(u_email);
 	}
 	
 	// 닉네임 중복확인
-	public int nickcheck(String u_nickname) {
+	public int nickcheck(String u_nickname) throws Exception{
 		return dao.nickcheck(u_nickname);
 	}
 }

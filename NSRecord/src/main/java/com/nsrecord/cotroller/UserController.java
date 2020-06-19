@@ -41,7 +41,7 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "user/userSignInResult")
-	public String userSignIn(UserInfo user) {
+	public String userSignIn(UserInfo user) throws Exception {
 		logger.info("this is a userlogin Method");
 		
 		service.insertUser(user);
@@ -52,7 +52,7 @@ public class UserController {
 //	이메일 중복체크
 	@RequestMapping(value = "/user/idcheck", method = RequestMethod.GET)
 	@ResponseBody
-	public String idcheck(@RequestParam("u_email") String u_email) {
+	public String idcheck(@RequestParam("u_email") String u_email) throws Exception {
 		
 		int result = service.idcheck(u_email);
 		String msg;
@@ -67,9 +67,9 @@ public class UserController {
 //	닉네임 중복체크
 	@RequestMapping(value = "/user/nickcheck", method = RequestMethod.GET)
 	@ResponseBody
-	public String nickcheck(@RequestParam("u_nickname") String u_nickname) {
+	public String nickcheck(@RequestParam("u_nickname") String u_nickname) throws Exception{
 		
-		int result = service.nickcheck(u_nickname.trim());
+		int result = service.nickcheck(u_nickname.trim()) ;
 		String msg;
 		if(result > 0) {
 			msg = "1";
@@ -84,8 +84,8 @@ public class UserController {
 	
 	//관리자 페이지 -> 회원리스트 출력
 	@RequestMapping(value = "adminUser/adminUserList")
-	public String adminUserList(Model model) {
-		logger.info("this is a adminUserList Method");
+	public String adminUserList(Model model) throws Exception{
+		logger.info("this is a adminUserList Method") ;
 		List<UserInfo> userList =
 				service.admin_userList();
 		

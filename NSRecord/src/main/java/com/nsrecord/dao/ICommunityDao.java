@@ -45,7 +45,20 @@ public interface ICommunityDao {
 
 	//댓글 수정
 	public void updateReplyEnd(HashMap<String, String> paramMap);
+	
+	//자유게시판 레코드 전체 갯수 가져오기
+	public int selectFreeBoardCount(SearchDto searchDto);
+	
+	//자유게시판 리스트 출력(모두)
+	public List<FreeBoardDto> selectFreeBoardAll(BoardPager boardPager);
 
+	//조회수
+	public void boardCountUpdate(int b_seq);
+	
+	//댓글수
+	public void countReply(int b_seq);
+	public void deCountReply(int b_seq);
+	
 	// 공지사항 상세 보기
 	public Notice selectNoticeBoardOne(Notice notice);
 	
