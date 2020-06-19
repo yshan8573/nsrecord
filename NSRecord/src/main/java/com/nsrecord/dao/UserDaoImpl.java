@@ -22,6 +22,7 @@ public class UserDaoImpl implements UserDao {
 		return session.selectOne(queryprefix+"userSelectOne",user);
 	}
 	
+	// 전체 회원 리스트 출력
 	@Override
 	public List<UserInfo> admin_userList() {
 		List<UserInfo> userList = 
@@ -30,15 +31,22 @@ public class UserDaoImpl implements UserDao {
 		userList =
 				session.selectList("user.userSelectOne");
 		
-		return userList;
-		
+		return userList;	
 	}
 	
+	// 회원 추가
 	@Override
 	public void insertUser(UserInfo user) {
 		System.out.println(user.toString());
 		session.insert("user.insertUser", user);
 	}
+	
+	// 회원 정보 수정(마이페이지)
+	@Override
+	public void userUpdate(UserInfo user) throws Exception{
+		session.update("user.updateUser", user);
+	}
+	
 	
 	// 이메일 중복체크
 	@Override

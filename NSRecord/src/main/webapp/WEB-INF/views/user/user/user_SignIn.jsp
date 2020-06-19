@@ -67,7 +67,6 @@ $(function(){
 
 // 닉네임 중복 검사
 $(function(){
-	
 
 	$("#u_nickname").blur(function() {
 		// id = "u_nickname" / name = "u_nickname"
@@ -181,11 +180,15 @@ $(function(){
 			</tr>
 			<tr>
 				<th>전화번호</th>
-				<td><input type="text" name="u_phone" placeholder="PHONE"></td>
+				<td>
+					<input type="text" name="u_phone" placeholder="PHONE">
+				</td>
 			</tr>
 			<tr>
 				<th>이름</th>
-				<td><input type="text" name="u_name" placeholder="NAME"></td>
+				<td>
+					<input type="text" name="u_name" placeholder="NAME">
+				</td>
 			</tr>	
 			<tr>
 				<th>닉네임</th>

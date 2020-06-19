@@ -19,4 +19,9 @@ public interface UserService {
 	
 	// 닉네임 중복체크
 	public int nickcheck(String u_nickname);
+
+	public void userUpdate(UserInfo user) throws Exception;
+
+	
+	
 }

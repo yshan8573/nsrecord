@@ -14,6 +14,7 @@ public class UserInfo {
 	private String u_grade;
 	private String u_status;
 	private String u_cycle;
+	private String u_key;
 	
 	public UserInfo() {
 		// TODO Auto-generated constructor stub
@@ -132,13 +133,23 @@ public class UserInfo {
 	public void setU_cycle(String u_cycle) {
 		this.u_cycle = u_cycle;
 	}
+	
+	public String getU_key() {
+		return u_key;
+	}
 
+	public void setU_key(String u_key) {
+		this.u_key = u_key;
+	}
+	
 	@Override
 	public String toString() {
 		return "UserInfo [u_seq=" + u_seq + ", u_email=" + u_email + ", u_pwd=" + u_pwd + ", u_name=" + u_name
 				+ ", u_nickname=" + u_nickname + ", u_phone=" + u_phone + ", u_originalImage=" + u_originalImage
 				+ ", u_renamedImage=" + u_renamedImage + ", u_enrolldate=" + u_enrolldate + ", u_grade=" + u_grade
-				+ ", u_status=" + u_status + ", u_cycle=" + u_cycle + "]";
+				+ ", u_status=" + u_status + ", u_cycle=" + u_cycle + ", u_key=" + u_key + "]";
 	}
+
+	
 	
 }
