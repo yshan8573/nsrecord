@@ -20,14 +20,14 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	// 전체 회원 목록
-	public List<UserInfo> admin_userList() {
+	public List<UserInfo> admin_userList() throws Exception{
 		
 		return dao.admin_userList();
 	}
 	
 	// 회원가입
 	@Override
-	public void insertUser(UserInfo user) {
+	public void insertUser(UserInfo user) throws Exception{
 		dao.insertUser(user);
 	}
 	
@@ -38,12 +38,12 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	// 이메일 중복확인
-	public int idcheck(String u_email) {
+	public int idcheck(String u_email) throws Exception{
 		return dao.idcheck(u_email);
 	}
 	
 	// 닉네임 중복확인
-	public int nickcheck(String u_nickname) {
+	public int nickcheck(String u_nickname) throws Exception{
 		return dao.nickcheck(u_nickname);
 	}
 }

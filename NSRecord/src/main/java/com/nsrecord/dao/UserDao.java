@@ -8,12 +8,12 @@ public interface UserDao {
 
 	public UserInfo userSelectOne(UserInfo user);
 	
-	public List<UserInfo> admin_userList();
+	public List<UserInfo> admin_userList() throws Exception;
 	
-	public void insertUser(UserInfo user);
+	public void insertUser(UserInfo user) throws Exception;
 
 	// 이메일 중복체크
-	public int idcheck(String u_email);
+	public int idcheck(String u_email) throws Exception;
 
 	// 닉네임 중복체크
 	public int nickcheck(String u_nickname);
