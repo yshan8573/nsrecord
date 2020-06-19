@@ -80,6 +80,11 @@ public class CommunityDaoImpl implements ICommunityDao {
 	}
 	
 	@Override
+	public List<FreeBoardDto> adminSelectFreeBoardAll(BoardPager boardPager){
+		return session.selectList("communityMapper.adminSelectFreeBoardAll", boardPager);
+	}
+	
+	@Override
 	public void boardCountUpdate(int b_seq) { 
 		session.update("communityMapper.boardCountUpdate", b_seq); 
 	}

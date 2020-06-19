@@ -11,10 +11,13 @@
 		TO_CHAR(B_DATE, 'YYYY-MM-DD-HH24:MI:SS') AS B_DATE,
 		B_COUNT,
 		U_NICKNAME,
-		B_CONTENT
+		B_CONTENT,
+		U_SEQ,
+		B_STATUS
 		FROM BOARD
 		WHERE B_SEQ = #{b_seq}
 	</select>
+
 
 	<insert id="freeBoardWriteEnd" parameterType="java.util.HashMap">
 		INSERT INTO BOARD
@@ -27,7 +30,8 @@
 		UPDATE BOARD
 		SET
 			B_TITLE = #{b_title},
-			B_CONTENT = #{b_content}
+			B_CONTENT = #{b_content},
+			B_STATUS = #{b_status}
 		WHERE B_SEQ = #{b_seq}
 	
 	</update>
@@ -76,6 +80,17 @@
 	</select>
 	
 	<select id="selectFreeBoardAll" parameterType="com.nsrecord.dto.BoardPager" resultType="com.nsrecord.dto.FreeBoardDto">
+		<include refid="pagingHeader"></include>
+		SELECT B.*
+		FROM BOARD B
+		WHERE 1 = 1
+		AND B_STATUS = 'Y'
+		<include refid="search"></include>
+		ORDER BY B_SEQ DESC
+		<include refid="pagingFooter"></include>
+	</select>
+	
+	<select id="adminSelectFreeBoardAll" parameterType="com.nsrecord.dto.BoardPager" resultType="com.nsrecord.dto.FreeBoardDto">
 		<include refid="pagingHeader"></include>
 		SELECT B.*
 		FROM BOARD B

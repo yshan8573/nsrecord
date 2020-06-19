@@ -11,10 +11,10 @@
   <div class="wrapper">
 
     <!-- Main Header -->
-    <%@ include file="../common/user_main_header.jsp" %>
+    <%@ include file="../common/admin_main_header.jsp" %>
 
     <!-- Left side column. contains the logo and sidebar -->
-    <%@ include file="../common/user_left_column.jsp" %>
+    <%@ include file="../common/admin_left_column.jsp" %>
 
     <!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper">
@@ -24,9 +24,9 @@
 					Free Board Write<small>자유게시판 글쓰기</small>
 				</h1>
 				<ol class="breadcrumb">
-					<li><a href="javascript:location.href='<c:url value=" /" />userHome'"><i
+					<li><a href="javascript:location.href='<c:url value=" /" />adminHome'"><i
 							class="fa fa-home"></i>Home</a></li>
-					<li><a href="javascript:location.href='<c:url value=" /" />community/freeBoard'">Free
+					<li><a href="javascript:location.href='<c:url value=" /" />adminCommunity/adminNoticeBoard'">Free
 						Board</a></li>
 					<li class="active">Write</li>
 				</ol>
@@ -40,7 +40,7 @@
 					<div class="col-xs-12">
 						<div class="box">
 							<div class="box-body">
-								<form action="<%=contextPath%>/community/freeBoardWriteEnd" method="post">
+								<form action="<%=contextPath%>/adminCommunity/adminFreeBoardWriteEnd" method="post">
 									<div class="form-group">
 										<label>제목</label>
 										<input name="b_title" type="text" class="form-control" placeholder="입력하세요.." required="required">
@@ -76,7 +76,7 @@
     <!-- /.content-wrapper -->
 
     <!-- Main Footer -->
-    <%@ include file="../common/user_main_footer.jsp" %>
+    <%@ include file="../common/admin_main_footer.jsp" %>
 
   </div>
   <!-- ./wrapper -->
