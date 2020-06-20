@@ -1,10 +1,7 @@
 package com.nsrecord.cotroller;
 
 
-import java.io.File;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -22,8 +19,10 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.nsrecord.common.FileUpload;
+import com.nsrecord.common.GpxReader;
 import com.nsrecord.dto.BoardPager;
 import com.nsrecord.dto.GpxDto;
+import com.nsrecord.dto.GpxFile;
 import com.nsrecord.dto.GpxReplyDto;
 import com.nsrecord.dto.SearchDto;
 import com.nsrecord.dto.UserInfo;
@@ -337,6 +336,22 @@ public class GpxController {
 		System.out.println("접근?");
 		return "redirect:/gpx/gpxBoardSelectOne";
 	}
+	
+	@RequestMapping(value = "gpxTestContrller")
+	public String gpxTestContrller() {
+		logger.info("this is a gpxTestContrller Method");
+		
+		String g_re = "남산.gpx";
+		
+		List<GpxFile> gfList = GpxReader.read(g_re);
+		
+		for(GpxFile gf : gfList) {
+			System.out.println(gf.toString());
+		}
+		
+		return "redirect:/gpx/gpxRanking";
+	}
+	
 	
 	
 	

@@ -251,7 +251,9 @@
 								<h3 class="box-title">랭킹</h3>
 							</div>
 							<!-- /.box-header -->
-							<div class="box-body"></div>
+							<div class="box-body">
+								<button type="button" class="btn btn-info btn-lg" onclick="javascript:location.href='<%= contextPath %>/gpxTestContrller'">gpxReader Test</button>
+							</div>
 							<!-- /.box-body -->
 						</div>
 					</div>
