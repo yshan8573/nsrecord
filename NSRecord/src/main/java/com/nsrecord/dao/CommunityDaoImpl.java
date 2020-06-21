@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.nsrecord.dto.BoardPager;
 import com.nsrecord.dto.FreeBoardDto;
+import com.nsrecord.dto.GrcDto;
 import com.nsrecord.dto.Notice;
 import com.nsrecord.dto.SearchDto;
 
@@ -130,6 +131,5 @@ public class CommunityDaoImpl implements ICommunityDao {
 	public int deleteNoticeBoard(Notice notice) {
 		return session.delete(queryprefix+"deleteNoticeBoard", notice);
 	}
-	
 	
 }

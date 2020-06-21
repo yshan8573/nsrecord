@@ -2,8 +2,11 @@ package com.nsrecord.common;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
@@ -15,30 +18,29 @@ import org.w3c.dom.NodeList;
 import com.nsrecord.dto.GpxFile;
 
 public class GpxReader {
-
-	private final static String prePath = "/ProjectData/gpx/";
 	
-	public static List<GpxFile> read(String g_re) {
+	public static List<Map> read(String path, String g_re) {
 		
-		List<GpxFile> gfList = new ArrayList<GpxFile>(); // gpx 정보 List
-		GpxFile gf = null; // gpx 정보
+		List<Map> mapList = new ArrayList<Map>(); // gpx 정보 List
+		Map<String,String> map = null;
 		
 		try {
-			File file = new File(prePath + g_re);
+			File file = new File(path + "/" + g_re);
 			DocumentBuilderFactory docBuildFact = DocumentBuilderFactory.newInstance();
 			DocumentBuilder docBuild = docBuildFact.newDocumentBuilder();
 			Document doc = docBuild.parse(file);
 			doc.getDocumentElement().normalize();
  
-			System.out.println("Root element : " + doc.getDocumentElement().getNodeName());
-			System.out.println();
- 
+//			System.out.println("Root element : " + doc.getDocumentElement().getNodeName());
+//			System.out.println();
+			
 			// trkpt 엘리먼트 리스트
 			NodeList trkptlist = doc.getElementsByTagName("trkpt");
  
 			for (int i = 0; i < trkptlist.getLength(); i++) {
 				
-				gf = new GpxFile(); // GpxFile 초기화
+				//gf = new GpxFile(); // GpxFile 초기화
+				map = new HashMap<String,String>();
  
 				Node trkptNode = trkptlist.item(i);
  
@@ -50,8 +52,8 @@ public class GpxReader {
 					// trkpt 속성 lat, lon (위도, 경도)
 					String latValue = trkptElmnt.getAttribute("lat");
 					String lonValue = trkptElmnt.getAttribute("lon");
-					gf.setLat(latValue);
-					gf.setLon(lonValue);
+					map.put("lat", latValue);
+					map.put("lon", lonValue);
 					
  
 					// ele 태그 (고도)
@@ -59,17 +61,19 @@ public class GpxReader {
 					Element eleElmnt = (Element) eleList.item(0);
 					Node ele = eleElmnt.getFirstChild();
 					String eleValue = ele.getNodeValue();
-					gf.setEle(eleValue);
+					map.put("ele", eleValue);
  
 					// time 태그
 					NodeList timeList= trkptElmnt.getElementsByTagName("time");
 					Element timeElmnt = (Element) timeList.item(0);
-					Node time = timeElmnt.getFirstChild();
-					String timeValue = time.getNodeValue();
-					gf.setTime(timeValue);
+					if(timeElmnt != null) {
+						Node time = timeElmnt.getFirstChild();
+						String timeValue = time.getNodeValue();
+						map.put("time", timeValue);
+					}
 				}
 				
-				gfList.add(gf);
+				mapList.add(map);
  
 			}
  
@@ -77,7 +81,7 @@ public class GpxReader {
 			e.printStackTrace();
 		}
 		
-		return gfList;
+		return mapList;
 
 	}
 	

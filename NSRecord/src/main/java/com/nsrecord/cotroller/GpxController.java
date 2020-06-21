@@ -4,6 +4,7 @@ package com.nsrecord.cotroller;
 import java.text.ParseException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -22,10 +23,11 @@ import com.nsrecord.common.FileUpload;
 import com.nsrecord.common.GpxReader;
 import com.nsrecord.dto.BoardPager;
 import com.nsrecord.dto.GpxDto;
-import com.nsrecord.dto.GpxFile;
 import com.nsrecord.dto.GpxReplyDto;
+import com.nsrecord.dto.GrcDto;
 import com.nsrecord.dto.SearchDto;
 import com.nsrecord.dto.UserInfo;
+import com.nsrecord.service.GpxService;
 import com.nsrecord.service.GpxServiceImpl;
 
 @Controller
@@ -35,7 +37,9 @@ public class GpxController {
 	
 	@Autowired
 	private GpxServiceImpl gpxServiceImpl;
-	
+
+	@Autowired
+	private GpxService gpxService;
 	
 	
 	@RequestMapping(value = "gpx/gpxBoard")
@@ -123,7 +127,6 @@ public class GpxController {
 		
 		return "admin/gpx/admin_gpxList";
 	}
-	
 	
 	//유저 글쓰기 폼
 	@RequestMapping(value = "gpx/gpxInsertForm")
@@ -338,23 +341,204 @@ public class GpxController {
 	}
 	
 	@RequestMapping(value = "gpxTestContrller")
-	public String gpxTestContrller() {
+	public String gpxTestContrller(HttpServletRequest request) {
 		logger.info("this is a gpxTestContrller Method");
 		
+		String prePath = request.getSession().getServletContext().getRealPath("/resources/data/")+"/";
+		String path = prePath + "gpx";
 		String g_re = "남산.gpx";
 		
-		List<GpxFile> gfList = GpxReader.read(g_re);
+		List<Map> gfList = GpxReader.read(path, g_re);
 		
-		for(GpxFile gf : gfList) {
+		for(Map<String,String> gf : gfList) {
 			System.out.println(gf.toString());
 		}
 		
 		return "redirect:/gpx/gpxRanking";
 	}
 	
+	@RequestMapping(value = "adminGpx/adminGpxRankingList")
+	public String adminGpxRankingList(Model model) {
+		logger.info("this is a adminGpxRankingList Method");
+
+		// 사이드 메뉴 'active' 설정 flag
+		model.addAttribute("categoryLoc", "gpx");
+		
+		return "admin/gpx/admin_gpxRankingList";
+	}
+	
+	// GPX Ranking 리스트 ajax 처리
+	@RequestMapping(value = "adminGpx/adminGpxRankingListAjax")
+	public String adminGpxRankingListAjax(
+			@RequestParam(value = "cPage", defaultValue = "1") int cPage,
+			@RequestParam(value = "searchSort", defaultValue = "") String searchSort,
+			@RequestParam(value = "searchVal", defaultValue = "") String searchVal,
+			Model model) {
+		logger.info("this is a adminGpxRankingList Method");
+
+		// 검색 객체 값 넣기
+		SearchDto searchDto = new SearchDto(searchSort, searchVal);
+		
+		// grc 리스트 레코드 갯수 가져오기
+		int grcCount = gpxService.selectGrcCount(searchDto);
+		
+		int curPage = cPage; // 현재 출력 페이지
+		
+		// 페이지 객체에 값 저장 (nCount: 리스트 총 레코드 갯수 / curPage: 현재 출력 페이지)
+		BoardPager boardPager = new BoardPager(grcCount, curPage);
+		
+		// 페이지 객체에 검색 정보 저장
+		boardPager.setSearchSort(searchSort);
+		boardPager.setSearchVal(searchVal);
+		
+		// GPX Ranking 리스트 가져오기
+		List<GrcDto> grcResult = gpxService.selectGrcAll(boardPager);
+		
+		model.addAttribute("grcList",grcResult);
+		model.addAttribute("boardPager",boardPager);
+
+		// 사이드 메뉴 'active' 설정 flag
+		model.addAttribute("categoryLoc", "gpx");
+		
+		return "admin/gpx/ajax/admin_gpxRankingList_ajax";
+	}
 	
 	
+	@RequestMapping(value = "adminGpx/adminGrcInsert")
+	public String adminGrcInsert(Model model) {
+		logger.info("this is a adminGrcInsert Method");
+
+		// 사이드 메뉴 'active' 설정 flag
+		model.addAttribute("categoryLoc", "gpx");
+		
+		return "admin/gpx/admin_grcInsert";
+	}
 	
+	@RequestMapping(value = "adminGpx/adminGrcInsertEnd")
+	public String adminGrcInsertEnd(
+			GrcDto grc,
+			@RequestParam(value = "upFile") MultipartFile upFile,
+			@RequestParam(value = "upFileImg") MultipartFile upFileImg,
+			Model model,
+			HttpServletRequest request
+			) {
+		logger.info("this is a adminGrcInsertEnd Method");
+		
+		
+		// 파일 업로드----------------------------- start
+		// 파일이 저장될 디텍토리 설정 
+		String prePath = request.getSession().getServletContext().getRealPath("/resources/data/")+"/";
+		String pathGpx = prePath + "gpxRanking/gpx";
+		
+		//단일 파일 유무에 따라 notice 객체 저장
+		if(upFile != null && !upFile.isEmpty()) {
+			
+			// path : 저장될 파일 경로, upFile : view에서 받아온 file 값
+			FileUpload ful = new FileUpload(pathGpx,upFile);
+			
+			grc.setGrc_gpxOri(ful.getFileOriName());
+			grc.setGrc_gpxRe(ful.getFileReName());
+		} else {
+			grc.setGrc_gpxOri("");
+			grc.setGrc_gpxRe("");
+		}
+		
+		// 파일이 저장될 디텍토리 설정 
+		String pathImg = prePath + "gpxRanking/img";
+		
+		//단일 파일 유무에 따라 notice 객체 저장
+		if(upFileImg != null && !upFileImg.isEmpty()) {
+			
+			// path : 저장될 파일 경로, upFile : view에서 받아온 file 값
+			FileUpload ful = new FileUpload(pathImg,upFileImg);
+			
+			grc.setGrc_imgOri(ful.getFileOriName());
+			grc.setGrc_imgRe(ful.getFileReName());
+		} else {
+			grc.setGrc_imgOri("");
+			grc.setGrc_imgRe("");
+		}
+		// 파일 업로드----------------------------- end
+		
+		System.out.println("grc : " + grc.toString());
+		int insertResult = gpxService.insertGrc(grc);
+
+
+		// 사이드 메뉴 'active' 설정 flag
+		model.addAttribute("categoryLoc", "gpx");
+		
+		return "redirect:/adminGpx/adminGpxRankingList";
+	}
 	
+	@RequestMapping(value = "adminGpx/adminGpxRankingListDetail")
+	public String adminGpxRankingListDetail(GrcDto grc, Model model, HttpServletRequest request) {
+		logger.info("this is a adminGrcInsertEnd Method");
+		
+		GrcDto grcResult = gpxService.selectGrcOne(grc);
+		model.addAttribute("grc", grcResult);
+		
+		// 지도 gpx 코스 정보 가져오기
+		String prePath = request.getSession().getServletContext().getRealPath("/resources/data/")+"/";
+		String path = prePath + "gpxRanking/gpx";
+		String g_re = grcResult.getGrc_gpxRe();
+		List<Map> mapList = GpxReader.read(path, g_re);
+		model.addAttribute("mapList", mapList);
+		
+		
+		// 사이드 메뉴 'active' 설정 flag
+		model.addAttribute("categoryLoc", "gpx");
+		
+		return "admin/gpx/admin_gpxRankingList_detail";
+	}
+	
+	@RequestMapping(value = "/adminGpx/adminGrcUpdateEnd")
+	public String adminGrcUpdateEnd(GrcDto grc, Model model) {
+		logger.info("this is a adminGrcUpdateEnd Method");
+		
+		int result = gpxService.updateGrc(grc);
+		
+		String path = "common/msg";
+		String loc = "";
+		if(result > 0) {
+			loc = "/adminGpx/adminGpxRankingListDetail?grc_seq="+grc.getGrc_seq();
+			model.addAttribute("msg","수정 완료");
+			model.addAttribute("loc",loc);
+
+		} else {
+			loc = "/adminGpx/adminGpxRankingListDetail?grc_seq="+grc.getGrc_seq();
+			model.addAttribute("msg","수정 실패");
+			model.addAttribute("loc",loc);
+		}
+		
+		// 사이드 메뉴 'active' 설정 flag
+		model.addAttribute("categoryLoc", "gpx");
+		
+		return path;
+	}
+	
+	@RequestMapping(value = "/adminGpx/adminGrcDeleteEnd")
+	public String adminGrcDeleteEnd(GrcDto grc, Model model) {
+		logger.info("this is a adminGrcDeleteEnd Method");
+		
+		int result = gpxService.deleteGrc(grc);
+		
+		String path = "common/msg";
+		String loc = "";
+		if(result > 0) {
+			loc = "/adminGpx/adminGpxRankingList";
+			model.addAttribute("msg","삭제 완료");
+			model.addAttribute("loc",loc);
+			
+		} else {
+			loc = "/adminGpx/adminGpxRankingListDetail?grc_seq="+grc.getGrc_seq();
+			model.addAttribute("msg","삭제 실패");
+			model.addAttribute("loc",loc);
+		}
+		
+		// 사이드 메뉴 'active' 설정 flag
+		model.addAttribute("categoryLoc", "gpx");
+		
+		return path;
+	}
 	
 }//class end

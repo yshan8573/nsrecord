@@ -11,6 +11,7 @@ import com.nsrecord.dao.ICommunityDao;
 import com.nsrecord.dto.BoardPager;
 import com.nsrecord.dto.GpxDto;
 import com.nsrecord.dto.GpxReplyDto;
+import com.nsrecord.dto.GrcDto;
 import com.nsrecord.dto.SearchDto;
 
 @Service
@@ -18,9 +19,6 @@ public class GpxServiceImpl implements GpxService {
 
 	@Autowired
 	private GpxDao gpxDao;
-	
-	@Autowired
-	private ICommunityDao dao;
 
 	//전체 조회
 	@Override
@@ -108,22 +106,42 @@ public class GpxServiceImpl implements GpxService {
 	}
 	
 	
-	
-	
 	//댓글 삭제
 	@Override
 	public void deleteGpxReply(int gr_seq) {
 	
-	gpxDao	.deleteGpxReply(gr_seq);	
+	gpxDao.deleteGpxReply(gr_seq);
 	}
 
 	
+	@Override
+	public int selectGrcCount(SearchDto searchDto) {
+		return gpxDao.selectGrcCount(searchDto);
+	}
 
+	@Override
+	public List<GrcDto> selectGrcAll(BoardPager boardPager) {
+		return gpxDao.selectGrcAll(boardPager);
+	}
+
+	@Override
+	public int insertGrc(GrcDto grc) {
+		return gpxDao.insertGrc(grc);
+	}
+
+	@Override
+	public GrcDto selectGrcOne(GrcDto grc) {
+		return gpxDao.selectGrcOne(grc);
+	}
+
+	@Override
+	public int updateGrc(GrcDto grc) {
+		return gpxDao.updateGrc(grc);
+	}
 	
-	
-	
-	
-	
-	
-	
+	@Override
+	public int deleteGrc(GrcDto grc) {
+		return gpxDao.deleteGrc(grc);
+	}
+
 }//class end
