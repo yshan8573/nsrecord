@@ -192,6 +192,12 @@
 	
 	
 	</delete>
+	
+	<update id="gpxCount" parameterType="com.nsrecord.dto.GpxDto">
+		UPDATE GPX
+		SET G_COUNT = G_COUNT+1
+		WHERE G_SEQ = #{g_seq}
+	</update>
 
 	<select id="selectGrcCount" parameterType="searchDto" resultType="_int">
 		SELECT COUNT(*)

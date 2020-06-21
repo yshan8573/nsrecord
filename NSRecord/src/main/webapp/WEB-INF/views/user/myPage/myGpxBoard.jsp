@@ -7,6 +7,41 @@
 
 <%@ include file="../../common/head.jsp" %>
 
+<script>
+	var searchSort = "";	//변수 초기화
+	var searchVal = "";		//변수 초기화
+
+	$(function () {
+		// 페이지 처음 접근시 리스트 표시 좌표
+		myGpxBoardAjaxfn(1);	//현재 page =1 ->기본시작, 접근하는 순간 시작
+	})
+
+	// 리스트 Ajax 처리
+	function myGpxBoardAjaxfn(cPage) {
+		$.ajax({
+			url: "<c:url value="/ "/>usergpx/userMyGpxBoardAjax",
+			data: {
+				"cPage": cPage,
+				"searchSort": searchSort,
+				"searchVal": searchVal,
+			},
+			dataType: "html",
+			success: function (data) {
+				$('#user_myGpxBoardId').html(data);
+			}
+		})
+	}
+
+	//search ----------------------
+	function searchBoxFn() {
+		searchSort = $('#searchSort').val();
+		searchVal = $('#searchVal').val();
+		MyGpxBoardAjaxfn(1);
+	}
+
+</script>
+
+
 <body class="hold-transition skin-blue sidebar-mini">
   <div class="wrapper">
 
@@ -23,7 +58,64 @@
       <section class="content container-fluid">
 
 		<h1>myGpxBoard</h1>
+	<section class="content container-fluid">
 
+				<div class="row">
+					<div class="col-xs-12">
+						<div class="box">
+							<div class="box-header">
+								<div class="row">
+									<div class="col flexBox" style="justify-content: flex-start; padding: 0 16px;">
+										<h3 class="box-title">GPX 리스트</h3>
+										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										<button type="button" class="btn btn-primary"
+											onclick="javascript:location.href='<c:url value='/'/>gpx/gpxInsertForm'">글쓰기</button>
+									</div>
+								</div>
+							</div>
+							<div class="box-body">
+
+
+
+
+								<div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+									<div class="row">
+										<div class="col-sm-6"></div>
+										<div class="col-sm-6">
+											<div id="example1_filter" class="dataTables_filter">
+												<form action="javascript:searchBoxFn()">
+													<div class="box-tools">
+														<select class="form-control" name="searchSort" id="searchSort">
+															<option value="g_seq">번호</option>
+															<option value="g_title">제목</option>
+														</select>
+														<div class="input-group input-group-sm" style="width: 150px;">
+															<input type="text" name="searchVal" id="searchVal"
+																class="form-control pull-right" placeholder="Search">
+															<div class="input-group-btn">
+																<button type="submit" class="btn btn-default"><i
+																		class="fa fa-search"></i></button>
+															</div>
+														</div>
+													</div>
+												</form>
+											</div>
+
+										</div>
+									</div>
+
+									<div id="user_myGpxBoardId"></div>
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+		
+	
+	
+	
+	
       </section>
       <!-- /.content -->
 

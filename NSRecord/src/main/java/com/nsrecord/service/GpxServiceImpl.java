@@ -113,7 +113,16 @@ public class GpxServiceImpl implements GpxService {
 	gpxDao.deleteGpxReply(gr_seq);
 	}
 
-	
+	//조회수 증가
+	@Override
+	public int gpxCount(int g_seq) {
+		
+		
+		
+		return gpxDao.gpxCount(g_seq);
+
+	}
+
 	@Override
 	public int selectGrcCount(SearchDto searchDto) {
 		return gpxDao.selectGrcCount(searchDto);
@@ -138,6 +147,7 @@ public class GpxServiceImpl implements GpxService {
 	public int updateGrc(GrcDto grc) {
 		return gpxDao.updateGrc(grc);
 	}
+
 	
 	@Override
 	public int deleteGrc(GrcDto grc) {

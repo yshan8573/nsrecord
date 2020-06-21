@@ -64,4 +64,7 @@ public interface GpxDao {
 	// GRC 삭제
 	public int deleteGrc(GrcDto grc);
 	
+	//조회수 증가
+	public int gpxCount(int g_seq);
+	
 }//inter end

@@ -29,6 +29,7 @@ import com.nsrecord.dto.SearchDto;
 import com.nsrecord.dto.UserInfo;
 import com.nsrecord.service.GpxService;
 import com.nsrecord.service.GpxServiceImpl;
+import com.sun.org.apache.regexp.internal.recompile;
 
 @Controller
 public class GpxController {
@@ -194,6 +195,7 @@ public class GpxController {
 		
 		
 		
+		
 		GpxDto GpxDto = 
 		gpxServiceImpl.selectGpxBoardOne(g_seq);
 		System.out.println("이값을 확인 : " + GpxDto.toString());
@@ -204,8 +206,11 @@ public class GpxController {
 		
 		UserInfo user = (UserInfo) session.getAttribute("loginUser");
 		model.addAttribute("user",user);
+		dto.getU_nickname();	//유저 닉네임 가져오기
 		dto.getG_ori();
 		dto.getG_re();
+		
+		
 		
 		
 		System.out.println("파일 이름"+dto.toString());
@@ -403,6 +408,33 @@ public class GpxController {
 		return "admin/gpx/ajax/admin_gpxRankingList_ajax";
 	}
 	
+	//조회수 올리기 작업중
+	@RequestMapping(value = "gpx/gpxCount")
+	public String gpxCount(@RequestParam("g_seq") int g_seq, HttpSession session, HttpServletRequest re, Model model) {
+		
+		UserInfo user = (UserInfo) session.getAttribute("loginUser");
+		
+		//조회수 작업중
+				int userSeq = user.getU_seq();
+				GpxDto gpxDto = new GpxDto();
+				
+				try {
+				
+					gpxDto = gpxServiceImpl.selectGpxBoardOne(userSeq);
+					if(gpxDto.getU_seq() != userSeq) {
+					gpxServiceImpl.gpxCount(g_seq);	
+					}
+					System.out.println(gpxDto.getG_seq());
+					
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+		model.addAttribute("g_seq", g_seq);
+		
+		
+		return "redirect:/gpx/gpxBoardSelectOne";
+	}
+
 	
 	@RequestMapping(value = "adminGpx/adminGrcInsert")
 	public String adminGrcInsert(Model model) {
