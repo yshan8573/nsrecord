@@ -161,7 +161,7 @@ function fileDownload(path,oName,rName) {
 													var lon = $(this).attr("lon");
 													var p = new kakao.maps.LatLng(lat,lon);
 													points.push(p);
-												});
+												}); 
 												
 												var polyline = new kakao.maps.Polyline({
 													map: map,
