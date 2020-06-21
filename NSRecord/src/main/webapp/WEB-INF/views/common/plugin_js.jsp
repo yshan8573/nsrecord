@@ -13,6 +13,8 @@
 	<script src="<c:url value='/'/>dist/js/adminlte.min.js"></script>
 	<!-- CK Editor -->
 	<script src="<c:url value='/'/>bower_components/ckeditor/ckeditor.js"></script>
+	<!-- CK Editor config -->
+	<script src="<c:url value='/'/>js/ckeditor-config.js"></script>
 	<!-- ChartJS -->
 	<script src="<c:url value='/'/>bower_components/chart.js/Chart.js"></script>
 	<!-- FastClick -->

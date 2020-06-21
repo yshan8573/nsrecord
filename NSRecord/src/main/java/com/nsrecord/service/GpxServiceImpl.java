@@ -1,16 +1,23 @@
 package com.nsrecord.service;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.nsrecord.cotroller.GpxController;
 import com.nsrecord.dao.GpxDao;
 import com.nsrecord.dao.ICommunityDao;
 import com.nsrecord.dto.BoardPager;
 import com.nsrecord.dto.GpxDto;
 import com.nsrecord.dto.GpxReplyDto;
+import com.nsrecord.dto.GrcDto;
 import com.nsrecord.dto.SearchDto;
 
 @Service
@@ -20,7 +27,7 @@ public class GpxServiceImpl implements GpxService {
 	private GpxDao gpxDao;
 	
 	@Autowired
-	private ICommunityDao dao;
+	private HttpServletRequest request;
 
 	//전체 조회
 	@Override
@@ -108,16 +115,13 @@ public class GpxServiceImpl implements GpxService {
 	}
 	
 	
-	
-	
 	//댓글 삭제
 	@Override
 	public void deleteGpxReply(int gr_seq) {
 	
-	gpxDao	.deleteGpxReply(gr_seq);	
+	gpxDao.deleteGpxReply(gr_seq);
 	}
 
-	
 	//조회수 증가
 	@Override
 	public int gpxCount(int g_seq) {
@@ -125,15 +129,59 @@ public class GpxServiceImpl implements GpxService {
 		
 		
 		return gpxDao.gpxCount(g_seq);
+
+	}
+
+	@Override
+	public int selectGrcCount(SearchDto searchDto) {
+		return gpxDao.selectGrcCount(searchDto);
+	}
+
+	@Override
+	public List<GrcDto> selectGrcAll(BoardPager boardPager) {
+		return gpxDao.selectGrcAll(boardPager);
+	}
+
+	@Override
+	public int insertGrc(GrcDto grc) {
+		return gpxDao.insertGrc(grc);
+	}
+
+	@Override
+	public GrcDto selectGrcOne(GrcDto grc) {
+		return gpxDao.selectGrcOne(grc);
+	}
+
+	@Override
+	public int updateGrc(GrcDto grc) {
+		return gpxDao.updateGrc(grc);
 	}
 
 	
-	
-	
-	
-	
-	
-	
-	
-	
+	@Override
+	public int deleteGrc(GrcDto grc) {
+		
+		int result = gpxDao.deleteGrc(grc);
+		
+		// 파일 삭제
+		if(result > 0 ) {
+
+			String prePath = request.getSession().getServletContext().getRealPath("/resources/data/")+"/";
+			String pathGpx = prePath + "gpxRanking/gpx";
+			String pathImg = prePath + "gpxRanking/img";
+			
+			File fileGpx = new File(pathGpx + "/" + grc.getGrc_gpxRe());
+			File fileImg = new File(pathImg + "/" + grc.getGrc_imgRe());
+			
+			if (fileGpx.exists()) {
+				fileGpx.delete();
+			}
+			if (fileImg.exists()) {
+				fileImg.delete();
+			}
+		}
+		
+		return result;
+	}
+
 }//class end

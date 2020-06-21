@@ -15,14 +15,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class FileDownload {
-	
-	private final String prePath = "/ProjectData/";
 
 	@RequestMapping("/fileDownload.do")
 	public void fileDown(String path, String oName,String rName, HttpServletRequest request, HttpServletResponse response)
 	{
 		BufferedInputStream bis=null;
 		ServletOutputStream sos=null;
+		
+		String prePath = request.getSession().getServletContext().getRealPath("/resources/data/")+"/";
 
 		String saveDir= prePath + path;
 		try {

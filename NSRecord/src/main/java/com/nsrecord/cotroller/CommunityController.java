@@ -257,7 +257,8 @@ public class CommunityController {
 		
 		// 파일 업로드----------------------------- start
 		// 파일이 저장될 디텍토리 설정 
-		String path = "notice";
+		String prePath = req.getSession().getServletContext().getRealPath("/resources/data/")+"/";
+		String path = prePath + "notice";
 		
 		//단일 파일 유무에 따라 notice 객체 저장
 		if(upFile != null && !upFile.isEmpty()) {
@@ -273,25 +274,8 @@ public class CommunityController {
 		}
 		// 파일 업로드----------------------------- end
 		
-		
-		// admin 계정 임의 생성 session 추가 (관리자 페이지 로그인 기능 추가 시 삭제 에정) - Start
-		
-		UserInfo loginUser = (UserInfo)session.getAttribute("loginUser");
-		if(loginUser != null) {
-			session.removeAttribute("loginUser");
-		}
-
-		UserInfo user = new UserInfo();
-		user.setU_email("admin");
-		UserInfo result = userService.userSelectOne(user);// admin 계정 정보 가져오기
-		
-		session.setAttribute("loginUser", result); // admin 계정 정보 session 저장
-		
-		// admin 계정 임의 생성 session 추가 (관리자 페이지 로그인 기능 추가 시 삭제 에정) - End
-		
-		
 		// admin 정보 공지사항 객체에 저장
-		loginUser = (UserInfo)session.getAttribute("loginUser");
+		UserInfo loginUser = (UserInfo)session.getAttribute("loginUser");
 		notice.setU_seq(loginUser.getU_seq());
 		
 		// 글 작성 저장

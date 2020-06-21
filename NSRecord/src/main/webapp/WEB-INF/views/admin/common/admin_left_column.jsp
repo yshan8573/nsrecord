@@ -104,6 +104,7 @@
 				</a>
 				<ul class="treeview-menu">
 					<li><a href="javascript:location.href='<c:url value="/"/>adminGpx/adminGpxList'">GPX 리스트</a></li>
+					<li><a href="javascript:location.href='<c:url value="/"/>adminGpx/adminGpxRankingList'">GPX Ranking 리스트</a></li>
 				</ul>
 			</li>
 			<li class="community treeview">

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.nsrecord.dto.BoardPager;
 import com.nsrecord.dto.GpxDto;
 import com.nsrecord.dto.GpxReplyDto;
+import com.nsrecord.dto.GrcDto;
 import com.nsrecord.dto.SearchDto;
 
 @Repository
@@ -138,8 +139,7 @@ public class GpxDaoImpl implements GpxDao {
 		
 		session.delete(queryprefix+"deleteGpxReply", gr_seq);
 	}
-
-
+	
 	//조회수 증가
 	@Override
 	public int gpxCount(int g_seq) {
@@ -150,17 +150,34 @@ public class GpxDaoImpl implements GpxDao {
 		return session.update(queryprefix+"gpxCount", g_seq);
 	}
 
+	@Override
+	public int selectGrcCount(SearchDto searchDto) {
+		return session.selectOne(queryprefix+"selectGrcCount", searchDto);
+	}
 
+	@Override
+	public List<GrcDto> selectGrcAll(BoardPager boardPager) {
+		return session.selectList(queryprefix+"selectGrcAll", boardPager);
+	}
 
-	
-	
+	@Override
+	public int insertGrc(GrcDto grc) {
+		return session.insert(queryprefix+"insertGrc", grc);
+	}
 
-	
-	
-	
-	
-	
-	
-	
+	@Override
+	public GrcDto selectGrcOne(GrcDto grc) {
+		return session.selectOne(queryprefix+"selectGrcOne", grc);
+	}
+
+	@Override
+	public int updateGrc(GrcDto grc) {
+		return session.update(queryprefix+"updateGrc", grc);
+	}
+
+	@Override
+	public int deleteGrc(GrcDto grc) {
+		return session.delete(queryprefix+"deleteGrc", grc);
+	}
 	
 }//class end

@@ -29,7 +29,14 @@
 	<!-- gpx파일 저장 경로 설정 -->
 	<resources mapping="/upload/**" location="/resources/upload/" />
 	
+	<!-- img파일 저장 경로 설정 -->
+	<resources mapping="/img/**" location="/resources/img/" />
 	
+	<!-- js파일 저장 경로 설정 -->
+	<resources mapping="/js/**" location="/resources/js/" />
+	
+	<!-- data파일 저장 경로 설정 -->
+	<resources mapping="/data/**" location="/resources/data/" />
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -43,5 +50,23 @@
 	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<beans:property name="maxUploadSize" value="10485760"/> <!-- 파일 크기 : 1024*1024*10 -->
 	</beans:bean>
+	
+		
+	<interceptors>
+		<!-- 세션이없으면 로그인하세요 처리 -->
+		<interceptor>
+			<mapping path="/myPage/**" />
+			<beans:bean id="loggerInterceptor" class="com.nsrecord.common.LoginCheckInterceptor" />
+		</interceptor>
+		
+		<!-- 관리자가 아니면 권한 없음 처리 -->
+		<interceptor>		
+			<mapping path="/adminHome" />
+			<mapping path="/adminGpx/**" />
+			<mapping path="/adminCommunity/**" />
+			<mapping path="/adminUser/**" />
+			<beans:bean id="adminInterceptor" class="com.nsrecord.common.AdminCheckInterceptor" />
+		</interceptor>
+	</interceptors>
 
 </beans:beans>

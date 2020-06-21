@@ -13,6 +13,11 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>NSRecord</title>
+	
+	<!-- favicon.ico -->
+	<link rel="shortcut icon" href="<c:url value='/'/>img/favicon.ico" type="image/x-icon">
+	
+	
 	<!-- Tell the browser to be responsive to screen width -->
 	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 	<link rel="stylesheet" href="<c:url value='/'/>bower_components/bootstrap/dist/css/bootstrap.min.css">

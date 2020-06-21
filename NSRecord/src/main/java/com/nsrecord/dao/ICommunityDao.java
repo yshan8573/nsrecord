@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.nsrecord.dto.BoardPager;
 import com.nsrecord.dto.FreeBoardDto;
+import com.nsrecord.dto.GrcDto;
 import com.nsrecord.dto.Notice;
 import com.nsrecord.dto.SearchDto;
 

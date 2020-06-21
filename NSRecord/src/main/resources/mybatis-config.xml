@@ -6,5 +6,7 @@
 		<typeAlias type="com.nsrecord.dto.GpxDto" alias="gpxDto"/>
 		<typeAlias type="com.nsrecord.dto.Notice" alias="notice"/>
 		<typeAlias type="com.nsrecord.dto.SearchDto" alias="searchDto"/>
+		<typeAlias type="com.nsrecord.dto.GrcDto" alias="grcDto"/>
+		<typeAlias type="com.nsrecord.dto.BoardPager" alias="boardPager"/>
 	</typeAliases>
 </configuration>
