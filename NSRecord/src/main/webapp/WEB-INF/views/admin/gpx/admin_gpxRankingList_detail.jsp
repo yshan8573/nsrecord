@@ -29,8 +29,7 @@
 					GpxRanking Course Detail <small>GPX Ranking Course 상세 정보</small>
 				</h1>
 				<ol class="breadcrumb">
-					<li><a href="javascript:location.href='<c:url value=" /" />adminHome'"><i
-							class="fa fa-home"></i>Home</a></li>
+					<li><a href="javascript:location.href='<c:url value=" /" />adminHome'"><i class="fa fa-home"></i>Home</a></li>
 					<li class="">GpxRanking List</li>
 					<li class="active">GpxRanking Course Detail</li>
 				</ol>

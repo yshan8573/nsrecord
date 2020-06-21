@@ -50,5 +50,23 @@
 	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<beans:property name="maxUploadSize" value="10485760"/> <!-- 파일 크기 : 1024*1024*10 -->
 	</beans:bean>
+	
+		
+	<interceptors>
+		<!-- 세션이없으면 로그인하세요 처리 -->
+		<interceptor>
+			<mapping path="/myPage/**" />
+			<beans:bean id="loggerInterceptor" class="com.nsrecord.common.LoginCheckInterceptor" />
+		</interceptor>
+		
+		<!-- 관리자가 아니면 권한 없음 처리 -->
+		<interceptor>		
+			<mapping path="/adminHome" />
+			<mapping path="/adminGpx/**" />
+			<mapping path="/adminCommunity/**" />
+			<mapping path="/adminUser/**" />
+			<beans:bean id="adminInterceptor" class="com.nsrecord.common.AdminCheckInterceptor" />
+		</interceptor>
+	</interceptors>
 
 </beans:beans>

@@ -119,6 +119,7 @@ public class UserController {
 				path = "redirect:/userHome";
 
 				session.setAttribute("loginUser", result);
+				//session.setMaxInactiveInterval(20*60); //초단위(20분)
 
 			} else {
 				path = "common/msg";

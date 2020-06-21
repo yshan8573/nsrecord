@@ -30,8 +30,11 @@
 						<li class="user user-menu">
 							<a href="#">
 								<img src="<c:url value="/"/>dist/img/profile.png" class="user-image" alt="User Image" style="background-color: white;">
-								<span class="hidden-xs">admin</span>
+								<span class="hidden-xs">${loginUser.u_email }</span>
 							</a>
+						</li>
+						<li>
+							<button type="button" class="btn btn-sm bg-gray color-palette" onclick="javascript:location.href='<c:url value="/"/>adminLogout'" style="margin: 10px">Logout</button>
 						</li>
 					</ul>
 				</div>

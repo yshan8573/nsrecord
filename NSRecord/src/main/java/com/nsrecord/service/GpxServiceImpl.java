@@ -1,11 +1,17 @@
 package com.nsrecord.service;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.nsrecord.cotroller.GpxController;
 import com.nsrecord.dao.GpxDao;
 import com.nsrecord.dao.ICommunityDao;
 import com.nsrecord.dto.BoardPager;
@@ -19,6 +25,9 @@ public class GpxServiceImpl implements GpxService {
 
 	@Autowired
 	private GpxDao gpxDao;
+	
+	@Autowired
+	private HttpServletRequest request;
 
 	//전체 조회
 	@Override
@@ -151,7 +160,28 @@ public class GpxServiceImpl implements GpxService {
 	
 	@Override
 	public int deleteGrc(GrcDto grc) {
-		return gpxDao.deleteGrc(grc);
+		
+		int result = gpxDao.deleteGrc(grc);
+		
+		// 파일 삭제
+		if(result > 0 ) {
+
+			String prePath = request.getSession().getServletContext().getRealPath("/resources/data/")+"/";
+			String pathGpx = prePath + "gpxRanking/gpx";
+			String pathImg = prePath + "gpxRanking/img";
+			
+			File fileGpx = new File(pathGpx + "/" + grc.getGrc_gpxRe());
+			File fileImg = new File(pathImg + "/" + grc.getGrc_imgRe());
+			
+			if (fileGpx.exists()) {
+				fileGpx.delete();
+			}
+			if (fileImg.exists()) {
+				fileImg.delete();
+			}
+		}
+		
+		return result;
 	}
 
 }//class end

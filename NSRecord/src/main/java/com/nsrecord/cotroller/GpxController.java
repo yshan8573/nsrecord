@@ -492,7 +492,6 @@ public class GpxController {
 		}
 		// 파일 업로드----------------------------- end
 		
-		System.out.println("grc : " + grc.toString());
 		int insertResult = gpxService.insertGrc(grc);
 
 
@@ -552,7 +551,10 @@ public class GpxController {
 	public String adminGrcDeleteEnd(GrcDto grc, Model model) {
 		logger.info("this is a adminGrcDeleteEnd Method");
 		
-		int result = gpxService.deleteGrc(grc);
+		// 파일 삭제를 위해 GRC 정보 가져오기
+		GrcDto grcResult = gpxService.selectGrcOne(grc);
+		
+		int result = gpxService.deleteGrc(grcResult);
 		
 		String path = "common/msg";
 		String loc = "";
