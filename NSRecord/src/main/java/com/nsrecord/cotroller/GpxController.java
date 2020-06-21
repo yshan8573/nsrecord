@@ -8,7 +8,9 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -19,6 +21,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.nsrecord.common.FileUpload;
@@ -185,12 +188,57 @@ public class GpxController {
 	//상세 조회
 	@RequestMapping(value = "gpx/gpxBoardSelectOne")
 	public String gpxSelectOne(@RequestParam("g_seq") int g_seq, Model model, 
-			HttpSession session, GpxDto dto) {
+			HttpSession session, GpxDto dto, HttpServletRequest req, HttpServletResponse res) {
 		logger.info("this is a gpxSelectOne Method");
 		//		System.out.println("g_seq = "+g_seq);
 		
+		//해당 게시판 번호를 받아 상세페이지로 넘겨줌
+		GpxDto selectOne = gpxServiceImpl.selectGpxBoardOne(g_seq);
+		ModelAndView view = new ModelAndView();
 		
+		//쿠키 생성
+		Cookie[] cookies = req.getCookies();
 		
+		//비교하기 위한 새로운 쿠키
+		Cookie viewCookie = null;
+		
+		//쿠키가 있을 경우
+		if(cookies != null && cookies.length > 0) {
+			for(int i = 0; i < cookies.length; i++) {
+				
+			//Cookie의 name이 cookie+g_seq와 일치하는 쿠키를 viewCookie에 넣어줌
+			if(cookies[i].getName().equals("cookie"+g_seq)) {
+			System.out.println("처음 쿠키가 생성한 뒤 들어옴");
+			viewCookie = cookies[i];
+			}//if end
+				
+			}//for end
+		}//if end
+		
+		if(selectOne != null) {
+			System.out.println("해당 상세페이지로 넘어감'");
+			view.addObject("selectOne", selectOne);
+			
+			//만일 viewCookie가 null일 경우 쿠키를 생성해서 조회수 증가 로직 처리
+			if(viewCookie == null) {
+				System.out.println("쿠키 없음");
+				
+				//쿠키 생성(이름값)
+				Cookie newCookie = new Cookie("cookie"+g_seq, "|"+g_seq+"|");
+				
+				//쿠키 추가
+				res.addCookie(newCookie);
+				
+				//쿠키를 추가시키고 조회수 증가시킴
+				int result = gpxServiceImpl.gpxCount(g_seq);
+				
+				if(result > 0) {
+					
+				}
+				
+			}//if end
+			
+		}//if end
 		
 		
 		
@@ -343,32 +391,7 @@ public class GpxController {
 		return "redirect:/gpx/gpxBoardSelectOne";
 	}
 	
-	//조회수 올리기 작업중
-	@RequestMapping(value = "gpx/gpxCount")
-	public String gpxCount(@RequestParam("g_seq") int g_seq, HttpSession session, HttpServletRequest re, Model model) {
-		
-		UserInfo user = (UserInfo) session.getAttribute("loginUser");
-		
-		//조회수 작업중
-				int userSeq = user.getU_seq();
-				GpxDto gpxDto = new GpxDto();
-				
-				try {
-				
-					gpxDto = gpxServiceImpl.selectGpxBoardOne(userSeq);
-					if(gpxDto.getU_seq() != userSeq) {
-					gpxServiceImpl.gpxCount(g_seq);	
-					}
-					System.out.println(gpxDto.getG_seq());
-					
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-		model.addAttribute("g_seq", g_seq);
-		
-		
-		return "redirect:/gpx/gpxBoardSelectOne";
-	}
+
 	
 	
 	

@@ -345,13 +345,19 @@ function fileDownload(path,oName,rName) {
 									
 									<textarea id="g_content" name="g_content" readonly="readonly">${GpxDto.g_content }</textarea>
 								
-								<%-- 	<c:if test="${user eq GpxDto.u_nickname }">  --%>
+								<c:choose>
+									<c:when test="${user.u_seq eq GpxDto.u_seq }">
 									<input type="button" value="수정" id="updateGpxBoard">
 									<input type="button" value="삭제" id="deleteGpxBoard">
-									
-									<%--</c:if>--%>
-									
 									<input type="button" value="목록" id = "gpxBoard">
+									</c:when>
+									<c:otherwise>
+									<input type="button" value="목록" id = "gpxBoard">
+									</c:otherwise>
+									</c:choose>
+									
+									
+									
 									</div>
 									
 									<!-- this row will not appear when printing -->
