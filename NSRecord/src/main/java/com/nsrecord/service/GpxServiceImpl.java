@@ -118,7 +118,17 @@ public class GpxServiceImpl implements GpxService {
 	}
 
 	
+	//조회수 증가
+	@Override
+	public int gpxCount(int g_seq) {
+		
+		
+		
+		return gpxDao.gpxCount(g_seq);
+	}
 
+	
+	
 	
 	
 	

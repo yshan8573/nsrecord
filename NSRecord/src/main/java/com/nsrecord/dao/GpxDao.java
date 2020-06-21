@@ -45,4 +45,7 @@ public interface GpxDao {
 	//댓글 삭제
 	public void deleteGpxReply(int gr_seq);
 	
+	//조회수 증가
+	public int gpxCount(int g_seq);
+	
 }//inter end

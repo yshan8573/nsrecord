@@ -140,6 +140,17 @@ public class GpxDaoImpl implements GpxDao {
 	}
 
 
+	//조회수 증가
+	@Override
+	public int gpxCount(int g_seq) {
+		System.out.println("조회수증가 접근 = "+g_seq);
+		
+		
+		
+		return session.update(queryprefix+"gpxCount", g_seq);
+	}
+
+
 
 	
 	
