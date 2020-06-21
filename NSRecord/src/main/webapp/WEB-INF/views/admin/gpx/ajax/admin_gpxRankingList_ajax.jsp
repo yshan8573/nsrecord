@@ -13,7 +13,7 @@
 		align-items: center;
 		flex-wrap: wrap;
 		background-color: lightgray;
-		margin-bottom: 20px;
+		margin-bottom: 0px;
 		padding : 20px;
 		
 	}

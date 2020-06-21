@@ -71,7 +71,7 @@
 
 				<div class="row">
 					<div class="col-xs-12">
-						<div class="box">
+						<div class="box" style="margin-bottom: 0px;">
 							<div class="box-header">
 								<div class="row">
 									<div class="col flexBox" style="justify-content: flex-start; padding: 0 16px;">
