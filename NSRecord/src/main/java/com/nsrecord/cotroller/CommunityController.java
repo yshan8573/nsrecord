@@ -3,7 +3,9 @@ package com.nsrecord.cotroller;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -615,5 +617,127 @@ public class CommunityController {
 			
 			return "user/myPage/myReplyAjax";
 		}
-}
 
+		@RequestMapping(value = "community/userNoticeBoardAjax")
+		public String userNoticeBoardAjax(
+				@RequestParam(value = "cPage", defaultValue = "1") int cPage,	//디폴트값 설정 -> 400Error 방지
+				@RequestParam(value = "searchSort", defaultValue = "") String searchSort,
+				@RequestParam(value = "searchVal", defaultValue = "") String searchVal,
+				Model model) {
+			logger.info("this is a userNoticeBoardAjax Method");
+			
+			// 검색 객체 값 넣기
+			SearchDto searchDto = new SearchDto(searchSort, searchVal);
+			
+			// 공지사항 리스트 총 레코드 가져오기
+			int nCount = iCommunityService.selectNoticeBoardCount(searchDto);
+			
+			int curPage = cPage; // 현재 출력 페이지
+			
+			// 페이지 객체에 값 저장 (nCount: 리스트 총 레코드 갯수 / curPage: 현재 출력 페이지)
+			BoardPager boardPager = new BoardPager(nCount, curPage);
+			
+			// 페이지 객체에 검색 정보 저장
+			boardPager.setSearchSort(searchSort);
+			boardPager.setSearchVal(searchVal);
+			
+			// 공지사항 리스트 가져오기
+			List<Notice> nResult = iCommunityService.selectNoticeBoardAll(boardPager);
+			
+			model.addAttribute("noticeList",nResult);
+			model.addAttribute("boardPager",boardPager);
+			
+			// 사이드 메뉴 'active' 설정 flag
+			model.addAttribute("categoryLoc", "community");
+			
+			return "user/community/ajax/user_noticeBoard_ajax";
+		}
+
+		@RequestMapping(value = "community/userNoticeBoardDetail")
+		public String userNoticeBoardDetail(
+				Notice notice, Model model,
+				HttpServletRequest request,
+				HttpServletResponse response
+				) {
+			logger.info("this is a userNoticeBoardDetail Method");
+			
+			Notice nResult = iCommunityService.selectNoticeBoardOne(notice);
+			model.addAttribute("notice", nResult);
+			int nSeq = nResult.getN_seq();
+			
+			// 쿠키 선언
+	        Cookie[] cookies = request.getCookies();
+	        
+	        // 비교하기 위해 새로운 쿠키
+	        Cookie viewCookie = null;
+	        
+	        // notice 쿠키 등록 확인
+	        boolean cookieFlag = false;
+	        boolean seqFlag = false;
+	 
+	        
+
+	 
+	        // 쿠키가 있을 경우 
+	        if (cookies != null && cookies.length > 0) {
+	            for (int i = 0; i < cookies.length; i++) {
+	            	
+	                // Cookie의 name이 cookie + reviewNo와 일치하는 쿠키를 viewCookie에 넣어줌 
+	                if (cookies[i].getName().equals("notice")) { 
+	                    
+	                	//쿠키에 저장된 notice seq 배열에 저장
+	                	String[] cookArray =  cookies[i].getValue().split("|");
+	                	
+	                	for(int j = 0;j< cookArray.length;j++) {
+	                		
+	                		// 쿠키에 저장된 seq 정보와 받아온 notice seq 정보 비교시 일치한 값이 있을때
+	                		if(cookArray[j].equals(Integer.toString(nResult.getN_seq()))) {
+	                			seqFlag = true;
+	                		}
+	                	}
+	                	cookieFlag = true;
+	                }
+	            }
+	        }
+	        
+	        // notice 쿠키가 있을 때
+	        if(cookieFlag) {
+	        	
+	        	// seq가 없을때
+	        	if(!seqFlag) {
+	        		if (cookies != null && cookies.length > 0) {
+	    	            for (int i = 0; i < cookies.length; i++) {
+	    	            	if (cookies[i].getName().equals("notice")) { 
+	    	            	
+		    	                // 쿠키 생성(이름, 값)
+		    	                Cookie newCookie = new Cookie("notice", cookies[i].getValue() + "|" + nSeq);
+		    	                // 쿠키 추가
+		    	                response.addCookie(newCookie);
+		    	                
+		    	                // notice 조회수 증가시킴
+		    	                int result = iCommunityService.noticeCountUp(notice);
+		    	                
+	    	            	}
+	    	            }
+	        		}
+	        	}
+	        	
+	        // notice 쿠키가 없을때
+	        } else {
+	        	// 쿠키 생성(이름, 값)
+                Cookie newCookie = new Cookie("notice", "" + nSeq);
+                // 쿠키 추가
+                response.addCookie(newCookie);
+
+                // notice 조회수 증가시킴
+                int result = iCommunityService.noticeCountUp(notice);
+	        }
+
+			
+			// 사이드 메뉴 'active' 설정 flag
+			model.addAttribute("categoryLoc", "community");
+			
+			return "admin/community/admin_noticeBoard_detail";
+		}
+
+}
