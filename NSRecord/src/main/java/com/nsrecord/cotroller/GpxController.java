@@ -88,17 +88,7 @@ public class GpxController {
 		
 		return "user/gpx/ajax/user_gpxBoard_ajax";
 	}
-	
-	@RequestMapping(value = "gpx/gpxRanking")
-	public String gpxRanking(Model model) {
-		logger.info("this is a gpxRanking Method");
 
-		// 사이드 메뉴 'active' 설정 flag
-		model.addAttribute("categoryLoc", "gpx");
-		
-		return "user/gpx/gpxRanking";
-	}
-	
 	@RequestMapping(value = "gpx/myGpxBoard")
 	public String myGpxBoard(Model model) {
 		logger.info("this is a myGpxBoard Method");
@@ -503,7 +493,7 @@ public class GpxController {
 	
 	@RequestMapping(value = "adminGpx/adminGpxRankingListDetail")
 	public String adminGpxRankingListDetail(GrcDto grc, Model model, HttpServletRequest request) {
-		logger.info("this is a adminGrcInsertEnd Method");
+		logger.info("this is a adminGpxRankingListDetail Method");
 		
 		GrcDto grcResult = gpxService.selectGrcOne(grc);
 		model.addAttribute("grc", grcResult);
@@ -573,6 +563,73 @@ public class GpxController {
 		model.addAttribute("categoryLoc", "gpx");
 		
 		return path;
+	}
+	
+	@RequestMapping(value = "gpx/gpxRanking")
+	public String gpxRanking(Model model) {
+		logger.info("this is a gpxRanking Method");
+
+		// 사이드 메뉴 'active' 설정 flag
+		model.addAttribute("categoryLoc", "gpx");
+		
+		return "user/gpx/gpxRanking";
+	}
+	
+	// GPX Ranking 리스트 ajax 처리
+	@RequestMapping(value = "gpx/userGpxRankingListAjax")
+	public String userGpxRankingListAjax(
+			@RequestParam(value = "cPage", defaultValue = "1") int cPage,
+			@RequestParam(value = "searchSort", defaultValue = "") String searchSort,
+			@RequestParam(value = "searchVal", defaultValue = "") String searchVal,
+			Model model) {
+		logger.info("this is a userGpxRankingListAjax Method");
+
+		// 검색 객체 값 넣기
+		SearchDto searchDto = new SearchDto(searchSort, searchVal);
+		
+		// grc 리스트 레코드 갯수 가져오기
+		int grcCount = gpxService.selectGrcCount(searchDto);
+		
+		int curPage = cPage; // 현재 출력 페이지
+		
+		// 페이지 객체에 값 저장 (nCount: 리스트 총 레코드 갯수 / curPage: 현재 출력 페이지)
+		BoardPager boardPager = new BoardPager(grcCount, curPage);
+		
+		// 페이지 객체에 검색 정보 저장
+		boardPager.setSearchSort(searchSort);
+		boardPager.setSearchVal(searchVal);
+		
+		// GPX Ranking 리스트 가져오기
+		List<GrcDto> grcResult = gpxService.selectGrcAll(boardPager);
+		
+		model.addAttribute("grcList",grcResult);
+		model.addAttribute("boardPager",boardPager);
+
+		// 사이드 메뉴 'active' 설정 flag
+		model.addAttribute("categoryLoc", "gpx");
+		
+		return "user/gpx/ajax/user_gpxRankingList_ajax";
+	}
+	
+	@RequestMapping(value = "gpx/userGpxRankingListDetail")
+	public String userGpxRankingListDetail(GrcDto grc, Model model, HttpServletRequest request) {
+		logger.info("this is a userGpxRankingListDetail Method");
+		
+		GrcDto grcResult = gpxService.selectGrcOne(grc);
+		model.addAttribute("grc", grcResult);
+		
+		// 지도 gpx 코스 정보 가져오기
+		String prePath = request.getSession().getServletContext().getRealPath("/resources/data/")+"/";
+		String path = prePath + "gpxRanking/gpx";
+		String g_re = grcResult.getGrc_gpxRe();
+		List<Map> mapList = GpxReader.read(path, g_re);
+		model.addAttribute("mapList", mapList);
+		
+		
+		// 사이드 메뉴 'active' 설정 flag
+		model.addAttribute("categoryLoc", "gpx");
+		
+		return "user/gpx/gpxRankingList_detail";
 	}
 	
 }//class end
