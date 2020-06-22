@@ -67,4 +67,9 @@ public interface GpxService {
 	// GRC 삭제
 	public int deleteGrc(GrcDto grc);
 	
+	//myGpx페이지 List
+	public List<GpxDto> selectMyGpxAllList(BoardPager boardPager);
+	
+	
+	
 }//inter end

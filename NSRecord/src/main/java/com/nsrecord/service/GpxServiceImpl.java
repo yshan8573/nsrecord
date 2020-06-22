@@ -184,4 +184,15 @@ public class GpxServiceImpl implements GpxService {
 		return result;
 	}
 
+	//MyGpxAllList
+	@Override
+	public List<GpxDto> selectMyGpxAllList(BoardPager boardPager) {
+		
+		return gpxDao.selectMyGpxAllList(boardPager);
+	}
+	
+	
+	
+	
+
 }//class end

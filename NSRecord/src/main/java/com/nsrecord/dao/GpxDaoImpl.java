@@ -179,5 +179,22 @@ public class GpxDaoImpl implements GpxDao {
 	public int deleteGrc(GrcDto grc) {
 		return session.delete(queryprefix+"deleteGrc", grc);
 	}
+
+
+	//MyGpxAllList
+	@Override
+	public List<GpxDto> selectMyGpxAllList(BoardPager boardPager) {
+		
+		List<GpxDto> myGpxDtoList = 
+				new ArrayList<GpxDto>();
+		
+		myGpxDtoList = session.selectList(queryprefix+"myGpxAllList", boardPager);
+			
+		
+		return myGpxDtoList;
+	}
+	
+	
+	
 	
 }//class end

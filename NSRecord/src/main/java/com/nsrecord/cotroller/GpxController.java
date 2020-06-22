@@ -59,9 +59,12 @@ public class GpxController {
 	public String userGpxBoardAjax(@RequestParam(value = "cPage", defaultValue = "1") int cPage,	//디폴트값 설정 -> 400Error 방지
 			@RequestParam(value = "searchSort", defaultValue = "") String searchSort,
 			@RequestParam(value = "searchVal", defaultValue = "") String searchVal,
-			Model model) {
+			Model model, HttpSession session) {
 		logger.info("this is a userGpxBoardAjax Method");
-
+		
+		UserInfo user = (UserInfo) session.getAttribute("loginUser");
+		model.addAttribute("user",user);
+		
 		// 사이드 메뉴 'active' 설정 flag
 		model.addAttribute("categoryLoc", "gpx");
 		
@@ -123,9 +126,9 @@ public class GpxController {
 	
 	//유저 글쓰기 폼
 	@RequestMapping(value = "gpx/gpxInsertForm")
-	public String gpxInsertForm() {
+	public String gpxInsertForm(GpxDto dto, Model model, HttpServletRequest req) {
 		logger.info("this is a gpxInsertForm Method");
-			
+		
 		
 		
 		
@@ -146,26 +149,25 @@ public class GpxController {
 	
 //	System.out.println(user.getU_nickname());
 	
-	//파일 업로드 -----------------------------start
-	//파일 경로 설정
-	String path = "gpx";
-	System.out.println(gpxFile);
-	
-	//단일 파일 유무에 따라 gpx객체 저장
-	if(gpxFile !=null && !gpxFile.isEmpty()) {
+		// 파일 업로드----------------------------- start
+		// 파일이 저장될 디텍토리 설정 
+		String prePath = re.getSession().getServletContext().getRealPath("/resources/data/")+"/";
+		String pathGpx = prePath + "gpx/gpx";
 		
-	//path : 저장될 파일 경로, gpxFile : view에서 받아온 file값
-	FileUpload ful = new FileUpload(path, gpxFile);
-	
-	dto.setG_ori(ful.getFileOriName());
-	dto.setG_re(ful.getFileReName());
-	
-	} else {
-		dto.setG_ori("");
-		dto.setG_re("");
-		
-	}
-//파일 업로드 --------------------------------end
+		//단일 파일 유무에 따라 notice 객체 저장
+		if(gpxFile != null && !gpxFile.isEmpty()) {
+			
+			// path : 저장될 파일 경로, upFile : view에서 받아온 file 값
+			FileUpload ful = new FileUpload(pathGpx,gpxFile);
+			
+			dto.setG_ori(ful.getFileOriName());
+			dto.setG_re(ful.getFileReName());
+		} else {
+			dto.setG_ori("");
+			dto.setG_re("");
+		}
+
+		// 파일 업로드----------------------------- end
 	
 
 	
@@ -182,6 +184,25 @@ public class GpxController {
 			HttpSession session, GpxDto dto, HttpServletRequest req, HttpServletResponse res) {
 		logger.info("this is a gpxSelectOne Method");
 		//		System.out.println("g_seq = "+g_seq);
+		
+		UserInfo user = (UserInfo) session.getAttribute("loginUser");
+		model.addAttribute("user",user);
+		dto.getU_nickname();	//유저 닉네임 가져오기
+		dto.getG_ori();
+		dto.getG_re();
+		
+		GpxDto gpxResult = gpxService.selectGpxBoardOne(g_seq);
+		model.addAttribute("gpx", gpxResult);
+		
+		// 지도 gpx 코스 정보 가져오기
+		String prePath = req.getSession().getServletContext().getRealPath("/resources/data/")+"/";
+		String pathGpx = prePath + "gpx/gpx";
+		String g_re = gpxResult.getG_re();
+		List<Map> mapList = GpxReader.read(pathGpx, g_re);
+		System.out.println("mapList"+mapList.toString());
+		model.addAttribute("mapList", mapList);
+		
+		
 		
 		//해당 게시판 번호를 받아 상세페이지로 넘겨줌
 		GpxDto selectOne = gpxServiceImpl.selectGpxBoardOne(g_seq);
@@ -223,10 +244,12 @@ public class GpxController {
 				//쿠키를 추가시키고 조회수 증가시킴
 				int result = gpxServiceImpl.gpxCount(g_seq);
 				
-				if(result > 0) {
+				if(result > 0 && dto.getU_seq() != user.getU_seq()) {
 					System.out.println("조회수 증가");
+				} else if(result > 0 && dto.getU_seq() == user.getU_seq()) {
+					System.out.println("조회수 변동 없음");
 				} else {
-					System.out.println("조회수 증가 실패");
+					System.out.println("조회수 중가 실패");
 				}
 				
 			}//if end
@@ -253,11 +276,7 @@ public class GpxController {
 		
 		
 		
-		UserInfo user = (UserInfo) session.getAttribute("loginUser");
-		model.addAttribute("user",user);
-		dto.getU_nickname();	//유저 닉네임 가져오기
-		dto.getG_ori();
-		dto.getG_re();
+		
 		
 		
 		
@@ -274,8 +293,18 @@ public class GpxController {
 	
 	//수정1
 	@RequestMapping(value = "gpx/gpxUpdateForm")
-	public String gpxUpdateForm(@RequestParam("g_seq") int g_seq, @RequestParam("u_seq") int u_seq, Model model, GpxDto dto, HttpSession sesseion) {
-	
+	public String gpxUpdateForm(@RequestParam("g_seq") int g_seq, @RequestParam("u_seq") int u_seq, 
+			Model model, GpxDto dto, HttpSession sesseion, HttpServletRequest request) {
+		
+		GpxDto gpxResult = gpxService.selectGpxBoardOne(g_seq);
+		model.addAttribute("gpx",gpxResult);
+		// 지도 gpx 코스 정보 가져오기
+		String prePath = request.getSession().getServletContext().getRealPath("/resources/data/")+"/";
+		String pathGpx = prePath + "gpx/gpx";
+		String g_re = gpxResult.getG_re();
+		List<Map> mapList = GpxReader.read(pathGpx, g_re);
+		System.out.println("mapList"+mapList.toString());
+		model.addAttribute("mapList", mapList);
 	
 	UserInfo user = (UserInfo) sesseion.getAttribute("loginUser");
 	dto.setU_seq(user.getU_seq());	
@@ -293,30 +322,38 @@ public class GpxController {
 	//수정2
 	@RequestMapping(value = "gpx/gpxUpdate")
 	public String gpxUpdateResut(GpxDto dto, RedirectAttributes redirectAttributes, 
-			HttpSession sesseion, @RequestParam(value = "gpxFile", required = false) MultipartFile gpxFile) {
+			HttpSession sesseion, HttpServletRequest request, Model model, 
+			@RequestParam(value = "gpxFile", required = false) MultipartFile gpxFile) {
 	
 		System.out.println("수정2");
+		GpxDto gpxResult = gpxService.selectGpxBoardOne(dto.getG_seq());
+		model.addAttribute("gpx", gpxResult);
 		
-		//파일 업로드 -----------------------------start
-		//파일 경로 설정
-		String path = "gpx";
-		System.out.println(gpxFile);
 		
-		//단일 파일 유무에 따라 gpx객체 저장
-		if(gpxFile !=null && !gpxFile.isEmpty()) {
-			
-		//path : 저장될 파일 경로, gpxFile : view에서 받아온 file값
-		FileUpload ful = new FileUpload(path, gpxFile);
-		
-		dto.setG_ori(ful.getFileOriName());
-		dto.setG_re(ful.getFileReName());
-		
-		} else {
-			dto.setG_ori("");
-			dto.setG_re("");
-			
-		}
-	//파일 업로드 --------------------------------end
+		// 파일 업로드----------------------------- start
+		// 파일이 저장될 디텍토리 설정 
+		// 지도 gpx 코스 정보 가져오기
+		String prePath = request.getSession().getServletContext().getRealPath("/resources/data/")+"/";
+		String pathGpx = prePath + "gpx/gpx";
+		String g_re = gpxResult.getG_re();
+		List<Map> mapList = GpxReader.read(pathGpx, g_re);
+		System.out.println("mapList"+mapList.toString());
+		model.addAttribute("mapList", mapList);
+				
+				//단일 파일 유무에 따라 notice 객체 저장
+				if(gpxFile != null && !gpxFile.isEmpty()) {
+					
+					// path : 저장될 파일 경로, upFile : view에서 받아온 file 값
+					FileUpload ful = new FileUpload(pathGpx,gpxFile);
+					
+					dto.setG_ori(ful.getFileOriName());
+					dto.setG_re(ful.getFileReName());
+				} else {
+					dto.setG_ori("");
+					dto.setG_re("");
+				}
+
+				// 파일 업로드----------------------------- end
 		
 		
 	UserInfo user = (UserInfo) sesseion.getAttribute("loginUser");
@@ -331,6 +368,7 @@ public class GpxController {
 	return "redirect:/gpx/gpxBoardSelectOne";	
 	}
 	
+	
 	//삭제
 	@RequestMapping( value = "gpx/gpxDelete")
 	public String gpxDelete(GpxDto dto, HttpSession session) {
@@ -339,6 +377,8 @@ public class GpxController {
 		UserInfo user = (UserInfo) session.getAttribute("loginUser");
 		dto.setU_seq(user.getU_seq());	
 		dto.setU_nickname(user.getU_nickname());
+		
+		GpxDto gpxResult = gpxService.selectGpxBoardOne(g_seq);
 		gpxServiceImpl.deleteGpxBoard(g_seq);
 		
 		
@@ -670,5 +710,53 @@ public class GpxController {
 		
 		return "user/gpx/gpxRankingList_detail";
 	}
+	
+	
+	@RequestMapping(value = "userMyGpxBoardAjax")
+	public String gpxMyPage(@RequestParam(value = "cPage", defaultValue = "1") int cPage,
+			@RequestParam(value = "searchSort", defaultValue = "") String searchSort,
+			@RequestParam(value = "searchVal", defaultValue = "") String searchVal,
+			Model model, GpxDto dto, HttpSession session) {
+		
+		logger.info("this is a userMyGpxBoardAjax Method");
+		
+		UserInfo user = (UserInfo) session.getAttribute("loginUser");
+		model.addAttribute("user",user);
+		dto.getU_seq();
+		
+		// 검색 객체 값 넣기
+		SearchDto searchDto = new SearchDto(searchSort, searchVal);
+		
+		// gpx 리스트 레코드 갯수 가져오기
+		int gpxCount = gpxServiceImpl.selectGpxBoardCount(searchDto);
+		
+		int curPage = cPage; // 현재 출력 페이지
+		
+		// 페이지 객체에 값 저장 (nCount: 리스트 총 레코드 갯수 / curPage: 현재 출력 페이지)
+		BoardPager boardPager = new BoardPager(gpxCount, curPage);
+		
+		// 페이지 객체에 검색 정보 저장
+		boardPager.setSearchSort(searchSort);
+		boardPager.setSearchVal(searchVal);
+		
+		// MYGPX 리스트 가져오기
+		List<GpxDto> gpxResult = gpxServiceImpl.selectMyGpxAllList(boardPager);
+		
+		System.out.println(gpxResult);
+		
+		model.addAttribute("myGpxList",gpxResult);
+		model.addAttribute("boardPager",boardPager);
+
+		// 사이드 메뉴 'active' 설정 flag
+		model.addAttribute("categoryLoc", "gpx");
+		
+		
+		
+		return "user/gpx/myPage/myGpxBoard";
+	}
+	
+	
+	
+	
 	
 }//class end

@@ -40,16 +40,21 @@
 													</tr>
 												</thead>
 			<tbody>
-				<c:forEach var="gpxList" items="${gpxList }">
-				
+				<c:forEach var="myGpxList" items="${myGpxList }">
+					<c:choose>
+					<c:when test="${myGpxList.u_seq eq user.u_seq }">
 					<tr role="row">
-						<td class="">${gpxList.g_seq }</td>
-						<td onclick="javascript:location.href='<c:url value="/ "/>gpx/gpxBoardSelectOne?g_seq=${gpxList.g_seq }'"> ${gpxList.g_title }</td>
-						<td>${gpxList.u_nickname }</td>
-						<td>${gpxList.g_count }</td>
-						<td>${gpxList.g_recommand }</td>
+						<td class="">${myGpxList.g_seq }</td>
+						<td onclick="javascript:location.href='<c:url value="/ "/>gpx/gpxBoardSelectOne?g_seq=${myGpxList.g_seq }'"> ${myGpxList.g_title }</td>
+						<td>${myGpxList.u_nickname }</td>
+						<td>${myGpxList.g_count }</td>
+						<td>${myGpxList.g_recommand }</td>
 					</tr>
-					
+					</c:when>
+					<c:otherwise>
+					작성한 게시물이 없습니다.
+					</c:otherwise>
+					</c:choose>
 				</c:forEach>
 
 			</tbody>
