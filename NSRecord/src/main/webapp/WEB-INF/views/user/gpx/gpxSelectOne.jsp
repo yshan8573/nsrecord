@@ -294,37 +294,6 @@ function fileDownload(path,oName,rName) {
 									</div>
 									<!-- /.box-body -->
 								</div>
-								
-								
-								
-								
-								
-								
-								
-								<script>
-  $(function () {
-
-	   
-  })
-</script>
-								
-								
-								
-								
-								
-								
-								
-								
-								
-								
-								
-								
-								
-								
-								
-								
-								
-
 							</div>
 						</div>
 
@@ -399,12 +368,12 @@ function fileDownload(path,oName,rName) {
 	                         	<div id='${GpxReply.gr_seq }' >${GpxReply.gr_content }</div>
 				                 <div class="GpxreplyUpdateButton${GpxReply.gr_seq }">
 				              
-				                <%--<c:if test="${user eq GpxReply.u_seq }"> --%>
+				              
 				                <input type="button"  value="수정"  onclick="gpxReplyUpdate(${GpxReply.gr_seq },'${GpxReply.gr_content }',${GpxDto.g_seq })">
 				                </div>
 				                <input type="button" class="gpxReplyDeleteButton"  value="삭제" onclick="deleteGpxReply(${GpxReply.gr_seq}, ${GpxDto.g_seq })">	
 	                  			
-	                  			<%--</c:if>--%>
+	                  		
 	                  		</p>	
                         </span>
                     <span class="description">${ GpxReply.gr_date}</span>

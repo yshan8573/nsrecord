@@ -45,6 +45,7 @@
 						<td>${gpxList.g_count }</td>
 						<td>${gpxList.g_recommand }</td>
 					</tr>
+					
 				</c:forEach>
 
 			</tbody>
