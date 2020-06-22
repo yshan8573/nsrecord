@@ -229,12 +229,12 @@ function checkSubmit() {
 		<h1>회원가입</h1>
 		<br>
 		<table border="1">
-			<tr>
-				<th>프로필</th>
-				<td>
-					<img src=""><input type="button" name="profile">
-				</td>
-			</tr>
+<!-- 			<tr> -->
+<!-- 				<th>프로필</th> -->
+<!-- 				<td> -->
+<!-- 					<img src=""><input type="button" name="profile"> -->
+<!-- 				</td> -->
+<!-- 			</tr> -->
 			<tr>
 				<th>E-mail</th>
 				<td>

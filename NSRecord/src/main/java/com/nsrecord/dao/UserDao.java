@@ -8,19 +8,21 @@ public interface UserDao {
 
 	public UserInfo userSelectOne(UserInfo user);
 	
+	// 회원 리스트 출력
 	public List<UserInfo> admin_userList() throws Exception;
 	
+	// 회원 추가
 	public void insertUser(UserInfo user) throws Exception;
 
 	// 이메일 중복체크
 	public int idcheck(String u_email) throws Exception;
 
 	// 닉네임 중복체크
-	public int nickcheck(String u_nickname);
+	public int nickcheck(String u_nickname) throws Exception;
 
-	// 회원정보 수정
-	public void userUpdate(UserInfo user) throws Exception;
+	// 회원 정보 수정
+	public void updateUser(UserInfo user) throws Exception;
 
-	
-
+	// 회원 정보 삭제
+	public void deleteUser(UserInfo user) throws Exception;
 }

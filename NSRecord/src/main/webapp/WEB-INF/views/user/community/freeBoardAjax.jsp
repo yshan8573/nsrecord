@@ -33,7 +33,7 @@
 	<c:forEach var="freeBoard" items="${freeBoardList}">
 			<tr>
 				<td>${freeBoard.b_seq}</td>
-				<td><a href="<%=contextPath%>/freeBoardContent?b_seq=${freeBoard.b_seq}">${freeBoard.b_title}</a>			</td>
+				<td><a href="<%=contextPath%>/preFreeBoardContent?b_seq=${freeBoard.b_seq}">${freeBoard.b_title}</a>			</td>
 				<td>${freeBoard.u_nickname}</td>
 				<td>${freeBoard.b_count}</td>
 				<td>${freeBoard.b_reply}</td>

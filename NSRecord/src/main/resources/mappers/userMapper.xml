@@ -8,6 +8,7 @@
 	<select id="userSelectOne" parameterType="userInfo" resultType="userInfo">
 		SELECT * FROM USER_INFO WHERE U_EMAIL = #{u_email}
 	</select>
+	
 <!-- 회원 등록 -->
 	<insert id="insertUser" parameterType="userInfo">
 		INSERT INTO USER_INFO(
@@ -46,13 +47,20 @@
 <!-- 	회원 정보 수정 -->
 	<update id="updateUser">
 		UPDATE USER_INFO 
-		SET U_PWD = #{U_PWD},
-			U_NICKNAME = #{U_NICKNAME},
-			U_PHONE = #{U_PHONE},
-			U_CYCLE = #{U_CYCLE}
+		SET 
+			U_PWD = #{u_pwd},
+			U_NICKNAME = #{u_nickname},
+			U_PHONE = #{u_phone},
+			U_CYCLE = #{u_cycle}
 		WHERE
-			U_EMAIL = #{U_EMAIL}
+			U_EMAIL = #{u_email}
 			
 	</update>
 	
+<!-- 	회원 정보 삭제 -->
+	<delete id="deleteUser">
+		DELETE FROM USER_INFO
+		WHERE U_EMAIL = #{u_email}
+			AND U_PWD = #{u_pwd}
+	</delete>
 </mapper>

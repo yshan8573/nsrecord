@@ -20,8 +20,10 @@ public interface UserService {
 	// 닉네임 중복체크
 	public int nickcheck(String u_nickname) throws Exception;
 	
-	public void userUpdate(UserInfo user) throws Exception;
+	// 회원가입 update
+	public void updateUser(UserInfo user) throws Exception;
 
-	
+	// 회원탈퇴
+	public void deleteUser(UserInfo user) throws Exception;
 
 }
