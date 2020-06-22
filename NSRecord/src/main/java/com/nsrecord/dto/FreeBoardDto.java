@@ -123,4 +123,14 @@ public class FreeBoardDto {
 	public void setR_date(String r_date) {
 		this.r_date = r_date;
 	}
+
+	@Override
+	public String toString() {
+		return "FreeBoardDto [b_seq=" + b_seq + ", u_seq=" + u_seq + ", b_title=" + b_title + ", b_reply=" + b_reply
+				+ ", b_date=" + b_date + ", b_count=" + b_count + ", u_nickname=" + u_nickname + ", b_status="
+				+ b_status + ", b_content=" + b_content + ", r_seq=" + r_seq + ", r_content=" + r_content + ", r_date="
+				+ r_date + "]";
+	}
+	
+	
 }

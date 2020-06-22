@@ -30,6 +30,8 @@ public class BoardPager {
     // 검색 변수 추가
     private String searchSort;
     private String searchVal;
+	private int u_seq;
+    
     
     // 생성자
     // BoardPager(레코드 갯수, 현재 페이지 번호)
@@ -193,6 +195,23 @@ public class BoardPager {
 
 	public void setTotBlock(int totBlock) {
 		this.totBlock = totBlock;
+	}
+
+    public int getU_seq() {
+		return u_seq;
+	}
+
+	public void setU_seq(int u_seq) {
+		this.u_seq = u_seq;
+	}
+
+	@Override
+	public String toString() {
+		return "BoardPager [curPage=" + curPage + ", prevPage=" + prevPage + ", nextPage=" + nextPage + ", totPage="
+				+ totPage + ", totBlock=" + totBlock + ", curBlock=" + curBlock + ", prevBlock=" + prevBlock
+				+ ", nextBlock=" + nextBlock + ", pageBegin=" + pageBegin + ", pageEnd=" + pageEnd + ", blockBegin="
+				+ blockBegin + ", blockEnd=" + blockEnd + ", start=" + start + ", end=" + end + ", searchSort="
+				+ searchSort + ", searchVal=" + searchVal + ", u_seq=" + u_seq + "]";
 	}
 
 }

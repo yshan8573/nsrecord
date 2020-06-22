@@ -132,4 +132,24 @@ public class CommunityDaoImpl implements ICommunityDao {
 		return session.delete(queryprefix+"deleteNoticeBoard", notice);
 	}
 	
+	@Override
+	public List<FreeBoardDto> myFreeBoardList(BoardPager boardPager){
+		return session.selectList(queryprefix + "myFreeBoardList", boardPager);
+	}
+	
+	@Override
+	public int mySelectFreeBoardCount(SearchDto searchDto) {
+		return session.selectOne("communityMapper.mySelectFreeBoardCount", searchDto);
+	}
+	
+	@Override
+	public int mySelectReplyCount(SearchDto searchDto) {
+		return session.selectOne("communityMapper.mySelectReplyCount", searchDto);
+	}
+	
+	@Override
+	public List<FreeBoardDto> myReplyList(BoardPager boardPager){
+		return session.selectList("communityMapper.myReplyList", boardPager);
+	
+	}
 }
