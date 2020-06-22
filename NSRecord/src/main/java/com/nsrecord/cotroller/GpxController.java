@@ -92,7 +92,7 @@ public class GpxController {
 		return "user/gpx/ajax/user_gpxBoard_ajax";
 	}
 
-	@RequestMapping(value = "gpx/myGpxBoard")
+	@RequestMapping(value = "myPage/myGpxBoard")
 	public String myGpxBoard(Model model) {
 		logger.info("this is a myGpxBoard Method");
 
@@ -102,7 +102,7 @@ public class GpxController {
 		return "user/myPage/myGpxBoard";
 	}
 	
-	@RequestMapping(value = "gpx/myGpxRanking")
+	@RequestMapping(value = "myPage/myGpxRanking")
 	public String myGpxRanking(Model model) {
 		logger.info("this is a myGpxRanking Method");
 

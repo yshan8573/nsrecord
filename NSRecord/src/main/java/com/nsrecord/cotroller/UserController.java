@@ -191,7 +191,7 @@ public class UserController {
 		return "redirect:/userHome";
 	}
 	
-	@RequestMapping(value = "user/myUserInfo")
+	@RequestMapping(value = "myPage/myUserInfo")
 	public String myUserInfo(Model model) {
 		logger.info("this is a myUserInfo Method");
 		
