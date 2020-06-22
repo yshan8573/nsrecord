@@ -127,9 +127,24 @@ public class CommunityServiceImpl implements ICommunityService {
 		return iCommunityDao.deleteNoticeBoard(notice);
 	}
 	
+	@Override
+	public List<FreeBoardDto> myFreeBoardList(BoardPager boardPager){
+		return communityDaoImpl.myFreeBoardList(boardPager);
+	}
 
+	@Override
+	public int mySelectFreeBoardCount(SearchDto searchDto) {
+		return iCommunityDao.mySelectFreeBoardCount(searchDto);
+	}
 	
+	@Override
+	public int mySelectReplyCount(SearchDto searchDto) {
+		return communityDaoImpl.mySelectReplyCount(searchDto);
+	}
 	
-	
+	@Override
+	public List<FreeBoardDto> myReplyList(BoardPager boardPager){
+		return communityDaoImpl.myReplyList(boardPager);
+	}
 	
 }

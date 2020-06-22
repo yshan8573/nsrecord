@@ -14,7 +14,7 @@
 <table class='tStyle'>
 	<thead>
 	<c:choose>
-		<c:when test="${fn:length(freeBoardList) > 0 }">
+		<c:when test="${fn:length(myFreeBoardList) > 0 }">
 			<tr>
 				<td>번호</td>
 				<td>제목</td>
@@ -30,10 +30,10 @@
 	
 
 
-	<c:forEach var="freeBoard" items="${freeBoardList}">
+	<c:forEach var="freeBoard" items="${myFreeBoardList}">
 			<tr>
 				<td>${freeBoard.b_seq}</td>
-				<td><a href="<%=contextPath%>/prefreeBoardContent?b_seq=${freeBoard.b_seq}">${freeBoard.b_title}</a>			</td>
+				<td><a href="<%=contextPath%>/freeBoardContent?b_seq=${freeBoard.b_seq}">${freeBoard.b_title}</a>			</td>
 				<td>${freeBoard.u_nickname}</td>
 				<td>${freeBoard.b_count}</td>
 				<td>${freeBoard.b_reply}</td>
@@ -54,7 +54,7 @@
 			<ul class="pagination">
 				<c:if test="${boardPager.curBlock > 1 }">
 					<li class="paginate_button previous disabled"><a
-							href="javascript:freeBoardAjaxfn(${boardPager.prevPage})">Previous</a>
+							href="javascript:myFreeBoardAjaxfn(${boardPager.prevPage})">Previous</a>
 					</li>
 				</c:if>
 				<c:forEach var="num" begin="${boardPager.blockBegin }" end="${boardPager.blockEnd }">
@@ -64,13 +64,13 @@
 							</li>
 						</c:when>
 						<c:otherwise>
-							<li class="paginate_button"><a href="javascript:freeBoardAjaxfn(${num})">${num}</a></li>
+							<li class="paginate_button"><a href="javascript:myFreeBoardAjaxfn(${num})">${num}</a></li>
 						</c:otherwise>
 					</c:choose>
 				</c:forEach>
 				<c:if test="${boardPager.curBlock <= boardPager.totBlock }">
 					<li class="paginate_button next" id="example1_next">
-						<a href="javascript:freeBoardAjaxfn(${boardPager.nextPage})">Next</a>
+						<a href="javascript:myFreeBoardAjaxfn(${boardPager.nextPage})">Next</a>
 					</li>
 				</c:if>
 			</ul>

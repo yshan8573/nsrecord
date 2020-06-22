@@ -18,6 +18,40 @@
 		WHERE B_SEQ = #{b_seq}
 	</select>
 
+	<select id="myFreeBoardList" parameterType="com.nsrecord.dto.BoardPager" resultType="com.nsrecord.dto.FreeBoardDto">
+		<include refid="pagingHeader"></include>
+				SELECT B.*
+				FROM BOARD B
+				WHERE U_SEQ = #{u_seq}
+		<include refid="search"></include>
+			ORDER BY B_SEQ DESC
+		<include refid="pagingFooter"></include>
+	</select>
+
+	<select id="mySelectFreeBoardCount" parameterType="com.nsrecord.dto.SearchDto" resultType="int">
+		SELECT COUNT(*)
+		FROM BOARD
+		WHERE U_SEQ = #{u_seq}
+		<include refid="search"></include>
+	</select>
+	
+		<select id="myReplyList" parameterType="com.nsrecord.dto.BoardPager" resultType="com.nsrecord.dto.FreeBoardDto">
+		<include refid="pagingHeader"></include>
+				SELECT R.*
+				FROM REPLY R
+				WHERE U_SEQ = #{u_seq}
+		<include refid="search"></include>
+			ORDER BY R_SEQ DESC
+		<include refid="pagingFooter"></include>
+	</select>
+
+	<select id="mySelectReplyCount" parameterType="com.nsrecord.dto.SearchDto" resultType="int">
+		SELECT COUNT(*)
+		FROM REPLY
+		WHERE U_SEQ = #{u_seq}
+		<include refid="search"></include>
+	</select>
+
 
 	<insert id="freeBoardWriteEnd" parameterType="java.util.HashMap">
 		INSERT INTO BOARD
