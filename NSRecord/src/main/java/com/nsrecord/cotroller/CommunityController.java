@@ -40,6 +40,28 @@ public class CommunityController {
 	@Autowired
 	private UserService userService;
 
+
+//=====================자유게시판(사용자-마이페이지)======================//	
+	@RequestMapping(value = "myPage/myFreeBoard")
+	public String myFreeBoard(Model model) {
+		logger.info("this is a myFreeBoard Method");
+		// 사이드 메뉴 'active' 설정 flag
+		model.addAttribute("categoryLoc", "myCommunity");
+		
+		return "user/myPage/myFreeBoard";
+	}
+
+//=====================자유게시판(사용자-마이페이지)======================//	
+	@RequestMapping(value = "myPage/myReply")
+	public String myReply(Model model) {
+		logger.info("this is a myReply Method");
+		// 사이드 메뉴 'active' 설정 flag
+		model.addAttribute("categoryLoc", "myCommunity");
+		
+		return "user/myPage/myReply";
+	}
+
+	
 //=====================공지게시판(사용자)======================//	
 	@RequestMapping(value = "community/noticeBoard")
 	public String noticeBoard(Model model) {

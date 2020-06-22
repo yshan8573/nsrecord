@@ -50,9 +50,18 @@
 						case "home": $('.home').addClass('active'); break;
 						case "gpx": $('.gpx').addClass('active'); break;
 						case "community": $('.community').addClass('active'); break;
-						case "myUser": $('.myUser').addClass('active'); break;
-						case "myGpx": $('.myGpx').addClass('active'); break;
-						case "myCommunity": $('.myCommunity').addClass('active'); break;
+						case "myUser": $('.myPage').addClass('active'); break;
+						case "myGpx": {
+							$('.myPage').addClass('active');
+							$('.myGpx').addClass('menu-open');
+							$('.myGpx>ul').css("display","block");
+							break;
+						}
+						case "myCommunity": {
+							$('.myPage').addClass('active');
+							$('.myCommunity>ul').css("display","block");
+							break;
+						}
 					}
 				}
 			})
@@ -64,6 +73,58 @@
 			<li class="home">
 				<a href="javascript:location.href='<c:url value="/"/>userHome'"><i class="fa fa-home"></i><span>HOME</span></a>
 			</li>
+			
+			<c:choose>
+				<c:when test="${loginUser != null}">
+					<li class="myPage treeview">
+						<a href="#">
+							<i class="fa fa-user"></i> <span>마이 페이지</span>
+							<span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+						</a>
+						<ul class="myGpx treeview-menu">
+							<li><a href="javascript:location.href='<c:url value="/"/>myPage/myUserInfo'">마이 기본 정보</a></li>
+							<li class="myGpx treeview">
+								<a href="#">
+									<i class="fa fa-circle-o"></i> 마이 GPX 관리
+									<span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+								</a>
+								<ul class="treeview-menu" style="display: none;">
+									<li><a href="javascript:location.href='<c:url value="/"/>myPage/myGpxBoard'">마이 GPX 공유 관리</a></li>
+									<li><a href="javascript:location.href='<c:url value="/"/>myPage/myGpxRanking'">마이 GPX 랭킹 등록 관리</a></li>
+								</ul>
+							</li>
+							<li class="myCommunity treeview">
+								<a href="#">
+									<i class="fa fa-circle-o"></i> 마이 게시글&댓글 관리
+									<span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+								</a>
+								<ul class="treeview-menu" style="display: none;">
+									<li><a href="javascript:location.href='<c:url value="/"/>myPage/myFreeBoard'">마이 게시글 관리</a></li>
+									<li><a href="javascript:location.href='<c:url value="/"/>myPage/myReply'">마이 댓글 관리</a></li>
+								</ul>
+							</li>
+						</ul>
+					</li>
+					<li class="myGpx">
+						<a href="#">
+							<i class="fa fa-map"></i>
+							<span>My GPX</span>
+							<span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+						</a>
+						
+					</li>
+					<li class="myCommunity treeview">
+						<a href="#">
+							<i class="fa fa-commenting"></i>
+							<span>My Community</span>
+							<span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+						</a>
+						<ul class="treeview-menu">
+							
+						</ul>
+					</li>
+				</c:when>
+			</c:choose>
 			<li class="gpx treeview">
 				<a href="#">
 					<i class="fa fa-map"></i>
@@ -87,12 +148,12 @@
 					<li><a href="javascript:location.href='<c:url value="/"/>community/freeBoard'">자유게시판</a></li>
 				</ul>
 			</li>
-			
+			<%-- 
 			<c:choose>
 				<c:when test="${loginUser != null}">
 					<li class="header">My Page</li>
 					<li class="myUser">
-						<a href="<c:url value="/"/>user/myUserInfo"><i class="fa fa-user"></i> <span>마이 정보</span></a>
+						<a href="<c:url value="/"/>myPage/myUserInfo"><i class="fa fa-user"></i> <span>마이 정보</span></a>
 					</li>
 					<li class="myGpx treeview">
 						<a href="#">
@@ -101,8 +162,8 @@
 							<span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
 						</a>
 						<ul class="treeview-menu">
-							<li><a href="javascript:location.href='<c:url value="/"/>gpx/myGpxBoard'">마이 GPX 공유 관리</a></li>
-							<li><a href="javascript:location.href='<c:url value="/"/>gpx/myGpxRanking'">마이 GPX 랭킹 등록 관리</a></li>
+							<li><a href="javascript:location.href='<c:url value="/"/>myPage/myGpxBoard'">마이 GPX 공유 관리</a></li>
+							<li><a href="javascript:location.href='<c:url value="/"/>myPage/myGpxRanking'">마이 GPX 랭킹 등록 관리</a></li>
 						</ul>
 					</li>
 					<li class="myCommunity treeview">
@@ -112,13 +173,13 @@
 							<span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
 						</a>
 						<ul class="treeview-menu">
-							<li><a href="javascript:location.href='<c:url value="/"/>community/myFreeBoard'">마이 게시글 관리</a></li>
-							<li><a href="javascript:location.href='<c:url value="/"/>community/myReply'">마이 댓글 관리</a></li>
+							<li><a href="javascript:location.href='<c:url value="/"/>myPage/myFreeBoard'">마이 게시글 관리</a></li>
+							<li><a href="javascript:location.href='<c:url value="/"/>myPage/myReply'">마이 댓글 관리</a></li>
 						</ul>
 					</li>
 				</c:when>
 			</c:choose>
-			
+			 --%>
 		</ul>
 		<!-- /.sidebar-menu -->
 	</section>
