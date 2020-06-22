@@ -82,4 +82,7 @@ public interface ICommunityService {
 
 	//마이페이지 댓글 리스트
 	public List<FreeBoardDto> myReplyList(BoardPager boardPager);
+	
+	// 공지사항 조회수 카운트
+	public int noticeCountUp(Notice notice);
 }

@@ -182,6 +182,12 @@
 		WHERE N_SEQ = #{n_seq}
 	</delete>
 	
+	<update id="noticeCountUp" parameterType="notice">
+		UPDATE NOTICE SET
+			N_COUNT = N_COUNT + 1
+		WHERE N_SEQ = #{n_seq }
+	</update>
+	
 	<select id="selectNoticeBoardOne" parameterType="notice" resultType="notice">
 		SELECT N.*, U_EMAIL
 		FROM NOTICE N
