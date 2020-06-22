@@ -562,10 +562,42 @@ public class CommunityController {
 			return "user/myPage/myFreeBoardAjax";
 		}
 		
+		//마이페이지 게시판 게시 내용
 		@RequestMapping(value="/myPage/myFreeBoardContent")
-		public String myFreeBoardContent(@RequestParam HashMap<String, String> myParam) {
+		public String myFreeBoardContent(int b_seq, Model model, HttpSession session) {		
 			
+			//게시 내용
+			FreeBoardDto FreeBoardDto = communityServiceImpl.selectFreeBoardContent(b_seq);
+			model.addAttribute("FreeBoardDto", FreeBoardDto);
+			//댓글 내용
+			List<FreeBoardDto> replyDto = communityServiceImpl.replyContent(b_seq);
+			model.addAttribute("replyDto", replyDto);
+			//댓글 작성 기능
+			UserInfo user = (UserInfo) session.getAttribute("loginUser");
+			model.addAttribute("User", user);
+				
 			return "user/myPage/myFreeBoardContent";
+		}
+		
+		//마이 게시판 글쓰기 수정
+		@RequestMapping(value="/myPage/myUpdateFreeBoardContent")
+		public String myUpdateFreeBoardContent(@RequestParam HashMap<String, String> paramMap, Model model) {
+			model.addAttribute("myUpdateContent", paramMap);
+			return "user/myPage/myUpdateFreeBoardContent";
+		}
+			
+		//자유게시판 글쓰기 수정 완료
+		@RequestMapping(value="/myPage/myUpdateFreeBoardContentEnd")
+		public String myUpdateFreeBoardContentEnd(@RequestParam HashMap<String, String> paramMap ) {
+			communityServiceImpl.updateFreeBoardContentEnd(paramMap);		
+			return "redirect:/myPage/myFreeBoard";
+		}
+		
+		//자유게시판 글쓰기 삭제
+		@RequestMapping(value="/myPage/myDeleteFreeBoardContent")
+		public String myDeleteFreeBoardContent(@RequestParam("b_seq") int b_seq) {
+			communityServiceImpl.deleteFreeBoardContent(b_seq);
+			return "redirect:/myPage/myFreeBoard";
 		}
 		
 		//==========================마이 페이지 댓글==========================//

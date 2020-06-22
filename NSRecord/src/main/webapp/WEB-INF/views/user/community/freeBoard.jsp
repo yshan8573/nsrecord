@@ -133,7 +133,6 @@ tr, td {
 								</div>
 							</div>
 <a href="<%=contextPath%>/community/freeBoardWriter" class="writebtn">글쓰기</a>
-
       </section>
       <!-- /.content -->
 

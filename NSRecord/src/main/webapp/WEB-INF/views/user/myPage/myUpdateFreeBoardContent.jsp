@@ -40,14 +40,14 @@
 					<div class="col-xs-12">
 						<div class="box">
 							<div class="box-body">
-								<form action="<%=contextPath%>/community/updateFreeBoardContentEnd" method="post">
-								<input type="hidden" name="b_seq" value="${UpdateContent.b_seq}">
+								<form action="<%=contextPath%>/myPage/myUpdateFreeBoardContentEnd" method="post">
+								<input type="hidden" name="b_seq" value="${myUpdateContent.b_seq}">
 									<div class="form-group">
 										<label>제목</label>
-										<input name="b_title" type="text" class="form-control" value="${UpdateContent.b_title}" required>
+										<input name="b_title" type="text" class="form-control" value="${myUpdateContent.b_title}" required>
 									</div>
 									<div class="form-group">
-										<textarea id="b_content" name="b_content" required>${UpdateContent.b_content}</textarea>
+										<textarea id="b_content" name="b_content" required>${myUpdateContent.b_content}</textarea>
 									</div>
 									<script>
 										$(function () {
@@ -55,14 +55,14 @@
 										})
 									</script>
 									<div class="form-group" style="text-align: right;">
-												<input type="hidden" name="b_seq" value="${UpdateContent.b_seq}">
-												<input type="hidden" name="b_title" value="${UpdateContent.b_title}">
-												<input type="hidden" name="u_nickname" value="${UpdateContent.u_nickname}">
-												<input type="hidden" name="b_count" value="${UpdateContent.b_count}">
-												<input type="hidden" name="b_date" value="${UpdateContent.b_date}">
-												<input type="hidden" name="b_content" value="${UpdateContent.b_content}">
-												<input type="hidden" name="u_seq" value="${UpdateContent.u_seq}">
-												<input type="hidden" name="b_status" value="${UpdateContent.b_status}">
+												<input type="hidden" name="b_seq" value="${myUpdateContent.b_seq}">
+												<input type="hidden" name="b_title" value="${myUpdateContent.b_title}">
+												<input type="hidden" name="u_nickname" value="${myUpdateContent.u_nickname}">
+												<input type="hidden" name="b_count" value="${myUpdateContent.b_count}">
+												<input type="hidden" name="b_date" value="${myUpdateContent.b_date}">
+												<input type="hidden" name="b_content" value="${myUpdateContent.b_content}">
+												<input type="hidden" name="u_seq" value="${myUpdateContent.u_seq}">
+												<input type="hidden" name="b_status" value="${myUpdateContent.b_status}">
 										<input type="submit" class="btn btn-primary" value="수정"/>
  									</div> 
 								</form>

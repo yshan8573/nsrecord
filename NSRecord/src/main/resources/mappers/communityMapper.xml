@@ -67,7 +67,6 @@
 			B_CONTENT = #{b_content},
 			B_STATUS = #{b_status}
 		WHERE B_SEQ = #{b_seq}
-	
 	</update>
 	
 	<delete id="deleteFreeBoardContent" parameterType="int">

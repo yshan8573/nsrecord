@@ -13,15 +13,20 @@
 	//게시글 수정 및 삭제
 	$(document).ready(function(){
 		$("#updateFreeBoardContent").click(function(){
-			var url = "<%=contextPath%>" + "/community/updateFreeBoardContent";
+			var url = "<%=contextPath%>" + "/myPage/myUpdateFreeBoardContent";
 			$("#freeBoardUpdate").attr("action", url);
 			$("#freeBoardUpdate").submit();
 		});
 		$("#deleteFreeBoardContent").click(function(){
-			var url = "<%=contextPath%>" + "/community/deleteFreeBoardContent";
+			var url = "<%=contextPath%>" + "/myPage/myDeleteFreeBoardContent";
 			$("#freeBoardUpdate").attr("action", url);
 			$("#freeBoardUpdate").submit();
-		});	
+		});
+		$("#returnToIndex").click(function(){
+			var url ="<%=contextPath%>" + "/myPage/myFreeBoard";
+			$("#freeBoardUpdate").attr("action", url);
+			$("#freeBoardUpdate").submit();
+		});
 	});
 	
 	
@@ -134,9 +139,11 @@ tr, td {
 			<input type="hidden" name="b_date" value="${FreeBoardDto.b_date}">
 			<input type="hidden" name="b_content" value="${FreeBoardDto.b_content}">
 			<input type="hidden" name="u_seq" value="${FreeBoardDto.u_seq}">
+			<input type="hidden" name="b_status" value="${FreeBoardDto.b_status}">
 			<input type="button" class="freeBoardContentUpdateBtn" id="updateFreeBoardContent" style="border: none;" value="수정">
 			<input type="button" class="freeBoardContentUpdateBtn" id="deleteFreeBoardContent" style="border: none;" value="삭제">		
-			</div>
+			<input type="button" class="freeBoardContentUpdateBtn" id="returnToIndex" style="border:none;" value="목록">
+	</div>
 </c:if>		
 </form>
 
