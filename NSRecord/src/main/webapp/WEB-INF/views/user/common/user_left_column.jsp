@@ -10,35 +10,6 @@
 	<!-- sidebar: style can be found in sidebar.less -->
 	<section class="sidebar">
 
-		<!-- Sidebar user panel (optional) -->
-		<!-- 
-		<div class="user-panel">
-			<div class="pull-left image">
-				<img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
-			</div>
-			<div class="pull-left info">
-				<p>Alexander Pierce</p>
-				Status
-				<a href="#"><i class="fa fa-circle text-success"></i> Online</a>
-			</div>
-		</div>
-		 -->
-		
-		
-
-		<!-- search form (Optional) -->
-		<!-- 
-		<form action="#" method="get" class="sidebar-form">
-			<div class="input-group">
-				<input type="text" name="q" class="form-control" placeholder="Search..."> <span class="input-group-btn">
-					<button type="submit" name="search" id="search-btn" class="btn btn-flat">
-						<i class="fa fa-search"></i>
-					</button>
-				</span>
-			</div>
-		</form>
-		 -->
-		<!-- /.search form -->
 		<script type="text/javascript">
 		
 			$(function() {
@@ -105,24 +76,6 @@
 							</li>
 						</ul>
 					</li>
-					<li class="myGpx">
-						<a href="#">
-							<i class="fa fa-map"></i>
-							<span>My GPX</span>
-							<span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
-						</a>
-						
-					</li>
-					<li class="myCommunity treeview">
-						<a href="#">
-							<i class="fa fa-commenting"></i>
-							<span>My Community</span>
-							<span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
-						</a>
-						<ul class="treeview-menu">
-							
-						</ul>
-					</li>
 				</c:when>
 			</c:choose>
 			<li class="gpx treeview">
@@ -148,38 +101,7 @@
 					<li><a href="javascript:location.href='<c:url value="/"/>community/freeBoard'">자유게시판</a></li>
 				</ul>
 			</li>
-			<%-- 
-			<c:choose>
-				<c:when test="${loginUser != null}">
-					<li class="header">My Page</li>
-					<li class="myUser">
-						<a href="<c:url value="/"/>myPage/myUserInfo"><i class="fa fa-user"></i> <span>마이 정보</span></a>
-					</li>
-					<li class="myGpx treeview">
-						<a href="#">
-							<i class="fa fa-map"></i>
-							<span>My GPX</span>
-							<span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
-						</a>
-						<ul class="treeview-menu">
-							<li><a href="javascript:location.href='<c:url value="/"/>myPage/myGpxBoard'">마이 GPX 공유 관리</a></li>
-							<li><a href="javascript:location.href='<c:url value="/"/>myPage/myGpxRanking'">마이 GPX 랭킹 등록 관리</a></li>
-						</ul>
-					</li>
-					<li class="myCommunity treeview">
-						<a href="#">
-							<i class="fa fa-commenting"></i>
-							<span>My Community</span>
-							<span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
-						</a>
-						<ul class="treeview-menu">
-							<li><a href="javascript:location.href='<c:url value="/"/>myPage/myFreeBoard'">마이 게시글 관리</a></li>
-							<li><a href="javascript:location.href='<c:url value="/"/>myPage/myReply'">마이 댓글 관리</a></li>
-						</ul>
-					</li>
-				</c:when>
-			</c:choose>
-			 --%>
+
 		</ul>
 		<!-- /.sidebar-menu -->
 	</section>
