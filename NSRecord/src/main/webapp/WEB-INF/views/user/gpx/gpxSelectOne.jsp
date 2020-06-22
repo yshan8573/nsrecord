@@ -29,6 +29,14 @@
 					$("#gpxBoardJquery").attr("action",url);
 					$("#gpxBoardJquery").submit();
 					})	
+					
+			<%-- 추천 버튼 --%>
+			$("#gpxRC").click(function() {
+				var url = "<%=contextPath%>"+"/gpx/gpxRecommand";
+				$("#gpxBoardJquery").attr("action",url);
+				$("#gpxBoardJquery").submit();
+				})	
+					
 			})//function end
 
 //댓글 수정			
@@ -157,6 +165,7 @@ function fileDownload(path,oName,rName) {
 									</c:when>
 									<c:otherwise>
 									<input type="button" value="목록" id = "gpxBoard">
+									<input type="button" value="추천" id="gpxRC">
 									</c:otherwise>
 									</c:choose>
 									
@@ -202,13 +211,9 @@ function fileDownload(path,oName,rName) {
                          <p id = "grBox${gr_seq}">
 	                         	<div id='${GpxReply.gr_seq }' >${GpxReply.gr_content }</div>
 				                 <div class="GpxreplyUpdateButton${GpxReply.gr_seq }">
-				              
-				              
 				                <input type="button"  value="수정"  onclick="gpxReplyUpdate(${GpxReply.gr_seq },'${GpxReply.gr_content }',${GpxDto.g_seq })">
 				                </div>
 				                <input type="button" class="gpxReplyDeleteButton"  value="삭제" onclick="deleteGpxReply(${GpxReply.gr_seq}, ${GpxDto.g_seq })">	
-	                  			
-	                  		
 	                  		</p>	
                         </span>
                     <span class="description">${ GpxReply.gr_date}</span>

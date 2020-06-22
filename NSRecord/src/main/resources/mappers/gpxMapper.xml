@@ -193,11 +193,20 @@
 	
 	</delete>
 	
-	<update id="gpxCount" parameterType="com.nsrecord.dto.GpxDto">
+	<update id="gpxCount" parameterType="int">
 		UPDATE GPX
 		SET G_COUNT = G_COUNT+1
 		WHERE G_SEQ = #{g_seq}
 	</update>
+	
+	
+	<update id="gpxRecommand" parameterType="int">
+	UPDATE GPX
+	SET G_RECOMMAND = G_RECOMMAND+1
+	WHERE G_SEQ = #{g_seq}
+	</update>	
+	
+	
 
 	<select id="selectGrcCount" parameterType="searchDto" resultType="_int">
 		SELECT COUNT(*)
@@ -255,7 +264,7 @@
 	</delete>
 	
 	
-	<!--  
+	
 	<select id="myGpxAllList" resultType="gpxDto" parameterType="com.nsrecord.dto.BoardPager" > 
 	SELECT G_SEQ,
 				   U_SEQ,
@@ -272,7 +281,7 @@
 			FROM GPX
 			WHERE U_SEQ = #{u_seq}
 	</select>
-	-->
+	
 	
 
 </mapper>

@@ -40,7 +40,7 @@
 				<c:forEach var="gpxList" items="${gpxList }">
 					<tr role="row">
 						<td class="">${gpxList.g_seq }</td>
-						<td onclick="javascript:location.href='<c:url value="/ "/>gpx/gpxBoardSelectOne?g_seq=${gpxList.g_seq }'"> ${gpxList.g_title }</td>
+						<td onclick="javascript:location.href='<c:url value="/ "/>gpx/gpxCount?g_seq=${gpxList.g_seq }'"> ${gpxList.g_title }</td>
 						<td>${gpxList.u_nickname }</td>
 						<td>${gpxList.g_count }</td>
 						<td>${gpxList.g_recommand }</td>

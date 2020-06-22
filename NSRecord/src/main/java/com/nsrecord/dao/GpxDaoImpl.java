@@ -149,6 +149,17 @@ public class GpxDaoImpl implements GpxDao {
 		
 		return session.update(queryprefix+"gpxCount", g_seq);
 	}
+	
+	
+	//추천수 증가
+	@Override
+	public int gpxRecommand(int g_seq) {
+		System.out.println("추천수 증가"+g_seq);
+		
+		return session.update(queryprefix+"gpxRecommand", g_seq);
+	}
+
+
 
 	@Override
 	public int selectGrcCount(SearchDto searchDto) {
