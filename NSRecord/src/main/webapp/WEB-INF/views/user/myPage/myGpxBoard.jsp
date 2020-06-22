@@ -19,7 +19,7 @@
 	// 리스트 Ajax 처리
 	function myGpxBoardAjaxfn(cPage) {
 		$.ajax({
-			url: "<c:url value="/ "/>usergpx/userMyGpxBoardAjax",
+			url: "<c:url value="/ "/>userMyGpxBoardAjax",
 			data: {
 				"cPage": cPage,
 				"searchSort": searchSort,
@@ -68,8 +68,7 @@
 									<div class="col flexBox" style="justify-content: flex-start; padding: 0 16px;">
 										<h3 class="box-title">GPX 리스트</h3>
 										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-										<button type="button" class="btn btn-primary"
-											onclick="javascript:location.href='<c:url value='/'/>gpx/gpxInsertForm'">글쓰기</button>
+										
 									</div>
 								</div>
 							</div>

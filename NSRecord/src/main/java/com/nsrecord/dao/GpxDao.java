@@ -67,4 +67,11 @@ public interface GpxDao {
 	//조회수 증가
 	public int gpxCount(int g_seq);
 	
+	//추천수 증가
+	public int gpxRecommand(int g_seq);
+	
+	//MyGpxAllList
+	public List<GpxDto> selectMyGpxAllList(BoardPager boardPager);
+	
+	
 }//inter end

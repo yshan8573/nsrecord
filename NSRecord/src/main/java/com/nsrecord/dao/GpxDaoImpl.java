@@ -149,6 +149,17 @@ public class GpxDaoImpl implements GpxDao {
 		
 		return session.update(queryprefix+"gpxCount", g_seq);
 	}
+	
+	
+	//추천수 증가
+	@Override
+	public int gpxRecommand(int g_seq) {
+		System.out.println("추천수 증가"+g_seq);
+		
+		return session.update(queryprefix+"gpxRecommand", g_seq);
+	}
+
+
 
 	@Override
 	public int selectGrcCount(SearchDto searchDto) {
@@ -179,5 +190,22 @@ public class GpxDaoImpl implements GpxDao {
 	public int deleteGrc(GrcDto grc) {
 		return session.delete(queryprefix+"deleteGrc", grc);
 	}
+
+
+	//MyGpxAllList
+	@Override
+	public List<GpxDto> selectMyGpxAllList(BoardPager boardPager) {
+		
+		List<GpxDto> myGpxDtoList = 
+				new ArrayList<GpxDto>();
+		
+		myGpxDtoList = session.selectList(queryprefix+"myGpxAllList", boardPager);
+			
+		
+		return myGpxDtoList;
+	}
+	
+	
+	
 	
 }//class end

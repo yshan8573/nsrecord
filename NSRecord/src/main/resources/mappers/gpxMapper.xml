@@ -193,11 +193,20 @@
 	
 	</delete>
 	
-	<update id="gpxCount" parameterType="com.nsrecord.dto.GpxDto">
+	<update id="gpxCount" parameterType="int">
 		UPDATE GPX
 		SET G_COUNT = G_COUNT+1
 		WHERE G_SEQ = #{g_seq}
 	</update>
+	
+	
+	<update id="gpxRecommand" parameterType="int">
+	UPDATE GPX
+	SET G_RECOMMAND = G_RECOMMAND+1
+	WHERE G_SEQ = #{g_seq}
+	</update>	
+	
+	
 
 	<select id="selectGrcCount" parameterType="searchDto" resultType="_int">
 		SELECT COUNT(*)
@@ -253,5 +262,26 @@
 		DELETE FROM GPX_RANKING_COURSE
 		WHERE GRC_SEQ = #{grc_seq}	
 	</delete>
+	
+	
+	
+	<select id="myGpxAllList" resultType="gpxDto" parameterType="com.nsrecord.dto.BoardPager" > 
+	SELECT G_SEQ,
+				   U_SEQ,
+				   G_CONTENT,
+				   TO_CHAR(G_DATE, 'YYYY-MM-DD HH24:MI:SS') AS G_DATE,
+				   G_TITLE,
+				   G_ORI,
+				   G_RE,
+				   U_NICKNAME,
+				   G_COUNT,
+				   G_RECOMMAND,
+				   G_REPLY,
+				   G_STATUS
+			FROM GPX
+			WHERE U_SEQ = #{u_seq}
+	</select>
+	
+	
 
 </mapper>

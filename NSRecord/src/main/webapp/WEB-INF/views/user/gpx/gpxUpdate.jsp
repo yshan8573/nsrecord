@@ -85,6 +85,48 @@
 
 
 			<!-- Main content -->
+			<!-- Main content -->
+			<section class="content container-fluid">
+
+
+
+
+				<div class="row">
+					<div class="col-md-6">
+						<div class="row-md-6">
+							<div class="col">
+								<div class="box box-default">
+									<div class="box-header with-border">
+										<i class="fa fa-map"></i>
+										<h3 class="box-title">지도</h3>
+									</div>
+									<!-- /.box-header -->
+									<div class="box-body">
+										<div id="map" style="width: 100%; height: 350px;"></div>
+
+									</div>
+									<!-- /.box-body -->
+								</div>
+							</div>
+						</div>
+						<div class="row-md-6">
+							<div class="col">
+								<div class="box box-solid">
+									<div class="box-header with-border">
+										<i class="fa fa-info-circle"></i>
+										<h3 class="box-title">정보</h3>
+									</div>
+									<!-- /.box-header -->
+									<div class="box-body">
+
+									</div>
+									<!-- /.box-body -->
+								</div>
+			
+							</div>
+						</div>
+
+					</div>
 			<%-- Form에 JQuery 함수 적용 --%>
 			<section class="content container-fluid">
 
@@ -130,7 +172,55 @@
 
 		</div>
 		<!-- /.content-wrapper -->
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=27d568fdc342b750d023d721195a14ac"></script>
+		<script>
 
+			var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+				mapOption = {
+					center: new kakao.maps.LatLng(37.548541, 126.996463), // 지도의 중심좌표
+					level: 5 // 지도의 확대 레벨
+				};
+
+			// 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
+			var map = new kakao.maps.Map(mapContainer, mapOption);
+
+			// 지도를 재설정할 범위정보를 가지고 있을 LatLngBounds 객체를 생성합니다
+			var bounds = new kakao.maps.LatLngBounds();
+
+
+			// gpx 경로 지도 표시 ----------------------------------- start
+
+			var points = [];
+			<c:forEach items="${mapList }" var="map">
+
+				var lat = "${map.lat}";
+				var lon = "${map.lon}";
+				var p = new kakao.maps.LatLng(lat, lon);
+				points.push(p);
+
+				// LatLngBounds 객체에 좌표를 추가합니다
+				bounds.extend(p);
+
+			</c:forEach >
+			
+			//polyline 
+			var polyline = new kakao.maps.Polyline({
+				map: map,
+				path: points,
+				strokeWeight: 2,
+				strokeColor: '#FF00FF',
+				strokeOpacity: 1,
+				strokeStyle: 'solid'
+			});
+
+			polyline.setMap(map);
+			// gpx 경로 지도 표시 --------------------------------- end
+
+			// LatLngBounds 객체에 추가된 좌표들을 기준으로 지도의 범위를 재설정합니다
+			// 이때 지도의 중심좌표와 레벨이 변경될 수 있습니다
+			map.setBounds(bounds);
+
+		</script>
 		<!-- Main Footer -->
 		  <%@ include file="../common/user_main_footer.jsp" %>
 

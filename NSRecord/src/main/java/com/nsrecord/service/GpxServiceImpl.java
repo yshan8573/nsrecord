@@ -131,6 +131,16 @@ public class GpxServiceImpl implements GpxService {
 		return gpxDao.gpxCount(g_seq);
 
 	}
+	
+	
+	//추천수 증가
+	@Override
+	public int gpxRecommand(int g_seq) {
+		
+		
+		
+		return gpxDao.gpxRecommand(g_seq);
+	}
 
 	@Override
 	public int selectGrcCount(SearchDto searchDto) {
@@ -183,5 +193,16 @@ public class GpxServiceImpl implements GpxService {
 		
 		return result;
 	}
+
+	//MyGpxAllList
+	@Override
+	public List<GpxDto> selectMyGpxAllList(BoardPager boardPager) {
+		
+		return gpxDao.selectMyGpxAllList(boardPager);
+	}
+	
+	
+	
+	
 
 }//class end

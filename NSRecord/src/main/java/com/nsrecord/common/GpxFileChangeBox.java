@@ -68,6 +68,55 @@ public class GpxFileChangeBox {
 
 		return "admin/gpx/ajax/grcFileChange";
 	}
+	
+	@RequestMapping(value = "/gpxFileChange", method = RequestMethod.POST)
+	public String gpxFileChange(
+			@RequestParam("gpxFile") MultipartFile upFile,
+			Model model,
+			HttpServletRequest request
+			) {
+		
+		String prePath = request.getSession().getServletContext().getRealPath("/resources/data/")+"/";
+		
+		String fileName = "";
+
+		// 파일 업로드----------------------------- start
+		// 파일이 저장될 디텍토리 설정
+		String path = prePath + "temp";
+		System.out.println(path);
+
+		// 단일 파일 유무에 따라 temp 객체 저장
+		if (upFile != null && !upFile.isEmpty()) {
+			// path : 저장될 파일 경로, upFile : view에서 받아온 file 값
+			FileUpload ful = new FileUpload(path, upFile);
+
+			fileName = ful.getFileReName();
+
+		}
+		// 파일 업로드----------------------------- end
+
+		// GPX 파일 정보 list에 저장
+		List<Map> mapList = GpxReader.read(path, fileName);
+
+		// 임시 GPX 파일 삭제 --------------- start
+		File file = new File(path + "/" + fileName);
+		
+		if (file.exists()) {
+			if (file.delete()) {
+				System.out.println("파일삭제 성공 : " + fileName);
+			} else {
+				System.out.println("파일삭제 실패");
+			}
+		} else {
+			System.out.println("파일이 존재하지 않습니다.");
+		}
+		// 임시 GPX 파일 삭제 --------------- end
+		
+		
+		model.addAttribute("mapList", mapList);
+
+		return "user/gpx/ajax/gpxFileChange";
+	}	
 
 	// canvas 관련 이미지 저장 코드 test용
 /*	

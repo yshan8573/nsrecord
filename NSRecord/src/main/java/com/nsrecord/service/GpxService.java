@@ -49,6 +49,9 @@ public interface GpxService {
 	//조회수 증가
 	public int gpxCount(int g_seq);
 	
+	//추천수 증가
+	public int gpxRecommand(int g_seq);
+	
 	// GPX 코스 레코드 리스트 갯수 가져오기
 	public int selectGrcCount(SearchDto searchDto);
 	
@@ -66,5 +69,10 @@ public interface GpxService {
 	
 	// GRC 삭제
 	public int deleteGrc(GrcDto grc);
+	
+	//myGpx페이지 List
+	public List<GpxDto> selectMyGpxAllList(BoardPager boardPager);
+	
+	
 	
 }//inter end
