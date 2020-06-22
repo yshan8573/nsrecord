@@ -218,9 +218,9 @@ public class GpxController {
 		}//if end
 		
 		if(selectOne != null) {
-			System.out.println("해당 상세페이지로 넘어감'");
+			System.out.println("해당 상세페이지로 넘어감");
 			view.addObject("selectOne", selectOne);
-			
+			//--------------------------------------------------------------------------			
 			//만일 viewCookie가 null일 경우 쿠키를 생성해서 조회수 증가 로직 처리
 			if(viewCookie == null) {
 				System.out.println("쿠키 없음");
@@ -235,13 +235,25 @@ public class GpxController {
 				int result = gpxServiceImpl.gpxCount(g_seq);
 				
 				if(result > 0) {
-					
+					System.out.println("조회수 증가");
+				} else {
+					System.out.println("조회수 증가 실패");
 				}
 				
 			}//if end
 			
+			//viewCookie가 null이 아닐 경우 쿠키가 있으므로 조회수 증가 로직을 처리하지 않음
+			else {
+				System.out.println("cookie 있음");
+				
+				//쿠키 값 받아옴
+				String value = viewCookie.getValue();
+				System.out.println("쿠키값 : "+value);
+			} 
+			
+			view.setViewName("gpxSelectOne");
+			
 		}//if end
-		
 		
 		
 		GpxDto GpxDto = 
@@ -332,9 +344,9 @@ public class GpxController {
 	
 	//삭제
 	@RequestMapping( value = "gpx/gpxDelete")
-	public String gpxDelete(@RequestParam("u_seq") int u_seq, 
-			@RequestParam("g_seq") int g_seq, GpxDto dto, HttpSession session) {
-		 
+	public String gpxDelete(GpxDto dto, HttpSession session) {
+		 System.out.println(dto.toString());
+		 int g_seq = dto.getG_seq();
 		UserInfo user = (UserInfo) session.getAttribute("loginUser");
 		dto.setU_seq(user.getU_seq());	
 		dto.setU_nickname(user.getU_nickname());
@@ -393,6 +405,9 @@ public class GpxController {
 		return "redirect:/gpx/gpxBoardSelectOne";
 	}
 	
+	
+	
+	//
 	@RequestMapping(value = "gpxTestContrller")
 	public String gpxTestContrller(HttpServletRequest request) {
 		logger.info("this is a gpxTestContrller Method");
@@ -410,7 +425,7 @@ public class GpxController {
 		return "redirect:/gpx/gpxRanking";
 	}
 	
-
+	//
 	@RequestMapping(value = "adminGpx/adminGpxRankingList")
 	public String adminGpxRankingList(Model model) {
 		logger.info("this is a adminGpxRankingList Method");
@@ -457,33 +472,6 @@ public class GpxController {
 		return "admin/gpx/ajax/admin_gpxRankingList_ajax";
 	}
 	
-	//조회수 올리기 작업중
-	@RequestMapping(value = "gpx/gpxCount")
-	public String gpxCount(@RequestParam("g_seq") int g_seq, HttpSession session, HttpServletRequest re, Model model) {
-		
-		UserInfo user = (UserInfo) session.getAttribute("loginUser");
-		
-		//조회수 작업중
-				int userSeq = user.getU_seq();
-				GpxDto gpxDto = new GpxDto();
-				
-				try {
-				
-					gpxDto = gpxServiceImpl.selectGpxBoardOne(userSeq);
-					if(gpxDto.getU_seq() != userSeq) {
-					gpxServiceImpl.gpxCount(g_seq);	
-					}
-					System.out.println(gpxDto.getG_seq());
-					
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-		model.addAttribute("g_seq", g_seq);
-		
-		
-		return "redirect:/gpx/gpxBoardSelectOne";
-	}
-
 
 	
 	@RequestMapping(value = "adminGpx/adminGrcInsert")
@@ -550,6 +538,8 @@ public class GpxController {
 		
 		return "redirect:/adminGpx/adminGpxRankingList";
 	}
+	
+	
 	
 	@RequestMapping(value = "adminGpx/adminGpxRankingListDetail")
 	public String adminGpxRankingListDetail(GrcDto grc, Model model, HttpServletRequest request) {

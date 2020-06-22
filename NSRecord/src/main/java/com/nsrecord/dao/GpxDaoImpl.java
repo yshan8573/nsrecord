@@ -71,7 +71,7 @@ public class GpxDaoImpl implements GpxDao {
 
 	@Override
 	public void deleteGpxBoard(int g_seq) {
-		System.out.println("DeleteGpxDao 접근");
+		System.out.println("DeleteGpxDao 접근"+g_seq);
 		session.delete(queryprefix+"deleteGpxBoard", g_seq);
 		
 		

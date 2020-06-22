@@ -181,6 +181,7 @@
 
 			</c:forEach >
 			
+			//polyline 
 			var polyline = new kakao.maps.Polyline({
 				map: map,
 				path: points,
