@@ -71,12 +71,18 @@ public class CommunityController {
 		return "user/community/freeBoard"; 
 	}
 	
+	//자유게시판 리스트에서 상세보기 눌렀을 때만 조회수 증가.
+	//댓글 작성-수정-삭제 시 리프레시 돼도 조회수 증가 안 함.
+	@RequestMapping(value="/preFreeBoardContent")
+	public String preFreeBoardContent(int b_seq, Model model, HttpSession session) {
+		communityServiceImpl.boardCountUpdate(b_seq);	
+		return "forward:/freeBoardContent";
+	}
+	
 	//자유게시판 게시 내용
 	@RequestMapping(value="/freeBoardContent")
 	public String freeBoardContent(int b_seq, Model model, HttpSession session) {		
-		//조회수
-		communityServiceImpl.boardCountUpdate(b_seq);
-
+		
 		//게시 내용
 		FreeBoardDto FreeBoardDto = communityServiceImpl.selectFreeBoardContent(b_seq);
 		model.addAttribute("FreeBoardDto", FreeBoardDto);
@@ -86,8 +92,7 @@ public class CommunityController {
 		//댓글 작성 기능
 		UserInfo user = (UserInfo) session.getAttribute("loginUser");
 		model.addAttribute("User", user);
-	
-		
+			
 		return "user/community/selectFreeBoardContent";
 	}
 	
@@ -154,7 +159,7 @@ public class CommunityController {
 		return "redirect:/freeBoardContent";
 	}
 	
-	//파유게시판 에이작스 처리
+	//자유게시판 에이작스 처리
 	@RequestMapping(value = "/community/freeBoardAjax")
 	public String freeBoardAjax(
 			@RequestParam(value = "cPage", defaultValue = "1") int cPage,
