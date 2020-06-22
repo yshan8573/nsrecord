@@ -2,6 +2,7 @@ package com.nsrecord.cotroller;
 
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.http.HttpSession;
@@ -14,6 +15,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.nsrecord.common.GurData;
+import com.nsrecord.dao.GpxDao;
+import com.nsrecord.dto.GpxDto;
+import com.nsrecord.dto.GrcDto;
+import com.nsrecord.dto.GurDto;
 import com.nsrecord.dto.UserInfo;
 import com.nsrecord.service.UserService;
 
@@ -27,6 +33,9 @@ public class HomeController {
 	
 	@Autowired
 	private UserService service;
+	
+	@Autowired
+	private GpxDao gpxDao;
 	
 	/**
 	 * Simply selects the home view to render by returning its name.
@@ -123,6 +132,26 @@ public class HomeController {
 		}
 		
 		return "redirect:/admin";
+	}
+	
+	@RequestMapping(value = "/testGurData")
+	public String testGurData(UserInfo user, Model model, HttpSession session) {
+		logger.info("this is a testGurData Method");
+		
+		GpxDto gpx = gpxDao.selectGpxBoardOne(1);
+		List<GrcDto> grcList = gpxDao.selectGrcAll();
+		
+		GrcDto grc = grcList.get(0);
+		String[] grcStart =  grc.getGrc_start().split(",");
+		System.out.println("grcStart : " + grcStart[0]);
+		double grcLat = Double.parseDouble(grcStart[0]);
+		System.out.println("grcLat : " + grcLat);
+		String grcLatS = Double.toString(grcLat);
+		System.out.println("grcLatS : " + grcLatS);
+		
+		//GurDto gur = GurData.read(gpx,grcList);
+		
+		return "redirect:/userHome";
 	}
 	
 }

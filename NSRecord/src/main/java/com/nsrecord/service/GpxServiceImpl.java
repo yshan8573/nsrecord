@@ -6,18 +6,16 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.nsrecord.cotroller.GpxController;
+import com.nsrecord.common.GurData;
 import com.nsrecord.dao.GpxDao;
-import com.nsrecord.dao.ICommunityDao;
 import com.nsrecord.dto.BoardPager;
 import com.nsrecord.dto.GpxDto;
 import com.nsrecord.dto.GpxReplyDto;
 import com.nsrecord.dto.GrcDto;
+import com.nsrecord.dto.GurDto;
 import com.nsrecord.dto.SearchDto;
 
 @Service
@@ -49,6 +47,7 @@ public class GpxServiceImpl implements GpxService {
 			List<GrcDto> grcList = gpxDao.selectGrcAll();
 			
 			//랭킹 데이터 출력 클래스
+			//GurDto gur = GurData.read(dto,grcList);
 			
 			
 		}
