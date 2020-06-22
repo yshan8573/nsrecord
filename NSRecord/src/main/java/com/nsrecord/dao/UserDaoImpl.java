@@ -25,13 +25,8 @@ public class UserDaoImpl implements UserDao {
 	// 전체 회원 리스트 출력
 	@Override
 	public List<UserInfo> admin_userList() throws Exception {
-		List<UserInfo> userList = 
-				new ArrayList<UserInfo>();
-		
-		userList =
-				session.selectList("user.userSelectOne");
-		
-		return userList;	
+	
+		return session.selectList("user.admin_userList");
 	}
 	
 	// 회원 추가

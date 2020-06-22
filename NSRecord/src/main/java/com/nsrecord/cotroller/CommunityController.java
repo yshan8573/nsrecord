@@ -41,26 +41,6 @@ public class CommunityController {
 	private UserService userService;
 
 
-//=====================자유게시판(사용자-마이페이지)======================//	
-	@RequestMapping(value = "myPage/myFreeBoard")
-	public String myFreeBoard(Model model) {
-		logger.info("this is a myFreeBoard Method");
-		// 사이드 메뉴 'active' 설정 flag
-		model.addAttribute("categoryLoc", "myCommunity");
-		
-		return "user/myPage/myFreeBoard";
-	}
-
-//=====================자유게시판(사용자-마이페이지)======================//	
-	@RequestMapping(value = "myPage/myReply")
-	public String myReply(Model model) {
-		logger.info("this is a myReply Method");
-		// 사이드 메뉴 'active' 설정 flag
-		model.addAttribute("categoryLoc", "myCommunity");
-		
-		return "user/myPage/myReply";
-	}
-
 	
 //=====================공지게시판(사용자)======================//	
 	@RequestMapping(value = "community/noticeBoard")
@@ -533,7 +513,107 @@ public class CommunityController {
 			return "redirect:/admin_freeBoardContent";
 		}
 		
+		//=====================마이 페이지 게시판======================//	
 
+		@RequestMapping(value="/myPage/myFreeBoard")
+		public String myFreeBoardList(Model model) {
+			model.addAttribute("categoryLoc", "myCommunity");
+			return "user/myPage/myFreeBoard";
+		}
 		
+		//자유게시판 에이작스 처리
+		@RequestMapping(value = "/myPage/myFreeBoardAjax")
+		public String myFreeBoardAjax(
+				@RequestParam(value = "cPage", defaultValue = "1") int cPage,
+				@RequestParam(value = "searchSort", defaultValue = "") String searchSort,
+				@RequestParam(value = "searchVal", defaultValue = "") String searchVal,
+				Model model, HttpSession session) {
+			
+			UserInfo user = (UserInfo) session.getAttribute("loginUser");
+	
+			
+			// 검색 객체 값 넣기
+			SearchDto searchDto = new SearchDto(searchSort, searchVal);
+			searchDto.setU_seq(user.getU_seq());
+			
+			// 자유게시판 리스트 총 레코드 가져오기
+			int nCount = communityServiceImpl.mySelectFreeBoardCount(searchDto);
+			
+			int curPage = cPage; // 현재 출력 페이지
+			
+			// 페이지 객체에 값 저장 (nCount: 리스트 총 레코드 갯수 / curPage: 현재 출력 페이지)
+			BoardPager boardPager = new BoardPager(nCount, curPage);
+			
+			// 페이지 객체에 검색 정보 저장
+			boardPager.setSearchSort(searchSort);
+			boardPager.setSearchVal(searchVal);
+			boardPager.setU_seq(user.getU_seq());
+			
+			
+			// 자유게시판 리스트 가져오기
+			List<FreeBoardDto> myFreeBoardList = communityServiceImpl.myFreeBoardList(boardPager);
+			
+			model.addAttribute("myFreeBoardList", myFreeBoardList);
+			model.addAttribute("boardPager",boardPager);
+			
+			// 사이드 메뉴 'active' 설정 flag
+			model.addAttribute("categoryLoc", "community");
+			
+			return "user/myPage/myFreeBoardAjax";
+		}
+		
+		@RequestMapping(value="/myPage/myFreeBoardContent")
+		public String myFreeBoardContent(@RequestParam HashMap<String, String> myParam) {
+			
+			return "user/myPage/myFreeBoardContent";
+		}
+		
+		//==========================마이 페이지 댓글==========================//
+
+		@RequestMapping(value="/myPage/myReply")
+		public String myReply(Model model) {
+			model.addAttribute("categoryLoc", "myCommunity");
+			return "user/myPage/myReply";
+		}
+		
+		@RequestMapping(value="myPage/myReplyAjax")
+		public String myReplyAjax(
+				@RequestParam(value = "cPage", defaultValue = "1") int cPage,
+				@RequestParam(value = "searchSort", defaultValue = "") String searchSort,
+				@RequestParam(value = "searchVal", defaultValue = "") String searchVal,
+				Model model, HttpSession session) {
+			
+			UserInfo user = (UserInfo) session.getAttribute("loginUser");
+	
+			
+			// 검색 객체 값 넣기
+			SearchDto searchDto = new SearchDto(searchSort, searchVal);
+			searchDto.setU_seq(user.getU_seq());
+			
+			// 개인 댓글 리스트 총 레코드 가져오기
+			int nCount = communityServiceImpl.mySelectReplyCount(searchDto);
+			
+			int curPage = cPage; // 현재 출력 페이지
+			
+			// 페이지 객체에 값 저장 (nCount: 리스트 총 레코드 갯수 / curPage: 현재 출력 페이지)
+			BoardPager boardPager = new BoardPager(nCount, curPage);
+			
+			// 페이지 객체에 검색 정보 저장
+			boardPager.setSearchSort(searchSort);
+			boardPager.setSearchVal(searchVal);
+			boardPager.setU_seq(user.getU_seq());
+			
+			
+			// 개인 댓글 리스트 가져오기
+			List<FreeBoardDto> myReplyList = communityServiceImpl.myReplyList(boardPager);
+			
+			model.addAttribute("myReplyList", myReplyList);
+			model.addAttribute("boardPager",boardPager);
+			
+			// 사이드 메뉴 'active' 설정 flag
+			model.addAttribute("categoryLoc", "community");
+			
+			return "user/myPage/myReplyAjax";
+		}
 }
 

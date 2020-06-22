@@ -71,6 +71,15 @@ public interface ICommunityService {
 	// 공지사항 수정하기
 	public int deleteNoticeBoard(Notice notice);
 	
+	// 마이페이지 게시판 리스트
+	public List<FreeBoardDto> myFreeBoardList(BoardPager boardPager);
 	
+	//마이페이지 게시판 레코드 전체 갯수 가져오기
+	public int mySelectFreeBoardCount(SearchDto searchDto);
+	
+	//마이페이지 댓글 레코드 전체 갯수 가져오기
+	public int mySelectReplyCount(SearchDto searchDto);
 
+	//마이페이지 댓글 리스트
+	public List<FreeBoardDto> myReplyList(BoardPager boardPager);
 }

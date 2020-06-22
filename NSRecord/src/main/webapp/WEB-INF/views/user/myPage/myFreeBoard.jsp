@@ -7,6 +7,78 @@
 
 <%@ include file="../../common/head.jsp" %>
 
+
+<style>
+
+h1{
+	text-align: center;
+}
+
+.tStyle{
+	text-align: center;
+	width: 1000px;
+	margin: auto;
+}
+
+.tStyle tr {
+	height: 30px;
+
+}
+
+tr, td {
+  border-bottom: 1px solid #ddd;
+}
+
+.writebtn {
+  background-color: #5F9EA0; 
+  color: white;
+  border-radius: 4px;
+  position: relative;
+  left: 1200px;
+  font-size: 12px; 
+  padding: 10px 12px;
+}
+
+
+</style>
+<script>
+	var searchSort = "";
+	var searchVal = "";
+
+	$(function(){
+		//페이지 처음 접근시 리스트 표시 좌표
+		myFreeBoardAjaxfn(1);
+	})
+
+	//리스트 Ajax 처리
+	function myFreeBoardAjaxfn(cPage){
+		$.ajax({
+			url: "<%=contextPath%>/myPage/myFreeBoardAjax", <%-- 가져올 Ajax의 위치--%>
+			<%-- url에 같이 보낼 data --%>
+			data: {		
+				"cPage": cPage,
+				"searchSort": searchSort,
+				"searchVal": searchVal
+			},
+			dataType: "html", 
+			success: function (data) {  <%-- controller에서 리턴해온 값이 data에 담겨 옴 --%>
+				console.log(data);
+				$('#myFreeBoardId').html(data); <%-- 가져온 Ajax를 어디에 넣을지 id로 위치 지정 --%>
+			}
+		})
+	}
+
+	//검색
+	function searchBoxFn() {
+		searchSort = $('#searchSort').val();
+		searchVal = $('#searchVal').val();
+		myFreeBoardAjaxfn(1);
+	}
+	
+	
+
+</script>
+
 <body class="hold-transition skin-blue sidebar-mini">
   <div class="wrapper">
 
@@ -19,13 +91,53 @@
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
 
+
+
       <!-- Main content -->
       <section class="content container-fluid">
 
-		<h1>myFreeBoard</h1>
+		<h1>마이 게시글 관리</h1>
+		
+<hr width=80%>
+
+
+<div id="myFreeBoardId"></div>
+
+
+<br>
+<div class="box-body">
+
+								<div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+									<div class="row">
+										<div class="col-sm-6"></div>
+										<div class="col-sm-6">
+											<div id="example1_filter" class="dataTables_filter">
+												<form action="javascript:searchBoxFn()">
+													<div class="box-tools">
+<!--                     				요기가 검색-->		<select class="form-control" name="searchSort" id="searchSort">
+															<option value="b_seq">번호</option>
+															<option value="b_title">제목</option>
+															<option value="u_nickname">닉네임</option>
+														</select>
+														<div class="input-group input-group-sm" style="width: 150px;">
+															<input type="text" name="searchVal" id="searchVal" class="form-control pull-right" placeholder="Search">
+															<div class="input-group-btn">
+<!--                                    요기까지     -->				<button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+															</div>
+														</div>
+													</div>
+												</form>
+											</div>
+
+										</div>
+									</div>
+								</div>
+							</div>
 
       </section>
       <!-- /.content -->
+
+
 
     </div>
     <!-- /.content-wrapper -->
