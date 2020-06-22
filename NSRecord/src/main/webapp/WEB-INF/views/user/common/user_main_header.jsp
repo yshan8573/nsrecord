@@ -41,7 +41,7 @@
 									</a>
 								</li>
 								<li>
-									<button type="button" class="btn btn-sm bg-gray color-palette" onclick="javascript:location.href='<c:url value="/"/>user/myUserInfo'" style="margin: 10px">마이페이지</button>
+									<button type="button" class="btn btn-sm bg-gray color-palette" onclick="javascript:location.href='<c:url value="/"/>myPage/myUserInfo'" style="margin: 10px">마이페이지</button>
 									<button type="button" class="btn btn-sm bg-gray color-palette" onclick="javascript:location.href='<c:url value="/"/>user/userlogout'" style="margin: 10px">Logout</button>
 								</li>
 							</c:otherwise>
