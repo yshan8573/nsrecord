@@ -16,7 +16,7 @@ public interface GpxDao {
 	
 	
 	//등록
-	public void insertGpxBoard(GpxDto dto);
+	public int insertGpxBoard(GpxDto dto);
 	
 	
 	//글 선택조회
@@ -51,6 +51,7 @@ public interface GpxDao {
 	
 	//GPX 코스 리스트 가져오기
 	public List<GrcDto> selectGrcAll(BoardPager boardPager);
+	public List<GrcDto> selectGrcAll();
 	
 	// GRC 등록
 	public int insertGrc(GrcDto grc);

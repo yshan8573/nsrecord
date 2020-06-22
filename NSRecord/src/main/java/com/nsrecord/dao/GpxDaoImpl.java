@@ -39,11 +39,8 @@ public class GpxDaoImpl implements GpxDao {
 	
 	//글 등록
 	@Override
-	public void insertGpxBoard(GpxDto dto) {
-	
-	System.out.println(dto.toString());
-	session.insert(queryprefix+"insertGpxBoard", dto);	
-		
+	public int insertGpxBoard(GpxDto dto) {
+		return session.insert(queryprefix+"insertGpxBoard", dto);	
 	}//method end
 
 
@@ -169,6 +166,11 @@ public class GpxDaoImpl implements GpxDao {
 	@Override
 	public List<GrcDto> selectGrcAll(BoardPager boardPager) {
 		return session.selectList(queryprefix+"selectGrcAll", boardPager);
+	}
+
+	@Override
+	public List<GrcDto> selectGrcAll() {
+		return session.selectList(queryprefix+"selectGrcAllList");
 	}
 
 	@Override
