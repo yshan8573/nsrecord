@@ -10,7 +10,8 @@
 <script>
 
 //패스워드 중복체크
-$(function() {
+$(function(){ 
+	
 	$("#pwd_success").hide(); 
 	$("#pwd_fail").hide();
 	
@@ -19,23 +20,38 @@ $(function() {
 		var pwd1=$("#u_pwd").val(); 
 		var pwd2=$("#u_pwd2").val();
 		
-		if(pwd1 != "" || pwd2 != "") {
+		var password = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{6,15}$/;
+		
+			if(!password.test($("input[id='u_pwd']").val())){
 			
-			if(pwd1 == pwd2){
+				$('#pwd_check').text('6~15자 영문/숫자/특수문자 포함 입력해주세요');
+				$('#pwd_check').css('color', 'red');
 				
-				$("#pwd_success").show(); 
-				$("#pwd_success").css("color", "blue"); 
-				$("#pwd_fail").hide(); 
 				
 			} else {
-				
-				$("#pwd_success").hide(); 
-				$("#pwd_fail").show();
-				$("#pwd_fail").css("color", "red");
-			} 
-		} 
+					$("#pwd_check").hide();
+					
+					if(pwd1 != "" || pwd2 != "") {
+					
+					
+						if(pwd1 == pwd2){
+					
+							$("#pwd_success").show(); 
+							$("#pwd_success").css("color", "blue"); 
+							$("#pwd_fail").hide(); 
+							
+							
+						} else {
+					
+							$("#pwd_success").hide(); 
+							$("#pwd_fail").show();
+							$("#pwd_fail").css("color", "red");
+					} 
+				} 
+			}
+			
+			
 	}); 
-	
 });
 
 $(function(){
@@ -84,33 +100,31 @@ $(function(){
 		});
 });
 
-		$(document).ready(function(){
-			// 취소
-			$(".cencle").on("click", function(){
-				
-				location.href = "/";
-					    
-			})
+$(document).ready(function(){
+	// 취소
+	$("#cancle").on("click", function(){
 		
-			$("#submit").on("click", function(){
-				if($("#u_pwd").val()==""){
-					alert("비밀번호를 입력해주세요.");
-					$("#u_pwd").focus();
-					return false;
-				}
-				if($("#u_nickname").val()==""){
-					alert("닉네임을 입력해주세요.");
-					$("#u_nickname").focus();
-					return false;
-				}
+		location.href = "../userHome";
+					    
+	})
+		
+	$("#submit").on("click", function(){
+		if($("#u_pwd").val()==""){
+			alert("비밀번호를 입력해주세요.");
+			$("#u_pwd").focus();
+			return false;
+		}
+		if($("#u_nickname").val()==""){
+			alert("닉네임을 입력해주세요.");
+			$("#u_nickname").focus();
+			return false;
+		}
 				
-				alert("계정 정보가 변경되었습니다. 새로 로그인해주세요 :P")
-			});
+		alert("계정 정보가 변경되었습니다. 새로 로그인해주세요 :P")
+	});
 			
-				
-			
-		})
-	</script>
+})
+</script>
 <body class="hold-transition skin-blue sidebar-mini">
 	<div class="wrapper">
 
@@ -127,16 +141,18 @@ $(function(){
 			<!-- Main content -->
 			<section class="content container-fluid">
 				<h2>${loginUser.u_name }님의 정보</h2>
-				<form action="<%=contextPath %>/user/userlogin" method="post">
+				<form action="<%=contextPath %>/user/userUpdate" method="post">
+				<input type="hidden" name="seq" value="${loginUser.u_seq }">
 				
 						<label for="u_email">아이디</label>
 						<input type="text" id="u_email" name="u_email" value="${loginUser.u_email }" readonly="readonly"/>
 						<br>
-						<label for="u_pwd">비밀번호</label>
+						<label for="u_pwd">새로운 비밀번호</label>
 						<input type="password" id="u_pwd" name="u_pwd"/>
 						<br>
-						<label for="u_pwd2">비밀번호 확인</label>
+						<label for="u_pwd2">새로운 비밀번호 확인</label>
 						<input type="password" id="u_pwd2" name="u_pwd2"/>
+						<div id="pwd_check"></div>
 						<div id="pwd_success">비밀번호가 일치합니다</div>
 						<div id="pwd_fail">비밀번호가  일치하지 않습니다</div>
 						<br>
@@ -158,8 +174,12 @@ $(function(){
 						<br>
 						<br>
 						<button type="submit" id="submit">회원정보수정</button>
-						<button type="button">취소</button>
+						<button type="button" id="cancle">취소</button>
 				</form>
+				<br>
+				<br>
+				<a href="javascript:location.href='<c:url value="/"/>user/userDeleteView'">회원탈퇴</a>
+	
 			</section>
 			<!-- /.content -->
 
@@ -171,7 +191,7 @@ $(function(){
 
 	</div>
 	<!-- ./wrapper -->
-
+	
 </body>
 
 </html>

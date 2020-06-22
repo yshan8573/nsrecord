@@ -43,10 +43,16 @@ public class UserDaoImpl implements UserDao {
 	
 	// 회원 정보 수정(마이페이지)
 	@Override
-	public void userUpdate(UserInfo user) throws Exception{
+	public void updateUser(UserInfo user) throws Exception{
 		session.update("user.updateUser", user);
 	}
 	
+	// 회원 정보 삭제
+	@Override
+	public void deleteUser(UserInfo user) throws Exception {
+		
+		session.delete("user.deleteUser", user);
+	}
 	
 	// 이메일 중복체크
 	@Override
