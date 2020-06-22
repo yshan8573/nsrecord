@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.nsrecord.dto.UserInfo;
 import com.nsrecord.service.UserService;
@@ -48,6 +49,50 @@ public class UserController {
 		
 		return "redirect:/user/userlogin";
 	}
+	
+	// 회원 정보 수정
+	@RequestMapping(value="user/userUpdateView")
+	public String userUpdateView() throws Exception{
+			
+		return "user/myPage/user_myUserInfo";
+	}
+
+	@RequestMapping(value="user/userUpdate")
+	public String userUpdate(HttpSession session, UserInfo user) throws Exception{
+		
+		service.updateUser(user);
+		
+		session.invalidate();
+			
+		return "redirect:/user/userlogin";
+	}
+	
+	// 회원 정보 삭제
+	@RequestMapping(value="user/userDeleteView")
+	public String userDeleteView() throws Exception{
+			
+		return "user/myPage/user_delete";
+	}
+
+	@RequestMapping(value="user/userDelete")
+	public String userDelete(HttpSession session, UserInfo user, RedirectAttributes rttr) throws Exception{
+		
+		UserInfo member = (UserInfo) session.getAttribute("loginUser");
+		
+		String oldPass = member.getU_pwd();
+		String newPass = user.getU_pwd();
+		
+		if(!(oldPass.equals(newPass))) {
+			rttr.addFlashAttribute("msg", false);
+			return "redirect:/user/userDeleteView";
+		}
+		
+		service.deleteUser(user);
+		session.invalidate();
+			
+		return "redirect:/user/userlogin";
+	}
+
 	
 //	이메일 중복체크
 	@RequestMapping(value = "/user/idcheck", method = RequestMethod.GET)
@@ -156,20 +201,5 @@ public class UserController {
 		
 		return "user/myPage/user_myUserInfo";
 	}
-	// 회원 정보 수정
-		@RequestMapping(value="/userUpdateView", method = RequestMethod.GET)
-		public String userUpdateView() throws Exception{
-			
-			return "user/user/myPage/user_myUserInfo";
-		}
-
-		@RequestMapping(value="/userUpdate", method = RequestMethod.POST)
-		public String userUpdate(UserInfo user, HttpSession session) throws Exception{
-			
-			service.userUpdate(user);
-			
-			session.invalidate();
-			
-			return "redirect:/";
-		}
+	
 }

@@ -33,8 +33,14 @@ public class UserServiceImpl implements UserService {
 	
 	//회원 정보 수정
 	@Override
-	public void userUpdate(UserInfo user) throws Exception {
-		dao.userUpdate(user);
+	public void updateUser(UserInfo user) throws Exception {
+		dao.updateUser(user);
+	}
+	
+	//회원 정보 삭제
+	@Override
+	public void deleteUser(UserInfo user) throws Exception {
+		dao.deleteUser(user);
 	}
 	
 	// 이메일 중복확인
