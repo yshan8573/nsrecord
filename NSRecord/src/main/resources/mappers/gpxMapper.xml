@@ -226,6 +226,11 @@
 		<include refid="pagingFooter"></include>
 	</select>
 	
+	<select id="selectGrcAllList" resultType="grcDto">
+			SELECT *
+			FROM GPX_RANKING_COURSE
+	</select>
+	
 	<insert id="insertGrc" parameterType="grcDto">
 		INSERT INTO GPX_RANKING_COURSE
 		VALUES (

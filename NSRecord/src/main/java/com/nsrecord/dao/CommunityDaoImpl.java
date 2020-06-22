@@ -150,6 +150,12 @@ public class CommunityDaoImpl implements ICommunityDao {
 	@Override
 	public List<FreeBoardDto> myReplyList(BoardPager boardPager){
 		return session.selectList("communityMapper.myReplyList", boardPager);
-	
 	}
+
+	@Override
+	public int noticeCountUp(Notice notice) {
+		return session.update(queryprefix+"noticeCountUp", notice);
+	}
+	
+	
 }

@@ -146,5 +146,10 @@ public class CommunityServiceImpl implements ICommunityService {
 	public List<FreeBoardDto> myReplyList(BoardPager boardPager){
 		return communityDaoImpl.myReplyList(boardPager);
 	}
+
+	@Override
+	public int noticeCountUp(Notice notice) {
+		return iCommunityDao.noticeCountUp(notice);
+	}
 	
 }

@@ -67,7 +67,6 @@
 			B_CONTENT = #{b_content},
 			B_STATUS = #{b_status}
 		WHERE B_SEQ = #{b_seq}
-	
 	</update>
 	
 	<delete id="deleteFreeBoardContent" parameterType="int">
@@ -182,6 +181,12 @@
 		DELETE FROM NOTICE
 		WHERE N_SEQ = #{n_seq}
 	</delete>
+	
+	<update id="noticeCountUp" parameterType="notice">
+		UPDATE NOTICE SET
+			N_COUNT = N_COUNT + 1
+		WHERE N_SEQ = #{n_seq }
+	</update>
 	
 	<select id="selectNoticeBoardOne" parameterType="notice" resultType="notice">
 		SELECT N.*, U_EMAIL

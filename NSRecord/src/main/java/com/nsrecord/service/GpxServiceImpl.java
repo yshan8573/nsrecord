@@ -41,7 +41,17 @@ public class GpxServiceImpl implements GpxService {
 	@Override
 	public void insertGpxBoard(GpxDto dto) {
 		
-	gpxDao.insertGpxBoard(dto);		
+		int result = gpxDao.insertGpxBoard(dto);
+		
+		if(result > 0) {
+			
+			// grc 리스트 가져오기 (gpx코스 정보 가져오기)
+			List<GrcDto> grcList = gpxDao.selectGrcAll();
+			
+			//랭킹 데이터 출력 클래스
+			
+			
+		}
 		
 	}//method end
 	
