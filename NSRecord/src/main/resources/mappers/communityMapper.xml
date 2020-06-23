@@ -251,18 +251,8 @@
 	WHERE RW BETWEEN 1 AND 5
 	</select>
 	
-	<select id="selectAdminNoticeList" resultType="com.nsrecord.dto.Notice">
-	SELECT *
-	FROM (
-	SELECT ROWNUM RW, A.*
-	FROM NOTICE A
-	ORDER BY N_DATE DESC
-	)
-	WHERE RW BETWEEN 1 AND 5
-	</select>
+
 	
-	
-	<!--
 	<select id="selectAdminNoticeList" resultType="com.nsrecord.dto.Notice">
 	SELECT *
 	FROM (
@@ -273,6 +263,6 @@
 	)
 	WHERE RW BETWEEN 1 AND 5
 	</select>
-	-->
+
 
 </mapper>

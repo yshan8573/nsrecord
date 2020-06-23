@@ -109,36 +109,14 @@
 											<th style="width: 60px;">작성자</th>
 											<th>등록일시</th>
 										</tr>
+										<c:forEach var="selectAdminNoticeList" items="selectAdminNoticeList">
 										<tr>
-											<td>30</td>
-											<td>운영정책 안내</td>
-											<td>admin</td>
-											<td>2020.06.11</td>
+											<td>${selectAdminNoticeList.n_seq }</td>
+											<td>${selectAdminNoticeList.n_title }</td>
+											<td>${selectAdminNoticeList.u_email }</td>
+											<td>${selectAdminNoticeList.n_date }</td>
 										</tr>
-										<tr>
-											<td>29</td>
-											<td>금일 정기 점검 안내</td>
-											<td>admin</td>
-											<td>2020.06.07</td>
-										</tr>
-										<tr>
-											<td>28</td>
-											<td>이용약관 변경 안내</td>
-											<td>admin</td>
-											<td>2020.06.05</td>
-										</tr>
-										<tr>
-											<td>27</td>
-											<td>긴급 임시점검 안내</td>
-											<td>admin</td>
-											<td>2020.06.01</td>
-										</tr>
-										<tr>
-											<td>26</td>
-											<td>홈페이지 개설 안내</td>
-											<td>admin</td>
-											<td>2020.05.25</td>
-										</tr>
+										</c:forEach>
 									</tbody>
 								</table>
 							</div>
