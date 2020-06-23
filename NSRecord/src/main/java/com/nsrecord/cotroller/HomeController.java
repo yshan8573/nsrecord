@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -135,21 +136,29 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value = "/testGurData")
-	public String testGurData(UserInfo user, Model model, HttpSession session) {
+	public String testGurData(UserInfo user, Model model, HttpSession session, HttpServletRequest request) {
 		logger.info("this is a testGurData Method");
 		
-		GpxDto gpx = gpxDao.selectGpxBoardOne(1);
+		// 파일 저장 경로 찾기
+		String prePath = request.getSession().getServletContext().getRealPath("/resources/data/")+"/";
+		String pathGpx = prePath + "gpx/gpx";
+		
+		// gpx,grc 가져오기
+		GpxDto gpx = gpxDao.selectGpxBoardOne(2);
 		List<GrcDto> grcList = gpxDao.selectGrcAll();
 		
-		GrcDto grc = grcList.get(0);
-		String[] grcStart =  grc.getGrc_start().split(",");
-		System.out.println("grcStart : " + grcStart[0]);
-		double grcLat = Double.parseDouble(grcStart[0]);
-		System.out.println("grcLat : " + grcLat);
-		String grcLatS = Double.toString(grcLat);
-		System.out.println("grcLatS : " + grcLatS);
+		// 좌표 파싱 테스트
 		
-		//GurDto gur = GurData.read(gpx,grcList);
+//		GrcDto grc = grcList.get(0);
+//		String[] grcStart =  grc.getGrc_start().split(",");
+//		System.out.println("grcStart : " + grcStart[0]);
+//		double grcLat = Double.parseDouble(grcStart[0]);`
+//		System.out.println("grcLat : " + grcLat);
+//		String grcLatS = Double.toString(grcLat);
+//		System.out.println("grcLatS : " + grcLatS);
+		
+		
+		GurDto gur = GurData.read(pathGpx, gpx, grcList);
 		
 		return "redirect:/userHome";
 	}

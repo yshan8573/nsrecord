@@ -6,7 +6,8 @@ public class GurDto {
 	private int g_seq;
 	private int u_seq;
 	private int grc_seq;
-	private int gur_time;
+	private long gur_time;
+	private String gur_timeS;
 	private String gur_date;
 	private String gur_status;
 	
@@ -14,13 +15,14 @@ public class GurDto {
 		// TODO Auto-generated constructor stub
 	}
 
-	public GurDto(int gur_seq, int g_seq, int u_seq, int grc_seq, int gur_time, String gur_date, String gur_status) {
+	public GurDto(int gur_seq, int g_seq, int u_seq, int grc_seq, long gur_time, String gur_timeS, String gur_date, String gur_status) {
 		super();
 		this.gur_seq = gur_seq;
 		this.g_seq = g_seq;
 		this.u_seq = u_seq;
 		this.grc_seq = grc_seq;
 		this.gur_time = gur_time;
+		this.gur_timeS = gur_timeS;
 		this.gur_date = gur_date;
 		this.gur_status = gur_status;
 	}
@@ -57,12 +59,20 @@ public class GurDto {
 		this.grc_seq = grc_seq;
 	}
 
-	public int getGur_time() {
+	public long getGur_time() {
 		return gur_time;
 	}
 
-	public void setGur_time(int gur_time) {
+	public void setGur_time(long gur_time) {
 		this.gur_time = gur_time;
+	}
+
+	public String getGur_timeS() {
+		return gur_timeS;
+	}
+
+	public void setGur_timeS(String gur_timeS) {
+		this.gur_timeS = gur_timeS;
 	}
 
 	public String getGur_date() {
@@ -83,8 +93,7 @@ public class GurDto {
 
 	@Override
 	public String toString() {
-		return "GurDto [gur_seq=" + gur_seq + ", g_seq=" + g_seq + ", u_seq=" + u_seq + ", grc_seq=" + grc_seq
-				+ ", gur_time=" + gur_time + ", gur_date=" + gur_date + ", gur_status=" + gur_status + "]";
+		return "GurDto [gur_seq=" + gur_seq + ", g_seq=" + g_seq + ", u_seq=" + u_seq + ", grc_seq=" + grc_seq + ", gur_time=" + gur_time + ", gur_timeS=" + gur_timeS + ", gur_date=" + gur_date + ", gur_status=" + gur_status + "]";
 	}
 	
 }
