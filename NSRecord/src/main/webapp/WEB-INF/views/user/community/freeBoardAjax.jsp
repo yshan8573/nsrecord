@@ -10,47 +10,38 @@
 %>
 
 
-	
-<table class='tStyle'>
-	<thead>
-	<c:choose>
-		<c:when test="${fn:length(freeBoardList) > 0 }">
-			<tr>
-				<td>번호</td>
-				<td>제목</td>
-				<td>글쓴이</td>
-				<td>조회수</td>
-				<td>댓글수</td>
-				<td>작성일</td>
-			</tr>
-		</c:when>
-	</c:choose>
-	</thead>
-	<tbody>
-	
+<div class="box-body">
 
+	<table class="table table-bordered">
+		<thead>
+			<c:choose>
+				<c:when test="${fn:length(freeBoardList) > 0 }">
+					<tr>
+						<td>번호</td>
+						<td>제목</td>
+						<td>글쓴이</td>
+						<td>조회수</td>
+						<td>댓글수</td>
+						<td>작성일</td>
+					</tr>
+				</c:when>
+			</c:choose>
+		</thead>
+		<tbody>
+			<c:forEach var="freeBoard" items="${freeBoardList}">
+				<tr>
+					<td>${freeBoard.b_seq}</td>
+					<td><a href="<%=contextPath%>/preFreeBoardContent?b_seq=${freeBoard.b_seq}">${freeBoard.b_title}</a>			</td>
+					<td>${freeBoard.u_nickname}</td>
+					<td>${freeBoard.b_count}</td>
+					<td>${freeBoard.b_reply}</td>
+					<td>${freeBoard.b_date}</td>
+				</tr>
+			</c:forEach>
+		</tbody>
+	</table>
+</div>
 
-	<c:forEach var="freeBoard" items="${freeBoardList}">
-			<tr>
-				<td>${freeBoard.b_seq}</td>
-				<td><a href="<%=contextPath%>/preFreeBoardContent?b_seq=${freeBoard.b_seq}">${freeBoard.b_title}</a>			</td>
-				<td>${freeBoard.u_nickname}</td>
-				<td>${freeBoard.b_count}</td>
-				<td>${freeBoard.b_reply}</td>
-				<td>${freeBoard.b_date}</td>
-			</tr>
-	</c:forEach>
-
-	
-	</tbody>
-</table>
-<br>
-<div class="row">
-	<div class="col-sm-5">
-		<div class="dataTables_info" id="example1_info" role="status" aria-live="polite"></div>
-	</div>
-	<div class="col-sm-7">
-		<div class="dataTables_paginate paging_simple_numbers">
 			<ul class="pagination">
 				<c:if test="${boardPager.curBlock > 1 }">
 					<li class="paginate_button previous disabled"><a
@@ -74,6 +65,3 @@
 					</li>
 				</c:if>
 			</ul>
-		</div>
-	</div>
-</div>
