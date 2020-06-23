@@ -2,8 +2,10 @@ package com.nsrecord.cotroller;
 
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -14,6 +16,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.nsrecord.common.GurData;
+import com.nsrecord.dao.GpxDao;
+import com.nsrecord.dto.GpxDto;
+import com.nsrecord.dto.GrcDto;
+import com.nsrecord.dto.GurDto;
 import com.nsrecord.dto.UserInfo;
 import com.nsrecord.service.UserService;
 
@@ -27,6 +34,9 @@ public class HomeController {
 	
 	@Autowired
 	private UserService service;
+	
+	@Autowired
+	private GpxDao gpxDao;
 	
 	/**
 	 * Simply selects the home view to render by returning its name.
@@ -124,5 +134,6 @@ public class HomeController {
 		
 		return "redirect:/admin";
 	}
+	
 	
 }

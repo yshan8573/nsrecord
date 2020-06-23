@@ -7,6 +7,7 @@ import com.nsrecord.dto.BoardPager;
 import com.nsrecord.dto.GpxDto;
 import com.nsrecord.dto.GpxReplyDto;
 import com.nsrecord.dto.GrcDto;
+import com.nsrecord.dto.GurDto;
 import com.nsrecord.dto.SearchDto;
 
 public interface GpxDao {
@@ -74,5 +75,16 @@ public interface GpxDao {
 	//MyGpxAllList
 	public List<GpxDto> selectMyGpxAllList(BoardPager boardPager);
 	
+	// GUR 등록
+	public int insertGur(GurDto gur);
+	
+	// GUR 중복 검사	
+	public GurDto selectGurIf(GurDto gur);
+
+	// GRC Detail GUR 리스트 가져오기(관리자페이지)
+	public List<GurDto> selectGurListAdmin(GrcDto grc);
+	
+	// GRC Detail GUR 개인 기록 가져오기
+	public GurDto selectGurListUser(GurDto gur);
 	
 }//inter end
