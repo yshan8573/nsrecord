@@ -212,5 +212,20 @@ public class GpxServiceImpl implements GpxService {
 	}
 
 	
+	//adminHome GpxList
+	@Override
+	public List<GpxDto> selectAdminList() {
+		
+		
+		
+		return gpxDao.selectAdminList();
+	}
+
+	
+
+	
+	
+
+	
 
 }//class end

@@ -74,4 +74,8 @@ public interface GpxDao {
 	//MyGpxAllList
 	public List<GpxDto> selectMyGpxAllList(BoardPager boardPager);
 
+	//adminHome GpxList
+	public List<GpxDto> selectAdminList();
+	
+	
 }//inter end

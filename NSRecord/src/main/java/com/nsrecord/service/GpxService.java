@@ -74,5 +74,9 @@ public interface GpxService {
 	public List<GpxDto> selectMyGpxAllList(BoardPager boardPager);
 	
 	
+	//adminHome GpxList뽑아오기
+	public List<GpxDto> selectAdminList();
+	
+
 	
 }//inter end

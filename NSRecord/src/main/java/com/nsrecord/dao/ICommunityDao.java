@@ -87,4 +87,12 @@ public interface ICommunityDao {
 		
 	// 공지사항 조회수 카운트
 	public int noticeCountUp(Notice notice);
+	
+	//adminHome 자유게시판 리스트
+	public List<FreeBoardDto> selectAdminFreeList(); 
+	
+	
+	//adminHome 공지사항 리스트
+	public List<Notice> selectAdminNoticeList();
+	
 }

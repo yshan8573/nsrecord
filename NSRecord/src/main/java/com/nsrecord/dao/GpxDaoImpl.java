@@ -208,5 +208,21 @@ public class GpxDaoImpl implements GpxDao {
 	}
 
 
+	//adminHome List
+	@Override
+	public List<GpxDto> selectAdminList() {
+		
+		List<GpxDto> gpxAdminList = 
+				new ArrayList<GpxDto>();
+		gpxAdminList =	 session.selectList(queryprefix+"selectGpxAdminList");
+		//System.out.println(gpxAdminList.toString());
+		return gpxAdminList;
+	}
+
+
+
+	
+	
+
 	
 }//class end
