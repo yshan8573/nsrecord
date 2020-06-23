@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.nsrecord.dao.UserDao;
+import com.nsrecord.dto.BoardPager;
+import com.nsrecord.dto.SearchDto;
 import com.nsrecord.dto.UserInfo;
 
 @Service
@@ -20,9 +22,9 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	// 전체 회원 목록
-	public List<UserInfo> admin_userList() throws Exception{
+	public List<UserInfo> admin_userList(BoardPager boardPager) throws Exception{
 		
-		return dao.admin_userList();
+		return dao.admin_userList(boardPager);
 	}
 	
 	// 회원가입
@@ -51,5 +53,12 @@ public class UserServiceImpl implements UserService {
 	// 닉네임 중복확인
 	public int nickcheck(String u_nickname) throws Exception{
 		return dao.nickcheck(u_nickname);
+	}
+	
+//	회원 리스트 전체 레코드 카운트
+	@Override
+	public int selectUserListCount(SearchDto searchDto) {
+	
+		return dao.selectUserListCount(searchDto);
 	}
 }
