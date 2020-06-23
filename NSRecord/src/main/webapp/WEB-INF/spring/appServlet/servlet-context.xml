@@ -58,6 +58,7 @@
 			<mapping path="/myPage/**" />
 			<mapping path="/preFreeBoardContent" />
 			<mapping path="/freeBoardContent" />
+			<mapping path="/community/freeBoardWriter" />
 			<beans:bean id="loggerInterceptor" class="com.nsrecord.common.LoginCheckInterceptor" />
 		</interceptor>
 		
