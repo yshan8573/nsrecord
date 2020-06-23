@@ -24,7 +24,7 @@
 			<thead>
 				<c:choose>
 					<c:when test="${fn:length(list)>0 }">
-						<tr role="row">
+						<tr role="row"> 
 							<th class="sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1">회원코드</th>
 							<th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1">이메일</th>
 							<th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1">이름</th>
