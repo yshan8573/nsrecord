@@ -293,14 +293,14 @@ function checkSubmit() {
               <div class="icheckbox_square-blue checked" aria-checked="true" aria-disabled="false" style="position: relative;">
               	<input type="checkbox" style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;">
               	<ins class="iCheck-helper" style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
-              </div> I agree to the <a href="#">terms</a>
+              </div> <!--  I agree to the <a href="#">terms</a> -->
             </label>
           </div>
         </div>
         <!-- /.col -->
         <div class="col-xs-4">
-        	<input type="submit" class="btn btn-primary btn-block btn-flat" id="sumit" name="submit" value="Sign In">
-			<input type="reset" class="btn btn-primary btn-block btn-flat" value="Cancle">
+        	<input type="submit" class="btn btn-primary btn-block btn-flat" id="submit" name="submit" value="Sign Up">
+			<button type="button" class="btn btn-primary btn-block btn-flat" onclick="javascript:location.href='<c:url value="/"/>user/userlogin'">Cancle</button>
         </div>
         <!-- /.col -->
      	</div>

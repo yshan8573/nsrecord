@@ -15,11 +15,12 @@
 		FROM USER_INFO
 		WHERE 1 = 1 
 		<include refid="search"></include>
+		ORDER BY U_SEQ ASC
 		<include refid="pagingFooter"></include>
 	</select>
 	
 <!-- 회원 등록 -->
-	<insert id="insertUser" parameterType="userInfo">
+	<insert id="insertUser" parameterType="com.nsrecord.dto.UserInfo">
 		INSERT INTO USER_INFO(
 			U_SEQ,
 			U_EMAIL,
