@@ -123,7 +123,7 @@ function doubleSubmitCheck() {
                					 </div>
 									<script>
 										$(function () {
-											CKEDITOR.replace('g_content')
+											CKEDITOR.replace('g_content', ckeditor_config)
 										})
 									</script>
 									<div class="form-group" style="text-align: right;">

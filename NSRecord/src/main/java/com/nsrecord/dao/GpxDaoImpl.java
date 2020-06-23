@@ -206,8 +206,7 @@ public class GpxDaoImpl implements GpxDao {
 		
 		return myGpxDtoList;
 	}
-	
-	
-	
+
+
 	
 }//class end

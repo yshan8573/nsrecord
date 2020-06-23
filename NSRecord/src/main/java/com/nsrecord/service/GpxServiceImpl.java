@@ -210,9 +210,7 @@ public class GpxServiceImpl implements GpxService {
 		
 		return gpxDao.selectMyGpxAllList(boardPager);
 	}
-	
-	
-	
+
 	
 
 }//class end

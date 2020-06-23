@@ -6,6 +6,14 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <%@ include file="../../common/head.jsp"%>
+<style>
+
+	#response {
+		margin:  auto;
+		text-align: center;
+	}
+	
+</style>
 			
 			
 			<!-- JQUERY 함수 편집중 함수 편집중 -->
@@ -41,8 +49,9 @@
 
 //댓글 수정			
 function gpxReplyUpdate(gr_seq, gr_content, g_seq) {
- 				//alert("접근 = ["+'.'+gr_seq+"]["+gr_content+"]["+g_seq+"]");
+ 				//alert("접근 = ["+gr_seq+"]["+gr_content+"]["+g_seq+"]");
 		  var location =  '#'+gr_seq;
+		 // alert("접근 = "+location);
 		  $(location).html("<textarea id='"+location+"' name='gr_content' rows='1' cols='50'>" + gr_content + "</textarea>");
 		  
 		  var btnLocation = '.GpxreplyUpdateButton' + gr_seq;
@@ -68,6 +77,8 @@ function fileDownload(path,oName,rName) {
 	location.href="<%= contextPath %>/fileDownload.do?path="+path+"&oName="+oName+"&rName="+rName;	
 	}
  
+ 
+
  
 			</script>
 			
@@ -127,11 +138,24 @@ function fileDownload(path,oName,rName) {
 								<div class="box box-solid">
 									<div class="box-header with-border">
 										<i class="fa fa-info-circle"></i>
-										<h3 class="box-title">정보</h3>
+										<h3 class="box-title">댓글</h3>
 									</div>
 									<!-- /.box-header -->
+									
 									<div class="box-body">
-
+<form class="form-horizontal" action=" <c:url value='/'/>gpxBoardReply"  method="post">
+					<input type="hidden" name="g_seq" value="${GpxDto.g_seq }">
+                    <input type="hidden" name="u_seq" value="${user.u_seq }">
+                    <input type="hidden" name="u_nickname" value="${user.u_nickname }">
+                    <div class="form-group margin-bottom-none">
+                      <div class="col-xs-5">
+                        <input class="col-sm-12" id = "response" placeholder="악플사절" id="gr_conetent" name="gr_content">
+                      </div>
+                      <div class="col-sm-2">
+                        <button type="submit" class="btn btn-block btn-success btn-sm">댓글등록</button>
+                      </div>
+                    </div>
+                  </form>
 									</div>
 									<!-- /.box-body -->
 								</div>
@@ -160,7 +184,7 @@ function fileDownload(path,oName,rName) {
 								<c:choose>
 									<c:when test="${user.u_seq eq GpxDto.u_seq }">
 									<input type="button" value="수정" id="updateGpxBoard">
-									<input type="button" value="삭제" id="deleteGpxBoard">
+									<input type="button" value="삭제" id="deleteGpxBoard" onclick="confirm()" class="btn btn-block btn-danger">
 									<input type="button" value="목록" id = "gpxBoard">
 									</c:when>
 									<c:otherwise>
@@ -189,7 +213,7 @@ function fileDownload(path,oName,rName) {
 					
 									<script>
 										$(function () {
-											CKEDITOR.replace('g_content')
+											CKEDITOR.replace('g_content', ckeditor_config)
 										})
 									</script>
 									<div class="form-group" style="text-align: right;">
@@ -202,21 +226,24 @@ function fileDownload(path,oName,rName) {
 				
 				
 <form class="form-horizontal" id="gpxReplyUpdateJquery" method="post">
-<div class="post clearfix">
+<div class="col-xs-5" >
 <c:forEach var="GpxReply" items="${GpxReply }">
                   <div class="user-block">
-                        <span class="username" >${GpxReply.u_nickname }	
+                        <span class="username" >${GpxReply.u_nickname }</span>
                         <input type="hidden" name="gr_seq" value="${GpxReply.gr_seq }">
                         <input type="hidden" name="u_seq" value="${GpxReply.u_seq }">
-                         <p id = "grBox${gr_seq}">
-	                         	<div id='${GpxReply.gr_seq }' >${GpxReply.gr_content }</div>
-				                 <div class="GpxreplyUpdateButton${GpxReply.gr_seq }">
-				                <input type="button"  value="수정"  onclick="gpxReplyUpdate(${GpxReply.gr_seq },'${GpxReply.gr_content }',${GpxDto.g_seq })">
-				                </div>
-				                <input type="button" class="gpxReplyDeleteButton"  value="삭제" onclick="deleteGpxReply(${GpxReply.gr_seq}, ${GpxDto.g_seq })">	
-	                  		</p>	
-                        </span>
-                    <span class="description">${ GpxReply.gr_date}</span>
+                               	<div class="col-xs-5" '${GpxReply.gr_seq }' >
+                  <input type="text" class="form-control" value="	${GpxReply.gr_content }" readonly="readonly">
+                </div>
+				 <div class="GpxreplyUpdateButton${GpxReply.gr_seq }">
+				 <c:choose>
+                <c:when test="${GpxReply.u_seq eq  user.u_seq}">
+				<input type="button" class="btn btn-info btn-flat"  value="수정"  onclick="gpxReplyUpdate(${GpxReply.gr_seq },'${GpxReply.gr_content }',${GpxDto.g_seq })">
+				 <input type="button" class="btn btn-info btn-flat" id="btn btn-block btn-danger" class="gpxReplyDeleteButton"  value="삭제" onclick="deleteGpxReply(${GpxReply.gr_seq}, ${GpxDto.g_seq })">
+				   </c:when>
+				         </c:choose> 
+				  </div>
+             
                   </div>
                 </c:forEach>	
               
@@ -226,19 +253,7 @@ function fileDownload(path,oName,rName) {
 
 
 		
-<form class="form-horizontal" action=" <c:url value='/'/>gpxBoardReply"  method="post">
-					<input type="hidden" name="g_seq" value="${GpxDto.g_seq }">
-                    <input type="hidden" name="u_seq" value="${user.u_seq }">
-                    <input type="hidden" name="u_nickname" value="${user.u_nickname }">
-                    <div class="form-group margin-bottom-none">
-                      <div class="col-sm-9">
-                        <input class="form-control input-sm" placeholder="Response" id="gr_conetent" name="gr_content">
-                      </div>
-                      <div class="col-sm-3">
-                        <button type="submit" class="btn btn-danger pull-right btn-block btn-sm">댓글 등록</button>
-                      </div>
-                    </div>
-                  </form>
+
 			</section>
 			<!-- /.content -->
 
