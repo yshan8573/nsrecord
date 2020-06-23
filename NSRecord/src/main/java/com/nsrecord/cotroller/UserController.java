@@ -40,7 +40,7 @@ public class UserController {
 	public String userSignIn() {
 		logger.info("this is a userlogin Method");
 		
-		return "user/user/user_SignIn";
+		return "user/user/user_SignUp";
 	}
 	
 	@RequestMapping(value = "user/userSignInResult")
