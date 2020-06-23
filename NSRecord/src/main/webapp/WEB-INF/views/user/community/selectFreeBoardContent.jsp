@@ -1,3 +1,4 @@
+<%@page import="com.nsrecord.dto.UserInfo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
@@ -9,6 +10,7 @@
 
 <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
 <script>
+	//게시글 수정 및 삭제
 	$(document).ready(function(){
 		$("#updateFreeBoardContent").click(function(){
 			var url = "<%=contextPath%>" + "/community/updateFreeBoardContent";
@@ -20,20 +22,105 @@
 			$("#freeBoardUpdate").attr("action", url);
 			$("#freeBoardUpdate").submit();
 		});
+		$("#returnToIndex").click(function(){
+			var url ="<%=contextPath%>" + "/community/freeBoard";
+			$("#freeBoardUpdate").attr("action", url);
+			$("#freeBoardUpdate").submit();
+		});
+			
+		
 	});
+	
+	
+	//댓글 수정 기능
+	function updateReplyFn(r_seq, r_content, b_seq) {
+		var location = '#rContent_' + r_seq;
+		$(location).html("<textarea id='"+location+"' name='r_content' rows='1' cols='50'>" + r_content + "</textarea>");
+		var btnLocation = '.replyUpdateTool' + r_seq;
+		$(btnLocation).html('<input type="button" class="rBtnStyle" style="border: none;" value="수정 완료" onclick="replyUpdateEnd(' + r_seq+', \''+r_content+'\', '+b_seq + ')">')
+	}
+	function replyUpdateEnd(r_seq, r_content, b_seq){
+		var loc = '#rContent_' + r_seq;
+		var value = document.getElementById(loc).value;
+		location.href="<%=contextPath%>/community/updateReplyEnd?r_seq=" + r_seq + "&r_content=" + value + "&b_seq=" + b_seq;
+	}
+	
+	
+	//댓글 삭제 기능
+	function deleteReplyFn(r_seq, b_seq){
+		location.href="<%=contextPath%>/community/deleteReply?r_seq=" + r_seq + "&b_seq=" + b_seq;
+	}
+	
+	//댓글 더블 서브밋 중복 방지
+	var doubleSubmitFlag = false;
+	function doubleSubmitCheck(){
+		if(doubleSubmitFlag){
+			return doubleSubmitFlag;
+		} else {
+			doubleSubmitFlag = true;
+			return false;
+		}	
+	}
+	
+	//댓글 등록
 	$(document).ready(function(){
-		$("#updateReply").click(function(){
-			var url = "<%=contextPath%>" + "/community/updateReply";
-			$("#replyUpdate").attr("action", url);
-			$("#replyUpdate").submit();
+		$("#replySubmit").click(function(){
+			if(doubleSubmitCheck()){ return;}//더블 서브밋 중복 방지
+											//값이 true가 안 되면 return이 작동하지 않음. 이후 코드로 넘어감
+											//값이 true가 되면 return이 작동해 이후 코드로 넘어가지 않고 그 자리에서 끝남.
+			
+			var url = "<%=contextPath%>" + "/community/reply";
+			$("#replySubmitEnd").attr("action", url);
+			$("#replySubmitEnd").submit();
 		});
-		$("#deleteReply").click(function(){
-			var url = "<%=contextPath%>" + "/community/deleteReply";
-			$("#replyUpdate").attr("action", url);
-			$("#replyUpdate").submit();
-		});
-	});
+	});	
+	
+
+	
 </script>
+
+<style>
+
+h1{
+	text-align: center;
+}
+
+.tStyle{
+	text-align: center;
+	width: 1000px;
+	height: 150px;
+	margin: auto;
+}
+
+.rStyle{
+	text-align: center;
+	width: 1000px;
+	height: 100px;
+	margin: auto;
+}
+
+.rBtnStyle{
+  background-color: #5F9EA0;
+  color: white;
+  border-radius: 4px;
+  position: relative;
+  font-size: 12px; 
+}
+
+tr, td {
+  border-bottom: 1px solid #ddd;
+}
+
+.freeBoardContentUpdateBtn {
+  background-color: #5F9EA0;
+  color: white;
+  border-radius: 4px;
+  position: relative;
+  left: 1200px;
+  font-size: 12px; 
+}
+
+</style>
 
 
 <body class="hold-transition skin-blue sidebar-mini">
@@ -52,18 +139,13 @@
       <section class="content container-fluid">
 
 
-
-
-
-
-
 <h1>자유 게시판</h1>
 <hr width=80%>
 <form id="freeBoardUpdate">
-<table border="1" >
+<table class="tStyle">
 	<tr>
 		<td>글 번호: ${FreeBoardDto.b_seq}</td>
-		<td rowspan=2>글 제목: ${FreeBoardDto.b_title}</td>
+		<td>글 제목: ${FreeBoardDto.b_title}</td>
 		<td>글쓴이: ${FreeBoardDto.u_nickname}</td>
 	<tr>	
 	<tr>
@@ -72,10 +154,13 @@
 		<td>작성일: ${FreeBoardDto.b_date}</td>
 	</tr>
 	<tr>
-		<td colspan=3>${FreeBoardDto.b_content}</td>
+		<td colspan=3 style="text-align: center;">${FreeBoardDto.b_content}</td>
 	</tr>
-	<tr>
-		<td>
+</table>
+
+<br>
+	<div>
+		<c:if test="${FreeBoardDto.u_seq == User.u_seq}">
 			<input type="hidden" name="b_seq" value="${FreeBoardDto.b_seq}">
 			<input type="hidden" name="b_title" value="${FreeBoardDto.b_title}">
 			<input type="hidden" name="u_nickname" value="${FreeBoardDto.u_nickname}">
@@ -83,41 +168,52 @@
 			<input type="hidden" name="b_date" value="${FreeBoardDto.b_date}">
 			<input type="hidden" name="b_content" value="${FreeBoardDto.b_content}">
 			<input type="hidden" name="u_seq" value="${FreeBoardDto.u_seq}">
-			<input type="button" id="updateFreeBoardContent" value="수정">
-			<input type="button" id="deleteFreeBoardContent" value="삭제">
-		</td>	
-	</tr>		
-</table>
+			<input type="hidden" name="b_status" value="${FreeBoardDto.b_status}">
+			<input type="button" class="freeBoardContentUpdateBtn" id="updateFreeBoardContent" style="border: none;" value="수정">
+			<input type="button" class="freeBoardContentUpdateBtn" id="deleteFreeBoardContent" style="border: none;" value="삭제">		
+		</c:if>		
+			<input type="button" class="freeBoardContentUpdateBtn" id="returnToIndex" style="border:none;" value="목록">
+	</div>
 </form>
 
+<hr width=80%>
+
 <form id="replyUpdate">
-<table>
+<table class="rStyle">
+	<tr>
+		<td colspan=5>댓글</td>
+	</tr>
 	<c:forEach var="replyDto" items="${replyDto}"> 
 	<tr>
 		<td>${replyDto.u_nickname}</td>
-		<td>${replyDto.r_content}</td>
-		<td>${replyDto.r_date}</td>
+		<td id="rContent_${replyDto.r_seq}">${replyDto.r_content}</td>
+		<td >${replyDto.r_date}</td>
 		<td>
-			<input tyep="hidden" name="r_seq" value="${replyDto.r_seq}">
+		<c:if test="${replyDto.u_seq == User.u_seq}"> 
+			<input type="hidden" name="r_seq" value="${replyDto.r_seq}">
 			<input type="hidden" name="b_seq" value="${replyDto.b_seq}">
 			<input type="hidden" name="u_seq" value="${replyDto.u_seq}">
 			<input type="hidden" name="r_content" value="${replyDto.r_content}">
 			<input type="hidden" name="u_nickname" value="${replyDto.u_nickname}">
 			<input type="hidden" name="r_date" value="${replyDto.r_date}">
-			<input type="button" id="updateReply" value="수정">
-			<input type="button" id="deleteReply" value="삭제">
+			<div class='replyUpdateTool${replyDto.r_seq}'>
+			<input type="button"  class="rBtnStyle" style="border: none;" value="수정" onclick="updateReplyFn(${replyDto.r_seq}, '${replyDto.r_content}', ${replyDto.b_seq})">
+			<input type="button"  class="rBtnStyle" style="border: none;" value="삭제" onclick="deleteReplyFn(${replyDto.r_seq}, ${replyDto.b_seq})"></div>
+		</c:if>
 		</td>
-	</tr>
+		
+		</tr>
 	</c:forEach>
 </table>
 </form>
 
 
-<form action="<%=contextPath%>/community/reply">
-<table>
+
+<form id='replySubmitEnd'>
+<table class="tStyle">
 	<tr>
-	<td><textarea id="r_content" name="r_content" required></textarea></td>
-	<td><input type='submit' value='등록'></td>
+	<td><textarea id="r_content" name="r_content" rows="3" cols="150" required></textarea></td>
+	<td><input type='button' id='replySubmit' class='rBtnStyle' style='border: none;' value='등록'></td>
 	</tr>
 </table>
 	<input type="hidden" name="b_seq" value="${FreeBoardDto.b_seq}">
