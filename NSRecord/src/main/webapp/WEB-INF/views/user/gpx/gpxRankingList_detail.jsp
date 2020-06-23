@@ -133,36 +133,17 @@
 													<th>시간</th>
 													<th>등록일시</th>
 												</tr>
-												<tr>
-													<td>1.</td>
-													<td>홍길동</td>
-													<td>1:20:13</td>
-													<td>2020.06.11</td>
-												</tr>
-												<tr>
-													<td>2.</td>
-													<td>팔푼이</td>
-													<td>1:21:13</td>
-													<td>2020.06.01</td>
-												</tr>
-												<tr>
-													<td>3.</td>
-													<td>우수수</td>
-													<td>1:25:13</td>
-													<td>2020.05.21</td>
-												</tr>
-												<tr>
-													<td>4.</td>
-													<td>으아악</td>
-													<td>1:40:00</td>
-													<td>2020.03.01</td>
-												</tr>
-												<tr>
-													<td>5.</td>
-													<td>오옷~</td>
-													<td>2:20:54</td>
-													<td>2020.02.22</td>
-												</tr>
+												<c:forEach var="gurList" items="${gurList }">
+													<tr>
+														<td>${gurList.ranking }</td>
+														<td>${gurList.u_nickname }</td>
+														<td>${gurList.gur_times }</td>
+														<td>
+															<c:set var="gur_date" value="${gurList.gur_date }"/>
+															${fn:substring(gur_date,0,10) }
+														</td>
+													</tr>
+												</c:forEach>
 											</tbody>
 										</table>
 									</div>
@@ -170,7 +151,7 @@
 								</div>
 							</div>
 						</div>
-
+						
 						<div class="row-md-6">
 							<div class="col">
 								<div class="box box-solid">
@@ -188,12 +169,31 @@
 													<th>시간</th>
 													<th>등록일시</th>
 												</tr>
-												<tr>
-													<td>200.</td>
-													<td>김말똥</td>
-													<td>3:20:13</td>
-													<td>2020.05.05</td>
-												</tr>
+												<c:choose>
+													<c:when test="${loginUser != null }">
+														<c:if test="${gurUser != null}">
+														<tr>
+															<td>${gurUser.ranking }</td>
+															<td>${gurUser.u_nickname }</td>
+															<td>${gurUser.gur_times }</td>
+															<td>
+																<c:set var="gur_date_user" value="${gurUser.gur_date }"/>
+																${fn:substring(gur_date_user,0,10) }
+															</td>
+														</tr>
+														</c:if>
+														<c:if test="${gurUser == null}">
+															<tr>
+																<td colspan="4">등록된 데이터가 없습니다.</td>
+															</tr>
+														</c:if>
+													</c:when>
+													<c:otherwise>
+														<tr>
+															<td colspan="4">로그인을 해주시기 바랍니다.</td>
+														</tr>
+													</c:otherwise>
+												</c:choose>
 											</tbody>
 										</table>
 									</div>

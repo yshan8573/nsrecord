@@ -41,15 +41,29 @@ public class GpxServiceImpl implements GpxService {
 		
 		int result = gpxDao.insertGpxBoard(dto);
 		
+		// 랭킹 시스템 등록
 		if(result > 0) {
+			
+			String prePath = request.getSession().getServletContext().getRealPath("/resources/data/")+"/";
+			String pathGpx = prePath + "gpx/gpx";
 			
 			// grc 리스트 가져오기 (gpx코스 정보 가져오기)
 			List<GrcDto> grcList = gpxDao.selectGrcAll();
 			
 			//랭킹 데이터 출력 클래스
-			//GurDto gur = GurData.read(dto,grcList);
+			List<GurDto> gurList = GurData.read(pathGpx,dto,grcList);
 			
-			
+			GurDto gur = new GurDto();
+			for(int i=0;i<gurList.size();i++) {
+				gur = gurList.get(i);
+				
+				// gur 중복 검사
+				GurDto gurResult = gpxDao.selectGurIf(gur);
+				
+				if(gurResult == null) {
+					int gurIntResult = gpxDao.insertGur(gur);
+				}
+			}
 		}
 		
 	}//method end
@@ -60,7 +74,7 @@ public class GpxServiceImpl implements GpxService {
 	//글 선택조회
 	@Override
 	public GpxDto selectGpxBoardOne(int g_seq) {
-		
+	
 		return gpxDao.selectGpxBoardOne(g_seq);
 	}
 	
@@ -68,9 +82,9 @@ public class GpxServiceImpl implements GpxService {
 	//수정
 	@Override
 	public void updateGpxBoardUpdate(GpxDto dto) {
-		
+	
 	gpxDao.updateGpxBoard(dto);
-		
+	
 	}
 
 	//삭제
@@ -206,12 +220,17 @@ public class GpxServiceImpl implements GpxService {
 	//MyGpxAllList
 	@Override
 	public List<GpxDto> selectMyGpxAllList(BoardPager boardPager) {
-		
 		return gpxDao.selectMyGpxAllList(boardPager);
 	}
-	
-	
-	
-	
+
+	@Override
+	public List<GurDto> selectGurListAdmin(GrcDto grc) {
+		return gpxDao.selectGurListAdmin(grc);
+	}
+
+	@Override
+	public GurDto selectGurListUser(GurDto gur) {
+		return gpxDao.selectGurListUser(gur);
+	}
 
 }//class end

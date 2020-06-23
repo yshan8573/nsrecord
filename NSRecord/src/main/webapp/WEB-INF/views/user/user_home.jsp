@@ -40,7 +40,6 @@
 
 				<div class="row">
 					<div class="col-md-6">
-						<button type="button" onclick="javascript:location.href='<%= contextPath %>/testGurData'">test</button>
 						<div class="box box-solid">
 							<div class="box-body">
 								<div id="carousel-example-generic" class="carousel slide"
