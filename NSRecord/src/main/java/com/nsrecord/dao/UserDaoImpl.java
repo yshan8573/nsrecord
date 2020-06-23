@@ -7,6 +7,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.nsrecord.dto.BoardPager;
+import com.nsrecord.dto.SearchDto;
 import com.nsrecord.dto.UserInfo;
 
 @Repository
@@ -24,9 +26,11 @@ public class UserDaoImpl implements UserDao {
 	
 	// 전체 회원 리스트 출력
 	@Override
-	public List<UserInfo> admin_userList() throws Exception {
-	
-		return session.selectList("user.admin_userList");
+	public List<UserInfo> admin_userList(BoardPager boardPager) throws Exception {
+		List<UserInfo> userInfoList =
+				new ArrayList<UserInfo>();
+		userInfoList = session.selectList("user.admin_userList", boardPager);
+		return userInfoList;
 	}
 	
 	// 회원 추가
@@ -61,6 +65,13 @@ public class UserDaoImpl implements UserDao {
 	public int nickcheck(String u_nickname) {
 		
 		return session.selectOne("user.nickcheck", u_nickname); 
+	}
+	
+	// 회원 리스트 전체 레코드 카운트
+	@Override
+	public int selectUserListCount(SearchDto searchDto) {
+		// 
+		return session.selectOne(queryprefix+"selectUserListCount", searchDto);
 	}
 	
 	

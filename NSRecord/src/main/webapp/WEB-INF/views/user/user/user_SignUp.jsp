@@ -8,12 +8,23 @@
 <%@ include file="../../common/head.jsp" %>
 <html>
 <style>
-h1 {
-	text-align:center;
+
+.register-box {
+    width: 400px;
+    margin: 3% auto;
 }
-table{
-	margin: auto;
-	text-align:center;
+
+.form-control-feedback {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 2;
+    display: block;
+    width: 34px;
+    height: 34px;
+    line-height: 34px;
+    text-align: center;
+    pointer-events: none;
 }
 
 </style>
@@ -217,84 +228,92 @@ function checkSubmit() {
 }
 
 </script>
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition register-page skin-blue sidebar-mini">
 	
 	<!-- Main Header -->
     <%@ include file="../common/user_main_header.jsp" %>
 
     <!-- Left side column. contains the logo and sidebar -->
     <%@ include file="../common/user_left_column.jsp" %>
-
+    
+    <div class="register-box">
+	<div class="register-logo">
+	<a href="/nsrecord/userHome">
+		<b>NS</b>Record</a>
+	</div>
+	
+	<div class="register-box-body">
+	<p class="login-box-msg">Register a new membership</p>
 	<form action="<%=contextPath%>/user/userSignInResult" method="post" name="form" onsubmit="return checkSubmit();">
-		<h1>회원가입</h1>
 		<br>
-		<table border="1">
-<!-- 			<tr> -->
-<!-- 				<th>프로필</th> -->
-<!-- 				<td> -->
-<!-- 					<img src=""><input type="button" name="profile"> -->
-<!-- 				</td> -->
-<!-- 			</tr> -->
-			<tr>
-				<th>E-mail</th>
-				<td>
-					<input type="text" id="u_email" name="u_email" placeholder="E_MAIL">
-					<div id="id_check"></div>
-				</td>
-			</tr>
-			<tr>
-				<th>비밀번호</th>
-				<td>
-					<input type="password" id="u_pwd" name="u_pwd" maxlength="15" placeholder="PASSWORD">
-				</td>
-			</tr>
-			<tr>
-				<th>비밀번호 확인</th>
-				<td>
-					<input type="password" id="u_pwd2" name="u_pwd2" maxlength="15" placeholder="CONFIRM PASSWORD">
-					<div id="pwd_check"></div>
-					<div id="pwd_success">비밀번호가 일치합니다</div>
-					<div id="pwd_fail">비밀번호가  일치하지 않습니다</div>
-				</td>
-			</tr>
-			<tr>
-				<th>휴대전화 ('-'없이 번호만 입력해주세요)</th>
-				<td>
-					<input type="text" id="u_phone" name="u_phone" placeholder="PHONE NUMBER">
-					<div id="phone_check"></div>
-				</td>
-			</tr>
-			<tr>
-				<th>이름</th>
-				<td>
-					<input type="text" id="u_name" name="u_name" placeholder="NAME">
-				</td>
-			</tr>	
-			<tr>
-				<th>닉네임</th>
-				<td>
-					<input type="text" id="u_nickname" name="u_nickname" placeholder="NICKNAME">
-					<div id = "nick_check"></div>
-				</td>
-			</tr>
-			<tr>
-				<th>자전거 모델</th>
-				<td>
-					<input type="text" id="u_cycle" name="u_cycle">
-					<div id="cycle_check"></div>
-				</td>
-			</tr>
-		</table>
-		<br>
-		<br>
-		<table>
-			<tr>
-				<td>
-					<input type="submit" id="sumit" name="submit" value="회원가입">
-					<input type="reset" value="취소">
-				</td>
-			</tr>
-		</table>
+		<div class="form-group has-feedback">
+			<input type="text" class="form-control" id="u_email" name="u_email" placeholder="E_MAIL">
+			<span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+			<div id="id_check"></div>
+			
+      	</div>
+		<div class="form-group has-feedback">
+        	<input type="password" class="form-control" id="u_pwd" name="u_pwd" maxlength="15" placeholder="PASSWORD">
+        	<span class="glyphicon glyphicon-lock form-control-feedback"></span>
+      	</div>
+      	
+      	<div class="form-group has-feedback">
+        	<input type="password" class="form-control" id="u_pwd2" name="u_pwd2" maxlength="15" placeholder="CONFIRM PASSWORD">
+        	<span class="glyphicon glyphicon-log-in form-control-feedback"></span>
+			<div id="pwd_check"></div>
+			<div id="pwd_success">비밀번호가 일치합니다</div>
+			<div id="pwd_fail">비밀번호가  일치하지 않습니다</div>
+      	</div>
+      	
+      	<div class="form-group has-feedback">
+        	<input type="text" class="form-control" id="u_phone" name="u_phone" placeholder="PHONE NUMBER">
+        	<span class="glyphicon glyphicon glyphicon-phone form-control-feedback"></span>
+			<div id="phone_check"></div>
+      	</div>
+      	
+      	<div class="form-group has-feedback">
+        	<input type="text" class="form-control" id="u_name" name="u_name" placeholder="NAME">
+        	<span class="glyphicon glyphicon glyphicon-user form-control-feedback"></span>
+      	</div>
+      	
+      	<div class="form-group has-feedback">
+        	<input type="text" class="form-control" id="u_nickname" name="u_nickname" placeholder="NICKNAME">
+        	<span class="glyphicon glyphicon glyphicon glyphicon-flash form-control-feedback"></span>
+			<div id = "nick_check"></div>
+      	</div>
+      	<div class="form-group has-feedback">
+        	<input type="text" class="form-control" id="u_cycle" name="u_cycle" placeholder="BICYCLE">
+        	<span class="fa fa-fw fa-bicycle form-control-feedback"></span>
+			<div id="cycle_check"></div>
+      	</div>
+		<div class="row">
+        <div class="col-xs-8">
+          <div class="checkbox icheck">
+            <label>
+              <div class="icheckbox_square-blue checked" aria-checked="true" aria-disabled="false" style="position: relative;">
+              	<input type="checkbox" style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;">
+              	<ins class="iCheck-helper" style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
+              </div> I agree to the <a href="#">terms</a>
+            </label>
+          </div>
+        </div>
+        <!-- /.col -->
+        <div class="col-xs-4">
+        	<input type="submit" class="btn btn-primary btn-block btn-flat" id="sumit" name="submit" value="Sign In">
+			<input type="reset" class="btn btn-primary btn-block btn-flat" value="Cancle">
+        </div>
+        <!-- /.col -->
+     	</div>
+		
+					
+		
 	</form>
+	
+	</div>
+	
+	
+	</div>
+	 
 </body>
+
 </html>

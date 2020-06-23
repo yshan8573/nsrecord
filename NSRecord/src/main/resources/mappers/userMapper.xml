@@ -9,8 +9,13 @@
 		SELECT * FROM USER_INFO WHERE U_EMAIL = #{u_email}
 	</select>
 	
-	<select id="admin_userList" parameterType="userInfo" resultType="userInfo">
-		SELECT * FROM USER_INFO
+	<select id="admin_userList" parameterType="com.nsrecord.dto.BoardPager" resultType="userInfo">
+		<include refid="pagingHeader"></include>
+		SELECT * 
+		FROM USER_INFO
+		WHERE 1 = 1 
+		<include refid="search"></include>
+		<include refid="pagingFooter"></include>
 	</select>
 	
 <!-- 회원 등록 -->
@@ -67,4 +72,30 @@
 		WHERE U_EMAIL = #{u_email}
 			AND U_PWD = #{u_pwd}
 	</delete>
+	
+<!-- 	회원 리스트 출력 및페이징처리 -->
+	<sql id="search">
+		<choose>
+			<when test="searchSort !=''">
+				AND ${searchSort} like '%'||#{searchVal}||'%'
+			</when>	
+		</choose>
+	</sql>
+	
+	<select id="selectUserListCount" parameterType="searchDto" resultType="_int">
+		SELECT COUNT(*)
+		FROM USER_INFO
+		WHERE 1=1
+		<include refid="search"></include>
+	</select>
+	
+	<sql id="pagingHeader">
+		SELECT * FROM(
+		SELECT ROWNUM AS rn, A.* FROM (
+	</sql>
+	
+	<sql id="pagingFooter">
+		) A
+		)WHERE rn BETWEEN #{start} AND #{end}	
+	</sql>
 </mapper>
