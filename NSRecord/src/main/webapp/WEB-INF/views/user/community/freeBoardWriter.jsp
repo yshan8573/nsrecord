@@ -7,8 +7,35 @@
 
 <%@ include file="../../common/head.jsp" %>
 
+
+
 <body class="hold-transition skin-blue sidebar-mini">
   <div class="wrapper">
+
+<script>
+
+	//더블 서브밋 중복 방지
+	var doubleSubmitFlag = false;
+	function doubleSubmitCheck(){
+		if(doubleSubmitFlag){
+			return doubleSubmitFlag;
+		} else {
+			doubleSubmitFlag = true;
+			return false;
+		}	
+	}
+	
+	$(document).ready(function(){
+		$("#freeBoardWrite").click(function(){
+			if(doubleSubmitCheck()) return;//더블 서브밋 중복 방지
+			
+			var url = "<%=contextPath%>" + "/community/freeBoardWriteEnd";
+			$("#freeBoardWriteEnd").attr("action", url);
+			$("#freeBoardWriteEnd").submit();
+		});
+	});	
+
+</script>
 
     <!-- Main Header -->
     <%@ include file="../common/user_main_header.jsp" %>
@@ -40,7 +67,7 @@
 					<div class="col-xs-12">
 						<div class="box">
 							<div class="box-body">
-								<form action="<%=contextPath%>/community/freeBoardWriteEnd" method="post">
+								<form id="freeBoardWriteEnd" method="post">
 									<div class="form-group">
 										<label>제목</label>
 										<input name="b_title" type="text" class="form-control" placeholder="입력하세요.." required="required">
@@ -54,12 +81,9 @@
 										})
 									</script>
 									<div class="form-group" style="text-align: right;">
-										<input type="submit" class="btn btn-primary" value="작성완료"/>
-										
 										<input type="hidden" name="u_nickname" value="${User.u_nickname}">
 										<input type="hidden" name="u_seq" value="${User.u_seq}">
-										
-										
+										<input type="button" id="freeBoardWrite" class="btn btn-primary" value="작성완료"/>
 									</div>
 								</form>
 							</div>
