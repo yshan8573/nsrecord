@@ -109,14 +109,14 @@
 											<th style="width: 60px;">작성자</th>
 											<th>등록일시</th>
 										</tr>
-										<c:forEach var="selectAdminNoticeList" items="selectAdminNoticeList">
+										<c:forEach var="selectAdminNoticeList" items="${selectAdminNoticeList }">
 										<tr>
 											<td>${selectAdminNoticeList.n_seq }</td>
 											<td>${selectAdminNoticeList.n_title }</td>
 											<td>${selectAdminNoticeList.u_email }</td>
 											<td>${selectAdminNoticeList.n_date }</td>
 										</tr>
-										</c:forEach>
+									</c:forEach>
 									</tbody>
 								</table>
 							</div>
@@ -138,36 +138,14 @@
 											<th>시간</th>
 											<th>등록일시</th>
 										</tr>
+										
 										<tr>
 											<td>1.</td>
 											<td>홍길동</td>
 											<td>1:20:13</td>
 											<td>2020.06.11</td>
 										</tr>
-										<tr>
-											<td>2.</td>
-											<td>팔푼이</td>
-											<td>1:21:13</td>
-											<td>2020.06.01</td>
-										</tr>
-										<tr>
-											<td>3.</td>
-											<td>우수수</td>
-											<td>1:25:13</td>
-											<td>2020.05.21</td>
-										</tr>
-										<tr>
-											<td>4.</td>
-											<td>으아악</td>
-											<td>1:40:00</td>
-											<td>2020.03.01</td>
-										</tr>
-										<tr>
-											<td>5.</td>
-											<td>오옷~</td>
-											<td>2:20:54</td>
-											<td>2020.02.22</td>
-										</tr>
+									
 									</tbody>
 								</table>
 							</div>
@@ -222,12 +200,12 @@
 											<th style="width: 60px;">작성자</th>
 											<th>등록일시</th>
 										</tr>
-										<c:forEach var="freeAdminList" items="${freeAdminList }">
+										<c:forEach var="selectAdminFreeList" items="${selectAdminFreeList }">
 										<tr>
-											<td>${freeAdminList.b_seq }</td>
-											<td>${freeAdminList.b_title }</td>
-											<td>${freeAdminList.u_nickname }</td>
-											<td>${freeAdminList.b_date }</td>
+											<td>${selectAdminFreeList.b_seq }</td>
+											<td>${selectAdminFreeList.b_title }</td>
+											<td>${selectAdminFreeList.u_nickname }</td>
+											<td>${selectAdminFreeList.b_date }</td>
 										</tr>
 										</c:forEach>
 									</tbody>

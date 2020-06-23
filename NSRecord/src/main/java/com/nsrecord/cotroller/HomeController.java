@@ -37,7 +37,8 @@ public class HomeController {
 	
 	@Autowired
 	private GpxDao gpxDao;
-
+	
+	@Autowired
 	private GpxService gpxService;
 	
 	@Autowired
@@ -81,15 +82,18 @@ public class HomeController {
 	@RequestMapping(value = "/adminHome")
 	public String adminHome(Model model, HttpSession session) {
 		logger.info("this is a adminHome Method");
-		
+	
 		List<GpxDto> gpxAdminList = gpxService.selectAdminList();
+		System.out.println("Controller"+gpxAdminList);
 		model.addAttribute("adminList", gpxAdminList);
 		
 		List<FreeBoardDto> selectAdminFreeList = communityService.selectAdminFreeList();
+		System.out.println("Controller"+selectAdminFreeList);
 		model.addAttribute("selectAdminFreeList", selectAdminFreeList);
 
 		List<Notice> selectAdminNoticeList = communityService.selectAdminNoticeList();
 		model.addAttribute("selectAdminNoticeList", selectAdminNoticeList);
+		
 		
 		
 		

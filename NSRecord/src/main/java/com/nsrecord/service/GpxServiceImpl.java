@@ -241,5 +241,11 @@ public class GpxServiceImpl implements GpxService {
 	public GurDto selectGurListUser(GurDto gur) {
 		return gpxDao.selectGurListUser(gur);
 	}
+	
+	
+	
+
+	
+	
 
 }//class end

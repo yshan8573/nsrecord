@@ -214,6 +214,7 @@ public class GpxDaoImpl implements GpxDao {
 		List<GpxDto> gpxAdminList = 
 				new ArrayList<GpxDto>();
 		gpxAdminList =	 session.selectList(queryprefix+"selectGpxAdminList");
+		System.out.println("DAO = "+gpxAdminList);
 		//System.out.println(gpxAdminList.toString());
 		return gpxAdminList;
 	}
@@ -237,5 +238,11 @@ public class GpxDaoImpl implements GpxDao {
 	public GurDto selectGurListUser(GurDto gur) {
 		return session.selectOne(queryprefix+"selectGurListUser", gur);
 	}
+
+
+
+
+	
+	
 	
 }//class end

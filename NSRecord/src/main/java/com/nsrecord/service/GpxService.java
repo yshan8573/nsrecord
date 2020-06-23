@@ -83,6 +83,8 @@ public interface GpxService {
 	//adminHome GpxList뽑아오기
 	public List<GpxDto> selectAdminList();
 	
-
+	//adminHome GPx랭킹 리스트
+//	public List<GurDto> selectAdminRankList();
+	
 	
 }//inter end
