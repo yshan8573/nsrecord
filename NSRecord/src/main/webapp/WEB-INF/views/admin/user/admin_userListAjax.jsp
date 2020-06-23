@@ -4,14 +4,17 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<style>
+
+.userList {
+	text-align: center;
+	
+}
+</style>
 <section class="content">
       <div class="row">
         <div class="col-xs-12">
           <div class="box">
-            <div class="box-header">
-              <h3 class="box-title">회원 정보</h3>
-            </div>
-            <!-- /.box-header -->
             
           <div class="box-body">
           	<div id="example2_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
@@ -25,14 +28,14 @@
 				<c:choose>
 					<c:when test="${fn:length(list)>0 }">
 						<tr role="row"> 
-							<th class="sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1">회원코드</th>
-							<th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1">이메일</th>
-							<th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1">이름</th>
-							<th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1">닉네임</th>
-							<th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1">전화번호</th>
-							<th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1">등록일</th>
-							<th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1">상태</th>
-							<th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1">자전거 모델</th>
+							<th class="userList" tabindex="0" aria-controls="example2" rowspan="1" colspan="1">회원코드</th>
+							<th class="userList" tabindex="0" aria-controls="example2" rowspan="1" colspan="1">이메일</th>
+							<th class="userList" tabindex="0" aria-controls="example2" rowspan="1" colspan="1">이름</th>
+							<th class="userList" tabindex="0" aria-controls="example2" rowspan="1" colspan="1">닉네임</th>
+							<th class="userList" tabindex="0" aria-controls="example2" rowspan="1" colspan="1">전화번호</th>
+							<th class="userList" tabindex="0" aria-controls="example2" rowspan="1" colspan="1">등록일</th>
+							<th class="userList" tabindex="0" aria-controls="example2" rowspan="1" colspan="1">상태</th>
+							<th class="userList" tabindex="0" aria-controls="example2" rowspan="1" colspan="1">자전거 모델</th>
 						</tr>
 					</c:when>
 				</c:choose>

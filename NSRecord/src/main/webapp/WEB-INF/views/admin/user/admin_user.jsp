@@ -70,8 +70,9 @@ table{
 			</h1>
 
       <ol class="breadcrumb">
-					<li><a href="javascript:location.href='<c:url value=" /" />userHome"><i class="fa fa-home"></i>
-						Home</a></li>
+      				<li><a href="javascript:location.href='<c:url value=" /" />nsrecord/adminHome'"><i class="fa fa-home"></i>
+      					Home</a></li>
+
 					<li><a href="javascript:location.href='<c:url value=" /" />nsrecord/adminUser/adminUserList'">User List</a></li>
 				</ol>
     </section>
