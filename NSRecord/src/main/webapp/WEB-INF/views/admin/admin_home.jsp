@@ -1,7 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ include file="../common/head.jsp"%>
+
 
 
 <style>
@@ -211,36 +214,15 @@
 											<th style="width: 60px;">작성자</th>
 											<th>등록일시</th>
 										</tr>
+										<c:forEach var="adminList" items="${adminList }">
 										<tr>
-											<td>101</td>
-											<td>우왓 좋은아침</td>
-											<td>김말똥</td>
-											<td>2020.06.12</td>
+											<td>${adminList.g_seq }</td>
+											<td>${adminList.g_title }</td>
+											<td>${adminList.u_nickname }</td>
+											<td>${adminList.g_date }</td>
 										</tr>
-										<tr>
-											<td>100</td>
-											<td>뭔 일인고</td>
-											<td>홍길동</td>
-											<td>2020.06.11</td>
-										</tr>
-										<tr>
-											<td>99</td>
-											<td>옥수수 먹기 좋은날?</td>
-											<td>우수수</td>
-											<td>2020.06.10</td>
-										</tr>
-										<tr>
-											<td>98</td>
-											<td>아 실패다... 너무 느리네..ㅠㅠ</td>
-											<td>김말똥</td>
-											<td>2020.06.09</td>
-										</tr>
-										<tr>
-											<td>97</td>
-											<td>하아 걱정입니다..</td>
-											<td>김걱정</td>
-											<td>2020.06.07</td>
-										</tr>
+										</c:forEach>
+										
 									</tbody>
 								</table>
 							</div>
@@ -262,36 +244,14 @@
 											<th style="width: 60px;">작성자</th>
 											<th>등록일시</th>
 										</tr>
+										<c:forEach var="freeAdminList" items="${freeAdminList }">
 										<tr>
-											<td>101</td>
-											<td>우왓 좋은아침</td>
-											<td>김말똥</td>
-											<td>2020.06.12</td>
+											<td>${freeAdminList.b_seq }</td>
+											<td>${freeAdminList.b_title }</td>
+											<td>${freeAdminList.u_nickname }</td>
+											<td>${freeAdminList.b_date }</td>
 										</tr>
-										<tr>
-											<td>100</td>
-											<td>뭔 일인고</td>
-											<td>홍길동</td>
-											<td>2020.06.11</td>
-										</tr>
-										<tr>
-											<td>99</td>
-											<td>옥수수 먹기 좋은날?</td>
-											<td>우수수</td>
-											<td>2020.06.10</td>
-										</tr>
-										<tr>
-											<td>98</td>
-											<td>아 실패다... 너무 느리네..ㅠㅠ</td>
-											<td>김말똥</td>
-											<td>2020.06.09</td>
-										</tr>
-										<tr>
-											<td>97</td>
-											<td>하아 걱정입니다..</td>
-											<td>김걱정</td>
-											<td>2020.06.07</td>
-										</tr>
+										</c:forEach>
 									</tbody>
 								</table>
 							</div>

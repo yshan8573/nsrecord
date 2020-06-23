@@ -21,7 +21,24 @@
 	}
 	
 </style>
+<script>
+var doubleSubmitFlag = false;
+function doubleSubmitCheck() {
+	
+	if(doubleSubmitFlag) {
+		
+		return doubleSubmitFlage;
+		
+	} else {
+		
+		doubleSubmitFlag = true;
+		return false;
+		
+	}
+	
+}//function end
 
+</script>
 <body class="hold-transition skin-blue sidebar-mini">
 	<div class="wrapper">
 
@@ -106,11 +123,11 @@
                					 </div>
 									<script>
 										$(function () {
-											CKEDITOR.replace('g_content')
+											CKEDITOR.replace('g_content', ckeditor_config)
 										})
 									</script>
 									<div class="form-group" style="text-align: right;">
-										<input type="submit" class="btn btn-primary" value="작성완료"/>
+										<input type="submit" class="btn btn-primary" value="작성완료" onclick="doubleSubmitCheck()"/>
 										<input type="reset">
 									</div>
 								</form>

@@ -151,5 +151,24 @@ public class CommunityServiceImpl implements ICommunityService {
 	public int noticeCountUp(Notice notice) {
 		return iCommunityDao.noticeCountUp(notice);
 	}
+
+	//adminHome 자유게시판 리스트
+	@Override
+	public List<FreeBoardDto> selectAdminFreeList() {
+		
+		
+		
+		return iCommunityDao.selectAdminFreeList();
+	}
+
+	//adminHome 공지사항 리스트
+	@Override
+	public List<Notice> selectAdminNoticeList() {
+		
+		
+		return iCommunityDao.selectAdminNoticeList();
+	}
+	
+	
 	
 }

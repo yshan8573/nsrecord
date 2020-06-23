@@ -207,6 +207,17 @@ public class GpxDaoImpl implements GpxDao {
 		return myGpxDtoList;
 	}
 
+	//adminHome List
+	@Override
+	public List<GpxDto> selectAdminList() {
+		
+		List<GpxDto> gpxAdminList = 
+				new ArrayList<GpxDto>();
+		gpxAdminList =	 session.selectList(queryprefix+"selectGpxAdminList");
+		//System.out.println(gpxAdminList.toString());
+		return gpxAdminList;
+	}
+
 	@Override
 	public int insertGur(GurDto gur) {
 		return session.insert(queryprefix+"insertGur", gur);

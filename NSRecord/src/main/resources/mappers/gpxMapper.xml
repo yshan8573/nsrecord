@@ -46,29 +46,8 @@
 		<include refid="pagingFooter"></include>
 	</select>
 
-<!-- 
-	<insert id="insertGpxBoard" parameterType="com.nsrecord.dto.GpxDto">
-		INSERT INTO GPX(
-			G_SEQ, 
-			U_SEQ,
-			G_CONTENT,
-			G_DATE,
-			G_TITLE,
-			U_NICKNAME,
-			G_ORI,
-			G_RE
-		) VALUES (
-			GPX_SEQ.NEXTVAL,
-			#{u_seq},
-			#{g_content},
-			 default,
-			#{g_title},
-			#{u_nickname},
-			#{g_ori},
-			#{g_re}
-		)
-	</insert>
-	 -->
+
+
 	<insert id="insertGpxBoard" parameterType="com.nsrecord.dto.GpxDto">
 		INSERT INTO GPX
 		VALUES (
@@ -335,5 +314,17 @@
 		) WHERE U_SEQ = #{u_seq }
 	</select>
 	
+		<select id="selectGpxAdminList" resultType="gpxDto">
+		SELECT *
+		FROM ( 
+		SELECT ROWNUM RW, A.*
+		FROM GPX A
+		ORDER BY G_DATE DESC
+		)
+		WHERE RW BETWEEN 1 AND 5
+		</select>
+
+	
+
 
 </mapper>

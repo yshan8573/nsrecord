@@ -86,7 +86,6 @@
 
 
 
-
 								<div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
 									<div class="row">
 										<div class="col-sm-6"></div>

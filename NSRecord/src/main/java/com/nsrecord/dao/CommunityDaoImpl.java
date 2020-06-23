@@ -156,6 +156,30 @@ public class CommunityDaoImpl implements ICommunityDao {
 	public int noticeCountUp(Notice notice) {
 		return session.update(queryprefix+"noticeCountUp", notice);
 	}
+
+	//adminHome 자유게시판 리스트
+	@Override
+	public List<FreeBoardDto> selectAdminFreeList() {
+		
+		List<FreeBoardDto> selectAdminFreeList = 
+				new ArrayList<FreeBoardDto>();
+		
+		selectAdminFreeList = session.selectList(queryprefix+"selectFreeBoardAdminList", selectAdminFreeList);
+		System.out.println(selectAdminFreeList);
+		return selectAdminFreeList;
+	}
+	
+	//adminHome 공지사항 리스트
+	@Override
+	public List<Notice> selectAdminNoticeList() {
+		
+		List<Notice> selectAdminNoticeList = new  ArrayList<Notice>();
+		selectAdminNoticeList = session.selectList(queryprefix+"selectAdminNoticeList", selectAdminNoticeList);
+		
+		System.out.println(selectAdminNoticeList.toString());
+		
+		return selectAdminNoticeList;
+	}
 	
 	
 }

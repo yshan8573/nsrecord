@@ -223,6 +223,15 @@ public class GpxServiceImpl implements GpxService {
 		return gpxDao.selectMyGpxAllList(boardPager);
 	}
 
+	//adminHome GpxList
+	@Override
+	public List<GpxDto> selectAdminList() {
+		
+		
+		
+		return gpxDao.selectAdminList();
+	}
+
 	@Override
 	public List<GurDto> selectGurListAdmin(GrcDto grc) {
 		return gpxDao.selectGurListAdmin(grc);

@@ -79,5 +79,10 @@ public interface GpxService {
 	
 	// GRC Detail GUR 개인 기록 가져오기
 	public GurDto selectGurListUser(GurDto gur);
+
+	//adminHome GpxList뽑아오기
+	public List<GpxDto> selectAdminList();
+	
+
 	
 }//inter end
