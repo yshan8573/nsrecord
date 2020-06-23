@@ -12,6 +12,7 @@ import com.nsrecord.dto.BoardPager;
 import com.nsrecord.dto.GpxDto;
 import com.nsrecord.dto.GpxReplyDto;
 import com.nsrecord.dto.GrcDto;
+import com.nsrecord.dto.GurDto;
 import com.nsrecord.dto.SearchDto;
 
 @Repository
@@ -193,7 +194,6 @@ public class GpxDaoImpl implements GpxDao {
 		return session.delete(queryprefix+"deleteGrc", grc);
 	}
 
-
 	//MyGpxAllList
 	@Override
 	public List<GpxDto> selectMyGpxAllList(BoardPager boardPager) {
@@ -207,7 +207,6 @@ public class GpxDaoImpl implements GpxDao {
 		return myGpxDtoList;
 	}
 
-
 	//adminHome List
 	@Override
 	public List<GpxDto> selectAdminList() {
@@ -219,10 +218,24 @@ public class GpxDaoImpl implements GpxDao {
 		return gpxAdminList;
 	}
 
+	@Override
+	public int insertGur(GurDto gur) {
+		return session.insert(queryprefix+"insertGur", gur);
+	}
 
+	@Override
+	public GurDto selectGurIf(GurDto gur) {
+		return session.selectOne(queryprefix+"selectGurIf", gur);
+	}
 
-	
-	
+	@Override
+	public List<GurDto> selectGurListAdmin(GrcDto grc) {
+		return session.selectList(queryprefix+"selectGurListAdmin", grc);
+	}
 
+	@Override
+	public GurDto selectGurListUser(GurDto gur) {
+		return session.selectOne(queryprefix+"selectGurListUser", gur);
+	}
 	
 }//class end

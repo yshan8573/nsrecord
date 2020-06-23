@@ -250,22 +250,69 @@
 	
 	
 	<select id="myGpxAllList" resultType="gpxDto" parameterType="com.nsrecord.dto.BoardPager" > 
-	SELECT G_SEQ,
-				   U_SEQ,
-				   G_CONTENT,
-				   TO_CHAR(G_DATE, 'YYYY-MM-DD HH24:MI:SS') AS G_DATE,
-				   G_TITLE,
-				   G_ORI,
-				   G_RE,
-				   U_NICKNAME,
-				   G_COUNT,
-				   G_RECOMMAND,
-				   G_REPLY,
-				   G_STATUS
-			FROM GPX
-			WHERE U_SEQ = #{u_seq}
+		SELECT G_SEQ,
+			   U_SEQ,
+			   G_CONTENT,
+			   TO_CHAR(G_DATE, 'YYYY-MM-DD HH24:MI:SS') AS G_DATE,
+			   G_TITLE,
+			   G_ORI,
+			   G_RE,
+			   U_NICKNAME,
+			   G_COUNT,
+			   G_RECOMMAND,
+			   G_REPLY,
+			   G_STATUS
+		FROM GPX
+		WHERE U_SEQ = #{u_seq}
 	</select>
 	
+	<insert id="insertGur" parameterType="gurDto">
+		INSERT INTO GPX_USER_RANKING
+		VALUES (
+			GUR_SEQ.NEXTVAL,
+			#{u_seq },
+			#{grc_seq },
+			#{gur_time },
+			#{gur_times },
+			 default,
+			 default
+		)
+	</insert>
+	
+	<select id="selectGurIf"  parameterType="gurDto" resultType="gurDto">
+		SELECT *
+		FROM GPX_USER_RANKING
+		WHERE U_SEQ = #{u_seq }
+			AND GRC_SEQ = #{grc_seq }
+	</select>
+	
+	<select id="selectGurListAdmin" parameterType="grcDto" resultType="gurDto">
+		SELECT * FROM (
+			SELECT ROWNUM AS RANKING, A.*
+			FROM (
+				SELECT GUR.*, UI.U_NICKNAME
+				FROM GPX_USER_RANKING GUR
+				JOIN USER_INFO UI
+				ON (UI.U_SEQ = GUR.U_SEQ)
+				WHERE GRC_SEQ = #{grc_seq }
+				ORDER BY GUR_TIME DESC
+			) A
+		) WHERE RANKING BETWEEN 1 AND 5
+	</select>
+	
+	<select id="selectGurListUser" parameterType="gurDto" resultType="gurDto">
+		SELECT * FROM (
+			SELECT ROWNUM AS RANKING, A.*
+			FROM (
+				SELECT GUR.*, UI.U_NICKNAME
+				FROM GPX_USER_RANKING GUR
+				JOIN USER_INFO UI
+				ON (UI.U_SEQ = GUR.U_SEQ)
+				WHERE GRC_SEQ = #{grc_seq }
+				ORDER BY GUR_TIME DESC
+			) A
+		) WHERE U_SEQ = #{u_seq }
+	</select>
 	
 		<select id="selectGpxAdminList" resultType="gpxDto">
 		SELECT *

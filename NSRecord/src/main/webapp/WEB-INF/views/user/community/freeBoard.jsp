@@ -90,48 +90,49 @@ tr, td {
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
 
-
-
       <!-- Main content -->
-      <section class="content container-fluid">
+<section class="content container-fluid">
 
-		<h1>자유 게시판</h1>
+
+<div class="box">
+	<div class="box-header with-border">
+		<h1 class="box-title" style="text-align:center">자유 게시판</h1>
+	</div>
+</div>
+
 		
 <hr width=80%>
 
 
 <div id="freeBoardId"></div>
 
-
-<br>
 <div class="box-body">
-
-								<div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
-									<div class="row">
-										<div class="col-sm-6"></div>
-										<div class="col-sm-6">
-											<div id="example1_filter" class="dataTables_filter">
-												<form action="javascript:searchBoxFn()">
-													<div class="box-tools">
+	<div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+		<div class="row">
+			<div class="col-sm-6"></div>
+			<div class="col-sm-6">
+				<div id="example1_filter" class="dataTables_filter">
+					<form action="javascript:searchBoxFn()">
+						<div class="box-tools">
 <!--                     				요기가 검색-->		<select class="form-control" name="searchSort" id="searchSort">
-															<option value="b_seq">번호</option>
-															<option value="b_title">제목</option>
-															<option value="u_nickname">닉네임</option>
-														</select>
-														<div class="input-group input-group-sm" style="width: 150px;">
-															<input type="text" name="searchVal" id="searchVal" class="form-control pull-right" placeholder="Search">
-															<div class="input-group-btn">
+								<option value="b_seq">번호</option>
+								<option value="b_title">제목</option>
+								<option value="u_nickname">닉네임</option>
+							</select>
+							<div class="input-group input-group-sm" style="width: 150px;">
+								<input type="text" name="searchVal" id="searchVal" class="form-control pull-right" placeholder="Search">
+								<div class="input-group-btn">
 <!--                                    요기까지     -->				<button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
-															</div>
-														</div>
-													</div>
-												</form>
-											</div>
-
-										</div>
-									</div>
 								</div>
 							</div>
+						</div>
+					</form>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</div>
 <a href="<%=contextPath%>/community/freeBoardWriter" class="writebtn">글쓰기</a>
       </section>
       <!-- /.content -->

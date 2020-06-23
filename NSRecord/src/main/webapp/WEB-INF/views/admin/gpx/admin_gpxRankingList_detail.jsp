@@ -93,9 +93,45 @@
 			
 							</div>
 						</div>
+						
 
 					</div>
 					<div class="col-md-6">
+						<div class="row-md-6">
+							<div class="col">
+								<div class="box box-default">
+									<div class="box-header with-border">
+										<i class="fa  fa-file-text"></i>
+										<h3 class="box-title">랭킹</h3>
+									</div>
+									<!-- /.box-header -->
+									<div class="box-body">
+										<table class="table table-condensed">
+											<tbody>
+												<tr>
+													<th style="width: 50px">순위</th>
+													<th>닉네임</th>
+													<th>시간</th>
+													<th>등록일시</th>
+												</tr>
+												<c:forEach var="gurList" items="${gurList }">
+													<tr>
+														<td>${gurList.ranking }</td>
+														<td>${gurList.u_nickname }</td>
+														<td>${gurList.gur_times }</td>
+														<td>
+															<c:set var="gur_date" value="${gurList.gur_date }"/>
+															${fn:substring(gur_date,0,10) }
+														</td>
+													</tr>
+												</c:forEach>
+											</tbody>
+										</table>
+									</div>
+									<!-- /.box-body -->
+								</div>
+							</div>
+						</div>
 
 						<div class="row-md-6">
 							<div class="col">

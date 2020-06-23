@@ -5,10 +5,11 @@ import java.text.ParseException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.servlet.http.Cookie;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,14 +18,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import com.nsrecord.common.FileUpload;
 import com.nsrecord.common.GpxReader;
 import com.nsrecord.dto.BoardPager;
 import com.nsrecord.dto.GpxDto;
 import com.nsrecord.dto.GpxReplyDto;
 import com.nsrecord.dto.GrcDto;
+import com.nsrecord.dto.GurDto;
 import com.nsrecord.dto.SearchDto;
 import com.nsrecord.dto.UserInfo;
 import com.nsrecord.service.GpxService;
@@ -537,6 +539,9 @@ public class GpxController {
 		List<Map> mapList = GpxReader.read(path, g_re);
 		model.addAttribute("mapList", mapList);
 		
+		// gur 정보 가져오기
+		List<GurDto> gurList = gpxService.selectGurListAdmin(grcResult);
+		model.addAttribute("gurList", gurList);
 		
 		// 사이드 메뉴 'active' 설정 flag
 		model.addAttribute("categoryLoc", "gpx");
@@ -644,7 +649,7 @@ public class GpxController {
 	}
 	
 	@RequestMapping(value = "gpx/userGpxRankingListDetail")
-	public String userGpxRankingListDetail(GrcDto grc, Model model, HttpServletRequest request) {
+	public String userGpxRankingListDetail(GrcDto grc, Model model, HttpServletRequest request, HttpSession session) {
 		logger.info("this is a userGpxRankingListDetail Method");
 		
 		GrcDto grcResult = gpxService.selectGrcOne(grc);
@@ -656,6 +661,20 @@ public class GpxController {
 		String g_re = grcResult.getGrc_gpxRe();
 		List<Map> mapList = GpxReader.read(path, g_re);
 		model.addAttribute("mapList", mapList);
+		
+		// gur 정보 가져오기
+		List<GurDto> gurList = gpxService.selectGurListAdmin(grcResult);
+		model.addAttribute("gurList", gurList);
+		
+		// user gur 정보 가져오기
+		UserInfo user = (UserInfo) session.getAttribute("loginUser");
+		if(user != null) {
+			GurDto gur = new GurDto();
+			gur.setU_seq(user.getU_seq());
+			gur.setGrc_seq(grcResult.getGrc_seq());
+			GurDto gurUser = gpxService.selectGurListUser(gur);
+			model.addAttribute("gurUser", gurUser);
+		}
 		
 		
 		// 사이드 메뉴 'active' 설정 flag
@@ -703,8 +722,6 @@ public class GpxController {
 
 		// 사이드 메뉴 'active' 설정 flag
 		model.addAttribute("categoryLoc", "gpx");
-		
-		
 		
 		return "user/gpx/ajax/user_myGpxBoard_ajax";
 	}

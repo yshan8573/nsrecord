@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.nsrecord.dto.BoardPager;
+import com.nsrecord.dto.SearchDto;
 import com.nsrecord.dto.UserInfo;
 import com.nsrecord.service.UserService;
 
@@ -38,7 +40,7 @@ public class UserController {
 	public String userSignIn() {
 		logger.info("this is a userlogin Method");
 		
-		return "user/user/user_SignIn";
+		return "user/user/user_SignUp";
 	}
 	
 	@RequestMapping(value = "user/userSignInResult")
@@ -126,20 +128,54 @@ public class UserController {
 	}
 	
 	
+	@RequestMapping(value = "adminUser/adminUserList")
+	public String adminUSer(Model model) {
+		
+		model.addAttribute("categoryLoc", "user");
+		
+		return "admin/user/admin_user";
+	}
 	
 	
 	//관리자 페이지 -> 회원리스트 출력
-	@RequestMapping(value = "adminUser/adminUserList")
-	public String adminUserList(Model model) throws Exception{
+	@RequestMapping(value = "adminUser/adminUserListAjax")
+	public String adminUserList(@RequestParam(value = "cPage", defaultValue = "1") int cPage,	//디폴트값 설정 -> 400Error 방지
+			@RequestParam(value = "searchSort", defaultValue = "") String searchSort,
+			@RequestParam(value = "searchVal", defaultValue = "") String searchVal,
+			Model model) throws Exception{
 		logger.info("this is a adminUserList Method") ;
-		List<UserInfo> userList =
-				service.admin_userList();
 		
+		
+		//검색 객체 값 넣기
+				SearchDto searchDto = new SearchDto(searchSort, searchVal);
+				
+				//GPX리스트 총 레코드 가져오기
+				int nCount = service.selectUserListCount(searchDto);
+				
+				int curPage = cPage; //현재 출력 페이지
+				
+				//페이지 객체에 값 저장 (nCount: 리슽 총 레코드 갯수 / curPage: 현재 출력 페이지)
+				BoardPager boardPager = new BoardPager(nCount, curPage);
+				
+				//페이지 객체에 검색 정보 저장
+				boardPager.setSearchSort(searchSort);
+				boardPager.setSearchVal(searchVal);
+				
+			
+		
+		
+		
+		
+		List<UserInfo> userList =
+				service.admin_userList(boardPager);
+		
+//		System.out.println("리스트"+userList);
 		model.addAttribute("list",userList);
+		model.addAttribute("boardPager", boardPager);
 		// 사이드 메뉴 'active' 설정 flag
 		model.addAttribute("categoryLoc", "user");
 		
-		return "admin/user/admin_userList";
+		return "admin/user/admin_userListAjax";
 	}
 	
 	@RequestMapping(value = "adminUser/adminUserLeaveList")

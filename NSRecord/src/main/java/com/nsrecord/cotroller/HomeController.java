@@ -2,7 +2,6 @@ package com.nsrecord.cotroller;
 
 import java.text.DateFormat;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
@@ -16,14 +15,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.nsrecord.dto.BoardPager;
+import com.nsrecord.dao.GpxDao;
 import com.nsrecord.dto.FreeBoardDto;
 import com.nsrecord.dto.GpxDto;
-import com.nsrecord.dto.GrcDto;
 import com.nsrecord.dto.Notice;
 import com.nsrecord.dto.UserInfo;
 import com.nsrecord.service.GpxService;
-import com.nsrecord.service.GpxServiceImpl;
 import com.nsrecord.service.ICommunityService;
 import com.nsrecord.service.UserService;
 
@@ -39,10 +36,13 @@ public class HomeController {
 	private UserService service;
 	
 	@Autowired
+	private GpxDao gpxDao;
+
 	private GpxService gpxService;
 	
 	@Autowired
 	private ICommunityService communityService;
+
 	
 	/**
 	 * Simply selects the home view to render by returning its name.
@@ -151,5 +151,6 @@ public class HomeController {
 		
 		return "redirect:/admin";
 	}
+	
 	
 }

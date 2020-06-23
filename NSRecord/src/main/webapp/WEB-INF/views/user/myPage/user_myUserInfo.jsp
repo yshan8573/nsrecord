@@ -7,6 +7,35 @@
 
 <%@ include file="../../common/head.jsp"%>
 <html>
+<style>
+
+.withdrawal{
+
+	display: inline-block;
+  	margin-bottom: 0;
+  	font-weight: normal;
+ 	text-align: center;
+ 	vertical-align: middle;
+ 	touch-action: manipulation;
+ 	cursor: pointer;
+ 	background-image: none;
+ 	border: 1px solid transparent;
+ 	white-space: nowrap;
+ 	padding: 6px 12px;
+	font-size: 14px;
+	line-height: 1.42857143;
+	border-radius: 4px;
+	-webkit-user-select: none;
+  	-moz-user-select: none;
+	-ms-user-select: none;
+  	user-select: none;
+  
+	color: #fff;
+	background-color: #d9534f;
+	border: #d43f3a;
+	float: right;
+}
+</style>
 <script>
 
 //패스워드 중복체크
@@ -139,46 +168,57 @@ $(document).ready(function(){
 		<div class="content-wrapper">
 
 			<!-- Main content -->
-			<section class="content container-fluid">
-				<h2>${loginUser.u_name }님의 정보</h2>
+<section class="content container-fluid">
+			
+				<button type="button" class="withdrawal" onclick="javascript:location.href='<c:url value="/"/>user/userDeleteView'" style="margin: 10px">회원 탈퇴</button>
+			
+	
+		<div class="register-box">
+  			<div class="register-logo">
+				<p>${loginUser.u_name }님의 정보</p>
+			</div>
+			
+			<div class="register-box-body">
+    			<p class="login-box-msg">회원 정보 수정</p>
 				<form action="<%=contextPath %>/user/userUpdate" method="post">
-				<input type="hidden" name="seq" value="${loginUser.u_seq }">
-				
-						<label for="u_email">아이디</label>
-						<input type="text" id="u_email" name="u_email" value="${loginUser.u_email }" readonly="readonly"/>
+					<input type="hidden" name="seq" value="${loginUser.u_seq }">
+						<div class="form-group has-feedback">
+							<input type="text" id="u_email" name="u_email" class="form-control" value="${loginUser.u_email }" readonly="readonly"/>
+						</div>
+						<div class="form-group has-feedback">
+							<input type="password" id="u_pwd" name="u_pwd" class="form-control" placeholder="PASSWORD"/>
+						</div>
+						<div class="form-group has-feedback">
+							<input type="password" id="u_pwd2" name="u_pwd2" class="form-control" placeholder="CONFIRM PASSWORD"/>
+								
+							<div id="pwd_check"></div>
+							<div id="pwd_success">비밀번호가 일치합니다</div>
+							<div id="pwd_fail">비밀번호가  일치하지 않습니다</div>
+						</div>
+						<div class="form-group has-feedback">
+							<input type="text" id="u_name" name="u_name" class="form-control" value="${loginUser.u_name}" readonly="readonly"/>
+						</div>
+						<div class="form-group has-feedback">
+							<input type="text" id="u_phone" name="u_phone" class="form-control" value="${loginUser.u_phone}"/>
+						</div>
+						<div class="form-group has-feedback">
+							<input type="text" id="u_nickname" name="u_nickname" class="form-control" value="${loginUser.u_nickname}"/>
+							<div id = "nick_check"></div>
+						</div>
+						<div class="form-group has-feedback">
+							<input type="text" id="u_cycle" name="u_cycle" class="form-control" value="${loginUser.u_cycle}"/>
+						</div>
+						<div class="form-group has-feedback">
+							<label for="u_enrolldate">회원 등록일</label>
+							<input type="text" id="u_enrolldate" name="u_enrolldate" class="form-control" value="${loginUser.u_enrolldate}" readonly="readonly"/>
+						</div>
 						<br>
-						<label for="u_pwd">새로운 비밀번호</label>
-						<input type="password" id="u_pwd" name="u_pwd"/>
-						<br>
-						<label for="u_pwd2">새로운 비밀번호 확인</label>
-						<input type="password" id="u_pwd2" name="u_pwd2"/>
-						<div id="pwd_check"></div>
-						<div id="pwd_success">비밀번호가 일치합니다</div>
-						<div id="pwd_fail">비밀번호가  일치하지 않습니다</div>
-						<br>
-						<label for="u_name">이름</label>
-						<input type="text" id="u_name" name="u_name" value="${loginUser.u_name}" readonly="readonly"/>
-						<br>
-						<label for="u_phone">전화번호</label>
-						<input type="text" id="u_phone" name="u_phone" value="${loginUser.u_phone}"/>
-						<br>
-						<label for="u_nickname">닉네임</label>
-						<input type="text" id="u_nickname" name="u_nickname" value="${loginUser.u_nickname}"/>
-						<div id = "nick_check"></div>
-						<br>
-						<label for="u_cycle">자전거 모델</label>
-						<input type="text" id="u_cycle" name="u_cycle" value="${loginUser.u_cycle}"/>
-						<br>
-						<label for="u_enrolldate">회원 등록일</label>
-						<input type="text" id="u_enrolldate" name="u_enrolldate" value="${loginUser.u_enrolldate}" readonly="readonly"/>
-						<br>
-						<br>
-						<button type="submit" id="submit">회원정보수정</button>
-						<button type="button" id="cancle">취소</button>
+						<button type="submit" class="btn btn-block btn-primary" id="submit">회원정보수정</button>
+						<button type="button" class="btn btn-block btn-primary" id="cancle">취소</button>
 				</form>
-				<br>
-				<br>
-				<a href="javascript:location.href='<c:url value="/"/>user/userDeleteView'">회원탈퇴</a>
+			</div>
+		</div>
+
 	
 			</section>
 			<!-- /.content -->
