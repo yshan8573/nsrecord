@@ -189,7 +189,7 @@
 	</update>
 	
 	<select id="selectNoticeBoardOne" parameterType="notice" resultType="notice">
-		SELECT N.*, U_EMAIL
+		SELECT N.*, U_NAME
 		FROM NOTICE N
 		JOIN USER_INFO UI
 		ON (N.U_SEQ = UI.U_SEQ)
@@ -207,7 +207,7 @@
 	<select id="selectNoticeBoardAll"
 		parameterType="com.nsrecord.dto.BoardPager" resultType="notice">
 		<include refid="pagingHeader"></include>
-		SELECT N.*, U_EMAIL
+		SELECT N.*, U_NAME
 		FROM NOTICE N
 		JOIN USER_INFO UI
 		ON (N.U_SEQ = UI.U_SEQ)
@@ -256,10 +256,10 @@
 	<select id="selectAdminNoticeList" resultType="com.nsrecord.dto.Notice">
 	SELECT *
 	FROM (
-	SELECT ROWNUM RW, N.*, UI.U_EMAIL
+	SELECT ROWNUM RW, N.*, UI.U_NAME
 	FROM NOTICE N JOIN USER_INFO UI
 	ON (UI.U_SEQ = N.U_SEQ)
-	ORDER BY N_DATE DESC
+	ORDER BY N_SEQ DESC
 	)
 	WHERE RW BETWEEN 1 AND 5
 	</select>

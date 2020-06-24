@@ -113,7 +113,7 @@
 										<tr>
 											<td>${selectAdminNoticeList.n_seq }</td>
 											<td onclick="javascript:location.href='<c:url value="/ "/>adminCommunity/adminNoticeBoard'">${selectAdminNoticeList.n_title }</td>
-											<td>${selectAdminNoticeList.u_email }</td>
+											<td>${selectAdminNoticeList.u_name }</td>
 											<td>${selectAdminNoticeList.n_date }</td>
 										</tr>
 									</c:forEach>
