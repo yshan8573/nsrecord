@@ -90,5 +90,9 @@ public interface GpxDao {
 	// GRC Detail GUR 개인 기록 가져오기
 	public GurDto selectGurListUser(GurDto gur);
 	
-
+	// adminHome GrcOne 불러오기
+	public GrcDto selectGrcOneMain();
+	
+	// grc 레코드 상태값 초기화
+	public int updateGrcStatus();
 }//inter end

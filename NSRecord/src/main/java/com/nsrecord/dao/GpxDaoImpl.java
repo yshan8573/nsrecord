@@ -239,13 +239,14 @@ public class GpxDaoImpl implements GpxDao {
 		return session.selectOne(queryprefix+"selectGurListUser", gur);
 	}
 
+	@Override
+	public GrcDto selectGrcOneMain() {
+		return session.selectOne(queryprefix+"selectGrcOneMain");
+	}
 
+	@Override
+	public int updateGrcStatus() {
+		return session.update(queryprefix+"updateGrcStatus");
+	}
 
-
-
-
-
-	
-	
-	
 }//class end

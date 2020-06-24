@@ -177,6 +177,11 @@ public class GpxServiceImpl implements GpxService {
 
 	@Override
 	public int insertGrc(GrcDto grc) {
+		
+		if(grc.getGrc_status().equals("M")) {
+			int result = gpxDao.updateGrcStatus();
+		}
+		
 		return gpxDao.insertGrc(grc);
 	}
 
@@ -187,6 +192,11 @@ public class GpxServiceImpl implements GpxService {
 
 	@Override
 	public int updateGrc(GrcDto grc) {
+		
+		if(grc.getGrc_status().equals("M")) {
+			int result = gpxDao.updateGrcStatus();
+		}
+		
 		return gpxDao.updateGrc(grc);
 	}
 
@@ -240,6 +250,11 @@ public class GpxServiceImpl implements GpxService {
 	@Override
 	public GurDto selectGurListUser(GurDto gur) {
 		return gpxDao.selectGurListUser(gur);
+	}
+
+	@Override
+	public GrcDto selectGrcOneMain() {
+		return gpxDao.selectGrcOneMain();
 	}
 
 

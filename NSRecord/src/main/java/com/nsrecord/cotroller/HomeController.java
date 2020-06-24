@@ -82,7 +82,7 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value = "/adminHome")
-	public String adminHome(Model model, HttpSession session, GrcDto grc) {
+	public String adminHome(Model model, HttpSession session) {
 		logger.info("this is a adminHome Method");
 		
 		List<GpxDto> gpxAdminList = gpxService.selectAdminList();
@@ -96,7 +96,9 @@ public class HomeController {
 		List<Notice> selectAdminNoticeList = communityService.selectAdminNoticeList();
 		model.addAttribute("selectAdminNoticeList", selectAdminNoticeList);
 		
-		
+		GrcDto grc = gpxService.selectGrcOneMain();
+		List<GurDto> gurList = gpxService.selectGurListAdmin(grc);
+		model.addAttribute("gurList", gurList);
 		
 		// 사이드 메뉴 'active' 설정 flag
 		model.addAttribute("categoryLoc", "home");

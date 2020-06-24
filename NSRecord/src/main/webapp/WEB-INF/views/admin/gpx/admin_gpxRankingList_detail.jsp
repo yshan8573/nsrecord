@@ -156,10 +156,17 @@
 													CKEDITOR.replace('grc_content', ckeditor_config);
 												})
 											</script>
-											<div class="form-group" style="text-align: right;">
-												<input type="hidden" name="grc_seq" value="${grc.grc_seq }"/>
-												<input type="button" class="btn btn-primary" value="수정" onclick="updateGrcFn()"/>
-												<input type="button" class="btn btn-danger" value="삭제" onclick="deleteGrcFn()"/>
+											<div class="form-group flexBox" style="justify-content: space-between;">
+												<div class="checkbox" style="padding: 0 10px;">
+								                  <label>
+								                    <input type="checkbox" name="grc_status" value="M"/>메인페이지에 표시하기 (한 코스만 등록 가능합니다)
+								                  </label>
+								                </div>
+												<div>
+													<input type="hidden" name="grc_seq" value="${grc.grc_seq }"/>
+													<input type="button" class="btn btn-primary" value="수정" onclick="updateGrcFn()"/>
+													<input type="button" class="btn btn-danger" value="삭제" onclick="deleteGrcFn()"/>
+												</div>
 											</div>
 										</form>
 									</div>
