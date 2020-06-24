@@ -18,8 +18,6 @@
 						aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending"
 						style="width: 185px;">NO</th>
 					<th class="" tabindex="0" aria-controls="adminNoticeBoard" rowspan="1" colspan="1"
-						aria-label="Browser: activate to sort column ascending" style="width: 228px;">작성일시</th>
-					<th class="" tabindex="0" aria-controls="adminNoticeBoard" rowspan="1" colspan="1"
 						aria-label="Platform(s): activate to sort column ascending" style="width: 202px;">제목
 					</th>
 					<th class="" tabindex="0" aria-controls="adminNoticeBoard" rowspan="1" colspan="1"
@@ -27,16 +25,18 @@
 					</th>
 					<th class="" tabindex="0" aria-controls="adminNoticeBoard" rowspan="1" colspan="1"
 						aria-label="CSS grade: activate to sort column ascending" style="width: 115px;">조회수</th>
+					<th class="" tabindex="0" aria-controls="adminNoticeBoard" rowspan="1" colspan="1"
+						aria-label="Browser: activate to sort column ascending" style="width: 228px;">작성일시</th>
 				</tr>
 			</thead>
 			<tbody>
 				<c:forEach var="noticeList" items="${noticeList }">
 					<tr role="row" onclick="javascript:location.href='<c:url value="/ "/>community/userNoticeBoardDetail?n_seq=${noticeList.n_seq }'">
 						<td class="">${noticeList.n_seq }</td>
-						<td>${noticeList.n_date }</td>
 						<td>${noticeList.n_title }</td>
 						<td>${noticeList.u_name }</td>
 						<td>${noticeList.n_count }</td>
+						<td>${noticeList.n_date }</td>
 					</tr>
 				</c:forEach>
 			</tbody>
