@@ -45,7 +45,19 @@
 					<c:when test="${myGpxList.u_seq eq user.u_seq }">
 					<tr role="row">
 						<td class="">${myGpxList.g_seq }</td>
-						<td onclick="javascript:location.href='<c:url value="/ "/>gpx/gpxBoardSelectOne?g_seq=${myGpxList.g_seq }'"> ${myGpxList.g_title }</td>
+						<td onclick="javascript:location.href='<c:url value="/ "/>gpx/gpxBoardSelectOne?g_seq=${myGpxList.g_seq }'">
+						 
+						 <c:set var="g_title" value="${myGpxList.g_title }"></c:set>
+							<c:choose>
+								<c:when test="${fn:length(g_title) > 20}">
+									${fn:substring(g_title,0,20) }
+								</c:when>
+								<c:otherwise>
+									${g_title }
+								</c:otherwise>
+							</c:choose>
+						 
+						 </td>
 						<td>${myGpxList.u_nickname }</td>
 						<td>${myGpxList.g_count }</td>
 						<td>${myGpxList.g_recommand }</td>

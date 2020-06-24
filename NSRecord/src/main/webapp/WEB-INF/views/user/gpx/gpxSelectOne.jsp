@@ -183,13 +183,13 @@ function fileDownload(path,oName,rName) {
 								
 								<c:choose>
 									<c:when test="${user.u_seq eq GpxDto.u_seq }">
-									<input type="button" value="수정" id="updateGpxBoard">
-									<input type="button" value="삭제" id="deleteGpxBoard" onclick="confirm()">
+									<input type="button" value="수정" id="updateGpxBoard" class="btn btn-success pull-right">
+									<input type="button" value="삭제" id="deleteGpxBoard" onclick="confirm()" class="btn btn-danger pull-right">
 									<input type="button" value="목록" id = "gpxBoard">
 									</c:when>
 									<c:otherwise>
-									<input type="button" value="목록" id = "gpxBoard">
-									<input type="button" value="추천" id="gpxRC">
+									<input type="button" value="목록" id = "gpxBoard" class="btn btn-default">
+									<input type="button" value="추천" id="gpxRC" class="btn btn-default">
 									</c:otherwise>
 									</c:choose>
 									
@@ -239,7 +239,7 @@ function fileDownload(path,oName,rName) {
 				 <c:choose>
                 <c:when test="${GpxReply.u_seq eq  user.u_seq}">
 				<input type="button" class="btn btn-info btn-flat"  value="수정"  onclick="gpxReplyUpdate(${GpxReply.gr_seq },'${GpxReply.gr_content }',${GpxDto.g_seq })">
-				 <input type="button" class="btn btn-info btn-flat" id="btn btn-block btn-danger" class="gpxReplyDeleteButton"  value="삭제" onclick="deleteGpxReply(${GpxReply.gr_seq}, ${GpxDto.g_seq })">
+				 <input type="button" class="btn btn-warning" id="btn btn-block btn-danger" class="gpxReplyDeleteButton"  value="삭제" onclick="deleteGpxReply(${GpxReply.gr_seq}, ${GpxDto.g_seq })">
 				   </c:when>
 				         </c:choose> 
 				  </div>
