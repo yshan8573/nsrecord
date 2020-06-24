@@ -49,8 +49,7 @@
 			}
 
 			})	
-			
-			
+
 			<%-- 목록 버튼 --%>
 			$("#gpxBoard").click(function() {
 				var url = "<%=contextPath%>"+"/gpx/gpxBoard";
@@ -135,7 +134,7 @@
 			<section class="content container-fluid">
 
 				<div class="row">
-					<div class="col-xs-12">
+					<div class="col-xs-6">
 						<div class="box">
 							<div class="box-body">
 								<form id="gpxBoardJquery" method="post" enctype="multipart/form-data">
