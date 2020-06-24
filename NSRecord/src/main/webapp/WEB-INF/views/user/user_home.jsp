@@ -111,36 +111,14 @@
 											<th style="width: 60px;">작성자</th>
 											<th>등록일시</th>
 										</tr>
+										<c:forEach var="selectAdminNoticeList" items="${selectAdminNoticeList }">
 										<tr>
-											<td>30</td>
-											<td>운영정책 안내</td>
-											<td>admin</td>
-											<td>2020.06.11</td>
+											<td>${selectAdminNoticeList.n_seq }</td>
+											<td onclick="javascript:location.href='<c:url value="/ "/>community/noticeBoard'">${selectAdminNoticeList.n_title }</td>
+											<td>${selectAdminNoticeList.u_email }</td>
+											<td>${selectAdminNoticeList.n_date }</td>
 										</tr>
-										<tr>
-											<td>29</td>
-											<td>금일 정기 점검 안내</td>
-											<td>admin</td>
-											<td>2020.06.07</td>
-										</tr>
-										<tr>
-											<td>28</td>
-											<td>이용약관 변경 안내</td>
-											<td>admin</td>
-											<td>2020.06.05</td>
-										</tr>
-										<tr>
-											<td>27</td>
-											<td>긴급 임시점검 안내</td>
-											<td>admin</td>
-											<td>2020.06.01</td>
-										</tr>
-										<tr>
-											<td>26</td>
-											<td>홈페이지 개설 안내</td>
-											<td>admin</td>
-											<td>2020.05.25</td>
-										</tr>
+									</c:forEach>
 									</tbody>
 								</table>
 							</div>
@@ -150,48 +128,26 @@
 					<div class="col-md-4">
 						<div class="box">
 							<div class="box-header">
-								<h3 class="box-title">랭킹</h3>
+								<h3 class="box-title">GPX공유게시판</h3>
 							</div>
 							<!-- /.box-header -->
 							<div class="box-body">
 								<table class="table table-condensed">
 									<tbody>
 										<tr>
-											<th style="width: 50px">순위</th>
+											<th style="width: 50px">NO</th>
+											<th>제목</th>
 											<th>닉네임</th>
-											<th>시간</th>
 											<th>등록일시</th>
 										</tr>
+										<c:forEach var="adminList" items="${adminList }">
 										<tr>
-											<td>1.</td>
-											<td>홍길동</td>
-											<td>1:20:13</td>
-											<td>2020.06.11</td>
+											<td>${adminList.g_seq }</td>
+											<td onclick="javascript:location.href='<c:url value="/ "/>gpx/gpxBoard'">${adminList.g_title }</td>
+											<td>${adminList.u_nickname }</td>
+											<td>${adminList.g_date }</td>
 										</tr>
-										<tr>
-											<td>2.</td>
-											<td>팔푼이</td>
-											<td>1:21:13</td>
-											<td>2020.06.01</td>
-										</tr>
-										<tr>
-											<td>3.</td>
-											<td>우수수</td>
-											<td>1:25:13</td>
-											<td>2020.05.21</td>
-										</tr>
-										<tr>
-											<td>4.</td>
-											<td>으아악</td>
-											<td>1:40:00</td>
-											<td>2020.03.01</td>
-										</tr>
-										<tr>
-											<td>5.</td>
-											<td>오옷~</td>
-											<td>2:20:54</td>
-											<td>2020.02.22</td>
-										</tr>
+										</c:forEach>
 									</tbody>
 								</table>
 							</div>
@@ -213,36 +169,14 @@
 											<th style="width: 60px;">작성자</th>
 											<th>등록일시</th>
 										</tr>
+										<c:forEach var="selectAdminFreeList" items="${selectAdminFreeList }">
 										<tr>
-											<td>101</td>
-											<td>우왓 좋은아침</td>
-											<td>김말똥</td>
-											<td>2020.06.12</td>
+											<td>${selectAdminFreeList.b_seq }</td>
+											<td onclick="javascript:location.href='<c:url value="/ "/>community/freeBoard'">${selectAdminFreeList.b_title }</td>
+											<td>${selectAdminFreeList.u_nickname }</td>
+											<td>${selectAdminFreeList.b_date }</td>
 										</tr>
-										<tr>
-											<td>100</td>
-											<td>뭔 일인고</td>
-											<td>홍길동</td>
-											<td>2020.06.11</td>
-										</tr>
-										<tr>
-											<td>99</td>
-											<td>옥수수 먹기 좋은날?</td>
-											<td>우수수</td>
-											<td>2020.06.10</td>
-										</tr>
-										<tr>
-											<td>98</td>
-											<td>아 실패다... 너무 느리네..ㅠㅠ</td>
-											<td>김말똥</td>
-											<td>2020.06.09</td>
-										</tr>
-										<tr>
-											<td>97</td>
-											<td>하아 걱정입니다..</td>
-											<td>김걱정</td>
-											<td>2020.06.07</td>
-										</tr>
+										</c:forEach>
 									</tbody>
 								</table>
 							</div>

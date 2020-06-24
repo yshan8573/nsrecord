@@ -75,6 +75,17 @@ public class HomeController {
 	public String userHome(Model model) {
 		logger.info("this is a userHome Method");
 		
+		List<GpxDto> gpxAdminList = gpxService.selectAdminList();
+		System.out.println("Controller"+gpxAdminList);
+		model.addAttribute("adminList", gpxAdminList);
+		
+		List<FreeBoardDto> selectAdminFreeList = communityService.selectAdminFreeList();
+		System.out.println("Controller"+selectAdminFreeList);
+		model.addAttribute("selectAdminFreeList", selectAdminFreeList);
+
+		List<Notice> selectAdminNoticeList = communityService.selectAdminNoticeList();
+		model.addAttribute("selectAdminNoticeList", selectAdminNoticeList);
+		
 		// 사이드 메뉴 'active' 설정 flag
 		model.addAttribute("categoryLoc", "home");
 		
