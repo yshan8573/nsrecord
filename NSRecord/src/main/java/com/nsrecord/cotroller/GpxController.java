@@ -305,13 +305,16 @@ public class GpxController {
 	@RequestMapping(value = "gpx/gpxUpdate")
 	public String gpxUpdateResut(GpxDto dto, RedirectAttributes redirectAttributes, 
 			HttpSession sesseion, HttpServletRequest request, Model model, 
-			@RequestParam(value = "gpxFile", required = false) MultipartFile gpxFile) {
+			@RequestParam(value = "gpxFile", required = false) MultipartFile gpxFile,
+			@RequestParam(value = "preG_ori") String preG_ori,
+			@RequestParam(value = "preG_re") String preG_re
+			) {
 	
 		System.out.println("수정2"+dto.toString());
 		GpxDto gpxResult = gpxService.selectGpxBoardOne(dto.getG_seq());
 		model.addAttribute("gpx", gpxResult);
 		
-		
+		if(gpxFile != null) {
 		// 파일 업로드----------------------------- start
 		// 파일이 저장될 디텍토리 설정 
 		// 지도 gpx 코스 정보 가져오기
@@ -336,7 +339,10 @@ public class GpxController {
 				}
 
 				// 파일 업로드----------------------------- end
-		
+		} else {
+			dto.setG_ori(preG_ori);
+			dto.setG_re(preG_re);
+		}
 		
 	UserInfo user = (UserInfo) sesseion.getAttribute("loginUser");
 	dto.setU_seq(user.getU_seq());	
