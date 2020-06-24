@@ -17,6 +17,8 @@
 			$(document).ready(function() {
 			$("#updateGpxBoard").click(function() {
 				
+				var g_seq = ${GpxDto.g_seq};
+				
 			var subject = $("#g_title").val();
 			var content = $(".g_content").val();
 			
@@ -31,6 +33,7 @@
 				$(".g_content").focus();
 				return;
 			}
+			
 			var yn = confirm("게시글을 수정하시겠습니까?");
 			if(yn) {
 				
@@ -38,15 +41,15 @@
 				if(fileCk == "") {
 					$("#inputFile").remove();
 				}
+				
+				var url = "<%=contextPath%>"+"/gpx/gpxUpdate";
+				$("#gpxBoardJquery").attr("action",url);
+				$("#gpxBoardJquery").submit();
+				
 			}
-				
-				
-			var url = "<%=contextPath%>"+"/gpx/gpxUpdate";
-			$("#gpxBoardJquery").attr("action",url);
-			$("#gpxBoardJquery").submit();
+
 			})	
-			
-			
+
 			<%-- 목록 버튼 --%>
 			$("#gpxBoard").click(function() {
 				var url = "<%=contextPath%>"+"/gpx/gpxBoard";
@@ -131,7 +134,7 @@
 			<section class="content container-fluid">
 
 				<div class="row">
-					<div class="col-xs-12">
+					<div class="col-xs-6">
 						<div class="box">
 							<div class="box-body">
 								<form id="gpxBoardJquery" method="post" enctype="multipart/form-data">
@@ -143,6 +146,8 @@
 									</div>
 									<div class="form-group">
 									<textarea id="g_content" name="g_content" class="g_content">${GpxDto.g_content }</textarea>
+									<input type="hidden" name="preG_ori" value="${GpxDto.g_ori }" />
+									<input type="hidden" name="preG_re" value="${GpxDto.g_re }" />
 									<input type="button" value="수정완료" id="updateGpxBoard">
 									<input type="button" value="목록" id = "gpxBoard">
 									</div>
