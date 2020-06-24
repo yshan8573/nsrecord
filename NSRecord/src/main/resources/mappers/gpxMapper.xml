@@ -295,7 +295,7 @@
 				JOIN USER_INFO UI
 				ON (UI.U_SEQ = GUR.U_SEQ)
 				WHERE GRC_SEQ = #{grc_seq }
-				ORDER BY GUR_TIME DESC
+				ORDER BY GUR_TIME
 			) A
 		) WHERE RANKING BETWEEN 1 AND 5
 	</select>

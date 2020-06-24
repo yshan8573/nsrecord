@@ -666,6 +666,8 @@ public class GpxController {
 		List<GurDto> gurList = gpxService.selectGurListAdmin(grcResult);
 		model.addAttribute("gurList", gurList);
 		
+		System.out.println(gurList.toString());
+		
 		// user gur 정보 가져오기
 		UserInfo user = (UserInfo) session.getAttribute("loginUser");
 		if(user != null) {
