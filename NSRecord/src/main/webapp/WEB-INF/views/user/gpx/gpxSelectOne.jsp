@@ -143,7 +143,7 @@ function fileDownload(path,oName,rName) {
 									<!-- /.box-header -->
 									
 									<div class="box-body">
-<form class="form-horizontal" action=" <c:url value='/'/>gpxBoardReply"  method="post">
+				<form class="form-horizontal" action=" <c:url value='/'/>gpxBoardReply"  method="post">
 					<input type="hidden" name="g_seq" value="${GpxDto.g_seq }">
                     <input type="hidden" name="u_seq" value="${user.u_seq }">
                     <input type="hidden" name="u_nickname" value="${user.u_nickname }">
@@ -155,7 +155,7 @@ function fileDownload(path,oName,rName) {
                         <button type="submit" class="btn btn-block btn-success btn-sm">댓글등록</button>
                       </div>
                     </div>
-                  </form>
+                </form>
 									</div>
 									<!-- /.box-body -->
 								</div>
@@ -206,7 +206,7 @@ function fileDownload(path,oName,rName) {
 						</div>
 						<button type="button" class="btn btn-primary pull-right"
 							style="margin-right: 5px;"
-							onclick="fileDownload('gpx','${GpxDto.g_ori}','${GpxDto.g_re}');">
+							onclick="fileDownload('gpx/gpx','${GpxDto.g_ori}','${GpxDto.g_re}');">
 							<i class="fa fa-download"></i> Download
 						</button>
 					</div>

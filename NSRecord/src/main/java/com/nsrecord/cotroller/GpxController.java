@@ -172,10 +172,8 @@ public class GpxController {
 		UserInfo user = (UserInfo) sesseion.getAttribute("loginUser");
 		dto.setU_seq(user.getU_seq());	
 		dto.setU_nickname(user.getU_nickname());
-		System.out.println("파일인서트");
 	
 	
-//	System.out.println(user.getU_nickname());
 	
 		// 파일 업로드----------------------------- start
 		// 파일이 저장될 디텍토리 설정 
@@ -209,7 +207,6 @@ public class GpxController {
 	//조회수 증가
 	@RequestMapping(value = "gpx/gpxCount")
 	public String gpxCount(int g_seq, Model model, HttpSession session) {
-		System.out.println("조회수 증가 컨트롤러"+g_seq);
 		gpxServiceImpl.gpxCount(g_seq);
 		
 		
@@ -235,7 +232,6 @@ public class GpxController {
 	public String gpxSelectOne(@RequestParam("g_seq") int g_seq, Model model, 
 			HttpSession session, GpxDto dto, HttpServletRequest req, HttpServletResponse res) {
 		logger.info("this is a gpxSelectOne Method");
-		//		System.out.println("g_seq = "+g_seq);
 		model.addAttribute("categoryLoc", "gpx");
 		
 		UserInfo user = (UserInfo) session.getAttribute("loginUser");
@@ -252,18 +248,14 @@ public class GpxController {
 		String pathGpx = prePath + "gpx/gpx";
 		String g_re = gpxResult.getG_re();
 		List<Map> mapList = GpxReader.read(pathGpx, g_re);
-		System.out.println("mapList"+mapList.toString());
 		model.addAttribute("mapList", mapList);
 
 		
 		
-		GpxDto GpxDto = 
-		gpxServiceImpl.selectGpxBoardOne(g_seq);
-		System.out.println("이값을 확인 : " + GpxDto.toString());
+		GpxDto GpxDto = gpxServiceImpl.selectGpxBoardOne(g_seq);
 		model.addAttribute("GpxDto",GpxDto);
 
 		
-		System.out.println("파일 이름"+dto.toString());
 		
 		//댓글 내용
 		List<GpxReplyDto> gpxReply = gpxServiceImpl.selectOneReply(g_seq);
@@ -285,14 +277,12 @@ public class GpxController {
 		String pathGpx = prePath + "gpx/gpx";
 		String g_re = gpxResult.getG_re();
 		List<Map> mapList = GpxReader.read(pathGpx, g_re);
-		System.out.println("mapList"+mapList.toString());
 		model.addAttribute("mapList", mapList);
 	
 	UserInfo user = (UserInfo) sesseion.getAttribute("loginUser");
 	dto.setU_seq(user.getU_seq());	
 	dto.setU_nickname(user.getU_nickname());
 	dto.setU_seq(user.getU_seq());
-	System.out.println("수정1 = "+dto.getU_seq());
 	GpxDto GpxDto = 
 	gpxServiceImpl.selectGpxBoardOne(g_seq);
 	model.addAttribute("GpxDto",GpxDto);
@@ -307,7 +297,6 @@ public class GpxController {
 			HttpSession sesseion, HttpServletRequest request, Model model, 
 			@RequestParam(value = "gpxFile", required = false) MultipartFile gpxFile) {
 	
-		System.out.println("수정2"+dto.toString());
 		GpxDto gpxResult = gpxService.selectGpxBoardOne(dto.getG_seq());
 		model.addAttribute("gpx", gpxResult);
 		
@@ -319,7 +308,6 @@ public class GpxController {
 		String pathGpx = prePath + "gpx/gpx";
 		String g_re = gpxResult.getG_re();
 		List<Map> mapList = GpxReader.read(pathGpx, g_re);
-		System.out.println("mapList"+mapList.toString());
 		model.addAttribute("mapList", mapList);
 				
 				//단일 파일 유무에 따라 notice 객체 저장
@@ -342,7 +330,6 @@ public class GpxController {
 	dto.setU_seq(user.getU_seq());	
 	dto.setU_nickname(user.getU_nickname());
 	dto.getG_ori();
-	System.out.println("파일추가수정 = "+dto.toString());
 	gpxServiceImpl.updateGpxBoardUpdate(dto);	
 		
 	redirectAttributes.addAttribute("g_seq", dto.getG_seq());	
@@ -354,7 +341,6 @@ public class GpxController {
 	//삭제
 	@RequestMapping( value = "gpx/gpxDelete")
 	public String gpxDelete(GpxDto dto, HttpSession session) {
-		 System.out.println(dto.toString());
 		 int g_seq = dto.getG_seq();
 		UserInfo user = (UserInfo) session.getAttribute("loginUser");
 		dto.setU_seq(user.getU_seq());	
@@ -369,52 +355,25 @@ public class GpxController {
 	
 	//댓글 등록
 	@RequestMapping(value = "gpxBoardReply")
-	public String gpxreply(GpxReplyDto dtoreply, RedirectAttributes redirectAttribute, 
-			HttpSession session, GpxDto dto) {
-		
-		System.out.println("GPXREPLYCon"+dtoreply.toString());
-		
-		UserInfo user = (UserInfo) session.getAttribute("loginUser");
-		dto.setU_seq(user.getU_seq());
-		dto.setU_nickname(user.getU_nickname());
-		dto.setG_seq(dto.getG_seq());
-		
-		gpxServiceImpl.insertGpxReply(dtoreply);
-		
-		redirectAttribute.addAttribute("g_seq", dto.getG_seq());
+	public String gpxreply(@RequestParam HashMap<String, String> paramMap, @RequestParam("g_seq") int g_seq, RedirectAttributes redirectAttribute) {
+		gpxServiceImpl.insertGpxReply(paramMap);
+		redirectAttribute.addAttribute("g_seq", g_seq);
 		return "redirect:/gpx/gpxBoardSelectOne";
 	}
 	
 	//댓글 수정
 	@RequestMapping(value = "gpx/gpxUpdateReply")
-	public String gpxReplyUpdate(@RequestParam HashMap<String, String> paramMap, RedirectAttributes redirectAttribute,
-			HttpSession session) {
-		 
-		UserInfo user = (UserInfo) session.getAttribute("loginUser");
-	
+	public String gpxReplyUpdate(@RequestParam HashMap<String, String> paramMap, RedirectAttributes redirectAttribute, HttpSession session) {
 		gpxServiceImpl.gpxReplyUpdate(paramMap);
-		
-		System.out.println("댓글수정"+paramMap);
-		
 		redirectAttribute.addAttribute("g_seq", paramMap.get("g_seq"));
-		
 		return "redirect:/gpx/gpxBoardSelectOne";
 	}
 	
 	//댓글 삭제
 	@RequestMapping(value = "gpx/gpxDeleteReply")
 	public String gpxReplyDelete(@RequestParam("gr_seq") int gr_seq, GpxDto dto, HttpSession session, RedirectAttributes redirectAttribute) {
-		
-		UserInfo user = (UserInfo) session.getAttribute("loginUser");
-		System.out.println("Controller"+gr_seq);
-		
-	
 		gpxServiceImpl.deleteGpxReply(gr_seq);
-		
-		
 		redirectAttribute.addAttribute("g_seq", dto.getG_seq());
-		System.out.println(dto.toString());
-		System.out.println("접근?");
 		return "redirect:/gpx/gpxBoardSelectOne";
 	}
 	
@@ -432,7 +391,6 @@ public class GpxController {
 		List<Map> gfList = GpxReader.read(path, g_re);
 		
 		for(Map<String,String> gf : gfList) {
-			System.out.println(gf.toString());
 		}
 		
 		return "redirect:/gpx/gpxRanking";
@@ -751,7 +709,6 @@ public class GpxController {
 		// MYGPX 리스트 가져오기
 		List<GpxDto> gpxResult = gpxServiceImpl.selectMyGpxAllList(boardPager);
 		
-		System.out.println(gpxResult);
 		
 		model.addAttribute("myGpxList",gpxResult);
 		model.addAttribute("boardPager",boardPager);

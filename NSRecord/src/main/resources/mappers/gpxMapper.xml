@@ -127,7 +127,7 @@
 	<include refid="search"></include>
 	</select>
 	
-	<insert id="insertGpxReply" parameterType="com.nsrecord.dto.GpxReplyDto">
+	<insert id="insertGpxReply" parameterType="java.util.HashMap">
 	INSERT INTO GPXREPLY(
 	GR_SEQ,
 	U_SEQ,
@@ -142,7 +142,7 @@
 	#{g_seq},
 	#{u_nickname},
 	#{gr_content},
-	sysdate
+	SYSDATE
 	)
 	
 	</insert>

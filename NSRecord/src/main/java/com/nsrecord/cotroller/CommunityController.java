@@ -492,7 +492,6 @@ public class CommunityController {
 		//관리자 댓글 등록
 		@RequestMapping(value="/adminCommunity/adminReply")
 		public String adminReply(@RequestParam HashMap<String, String> insertReply, @RequestParam("b_seq") int b_seq, RedirectAttributes redirectAttributes) {
-			System.out.println(b_seq);
 			communityServiceImpl.insertReply(insertReply);
 			communityServiceImpl.countReply(b_seq);
 			redirectAttributes.addAttribute("b_seq", insertReply.get("b_seq"));

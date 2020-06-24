@@ -36,7 +36,7 @@ public interface GpxDao {
 	public int selectGpxBoardCount(SearchDto searchDto);
 	
 	//댓글등록
-	public void insertGpxReply(GpxReplyDto dtoreply);
+	public void insertGpxReply(HashMap<String, String> paramMap);
 	
 	//댓글 내용
 	public List<GpxReplyDto> selectOneReply(int g_seq);

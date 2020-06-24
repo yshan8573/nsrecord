@@ -48,9 +48,7 @@ public class GpxDaoImpl implements GpxDao {
 	//글 선택조회
 	@Override
 	public GpxDto selectGpxBoardOne(int g_seq) {
-		System.out.println("g_seq 선택조회="+g_seq);
-		GpxDto GpxDto = 
-		session.selectOne(queryprefix+"selectGpxBoardOne", g_seq);
+		GpxDto GpxDto = session.selectOne(queryprefix+"selectGpxBoardOne", g_seq);
 		
 		
 		return GpxDto;
@@ -60,8 +58,6 @@ public class GpxDaoImpl implements GpxDao {
 	//수정
 	@Override
 	public void updateGpxBoard(GpxDto dto) {
-		
-		System.out.println("닉네임 = "+dto.getU_nickname()+"수정파일 이름 : "+dto.getG_ori());
 		session.update(queryprefix+"updateGpxBoard", dto);
 	}
 
@@ -69,7 +65,6 @@ public class GpxDaoImpl implements GpxDao {
 
 	@Override
 	public void deleteGpxBoard(int g_seq) {
-		System.out.println("DeleteGpxDao 접근"+g_seq);
 		session.delete(queryprefix+"deleteGpxBoard", g_seq);
 		
 		
@@ -79,7 +74,6 @@ public class GpxDaoImpl implements GpxDao {
 	//조건 조회
 	@Override
 	public List<GpxDto> gpxWhereList() {
-		System.out.println("조건조회 Dao접근");
 		List<GpxDto> gpxWhereList = 
 				new ArrayList<GpxDto>();
 		
@@ -101,11 +95,8 @@ public class GpxDaoImpl implements GpxDao {
 
 	//댓글 등록
 	@Override
-	public void insertGpxReply(GpxReplyDto dtoreply) {
-		
-		System.out.println("댓글Dao"+dtoreply.toString());
-		
-		session.insert(queryprefix+"insertGpxReply", dtoreply);
+	public void insertGpxReply(HashMap<String, String> paramMap) {
+		session.insert(queryprefix+"insertGpxReply", paramMap);
 		
 	
 	}
@@ -124,7 +115,6 @@ public class GpxDaoImpl implements GpxDao {
 	//댓글 수정
 	@Override
 	public void gpxReplyUpdate(HashMap<String, String> paramMap) {
-	System.out.println("ReUpdateDao"+paramMap);
 	session.update(queryprefix+"gpxReplyUpdate", paramMap);
 	}
 
@@ -133,15 +123,13 @@ public class GpxDaoImpl implements GpxDao {
 	//댓글 삭제
 	@Override
 	public void deleteGpxReply(int gr_seq) {
-	System.out.println("deleteGpxReplyDao"+gr_seq);
-		
+	
 		session.delete(queryprefix+"deleteGpxReply", gr_seq);
 	}
 	
 	//조회수 증가
 	@Override
 	public int gpxCount(int g_seq) {
-		System.out.println("조회수증가 접근 = "+g_seq);
 		
 		
 		
@@ -152,7 +140,6 @@ public class GpxDaoImpl implements GpxDao {
 	//추천수 증가
 	@Override
 	public int gpxRecommand(int g_seq) {
-		System.out.println("추천수 증가"+g_seq);
 		
 		return session.update(queryprefix+"gpxRecommand", g_seq);
 	}
@@ -214,8 +201,6 @@ public class GpxDaoImpl implements GpxDao {
 		List<GpxDto> gpxAdminList = 
 				new ArrayList<GpxDto>();
 		gpxAdminList =	 session.selectList(queryprefix+"selectGpxAdminList");
-		System.out.println("DAO = "+gpxAdminList);
-		//System.out.println(gpxAdminList.toString());
 		return gpxAdminList;
 	}
 

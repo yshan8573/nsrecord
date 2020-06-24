@@ -113,9 +113,9 @@ public class GpxServiceImpl implements GpxService {
 	
 	//댓글등록
 	@Override
-	public void insertGpxReply(GpxReplyDto dtoreply) {
+	public void insertGpxReply(HashMap<String, String> paramMap) {
 		
-		gpxDao.insertGpxReply(dtoreply);
+		gpxDao.insertGpxReply(paramMap);
 	}
 
 	
