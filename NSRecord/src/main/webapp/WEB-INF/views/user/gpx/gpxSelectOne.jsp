@@ -51,8 +51,8 @@
 function gpxReplyUpdate(gr_seq, gr_content, g_seq) {
  				//alert("접근 = ["+gr_seq+"]["+gr_content+"]["+g_seq+"]");
 		  var location =  '#'+gr_seq;
-		 // alert("접근 = "+location);
-		  $(location).html("<textarea id='"+location+"' name='gr_content' rows='1' cols='50'>" + gr_content + "</textarea>");
+		  //alert("접근 = "+location);
+		  $(location).html("<textarea id='"+location+"' name='gr_content' rows='1' cols='25'>" + gr_content + "</textarea>");
 		  
 		  var btnLocation = '.GpxreplyUpdateButton' + gr_seq;
 		$(btnLocation).html('<input type="button" class="rBtnStyle" value="수정 완료" onclick="replyUpdateEnd(' + gr_seq+', \''+gr_content+'\', '+g_seq + ')">')
@@ -232,14 +232,14 @@ function fileDownload(path,oName,rName) {
                         <span class="username" >${GpxReply.u_nickname }</span>
                         <input type="hidden" name="gr_seq" value="${GpxReply.gr_seq }">
                         <input type="hidden" name="u_seq" value="${GpxReply.u_seq }">
-                               	<div class="col-xs-5" '${GpxReply.gr_seq }' >
-                  <input type="text" class="form-control" value="	${GpxReply.gr_content }" readonly="readonly">
+                               	<div class="col-xs-5" id = '${GpxReply.gr_seq }' >
+                  <input type="text" class="form-control" value="${GpxReply.gr_content }" readonly="readonly">
                 </div>
 				 <div class="GpxreplyUpdateButton${GpxReply.gr_seq }">
 				 <c:choose>
                 <c:when test="${GpxReply.u_seq eq  user.u_seq}">
 				<input type="button" class="btn btn-info btn-flat"  value="수정"  onclick="gpxReplyUpdate(${GpxReply.gr_seq },'${GpxReply.gr_content }',${GpxDto.g_seq })">
-				 <input type="button" class="btn btn-warning" id="btn btn-block btn-danger" class="gpxReplyDeleteButton"  value="삭제" onclick="deleteGpxReply(${GpxReply.gr_seq}, ${GpxDto.g_seq })">
+				 <input type="button" class="btn btn-warning" id="gpxReplyDeleteButton"  value="삭제" onclick="deleteGpxReply(${GpxReply.gr_seq}, ${GpxDto.g_seq })">
 				   </c:when>
 				         </c:choose> 
 				  </div>
