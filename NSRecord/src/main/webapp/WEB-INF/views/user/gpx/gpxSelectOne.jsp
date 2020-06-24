@@ -206,7 +206,7 @@ function fileDownload(path,oName,rName) {
 						</div>
 						<button type="button" class="btn btn-primary pull-right"
 							style="margin-right: 5px;"
-							onclick="fileDownload('gpx','${GpxDto.g_ori}','${GpxDto.g_re}');">
+							onclick="fileDownload('gpx/gpx','${GpxDto.g_ori}','${GpxDto.g_re}');">
 							<i class="fa fa-download"></i> Download
 						</button>
 					</div>
