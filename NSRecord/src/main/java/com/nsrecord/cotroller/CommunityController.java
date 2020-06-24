@@ -770,7 +770,7 @@ public class CommunityController {
 			// 사이드 메뉴 'active' 설정 flag
 			model.addAttribute("categoryLoc", "community");
 			
-			return "admin/community/admin_noticeBoard_detail";
+			return "user/community/user_noticeBoard_detail";
 		}
 
 }
