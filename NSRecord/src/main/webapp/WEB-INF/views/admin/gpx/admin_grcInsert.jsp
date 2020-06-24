@@ -168,8 +168,6 @@
 			<!-- /.content -->
 			
 			<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=27d568fdc342b750d023d721195a14ac"></script>
-			<script src="https://cdn.rawgit.com/eligrey/FileSaver.js/5ed507ef8aa53d8ecfea96d96bc7214cd2476fd2/FileSaver.min.js"></script>
-			<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0-beta4/html2canvas.js"></script>
 			<script>
 
 				// 파일 임시 저장 이후 gpx 정보 가져오기
@@ -208,45 +206,7 @@
 			        readURL(this);
 			    });
 			 	// 등록된 이미지 미리보기 ------------------------------------------------------- end
-
-			    
-			    
-			    
-				// html2canvas test
-				<%-- 
-				function testFn() {
-					
-					html2canvas($('#gpxMap')[0]).then(function(canvas) {
-						var image = canvas.toDataURL("image/png");
-					    var imgDataUrl = image.replace("image/png", "image/octet-stream");
-					    $('#test').attr('src',imgDataUrl);
-					    var blobBin = atob(imgDataUrl.split(',')[1]);	// base64 데이터 디코딩
-					    var array = [];
-					    for (var i = 0; i < blobBin.length; i++) {
-					        array.push(blobBin.charCodeAt(i));
-					    }
-					    var file = new Blob([new Uint8Array(array)], {type: 'image/jpeg'});	// Blob 생성
-					    var formdata = new FormData();	// formData 생성
-					    formdata.append("file", file);	// file data 추가
-					    
-					    $.ajax({
-					        type : 'post',
-					        url : '<%= contextPath %>/saveImage',
-					        data : formdata,
-					        processData : false,	// data 파라미터 강제 string 변환 방지!!
-					        contentType : false,	// application/x-www-form-urlencoded; 방지!!
-					        success : function (data) {
-					        	alert(data);
-					        }
-					    });
-					    
-					});
- 				
-
-				}
-				--%>				
-
-
+			 	
 			</script>
 
 

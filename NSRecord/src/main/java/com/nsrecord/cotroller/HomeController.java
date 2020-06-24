@@ -4,7 +4,9 @@ import java.text.DateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -15,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.nsrecord.common.GpxReader;
 import com.nsrecord.dao.GpxDao;
 import com.nsrecord.dto.FreeBoardDto;
 import com.nsrecord.dto.GpxDto;
@@ -72,7 +75,7 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value = "/userHome")
-	public String userHome(Model model) {
+	public String userHome(Model model, HttpServletRequest request) {
 		logger.info("this is a userHome Method");
 		
 		List<GpxDto> gpxAdminList = gpxService.selectAdminList();
@@ -85,6 +88,25 @@ public class HomeController {
 
 		List<Notice> selectAdminNoticeList = communityService.selectAdminNoticeList();
 		model.addAttribute("selectAdminNoticeList", selectAdminNoticeList);
+		
+		
+		// 랭킹 및 지도 첨부
+
+		// 지도 gpx 코스 정보 가져오기
+		
+		GrcDto grc = gpxService.selectGrcOneMain();
+		GrcDto grcResult = gpxService.selectGrcOne(grc);
+		model.addAttribute("grc", grcResult);
+		
+		String prePath = request.getSession().getServletContext().getRealPath("/resources/data/")+"/";
+		String path = prePath + "gpxRanking/gpx";
+		String g_re = grcResult.getGrc_gpxRe();
+		List<Map> mapList = GpxReader.read(path, g_re);
+		model.addAttribute("mapList", mapList);
+		
+		// gur 정보 가져오기
+		List<GurDto> gurList = gpxService.selectGurListAdmin(grcResult);
+		model.addAttribute("gurList", gurList);
 		
 		// 사이드 메뉴 'active' 설정 flag
 		model.addAttribute("categoryLoc", "home");
