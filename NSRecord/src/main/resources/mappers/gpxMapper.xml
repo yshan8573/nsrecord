@@ -225,7 +225,7 @@
 			#{grc_end },
 			#{grc_length },
 			default,
-			default
+			#{grc_status }
 		)
 	</insert>
 	
@@ -239,8 +239,9 @@
 		UPDATE GPX_RANKING_COURSE
 		SET 
 			GRC_TITLE = #{grc_title },
-			GRC_CONTENT = #{grc_content }
-		WHERE GRC_SEQ = #{grc_seq}
+			GRC_CONTENT = #{grc_content },
+			GRC_STATUS = #{grc_status }
+		WHERE GRC_SEQ = #{grc_seq }
 	</update>
 	
 	<delete id="deleteGrc" parameterType="grcDto">
@@ -316,9 +317,7 @@
 		) WHERE U_SEQ = #{u_seq }
 	</select>
 	
-	
-	
-		<select id="selectGpxAdminList" resultType="gpxDto">
+	<select id="selectGpxAdminList" resultType="gpxDto">
 		SELECT *
 		FROM ( 
 		SELECT ROWNUM RW, A.*
@@ -326,8 +325,18 @@
 		ORDER BY G_DATE DESC
 		)
 		WHERE RW BETWEEN 1 AND 5
-		</select>
+	</select>
 
-
+	<select id="selectGrcOneMain" resultType="grcDto">
+		SELECT *
+		FROM GPX_RANKING_COURSE
+		WHERE GRC_STATUS = 'M'
+	</select>
+	
+	<update id="updateGrcStatus">
+		UPDATE GPX_RANKING_COURSE
+		SET
+			GRC_STATUS = 'Y'
+	</update>
 
 </mapper>

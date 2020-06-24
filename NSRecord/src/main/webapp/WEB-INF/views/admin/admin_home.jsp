@@ -138,7 +138,14 @@
 											<th>시간</th>
 											<th>등록일시</th>
 										</tr>
-			
+										<c:forEach var="gurList" items="${gurList }">
+										<tr>
+											<td>${gurList.ranking }</td>
+											<td>${gurList.u_nickname }</td>
+											<td>${gurList.gur_times }</td>
+											<td>${gurList.gur_date }</td>
+										</tr>
+									</c:forEach>
 									</tbody>
 								</table>
 							</div>

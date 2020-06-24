@@ -83,6 +83,9 @@ public interface GpxService {
 	//adminHome GpxList뽑아오기
 	public List<GpxDto> selectAdminList();
 	
+	// adminHome GrcOne 불러오기
+	public GrcDto selectGrcOneMain();
+	
 
 	
 }//inter end

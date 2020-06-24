@@ -477,7 +477,10 @@ public class GpxController {
 			HttpServletRequest request
 			) {
 		logger.info("this is a adminGrcInsertEnd Method");
-		
+
+		if(grc.getGrc_status() == null) {
+			grc.setGrc_status("Y");
+		}
 		
 		// 파일 업로드----------------------------- start
 		// 파일이 저장될 디텍토리 설정 
@@ -552,6 +555,10 @@ public class GpxController {
 	@RequestMapping(value = "/adminGpx/adminGrcUpdateEnd")
 	public String adminGrcUpdateEnd(GrcDto grc, Model model) {
 		logger.info("this is a adminGrcUpdateEnd Method");
+		
+		if(grc.getGrc_status() == null) {
+			grc.setGrc_status("Y");
+		}
 		
 		int result = gpxService.updateGrc(grc);
 		

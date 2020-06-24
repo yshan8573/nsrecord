@@ -142,12 +142,19 @@
 													</div>
 												</div>
 											</div>
-											<div class="form-group" style="text-align: right;">
-												<input type="hidden" name="grc_start"/>
-												<input type="hidden" name="grc_end"/>
-												<input type="hidden" name="grc_length"/>
-												<input type="submit" class="btn btn-primary" value="작성완료" />
-											</div>
+											<div class="form-group flexBox" style="justify-content: space-between;">
+												<div class="checkbox" style="padding: 0 10px;">
+								                  <label>
+								                    <input type="checkbox" name="grc_status" value="M" checked="checked"/>메인페이지에 표시하기 (한 코스만 등록 가능합니다)
+								                  </label>
+								                </div>
+												<div>
+													<input type="hidden" name="grc_start"/>
+													<input type="hidden" name="grc_end"/>
+													<input type="hidden" name="grc_length"/>
+													<input type="submit" class="btn btn-primary" value="작성완료" />
+												</div>
+											</div>>
 										</form>
 
 									</div>
