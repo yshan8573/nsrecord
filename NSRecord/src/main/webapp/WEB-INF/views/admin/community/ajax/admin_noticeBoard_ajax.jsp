@@ -35,7 +35,7 @@
 						<td class="">${noticeList.n_seq }</td>
 						<td>${noticeList.n_date }</td>
 						<td>${noticeList.n_title }</td>
-						<td>${noticeList.u_email }</td>
+						<td>${noticeList.u_name }</td>
 						<td>${noticeList.n_count }</td>
 					</tr>
 				</c:forEach>

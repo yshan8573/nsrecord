@@ -114,11 +114,40 @@ public class GpxController {
 	}
 	
 	@RequestMapping(value = "adminGpx/adminGpxList")
-	public String adminGpxList(Model model) {
-		logger.info("this is a adminGpxList Method");
+	public String adminGpxList(@RequestParam(value = "cPage", defaultValue = "1") int cPage,	//디폴트값 설정 -> 400Error 방지
+			@RequestParam(value = "searchSort", defaultValue = "") String searchSort,
+			@RequestParam(value = "searchVal", defaultValue = "") String searchVal,
+			Model model, HttpSession session) {
+		logger.info("this is a userGpxBoardAjax Method");
+		
+		UserInfo user = (UserInfo) session.getAttribute("loginUser");
+		model.addAttribute("user",user);
 		
 		// 사이드 메뉴 'active' 설정 flag
 		model.addAttribute("categoryLoc", "gpx");
+		
+		//검색 객체 값 넣기
+		SearchDto searchDto = new SearchDto(searchSort, searchVal);
+		
+		//GPX리스트 총 레코드 가져오기
+		int nCount = gpxServiceImpl.selectGpxBoardCount(searchDto);
+		
+		int curPage = cPage; //현재 출력 페이지
+		
+		//페이지 객체에 값 저장 (nCount: 리슽 총 레코드 갯수 / curPage: 현재 출력 페이지)
+		BoardPager boardPager = new BoardPager(nCount, curPage);
+		
+		//페이지 객체에 검색 정보 저장
+		boardPager.setSearchSort(searchSort);
+		boardPager.setSearchVal(searchVal);
+
+		
+		//gpxBoard 전체 리스트 출력
+		List<GpxDto> gpxBoardAllList =
+				gpxServiceImpl.selectGpxBoardAllList(boardPager);
+		
+		model.addAttribute("gpxList", gpxBoardAllList);
+		model.addAttribute("boardPager",boardPager);
 		
 		return "admin/gpx/admin_gpxList";
 	}

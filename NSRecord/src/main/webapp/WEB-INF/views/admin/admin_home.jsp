@@ -112,9 +112,29 @@
 										<c:forEach var="selectAdminNoticeList" items="${selectAdminNoticeList }">
 										<tr>
 											<td>${selectAdminNoticeList.n_seq }</td>
-											<td onclick="javascript:location.href='<c:url value="/ "/>adminCommunity/adminNoticeBoard'">${selectAdminNoticeList.n_title }</td>
-											<td>${selectAdminNoticeList.u_email }</td>
-											<td>${selectAdminNoticeList.n_date }</td>
+											<td onclick="javascript:location.href='<c:url value="/ "/>adminCommunity/adminNoticeBoard'">
+											<c:set var ="n_title" value="${selectAdminNoticeList.n_title }"></c:set>
+												<c:choose>
+													<c:when test="${fn:length(n_title) > 20}">
+														${fn:substring(n_title,0,20) }
+													</c:when>
+													<c:otherwise>
+														${n_title }
+													</c:otherwise>
+												</c:choose>	
+											</td>
+											<td>${selectAdminNoticeList.u_name }</td>
+											<td>
+											<c:set var ="n_date" value="${selectAdminNoticeList.n_date }"></c:set>
+												<c:choose>
+													<c:when test="${fn:length(n_date) > 10}">
+														${fn:substring(n_date,0,10) }
+													</c:when>
+													<c:otherwise>
+														${n_date }
+													</c:otherwise>
+												</c:choose>	
+											</td>
 										</tr>
 									</c:forEach>
 									</tbody>
@@ -141,9 +161,19 @@
 										<c:forEach var="gurList" items="${gurList }">
 										<tr>
 											<td>${gurList.ranking }</td>
-											<td>${gurList.u_nickname }</td>
+											<td onclick="javascript:location.href='<c:url value="/ "/>adminGpx/adminGpxRankingList'">${gurList.u_nickname }</td>
 											<td>${gurList.gur_times }</td>
-											<td>${gurList.gur_date }</td>
+											<td>
+											<c:set var ="gur_date" value="${gurList.gur_date }"></c:set>
+												<c:choose>
+													<c:when test="${fn:length(gur_date) > 10}">
+														${fn:substring(gur_date,0,10) }
+													</c:when>
+													<c:otherwise>
+														${gur_date }
+													</c:otherwise>
+													</c:choose>
+											</td>
 										</tr>
 									</c:forEach>
 									</tbody>
@@ -173,9 +203,30 @@
 										<c:forEach var="adminList" items="${adminList }">
 										<tr>
 											<td>${adminList.g_seq }</td>
-											<td onclick="javascript:location.href='<c:url value="/ "/>adminGpx/adminGpxList'">${adminList.g_title }</td>
+											<td onclick="javascript:location.href='<c:url value="/ "/>adminGpx/adminGpxList'">
+												<c:set var ="g_title" value="${adminList.g_title }"></c:set>
+												<c:choose>
+													<c:when test="${fn:length(g_title) > 10}">
+														${fn:substring(g_title,0,10) }
+													</c:when>
+													<c:otherwise>
+														${g_title }
+													</c:otherwise>
+												</c:choose>	
+											</td>
 											<td>${adminList.u_nickname }</td>
-											<td>${adminList.g_date }</td>
+											<td>
+											<c:set var ="g_date" value="${adminList.g_date }"></c:set>
+												<c:choose>
+													<c:when test="${fn:length(g_date) > 10}">
+														${fn:substring(g_date,0,10) }
+													</c:when>
+													<c:otherwise>
+														${g_date }
+													</c:otherwise>
+												</c:choose>	
+											
+											</td>
 										</tr>
 										</c:forEach>
 										
@@ -203,9 +254,30 @@
 										<c:forEach var="selectAdminFreeList" items="${selectAdminFreeList }">
 										<tr>
 											<td>${selectAdminFreeList.b_seq }</td>
-											<td onclick="javascript:location.href='<c:url value="/ "/>adminCommunity/adminNoticeBoard'">${selectAdminFreeList.b_title }</td>
+											<td onclick="javascript:location.href='<c:url value="/ "/>adminCommunity/adminFreeBoard'">
+											<c:set var ="b_title" value="${selectAdminFreeList.b_title }"></c:set>
+												<c:choose>
+													<c:when test="${fn:length(b_title) > 10}">
+														${fn:substring(b_title,0,10) }
+													</c:when>
+													<c:otherwise>
+														${b_title }
+													</c:otherwise>
+												</c:choose>	
+											</td>
 											<td>${selectAdminFreeList.u_nickname }</td>
-											<td>${selectAdminFreeList.b_date }</td>
+											<td>
+											<c:set var ="b_date" value="${selectAdminFreeList.b_date }"></c:set>
+												<c:choose>
+													<c:when test="${fn:length(b_date) > 10}">
+														${fn:substring(b_date,0,10) }
+													</c:when>
+													<c:otherwise>
+														${b_date }
+													</c:otherwise>
+												</c:choose>	
+											
+											</td>
 										</tr>
 										</c:forEach>
 									</tbody>
