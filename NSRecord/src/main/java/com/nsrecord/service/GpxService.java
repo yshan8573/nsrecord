@@ -84,7 +84,7 @@ public interface GpxService {
 	public List<GpxDto> selectAdminList();
 	
 	//adminHome GPx랭킹 리스트
-//	public List<GurDto> selectAdminRankList();
+	public List<GurDto> selectAdminRankList();
 	
 	
 }//inter end

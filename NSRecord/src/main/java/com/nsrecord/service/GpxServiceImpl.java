@@ -241,6 +241,12 @@ public class GpxServiceImpl implements GpxService {
 	public GurDto selectGurListUser(GurDto gur) {
 		return gpxDao.selectGurListUser(gur);
 	}
+
+	@Override
+	public List<GurDto> selectAdminRankList() {
+	
+		return gpxDao.selectAdminRankList();
+	}
 	
 	
 	
