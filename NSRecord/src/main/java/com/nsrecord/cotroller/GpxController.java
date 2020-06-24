@@ -173,11 +173,7 @@ public class GpxController {
 		UserInfo user = (UserInfo) sesseion.getAttribute("loginUser");
 		dto.setU_seq(user.getU_seq());	
 		dto.setU_nickname(user.getU_nickname());
-		
-	
-	
-//	System.out.println(user.getU_nickname());
-	
+
 		// 파일 업로드----------------------------- start
 		// 파일이 저장될 디텍토리 설정 
 		String prePath = re.getSession().getServletContext().getRealPath("/resources/data/")+"/";
@@ -210,7 +206,7 @@ public class GpxController {
 	//조회수 증가
 	@RequestMapping(value = "gpx/gpxCount")
 	public String gpxCount(int g_seq, Model model, HttpSession session) {
-		
+	
 		gpxServiceImpl.gpxCount(g_seq);
 		
 		return "forward:/gpx/gpxBoardSelectOne";
@@ -235,7 +231,7 @@ public class GpxController {
 	public String gpxSelectOne(@RequestParam("g_seq") int g_seq, Model model, 
 			HttpSession session, GpxDto dto, HttpServletRequest req, HttpServletResponse res) {
 		logger.info("this is a gpxSelectOne Method");
-		
+
 		model.addAttribute("categoryLoc", "gpx");
 		
 		UserInfo user = (UserInfo) session.getAttribute("loginUser");
@@ -252,17 +248,13 @@ public class GpxController {
 		String pathGpx = prePath + "gpx/gpx";
 		String g_re = gpxResult.getG_re();
 		List<Map> mapList = GpxReader.read(pathGpx, g_re);
-		System.out.println("mapList"+mapList.toString());
 		model.addAttribute("mapList", mapList);
 
 		
 		
-		GpxDto GpxDto = 
-		gpxServiceImpl.selectGpxBoardOne(g_seq);
-		System.out.println("이값을 확인 : " + GpxDto.toString());
+		GpxDto GpxDto = gpxServiceImpl.selectGpxBoardOne(g_seq);
 		model.addAttribute("GpxDto",GpxDto);
 
-		
 		//댓글 내용
 		List<GpxReplyDto> gpxReply = gpxServiceImpl.selectOneReply(g_seq);
 		model.addAttribute("GpxReply",gpxReply);
@@ -290,7 +282,6 @@ public class GpxController {
 	dto.setU_seq(user.getU_seq());	
 	dto.setU_nickname(user.getU_nickname());
 	dto.setU_seq(user.getU_seq());
-
 	GpxDto GpxDto = 
 	gpxServiceImpl.selectGpxBoardOne(g_seq);
 	model.addAttribute("GpxDto",GpxDto);
@@ -307,8 +298,7 @@ public class GpxController {
 			@RequestParam(value = "preG_ori") String preG_ori,
 			@RequestParam(value = "preG_re") String preG_re
 			) {
-	
-		
+
 		GpxDto gpxResult = gpxService.selectGpxBoardOne(dto.getG_seq());
 		model.addAttribute("gpx", gpxResult);
 		
@@ -346,8 +336,7 @@ public class GpxController {
 	dto.setU_seq(user.getU_seq());	
 	dto.setU_nickname(user.getU_nickname());
 	dto.getG_ori();
-	
-	
+
 	gpxServiceImpl.updateGpxBoardUpdate(dto);	
 		
 	redirectAttributes.addAttribute("g_seq", dto.getG_seq());	
@@ -359,7 +348,7 @@ public class GpxController {
 	//삭제
 	@RequestMapping( value = "gpx/gpxDelete")
 	public String gpxDelete(GpxDto dto, HttpSession session) {
-	
+
 		 int g_seq = dto.getG_seq();
 		
 		 UserInfo user = (UserInfo) session.getAttribute("loginUser");
@@ -386,21 +375,15 @@ public class GpxController {
 		gpxServiceImpl.insertGpxReply(dtoreply);
 		
 		redirectAttribute.addAttribute("g_seq", dto.getG_seq());
+
 		return "redirect:/gpx/gpxBoardSelectOne";
 	}
 	
 	//댓글 수정
 	@RequestMapping(value = "gpx/gpxUpdateReply")
-	public String gpxReplyUpdate(@RequestParam HashMap<String, String> paramMap, RedirectAttributes redirectAttribute,
-			HttpSession session) {
-		 
-		UserInfo user = (UserInfo) session.getAttribute("loginUser");
-	
-		gpxServiceImpl.gpxReplyUpdate(paramMap);
-		
-		
+	public String gpxReplyUpdate(@RequestParam HashMap<String, String> paramMap, RedirectAttributes redirectAttribute, HttpSession session) {
+
 		redirectAttribute.addAttribute("g_seq", paramMap.get("g_seq"));
-		
 		return "redirect:/gpx/gpxBoardSelectOne";
 	}
 	
@@ -409,11 +392,8 @@ public class GpxController {
 	public String gpxReplyDelete(@RequestParam("gr_seq") int gr_seq, GpxDto dto, HttpSession session, RedirectAttributes redirectAttribute) {
 		
 		UserInfo user = (UserInfo) session.getAttribute("loginUser");
-		
-	
+
 		gpxServiceImpl.deleteGpxReply(gr_seq);
-		
-		
 		redirectAttribute.addAttribute("g_seq", dto.getG_seq());
 
 		return "redirect:/gpx/gpxBoardSelectOne";
@@ -433,7 +413,6 @@ public class GpxController {
 		List<Map> gfList = GpxReader.read(path, g_re);
 		
 		for(Map<String,String> gf : gfList) {
-			System.out.println(gf.toString());
 		}
 		
 		return "redirect:/gpx/gpxRanking";
@@ -752,7 +731,6 @@ public class GpxController {
 		// MYGPX 리스트 가져오기
 		List<GpxDto> gpxResult = gpxServiceImpl.selectMyGpxAllList(boardPager);
 		
-		System.out.println(gpxResult);
 		
 		model.addAttribute("myGpxList",gpxResult);
 		model.addAttribute("boardPager",boardPager);

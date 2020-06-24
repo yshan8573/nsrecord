@@ -142,7 +142,7 @@
 	#{g_seq},
 	#{u_nickname},
 	#{gr_content},
-	sysdate
+	SYSDATE
 	)
 	
 	</insert>
