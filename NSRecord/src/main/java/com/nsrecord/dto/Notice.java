@@ -23,8 +23,7 @@ public class Notice {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Notice(int n_seq, int u_seq, String n_title, String n_content, String n_count, String n_date,
-			String n_status, String n_ori, String n_re, String u_email, String u_nickname, String u_name) {
+	public Notice(int n_seq, int u_seq, String n_title, String n_content, String n_count, String n_date, String n_status, String n_ori, String n_re, String u_email, String u_nickname, String u_name) {
 		super();
 		this.n_seq = n_seq;
 		this.u_seq = u_seq;
@@ -138,13 +137,9 @@ public class Notice {
 
 	@Override
 	public String toString() {
-		return "Notice [n_seq=" + n_seq + ", u_seq=" + u_seq + ", n_title=" + n_title + ", n_content=" + n_content
-				+ ", n_count=" + n_count + ", n_date=" + n_date + ", n_status=" + n_status + ", n_ori=" + n_ori
-				+ ", n_re=" + n_re + ", u_email=" + u_email + ", u_nickname=" + u_nickname + ", u_name=" + u_name + "]";
+		return "Notice [n_seq=" + n_seq + ", u_seq=" + u_seq + ", n_title=" + n_title + ", n_content=" + n_content + ", n_count=" + n_count + ", n_date=" + n_date + ", n_status=" + n_status + ", n_ori=" + n_ori + ", n_re=" + n_re
+				+ ", u_email=" + u_email + ", u_nickname=" + u_nickname + ", u_name=" + u_name + "]";
 	}
-
-	
-	
 	
 	
 }//class end
