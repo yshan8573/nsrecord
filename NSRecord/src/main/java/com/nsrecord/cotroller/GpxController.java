@@ -168,11 +168,12 @@ public class GpxController {
 	@RequestMapping(value = "gpx/gpxInsertResult")
 	public String gpxInsertResult(@RequestParam(value = "gpxFile", required = false) MultipartFile gpxFile, GpxDto dto, HttpSession sesseion, 
 	HttpServletRequest re, Model model) throws ParseException {
+	
 		logger.info("this is a gpxInsert Method");
 		UserInfo user = (UserInfo) sesseion.getAttribute("loginUser");
 		dto.setU_seq(user.getU_seq());	
 		dto.setU_nickname(user.getU_nickname());
-		System.out.println("파일인서트");
+		
 	
 	
 //	System.out.println(user.getU_nickname());
@@ -209,9 +210,8 @@ public class GpxController {
 	//조회수 증가
 	@RequestMapping(value = "gpx/gpxCount")
 	public String gpxCount(int g_seq, Model model, HttpSession session) {
-		System.out.println("조회수 증가 컨트롤러"+g_seq);
-		gpxServiceImpl.gpxCount(g_seq);
 		
+		gpxServiceImpl.gpxCount(g_seq);
 		
 		return "forward:/gpx/gpxBoardSelectOne";
 	}
@@ -235,7 +235,7 @@ public class GpxController {
 	public String gpxSelectOne(@RequestParam("g_seq") int g_seq, Model model, 
 			HttpSession session, GpxDto dto, HttpServletRequest req, HttpServletResponse res) {
 		logger.info("this is a gpxSelectOne Method");
-		//		System.out.println("g_seq = "+g_seq);
+		
 		model.addAttribute("categoryLoc", "gpx");
 		
 		UserInfo user = (UserInfo) session.getAttribute("loginUser");
@@ -263,8 +263,6 @@ public class GpxController {
 		model.addAttribute("GpxDto",GpxDto);
 
 		
-		System.out.println("파일 이름"+dto.toString());
-		
 		//댓글 내용
 		List<GpxReplyDto> gpxReply = gpxServiceImpl.selectOneReply(g_seq);
 		model.addAttribute("GpxReply",gpxReply);
@@ -280,19 +278,19 @@ public class GpxController {
 		
 		GpxDto gpxResult = gpxService.selectGpxBoardOne(g_seq);
 		model.addAttribute("gpx",gpxResult);
+		
 		// 지도 gpx 코스 정보 가져오기
 		String prePath = request.getSession().getServletContext().getRealPath("/resources/data/")+"/";
 		String pathGpx = prePath + "gpx/gpx";
 		String g_re = gpxResult.getG_re();
 		List<Map> mapList = GpxReader.read(pathGpx, g_re);
-		System.out.println("mapList"+mapList.toString());
 		model.addAttribute("mapList", mapList);
 	
 	UserInfo user = (UserInfo) sesseion.getAttribute("loginUser");
 	dto.setU_seq(user.getU_seq());	
 	dto.setU_nickname(user.getU_nickname());
 	dto.setU_seq(user.getU_seq());
-	System.out.println("수정1 = "+dto.getU_seq());
+
 	GpxDto GpxDto = 
 	gpxServiceImpl.selectGpxBoardOne(g_seq);
 	model.addAttribute("GpxDto",GpxDto);
@@ -310,7 +308,7 @@ public class GpxController {
 			@RequestParam(value = "preG_re") String preG_re
 			) {
 	
-		System.out.println("수정2"+dto.toString());
+		
 		GpxDto gpxResult = gpxService.selectGpxBoardOne(dto.getG_seq());
 		model.addAttribute("gpx", gpxResult);
 		
@@ -321,11 +319,11 @@ public class GpxController {
 		String prePath = request.getSession().getServletContext().getRealPath("/resources/data/")+"/";
 		String pathGpx = prePath + "gpx/gpx";
 		String g_re = gpxResult.getG_re();
+		
 		List<Map> mapList = GpxReader.read(pathGpx, g_re);
-		System.out.println("mapList"+mapList.toString());
 		model.addAttribute("mapList", mapList);
 				
-				//단일 파일 유무에 따라 notice 객체 저장
+				//단일 파일 유무에 따라 객체 저장
 				if(gpxFile != null && !gpxFile.isEmpty()) {
 					
 					// path : 저장될 파일 경로, upFile : view에서 받아온 file 값
@@ -341,14 +339,15 @@ public class GpxController {
 				// 파일 업로드----------------------------- end
 		} else {
 			dto.setG_ori(preG_ori);
-			dto.setG_re(preG_re);
+			dto.setG_re(preG_ori);
 		}
 		
 	UserInfo user = (UserInfo) sesseion.getAttribute("loginUser");
 	dto.setU_seq(user.getU_seq());	
 	dto.setU_nickname(user.getU_nickname());
 	dto.getG_ori();
-	System.out.println("파일추가수정 = "+dto.toString());
+	
+	
 	gpxServiceImpl.updateGpxBoardUpdate(dto);	
 		
 	redirectAttributes.addAttribute("g_seq", dto.getG_seq());	
@@ -360,9 +359,10 @@ public class GpxController {
 	//삭제
 	@RequestMapping( value = "gpx/gpxDelete")
 	public String gpxDelete(GpxDto dto, HttpSession session) {
-		 System.out.println(dto.toString());
+	
 		 int g_seq = dto.getG_seq();
-		UserInfo user = (UserInfo) session.getAttribute("loginUser");
+		
+		 UserInfo user = (UserInfo) session.getAttribute("loginUser");
 		dto.setU_seq(user.getU_seq());	
 		dto.setU_nickname(user.getU_nickname());
 		
@@ -377,8 +377,6 @@ public class GpxController {
 	@RequestMapping(value = "gpxBoardReply")
 	public String gpxreply(GpxReplyDto dtoreply, RedirectAttributes redirectAttribute, 
 			HttpSession session, GpxDto dto) {
-		
-		System.out.println("GPXREPLYCon"+dtoreply.toString());
 		
 		UserInfo user = (UserInfo) session.getAttribute("loginUser");
 		dto.setU_seq(user.getU_seq());
@@ -400,7 +398,6 @@ public class GpxController {
 	
 		gpxServiceImpl.gpxReplyUpdate(paramMap);
 		
-		System.out.println("댓글수정"+paramMap);
 		
 		redirectAttribute.addAttribute("g_seq", paramMap.get("g_seq"));
 		
@@ -412,15 +409,13 @@ public class GpxController {
 	public String gpxReplyDelete(@RequestParam("gr_seq") int gr_seq, GpxDto dto, HttpSession session, RedirectAttributes redirectAttribute) {
 		
 		UserInfo user = (UserInfo) session.getAttribute("loginUser");
-		System.out.println("Controller"+gr_seq);
 		
 	
 		gpxServiceImpl.deleteGpxReply(gr_seq);
 		
 		
 		redirectAttribute.addAttribute("g_seq", dto.getG_seq());
-		System.out.println(dto.toString());
-		System.out.println("접근?");
+
 		return "redirect:/gpx/gpxBoardSelectOne";
 	}
 	
