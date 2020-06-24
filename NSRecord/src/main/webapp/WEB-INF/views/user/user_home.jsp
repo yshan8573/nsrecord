@@ -55,24 +55,18 @@
 									<div class="slideImgBox carousel-inner">
 										<div class="item">
 											<img
-												src="<%= contextPath %>/img/main_slide1.PNG"
+												src="<%= contextPath %>/img/main_slide1.jpg"
 												alt="First slide">
-
-											<div class="carousel-caption">First Slide</div>
 										</div>
 										<div class="item active">
 											<img
 												src="<%= contextPath %>/img/main_slide2.jpg"
 												alt="Second slide">
-
-											<div class="carousel-caption">Second Slide</div>
 										</div>
 										<div class="item">
 											<img
 												src="<%= contextPath %>/img/main_slide3.jpg"
 												alt="Third slide">
-
-											<div class="carousel-caption">Third Slide</div>
 										</div>
 									</div>
 									<a class="left carousel-control"

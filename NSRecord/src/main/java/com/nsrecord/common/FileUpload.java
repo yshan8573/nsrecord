@@ -32,6 +32,22 @@ public class FileUpload {
 		setReName(upFile);
 		
 	}
+
+	public FileUpload(String path,String fileName, MultipartFile upFile) {
+		
+		this.path = path;
+		this.upFile = upFile;
+		
+		// 디텍토리 생성
+		setDir();
+		
+		//원래 파일 명칭 변수 저장
+		this.FileOriName = upFile.getOriginalFilename();
+		
+		// 받은 파일명칭으로 저장
+		setReName(fileName, upFile);
+		
+	}
 	
 	public void setDir() {
 		File dir = new File(path);
@@ -49,6 +65,15 @@ public class FileUpload {
 		try {
 			upFile.transferTo(new File(path+"/"+reNameFile));
 			this.FileReName = reNameFile;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void setReName(String fileName, MultipartFile upFile) {
+		try {
+			upFile.transferTo(new File(path+"/"+fileName));
+			this.FileReName = fileName;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
