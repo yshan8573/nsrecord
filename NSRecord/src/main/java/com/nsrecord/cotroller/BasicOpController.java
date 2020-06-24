@@ -11,14 +11,14 @@ public class BasicOpController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(BasicOpController.class);
 	
-	@RequestMapping(value = "basicOp/adminBoard")
-	public String adminBoard(Model model) {
-		logger.info("this is a adminBoard Method");
+	@RequestMapping(value = "basicOp/adminMainImg")
+	public String adminMainImg(Model model) {
+		logger.info("this is a adminMainImg Method");
 		
 		// 사이드 메뉴 'active' 설정 flag
 		model.addAttribute("categoryLoc", "basicOp");
 		
-		return "admin/basicOp/adminBoard";
+		return "admin/basicOp/admin_mainImg";
 	}
 
 }

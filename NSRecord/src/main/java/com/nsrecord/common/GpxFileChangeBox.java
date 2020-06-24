@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 @Controller
@@ -118,17 +119,51 @@ public class GpxFileChangeBox {
 		return "user/gpx/ajax/gpxFileChange";
 	}	
 
-	// canvas 관련 이미지 저장 코드 test용
-/*	
-	@RequestMapping(value = "/saveImage", method = RequestMethod.POST)
+
+	@RequestMapping(value = "/imgFileChange", method = RequestMethod.POST)
 	@ResponseBody
-	public String saveImage(
-			@RequestParam("file") MultipartFile upFile,
-			Model model
+	public String imgFileChange(
+			@RequestParam(value = "upFile1", required = false) MultipartFile upFile1,
+			@RequestParam(value = "upFile2", required = false) MultipartFile upFile2,
+			@RequestParam(value = "upFile3", required = false) MultipartFile upFile3,
+			Model model,
+			HttpServletRequest request
 			) {
 
-		System.out.println(upFile.toString());
+		// 파일 업로드----------------------------- start
+		// 파일이 저장될 디텍토리 설정
+		String path = request.getSession().getServletContext().getRealPath("/resources/img/")+"/";
+
+		// upFile1
+		if (upFile1 != null && !upFile1.isEmpty()) {
+			File file = new File(path + "main_slide1.jpg");
+			file.delete();
+			// path : 저장될 파일 경로, upFile : view에서 받아온 file 값
+			FileUpload ful = new FileUpload(path, "main_slide1.jpg", upFile1);
+
+		}
+		// upFile2
+		if (upFile2 != null && !upFile2.isEmpty()) {
+			File file = new File(path + "main_slide2.jpg");
+			file.delete();
+			// path : 저장될 파일 경로, upFile : view에서 받아온 file 값
+			FileUpload ful = new FileUpload(path, "main_slide2.jpg", upFile2);
+
+		}
+		// upFile3
+		if (upFile3 != null && !upFile3.isEmpty()) {
+			File file = new File(path + "main_slide3.jpg");
+			file.delete();
+			// path : 저장될 파일 경로, upFile : view에서 받아온 file 값
+			FileUpload ful = new FileUpload(path, "main_slide3.jpg", upFile3);
+
+		}
+		// 파일 업로드----------------------------- end
+		
+		
+
+
 		return "success";
-	}
-*/
+	}	
+
 }
