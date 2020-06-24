@@ -492,10 +492,11 @@ public class CommunityController {
 		//관리자 댓글 등록
 		@RequestMapping(value="/adminCommunity/adminReply")
 		public String adminReply(@RequestParam HashMap<String, String> insertReply, @RequestParam("b_seq") int b_seq, RedirectAttributes redirectAttributes) {
+			System.out.println(b_seq);
 			communityServiceImpl.insertReply(insertReply);
 			communityServiceImpl.countReply(b_seq);
 			redirectAttributes.addAttribute("b_seq", insertReply.get("b_seq"));
-			return "redirect:/adminCommunity/adminFreeBoard";
+			return "redirect:/adminCommunity/adminFreeBoardContent";
 		}
 
 		//관리자 자유게시판 댓글 수정
@@ -503,7 +504,7 @@ public class CommunityController {
 		public String adminUpdateReplyEnd(@RequestParam HashMap<String, String> paramMap, RedirectAttributes redirectAttributes) {
 			communityServiceImpl.updateReplyEnd(paramMap);
 			redirectAttributes.addAttribute("b_seq", paramMap.get("b_seq"));		
-			return "redirect:/admin_freeBoardContent";
+			return "redirect:/adminCommunity/adminFreeBoardContent";
 		}
 		
 		//관리자 자유게시판 댓글 삭제
@@ -512,7 +513,7 @@ public class CommunityController {
 			communityServiceImpl.deleteReply(r_seq);
 			communityServiceImpl.deCountReply(b_seq);
 			redirectAttributes.addAttribute("b_seq", b_seq);
-			return "redirect:/admin_freeBoardContent";
+			return "redirect:/adminCommunity/adminFreeBoardContent";
 		}
 		
 		//=====================마이 페이지 게시판======================//	

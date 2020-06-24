@@ -21,16 +21,43 @@
 			var url = "<%=contextPath%>" + "/adminCommunity/adminDeleteFreeBoardContent";
 			$("#freeBoardUpdate").attr("action", url);
 			$("#freeBoardUpdate").submit();
-		});	
+		});
+		$("#returnToIndex").click(function(){
+			var url ="<%=contextPath%>" + "/adminCommunity/adminFreeBoard";
+			$("#freeBoardUpdate").attr("action", url);
+			$("#freeBoardUpdate").submit();
+		});
 	});
 	
+	//댓글 더블 서브밋 중복 방지
+	var doubleSubmitFlag = false;
+	function doubleSubmitCheck(){
+		if(doubleSubmitFlag){
+			return doubleSubmitFlag;
+		} else {
+			doubleSubmitFlag = true;
+			return false;
+		}	
+	}
 	
+	//댓글 등록
+	$(document).ready(function(){
+		$("#replySubmit").click(function(){
+			if(doubleSubmitCheck()){ return;}//더블 서브밋 중복 방지
+											//값이 true가 안 되면 return이 작동하지 않음. 이후 코드로 넘어감
+											//값이 true가 되면 return이 작동해 이후 코드로 넘어가지 않고 그 자리에서 끝남.
+			var url = "<%=contextPath%>" + "/adminCommunity/adminReply";
+			$("#replySubmitEnd").attr("action", url);
+			$("#replySubmitEnd").submit();
+		});
+	});	
+
 	//댓글 수정 기능
 	function updateReplyFn(r_seq, r_content, b_seq) {
 		var location = '#rContent_' + r_seq;
-		$(location).html("<textarea id='"+location+"' name='r_content' rows='1' cols='50'>" + r_content + "</textarea>");
+		$(location).html("<textarea id='"+location+"' name='r_content' rows='1' cols='50' style='width: 990px'>" + r_content + "</textarea>");
 		var btnLocation = '.replyUpdateTool' + r_seq;
-		$(btnLocation).html('<input type="button" class="rBtnStyle" style="border: none;" value="수정 완료" onclick="replyUpdateEnd(' + r_seq+', \''+r_content+'\', '+b_seq + ')">')
+		$(btnLocation).html('<input type="button" class="btn btn-primary" style="padding: 0px 5px" value="수정 완료" onclick="replyUpdateEnd(' + r_seq+', \''+r_content+'\', '+b_seq + ')">')
 	}
 	function replyUpdateEnd(r_seq, r_content, b_seq){
 		var loc = '#rContent_' + r_seq;
@@ -46,48 +73,10 @@
 </script>
 
 <style>
-
-h1{
-	text-align: center;
-}
-
-.tStyle{
-	text-align: center;
-	width: 1000px;
-	height: 150px;
-	margin: auto;
-}
-
-.rStyle{
-	text-align: center;
-	width: 1000px;
-	height: 100px;
-	margin: auto;
-}
-
-.rBtnStyle{
-  background-color: #5F9EA0;
-  color: white;
-  border-radius: 4px;
-  position: relative;
-  font-size: 12px; 
-}
-
-tr, td {
-  border-bottom: 1px solid #ddd;
-}
-
-.freeBoardContentUpdateBtn {
-  background-color: #5F9EA0;
-  color: white;
-  border-radius: 4px;
-  position: relative;
-  left: 1200px;
-  font-size: 12px; 
-}
-
+	.boardCol {
+		max-width: 150px;
+	}
 </style>
-
 
 <body class="hold-transition skin-blue sidebar-mini">
   <div class="wrapper">
@@ -101,88 +90,108 @@ tr, td {
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
 
-      <!-- Main content -->
-      <section class="content container-fluid">
-
-
-<h1>자유 게시판</h1>
-<hr width=80%>
+<!-- Main content -->
+<section class="content container-fluid">
+<div class="row" style="padding: 20px;">
+	<div class="col-xs-12">
+		<div class="box" style="padding: 20px;">
+			<div class="box-header">
+				<div class="row">
+					<div class="col flexBox" style="justify-content: center; padding: 0 16px;">
+						<h3 class="box-title">자유 게시판</h3>
+					</div>
+				</div>
+			</div>
+			<div class="box-body">
+				<div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+					<div class="row" style="margin-bottom: 10px; min-height: 425px;">
+						<div class="col-sm-12">
+							<table class="table table-bordered table-hover dataTable" role="grid">
+								<thead>	
+									<tr role="row">
+										<th class="boardCol" tabindex="0" aria-controls="adminNoticeBoard" rowspan="1" colspan="1"
+											aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">글 번호: ${FreeBoardDto.b_seq}</th>
+										<th class="" tabindex="0" aria-controls="adminNoticeBoard" rowspan="1" colspan="1"
+											aria-label="Browser: activate to sort column ascending" style="width: 50%;">글 제목: ${FreeBoardDto.b_title}</th>
+										<th class="boardCol" tabindex="0" aria-controls="adminNoticeBoard" rowspan="1" colspan="1"
+											aria-label="Platform(s): activate to sort column ascending">글쓴이: ${FreeBoardDto.u_nickname}</th>
+									</tr>
+									<tr role="row">		
+										<th class="boardCol" tabindex="0" aria-controls="adminNoticeBoard" rowspan="1" colspan="1"
+											aria-label="Engine version: activate to sort column ascending">조회수: ${FreeBoardDto.b_count}</th>
+										<th class="boardCol" tabindex="0" aria-controls="adminNoticeBoard" rowspan="1" colspan="1"
+											aria-label="CSS grade: activate to sort column ascending">상태: ${FreeBoardDto.b_status}</th>
+										<th class="boardCol" tabindex="0" aria-controls="adminNoticeBoard" rowspan="1" colspan="1"
+											aria-label="CSS grade: activate to sort column ascending">작성일: ${FreeBoardDto.b_date}</th>
+									</tr>
+								</thead>
+							</table>
+							${FreeBoardDto.b_content}
+						</div>
+					</div>
+				</div>
+			</div>
+			<hr width=100%>
+			<form id="replyUpdate">
+				<table class="table table-bordered table-hover dataTable" role="grid">
+					<tr role="row">
+						<td colspan=5>댓글</td>
+					</tr>
+					<c:forEach var="replyDto" items="${replyDto}"> 
+						<tr role="row">
+							<td class="boardCol" tabindex="0" aria-controls="adminNoticeBoard" rowspan="1" colspan="1"
+											aria-label="Platform(s): activate to sort column ascending" style="text-align: center">${replyDto.u_nickname}</td>
+							<td class="" tabindex="0" aria-controls="adminNoticeBoard" rowspan="1" colspan="1"
+											aria-label="Browser: activate to sort column ascending" style="width: 65%;" id="rContent_${replyDto.r_seq}">${replyDto.r_content}</td>
+							<td class="boardCol" tabindex="0" aria-controls="adminNoticeBoard" rowspan="1" colspan="1"
+											aria-label="CSS grade: activate to sort column ascending" style="text-align: center; width: 150px">${replyDto.r_date}</td>
+							<td>
+								<input type="hidden" name="r_seq" value="${replyDto.r_seq}">
+								<input type="hidden" name="b_seq" value="${replyDto.b_seq}">
+								<input type="hidden" name="u_seq" value="${replyDto.u_seq}">
+								<input type="hidden" name="r_content" value="${replyDto.r_content}">
+								<input type="hidden" name="u_nickname" value="${replyDto.u_nickname}">
+								<input type="hidden" name="r_date" value="${replyDto.r_date}">
+								<div class='replyUpdateTool${replyDto.r_seq}' style="padding: 0px 10px; text-align: center" >
+								<input type="button"  class="btn btn-primary" style="padding: 0px 5px" value="수정" onclick="updateReplyFn(${replyDto.r_seq}, '${replyDto.r_content}', ${replyDto.b_seq})">
+								<input type="button"  class="btn btn-primary" style="padding: 0px 5px" value="삭제" onclick="deleteReplyFn(${replyDto.r_seq}, ${replyDto.b_seq})">
+								</div>
+							</td>
+						</tr>
+					</c:forEach>
+				</table>
+			</form>
+			<div>
+				<form id='replySubmitEnd'>
+					<table>
+						<tr>
+						<td><textarea id="r_content" name="r_content" rows="3" cols="150" style="margin: 10px; width: 1490px; height: 100px" required></textarea></td>
+						<td><input type='button' id='replySubmit' class="btn btn-primary" style="padding: 2px 5px" value='등록'></td>
+						</tr>
+					</table>
+					<input type="hidden" name="b_seq" value="${FreeBoardDto.b_seq}">
+					<input type="hidden" name="u_seq" value="${User.u_seq}">
+					<input type="hidden" name="u_nickname" value="${User.u_nickname}">
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
 <form id="freeBoardUpdate">
-<table class="tStyle">
-	<tr>
-		<td>글 번호: ${FreeBoardDto.b_seq}</td>
-		<td>${FreeBoardDto.b_title}</td>
-		<td>글쓴이: ${FreeBoardDto.u_nickname}</td>
-	<tr>	
-	<tr>
-		<td>조회수: ${FreeBoardDto.b_count}</td>
-		<td>상태: ${FreeBoardDto.b_status}</td>
-		<td>작성일: ${FreeBoardDto.b_date}</td>
-	</tr>
-	<tr>
-		<td colspan=3 style="text-align: center;">${FreeBoardDto.b_content}</td>
-	</tr>
-</table>
-
-<br>
-	<div>
-			<input type="hidden" name="b_seq" value="${FreeBoardDto.b_seq}">
-			<input type="hidden" name="b_title" value="${FreeBoardDto.b_title}">
-			<input type="hidden" name="u_nickname" value="${FreeBoardDto.u_nickname}">
-			<input type="hidden" name="b_count" value="${FreeBoardDto.b_count}">
-			<input type="hidden" name="b_date" value="${FreeBoardDto.b_date}">
-			<input type="hidden" name="b_content" value="${FreeBoardDto.b_content}">
-			<input type="hidden" name="u_seq" value="${FreeBoardDto.u_seq}">
-			<input type="hidden" name="b_status" value="${FreeBoardDto.b_status}">
-			<input type="button" class="freeBoardContentUpdateBtn" id="updateFreeBoardContent" style="border: none;" value="수정">
-			<input type="button" class="freeBoardContentUpdateBtn" id="deleteFreeBoardContent" style="border: none;" value="삭제">		
-			</div>
+	<div class="form-group" style="text-align: right; padding: 0 30px">
+		<input type="hidden" name="b_seq" value="${FreeBoardDto.b_seq}">
+		<input type="hidden" name="b_title" value="${FreeBoardDto.b_title}">
+		<input type="hidden" name="u_nickname" value="${FreeBoardDto.u_nickname}">
+		<input type="hidden" name="b_count" value="${FreeBoardDto.b_count}">
+		<input type="hidden" name="b_date" value="${FreeBoardDto.b_date}">
+		<input type="hidden" name="b_content" value="${FreeBoardDto.b_content}">
+		<input type="hidden" name="u_seq" value="${FreeBoardDto.u_seq}">
+		<input type="hidden" name="b_status" value="${FreeBoardDto.b_status}">
+		<input type="button" class="btn btn-primary" id="updateFreeBoardContent" style="border: none;" value="수정">
+		<input type="button" class="btn btn-primary" id="deleteFreeBoardContent" style="border: none;" value="삭제">		
+		<input type="button" class="btn btn-primary" id="returnToIndex" value="목록">
+	</div>
 </form>
-
-<hr width=80%>
-
-<form id="replyUpdate">
-<table class="rStyle">
-	<tr>
-		<td colspan=5>댓글</td>
-	</tr>
-	<c:forEach var="replyDto" items="${replyDto}"> 
-	<tr>
-		<td>${replyDto.u_nickname}</td>
-		<td id="rContent_${replyDto.r_seq}">${replyDto.r_content}</td>
-		<td >${replyDto.r_date}</td>
-		<td>
-			<input type="hidden" name="r_seq" value="${replyDto.r_seq}">
-			<input type="hidden" name="b_seq" value="${replyDto.b_seq}">
-			<input type="hidden" name="u_seq" value="${replyDto.u_seq}">
-			<input type="hidden" name="r_content" value="${replyDto.r_content}">
-			<input type="hidden" name="u_nickname" value="${replyDto.u_nickname}">
-			<input type="hidden" name="r_date" value="${replyDto.r_date}">
-			<div class='replyUpdateTool${replyDto.r_seq}'>
-			<input type="button"  class="rBtnStyle" style="border: none;" value="수정" onclick="updateReplyFn(${replyDto.r_seq}, '${replyDto.r_content}', ${replyDto.b_seq})">
-			</div>
-			<input type="button"  class="rBtnStyle" style="border: none;" value="삭제" onclick="deleteReplyFn(${replyDto.r_seq}, ${replyDto.b_seq})"></td>
-		</tr>
-	</c:forEach>
-</table>
-</form>
-
-
-
-<form action="<%=contextPath%>/adminCommunity/adminReply">
-<table class="tStyle">
-	<tr>
-	<td><textarea id="r_content" name="r_content" rows="3" cols="150" required></textarea></td>
-	<td><input type='submit' class='rBtnStyle' style='border: none;' value='등록'></td>
-	</tr>
-</table>
-	<input type="hidden" name="b_seq" value="${FreeBoardDto.b_seq}">
-	<input type="hidden" name="u_seq" value="${User.u_seq}">
-	<input type="hidden" name="u_nickname" value="${User.u_nickname}">
-</form>
-
-
-
 
       </section>
       <!-- /.content -->
