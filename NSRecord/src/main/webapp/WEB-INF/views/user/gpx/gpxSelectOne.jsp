@@ -184,7 +184,7 @@ function fileDownload(path,oName,rName) {
 								<c:choose>
 									<c:when test="${user.u_seq eq GpxDto.u_seq }">
 									<input type="button" value="수정" id="updateGpxBoard">
-									<input type="button" value="삭제" id="deleteGpxBoard" onclick="confirm()" class="btn btn-block btn-danger">
+									<input type="button" value="삭제" id="deleteGpxBoard" onclick="confirm()">
 									<input type="button" value="목록" id = "gpxBoard">
 									</c:when>
 									<c:otherwise>

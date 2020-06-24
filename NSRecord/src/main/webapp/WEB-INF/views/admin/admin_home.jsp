@@ -112,7 +112,7 @@
 										<c:forEach var="selectAdminNoticeList" items="${selectAdminNoticeList }">
 										<tr>
 											<td>${selectAdminNoticeList.n_seq }</td>
-											<td>${selectAdminNoticeList.n_title }</td>
+											<td onclick="javascript:location.href='<c:url value="/ "/>adminCommunity/adminNoticeBoard'">${selectAdminNoticeList.n_title }</td>
 											<td>${selectAdminNoticeList.u_email }</td>
 											<td>${selectAdminNoticeList.n_date }</td>
 										</tr>
@@ -138,14 +138,7 @@
 											<th>시간</th>
 											<th>등록일시</th>
 										</tr>
-										
-										<tr>
-											<td>1.</td>
-											<td>홍길동</td>
-											<td>1:20:13</td>
-											<td>2020.06.11</td>
-										</tr>
-									
+			
 									</tbody>
 								</table>
 							</div>
@@ -173,7 +166,7 @@
 										<c:forEach var="adminList" items="${adminList }">
 										<tr>
 											<td>${adminList.g_seq }</td>
-											<td>${adminList.g_title }</td>
+											<td onclick="javascript:location.href='<c:url value="/ "/>adminGpx/adminGpxList'">${adminList.g_title }</td>
 											<td>${adminList.u_nickname }</td>
 											<td>${adminList.g_date }</td>
 										</tr>
@@ -203,7 +196,7 @@
 										<c:forEach var="selectAdminFreeList" items="${selectAdminFreeList }">
 										<tr>
 											<td>${selectAdminFreeList.b_seq }</td>
-											<td>${selectAdminFreeList.b_title }</td>
+											<td onclick="javascript:location.href='<c:url value="/ "/>adminCommunity/adminNoticeBoard'">${selectAdminFreeList.b_title }</td>
 											<td>${selectAdminFreeList.u_nickname }</td>
 											<td>${selectAdminFreeList.b_date }</td>
 										</tr>
