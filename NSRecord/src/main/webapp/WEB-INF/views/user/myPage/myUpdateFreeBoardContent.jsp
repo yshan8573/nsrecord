@@ -19,60 +19,56 @@
     <!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper">
 			<!-- Content Header (Page header) -->
-			<section class="content-header">
-				<h1>
-					Free Board Write<small>자유게시판 글 수정하기</small>
-				</h1>
-				<ol class="breadcrumb">
-					<li><a href="javascript:location.href='<c:url value=" /" />adminHome'"><i
-							class="fa fa-home"></i>Home</a></li>
-					<li><a href="javascript:location.href='<c:url value=" /" />adminCommunity/adminNoticeBoard'">Free
-						Board</a></li>
-					<li class="active">Write</li>
-				</ol>
-			</section>
+<section class="content-header">
+	<h1>
+		Free Board Write<small>자유게시판 글 수정하기</small>
+	</h1>
+	<ol class="breadcrumb">
+		<li><a href="javascript:location.href='<c:url value=" /" />adminHome'"><i
+				class="fa fa-home"></i>Home</a></li>
+		<li><a href="javascript:location.href='<c:url value=" /" />adminCommunity/adminNoticeBoard'">Free
+			Board</a></li>
+		<li class="active">Write</li>
+	</ol>
+</section>
 
 
-			<!-- Main content -->
-			<section class="content container-fluid">
-
-				<div class="row">
-					<div class="col-xs-12">
-						<div class="box">
-							<div class="box-body">
-								<form action="<%=contextPath%>/myPage/myUpdateFreeBoardContentEnd" method="post">
-								<input type="hidden" name="b_seq" value="${myUpdateContent.b_seq}">
-									<div class="form-group">
-										<label>제목</label>
-										<input name="b_title" type="text" class="form-control" value="${myUpdateContent.b_title}" required>
-									</div>
-									<div class="form-group">
-										<textarea id="b_content" name="b_content" required>${myUpdateContent.b_content}</textarea>
-									</div>
-									<script>
-										$(function () {
-											CKEDITOR.replace('b_content')
-										})
-									</script>
-									<div class="form-group" style="text-align: right;">
-												<input type="hidden" name="b_seq" value="${myUpdateContent.b_seq}">
-												<input type="hidden" name="b_title" value="${myUpdateContent.b_title}">
-												<input type="hidden" name="u_nickname" value="${myUpdateContent.u_nickname}">
-												<input type="hidden" name="b_count" value="${myUpdateContent.b_count}">
-												<input type="hidden" name="b_date" value="${myUpdateContent.b_date}">
-												<input type="hidden" name="b_content" value="${myUpdateContent.b_content}">
-												<input type="hidden" name="u_seq" value="${myUpdateContent.u_seq}">
-												<input type="hidden" name="b_status" value="${myUpdateContent.b_status}">
-										<input type="submit" class="btn btn-primary" value="수정"/>
- 									</div> 
-								</form>
-							</div>
+<!-- Main content -->
+<section class="content container-fluid">
+	<div class="row">
+		<div class="col-xs-12">
+			<div class="box">
+				<div class="box-body">
+					<form action="<%=contextPath%>/myPage/myUpdateFreeBoardContentEnd" method="post">
+						<div class="form-group" method="post">
+							<input name="b_title" type="text" class="form-control" value="${myUpdateContent.b_title}" required>
 						</div>
-					</div>
+						<div class="form-group">
+							<textarea id="b_content" name="b_content" required>${myUpdateContent.b_content}</textarea>
+						</div>
+						<script>
+							$(function () {
+								CKEDITOR.replace('b_content')
+							})
+						</script>
+						<div class="form-group" style="text-align: right;">
+									<input type="hidden" name="b_seq" value="${myUpdateContent.b_seq}">
+									<input type="hidden" name="b_title" value="${myUpdateContent.b_title}">
+									<input type="hidden" name="u_nickname" value="${myUpdateContent.u_nickname}">
+									<input type="hidden" name="b_count" value="${myUpdateContent.b_count}">
+									<input type="hidden" name="b_date" value="${myUpdateContent.b_date}">
+									<input type="hidden" name="b_content" value="${myUpdateContent.b_content}">
+									<input type="hidden" name="u_seq" value="${myUpdateContent.u_seq}">
+									<input type="hidden" name="b_status" value="${myUpdateContent.b_status}">
+							<input type="submit" class="btn btn-primary" value="수정"/>
+						</div> 
+					</form>
 				</div>
-
-			</section>
-			<!-- /.content -->
+			</div>
+		</div>
+	</div>
+</section>
+<!-- /.content -->
 
 
 

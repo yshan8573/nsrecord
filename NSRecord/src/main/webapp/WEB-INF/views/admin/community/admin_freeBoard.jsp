@@ -7,40 +7,6 @@
 
 <%@ include file="../../common/head.jsp" %>
 
-
-<style>
-
-h1{
-	text-align: center;
-}
-
-.tStyle{
-	text-align: center;
-	width: 1000px;
-	margin: auto;
-}
-
-.tStyle tr {
-	height: 30px;
-
-}
-
-tr, td {
-  border-bottom: 1px solid #ddd;
-}
-
-.writebtn {
-  background-color: #5F9EA0; 
-  color: white;
-  border-radius: 4px;
-  position: relative;
-  left: 1200px;
-  font-size: 12px; 
-  padding: 10px 12px;
-}
-
-
-</style>
 <script>
 	var searchSort = "";
 	var searchVal = "";
@@ -73,9 +39,6 @@ tr, td {
 		searchVal = $('#searchVal').val();
 		freeBoardAjaxfn(1);
 	}
-	
-	
-
 </script>
 
 <body class="hold-transition skin-blue sidebar-mini">
@@ -92,51 +55,52 @@ tr, td {
 
 
 
-      <!-- Main content -->
-      <section class="content container-fluid">
-
-		<h1>자유 게시판</h1>
-<hr width=80%>
-
-
-<div id="freeBoardId"></div>
-
-
-<br>
-<div class="box-body">
-
-								<div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
-									<div class="row">
-										<div class="col-sm-6"></div>
-										<div class="col-sm-6">
-											<div id="example1_filter" class="dataTables_filter">
-												<form action="javascript:searchBoxFn()">
-													<div class="box-tools">
-<!--                     				요기가 검색-->		<select class="form-control" name="searchSort" id="searchSort">
-															<option value="b_seq">번호</option>
-															<option value="b_title">제목</option>
-															<option value="u_nickname">닉네임</option>
-														</select>
-														<div class="input-group input-group-sm" style="width: 150px;">
-															<input type="text" name="searchVal" id="searchVal" class="form-control pull-right" placeholder="Search">
-															<div class="input-group-btn">
-<!--                                    요기까지     -->				<button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
-															</div>
-														</div>
+<!-- Main content -->
+<section class="content container-fluid">
+	<div class="row" style="padding: 20px;">
+		<div class="col-xs-12">
+			<div class="box" style="padding: 20px;">
+				<div class="box-header">
+					<div class="row">
+						<div class="col flexBox" style="justify-content: center; padding: 0 16px;">
+							<h3 class="box-title">자유 게시판 관리</h3>
+						</div>
+					</div>
+				</div>
+				<div class="box-body">
+					<div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+						<div class="row">
+							<div class="col-sm-6"></div>
+							<div class="col-sm-6">
+								<div id="example1_filter" class="dataTables_filter">		
+									<form action="javascript:searchBoxFn()">
+										<div class="box-tools">
+											<div class="input-group input-group-sm">
+												<div class="flexBox">
+													<select class="form-control" name="searchSort" id="searchSort">
+														<option value="b_seq">번호</option>
+														<option value="b_title">제목</option>
+														<option value="u_nickname">닉네임</option>
+													</select>
+													<input type="text" name="searchVal" id="searchVal" class="form-control pull-right" placeholder="Search">
+													<div class="input-group-btn">
+														<button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
 													</div>
-												</form>
+												</div>
 											</div>
-
-										</div>
-									</div>
+										</div>	
+									</form>
 								</div>
 							</div>
-<a href="<%=contextPath%>/adminCommunity/adminFreeBoardWriter" class="writebtn">글쓰기</a>
-
-      </section>
-      <!-- /.content -->
-
-
+						</div>
+						<div id="freeBoardId"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<!-- /.content -->
 
     </div>
     <!-- /.content-wrapper -->

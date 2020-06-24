@@ -9,6 +9,8 @@
 	String contextPath = request.getContextPath();
 %>
 
+
+
 <style>
 	.boardCol {
 		max-width: 150px;
@@ -17,23 +19,29 @@
 
 <div class="row" style="margin-bottom: 10px; min-height: 425px;">
 	<div class="col-sm-12">
-		<table id="userNoticeBoard" class="table table-bordered table-hover dataTable" role="grid">
+		<table class="table table-bordered table-hover dataTable" role="grid">
 			<thead>
-				<tr role="row">
-					<th class="boardCol" tabindex="0" aria-controls="adminNoticeBoard" rowspan="1" colspan="1"
-						aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">번호</th>
-					<th class="" tabindex="0" aria-controls="adminNoticeBoard" rowspan="1" colspan="1"
-						aria-label="Browser: activate to sort column ascending" style="width: 50%;">제목</th>
-					<th class="boardCol" tabindex="0" aria-controls="adminNoticeBoard" rowspan="1" colspan="1"
-						aria-label="Platform(s): activate to sort column ascending">글쓴이</th>
-					<th class="boardCol" tabindex="0" aria-controls="adminNoticeBoard" rowspan="1" colspan="1"
-						aria-label="Engine version: activate to sort column ascending">조회수
-					</th>
-					<th class="boardCol" tabindex="0" aria-controls="adminNoticeBoard" rowspan="1" colspan="1"
-						aria-label="CSS grade: activate to sort column ascending">댓글수</th>
-					<th class="boardCol" tabindex="0" aria-controls="adminNoticeBoard" rowspan="1" colspan="1"
-						aria-label="CSS grade: activate to sort column ascending">작성일</th>
-				</tr>
+				<c:choose>
+					<c:when test="${fn:length(freeBoardList) > 0 }">
+						<tr role="row">
+							<th class="boardCol" tabindex="0" aria-controls="adminNoticeBoard" rowspan="1" colspan="1"
+								aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">번호</th>
+							<th class="" tabindex="0" aria-controls="adminNoticeBoard" rowspan="1" colspan="1"
+								aria-label="Browser: activate to sort column ascending" style="width: 50%;">제목</th>
+							<th class="boardCol" tabindex="0" aria-controls="adminNoticeBoard" rowspan="1" colspan="1"
+								aria-label="Platform(s): activate to sort column ascending">글쓴이</th>
+							<th class="boardCol" tabindex="0" aria-controls="adminNoticeBoard" rowspan="1" colspan="1"
+								aria-label="Engine version: activate to sort column ascending">조회수</th>
+							<th class="boardCol" tabindex="0" aria-controls="adminNoticeBoard" rowspan="1" colspan="1"
+								aria-label="CSS grade: activate to sort column ascending">댓글수</th>
+							<th class="boardCol" tabindex="0" aria-controls="adminNoticeBoard" rowspan="1" colspan="1"
+								aria-label="CSS grade: activate to sort column ascending">작성일</th>
+						</tr>
+					</c:when>
+					<c:when test="${fn:length(freeBoardList) <= 0 }">
+						<td>등록된 게시글이 없습니다.</td>
+					</c:when>
+				</c:choose>				
 			</thead>
 			<tbody>
 				<c:forEach var="freeBoard" items="${freeBoardList}">
@@ -84,5 +92,4 @@
 			</ul>
 		</div>
 	</div>
-	
 </div>
