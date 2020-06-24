@@ -129,20 +129,20 @@
 	
 	<insert id="insertGpxReply" parameterType="com.nsrecord.dto.GpxReplyDto">
 	INSERT INTO GPXREPLY(
-	GR_SEQ,
-	U_SEQ,
-	G_SEQ,
-	U_NICKNAME,
-	GR_CONTENT,
-	GR_DATE
+		GR_SEQ,
+		U_SEQ,
+		G_SEQ,
+		U_NICKNAME,
+		GR_CONTENT,
+		GR_DATE
 	)
 	VALUES(
-	GPXREPLY_SEQ.NEXTVAL,
-	#{u_seq},
-	#{g_seq},
-	#{u_nickname},
-	#{gr_content},
-	SYSDATE
+		GPXREPLY_SEQ.NEXTVAL,
+		#{u_seq},
+		#{g_seq},
+		#{u_nickname},
+		#{gr_content},
+		sysdate
 	)
 	
 	</insert>

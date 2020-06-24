@@ -101,7 +101,7 @@
 							<div class="col">
 								<div class="box box-default">
 									<div class="box-header with-border">
-										<i class="fa  fa-file-text"></i>
+										<i class="fa fa-trophy"></i>
 										<h3 class="box-title">랭킹</h3>
 									</div>
 									<!-- /.box-header -->

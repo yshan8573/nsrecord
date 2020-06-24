@@ -19,6 +19,7 @@
 	.mainImg {
 		max-height: 400px;
 	}
+	
 </style>
 
 <body class="hold-transition skin-blue sidebar-mini">
@@ -54,37 +55,81 @@
 									</ol>
 									<div class="slideImgBox carousel-inner">
 										<div class="item">
-											<img
-												src="<%= contextPath %>/img/main_slide1.jpg"
-												alt="First slide">
+											<img src="<%= contextPath %>/img/main_slide1.jpg" alt="First slide">
 										</div>
 										<div class="item active">
-											<img
-												src="<%= contextPath %>/img/main_slide2.jpg"
-												alt="Second slide">
+											<img src="<%= contextPath %>/img/main_slide2.jpg" alt="Second slide">
 										</div>
 										<div class="item">
-											<img
-												src="<%= contextPath %>/img/main_slide3.jpg"
-												alt="Third slide">
+											<img src="<%= contextPath %>/img/main_slide3.jpg" alt="Third slide">
 										</div>
 									</div>
-									<a class="left carousel-control"
-										href="#carousel-example-generic" data-slide="prev"> <span
-										class="fa fa-angle-left"></span>
-									</a> <a class="right carousel-control"
-										href="#carousel-example-generic" data-slide="next"> <span
-										class="fa fa-angle-right"></span>
+									<a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+										<span class="fa fa-angle-left"></span>
+									</a>
+									<a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+										<span class="fa fa-angle-right"></span>
 									</a>
 								</div>
 							</div>
 							<!-- /.box-body -->
 						</div>
 					</div>
+					
+					<!-- 랭킹 지도 입력 -->
 					<div class="col-md-6">
 						<div class="box">
+							<div class="box-header">
+								<h3 class="box-title">랭킹</h3>
+							</div>
 							<div class="box-body">
-								<img class="mainImg img-responsive" src="<%= contextPath %>/img/bike_main.jpg" alt="Photo">
+							
+							<div class="row">
+								<div class="col-md-6">
+										<div id="gpxMap" class="gpxMapDiv" style="width: 100%; height: 332px;"></div>
+								</div>
+								<div class="col-md-6">
+								<table class="table table-condensed">
+									<tbody>
+										<tr>
+											<th style="width: 50px">순위</th>
+											<th>닉네임</th>
+											<th>시간</th>
+											<th>등록일시</th>
+										</tr>
+										<c:forEach var="gurList" items="${gurList }">
+											<tr>
+												<td>${gurList.ranking }</td>
+												<td onclick="javascript:location.href='<c:url value="/ "/>adminGpx/adminGpxRankingList'">${gurList.u_nickname }</td>
+												<td>${gurList.gur_times }</td>
+												<td>
+													<c:set var ="gur_date" value="${gurList.gur_date }"></c:set>
+													<c:choose>
+														<c:when test="${fn:length(gur_date) > 10}">
+															${fn:substring(gur_date,0,10) }
+														</c:when>
+														<c:otherwise>
+															${gur_date }
+														</c:otherwise>
+													</c:choose>
+												</td>
+											</tr>
+										</c:forEach>
+									</tbody>
+								</table>
+								</div>
+							</div>
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+								<%-- <img class="mainImg img-responsive" src="<%= contextPath %>/img/bike_main.jpg" alt="Photo"> --%>
 							</div>
 						</div>
 					</div>
@@ -266,7 +311,58 @@
 
 	</div>
 	<!-- ./wrapper -->
+	
+	
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=27d568fdc342b750d023d721195a14ac"></script>
+	<script>
 
+		var mapContainer = document.getElementById('gpxMap'), // 지도를 표시할 div 
+			mapOption = {
+				center: new kakao.maps.LatLng(37.548541, 126.996463), // 지도의 중심좌표
+				level: 5 // 지도의 확대 레벨
+			};
+
+		// 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
+		var map = new kakao.maps.Map(mapContainer, mapOption);
+
+		// 지도를 재설정할 범위정보를 가지고 있을 LatLngBounds 객체를 생성합니다
+		var bounds = new kakao.maps.LatLngBounds();
+
+
+		// gpx 경로 지도 표시 ----------------------------------- start
+
+		var points = [];
+		<c:forEach items="${mapList }" var="map">
+
+			var lat = "${map.lat}";
+			var lon = "${map.lon}";
+			var p = new kakao.maps.LatLng(lat, lon);
+			points.push(p);
+
+			// LatLngBounds 객체에 좌표를 추가합니다
+			bounds.extend(p);
+
+		</c:forEach >
+		
+		//polyline 
+		var polyline = new kakao.maps.Polyline({
+			map: map,
+			path: points,
+			strokeWeight: 2,
+			strokeColor: '#FF00FF',
+			strokeOpacity: 1,
+			strokeStyle: 'solid'
+		});
+
+		polyline.setMap(map);
+		// gpx 경로 지도 표시 --------------------------------- end
+
+		// LatLngBounds 객체에 추가된 좌표들을 기준으로 지도의 범위를 재설정합니다
+		// 이때 지도의 중심좌표와 레벨이 변경될 수 있습니다
+		map.setBounds(bounds);
+
+	</script>
+	
 </body>
 
 </html>
