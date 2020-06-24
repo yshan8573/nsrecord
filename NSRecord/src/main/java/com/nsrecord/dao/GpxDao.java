@@ -90,7 +90,5 @@ public interface GpxDao {
 	// GRC Detail GUR 개인 기록 가져오기
 	public GurDto selectGurListUser(GurDto gur);
 	
-	//adminHome GpxRanking List
-	public List<GurDto> selectAdminRankList();
-	
+
 }//inter end

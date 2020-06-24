@@ -326,16 +326,6 @@
 		WHERE RW BETWEEN 1 AND 5
 		</select>
 
-	<select id="selectAdminRankList" resultType="gurDto">
-		SELECT *
-		FROM (
-		SELECT ROWNUM RW, G.*, UI.U_NICKNAME
-		FROM GPX_USER_RANKING G JOIN USER_INFO UI
-		ON (UI.U_NICKNAME = G.U_NICKNAME)
-		ORDER BY GUR_TIME DESC
-		)
-		WHERE RW BETWEEN 1 AND 5
-	</select>
 
 
 </mapper>

@@ -241,14 +241,6 @@ public class GpxDaoImpl implements GpxDao {
 
 
 
-	@Override
-	public List<GurDto> selectAdminRankList() {
-	
-		List<GurDto> selectAdminRankList = 
-				session.selectList(queryprefix+"selectAdminRankList");
-		
-		return selectAdminRankList;
-	}
 
 
 

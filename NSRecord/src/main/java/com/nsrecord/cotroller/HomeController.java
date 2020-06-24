@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.nsrecord.dao.GpxDao;
 import com.nsrecord.dto.FreeBoardDto;
 import com.nsrecord.dto.GpxDto;
+import com.nsrecord.dto.GrcDto;
 import com.nsrecord.dto.GurDto;
 import com.nsrecord.dto.Notice;
 import com.nsrecord.dto.UserInfo;
@@ -81,9 +82,9 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value = "/adminHome")
-	public String adminHome(Model model, HttpSession session) {
+	public String adminHome(Model model, HttpSession session, GrcDto grc) {
 		logger.info("this is a adminHome Method");
-	
+		
 		List<GpxDto> gpxAdminList = gpxService.selectAdminList();
 		System.out.println("Controller"+gpxAdminList);
 		model.addAttribute("adminList", gpxAdminList);
@@ -95,9 +96,6 @@ public class HomeController {
 		List<Notice> selectAdminNoticeList = communityService.selectAdminNoticeList();
 		model.addAttribute("selectAdminNoticeList", selectAdminNoticeList);
 		
-//		List<GurDto> selectAdminRankList = gpxService.selectAdminRankList();
-//		System.out.println("Controller Rank = "+selectAdminRankList);
-//		model.addAttribute("selectAdminRankList",selectAdminRankList);
 		
 		
 		// 사이드 메뉴 'active' 설정 flag
