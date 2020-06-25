@@ -168,7 +168,11 @@ public class CommunityServiceImpl implements ICommunityService {
 		
 		return iCommunityDao.selectAdminNoticeList();
 	}
-	
-	
+
+	@Override
+	public int selectFBCount() {
+		return iCommunityDao.selectFBCount();
+	}
+
 	
 }

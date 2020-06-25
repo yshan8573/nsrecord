@@ -113,7 +113,6 @@ public class CommunityDaoImpl implements ICommunityDao {
 
 	@Override
 	public int insertNoticeBoard(Notice notice) {
-		System.out.println(notice.toString());
 		return session.insert(queryprefix+"insertNoticeBoard", notice);
 	}
 
@@ -165,7 +164,6 @@ public class CommunityDaoImpl implements ICommunityDao {
 				new ArrayList<FreeBoardDto>();
 		
 		selectAdminFreeList = session.selectList(queryprefix+"selectFreeBoardAdminList", selectAdminFreeList);
-		System.out.println(selectAdminFreeList);
 		return selectAdminFreeList;
 	}
 	
@@ -176,9 +174,13 @@ public class CommunityDaoImpl implements ICommunityDao {
 		List<Notice> selectAdminNoticeList = new  ArrayList<Notice>();
 		selectAdminNoticeList = session.selectList(queryprefix+"selectAdminNoticeList", selectAdminNoticeList);
 		
-		System.out.println(selectAdminNoticeList.toString());
 		
 		return selectAdminNoticeList;
+	}
+
+	@Override
+	public int selectFBCount() {
+		return session.selectOne(queryprefix+"selectFBCount");
 	}
 	
 	

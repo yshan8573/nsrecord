@@ -31,4 +31,8 @@ public interface UserService {
 	// 회원 리스트 전체 레코드 카운트
 	public int selectUserListCount(SearchDto searchDto);
 	
+	// adminHome user count
+	public int selectUserCount();
+		
+	
 }

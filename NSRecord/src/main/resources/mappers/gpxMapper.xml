@@ -338,5 +338,11 @@
 		SET
 			GRC_STATUS = 'Y'
 	</update>
+	
+	<select id="selectGpxCount" resultType="_int">
+		SELECT COUNT(*)
+		    FROM GPX
+		    WHERE TO_CHAR(SYSDATE, 'YYYYMMDD') = TO_CHAR(G_DATE, 'YYYYMMDD')
+	</select>
 
 </mapper>

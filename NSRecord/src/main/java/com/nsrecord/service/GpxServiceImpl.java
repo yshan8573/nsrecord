@@ -237,8 +237,6 @@ public class GpxServiceImpl implements GpxService {
 	@Override
 	public List<GpxDto> selectAdminList() {
 		
-		
-		
 		return gpxDao.selectAdminList();
 	}
 
@@ -257,11 +255,9 @@ public class GpxServiceImpl implements GpxService {
 		return gpxDao.selectGrcOneMain();
 	}
 
-
-	
-	
-
-	
-	
+	@Override
+	public int selectGpxCount() {
+		return gpxDao.selectGpxCount();
+	}
 
 }//class end

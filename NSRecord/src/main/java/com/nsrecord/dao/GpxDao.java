@@ -95,4 +95,8 @@ public interface GpxDao {
 	
 	// grc 레코드 상태값 초기화
 	public int updateGrcStatus();
+	
+	// adminHome gpxCount 가져오기
+	public int selectGpxCount();
+	
 }//inter end

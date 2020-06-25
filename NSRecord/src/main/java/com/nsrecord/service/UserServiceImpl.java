@@ -61,4 +61,11 @@ public class UserServiceImpl implements UserService {
 	
 		return dao.selectUserListCount(searchDto);
 	}
+
+	@Override
+	public int selectUserCount() {
+		return dao.selectUserCount();
+	}
+	
+	
 }

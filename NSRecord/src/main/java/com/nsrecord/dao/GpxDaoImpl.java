@@ -234,4 +234,11 @@ public class GpxDaoImpl implements GpxDao {
 		return session.update(queryprefix+"updateGrcStatus");
 	}
 
+	@Override
+	public int selectGpxCount() {
+		return session.selectOne(queryprefix+"selectGpxCount");
+	}
+	
+	
+
 }//class end

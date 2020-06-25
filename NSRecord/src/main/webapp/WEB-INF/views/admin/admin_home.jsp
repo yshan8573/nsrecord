@@ -50,8 +50,7 @@
 						<!-- small box -->
 						<div class="small-box bg-yellow">
 							<div class="inner">
-								<h3>3</h3>
-
+								<h3>${userCount }</h3>
 								<p>오늘 회원 가입 인원수</p>
 							</div>
 							<div class="icon">
@@ -65,9 +64,9 @@
 						<!-- small box -->
 						<div class="small-box bg-aqua">
 							<div class="inner">
-								<h3>5</h3>
+								<h3>${gpxCount }</h3>
 
-								<p>오늘 GPX공유게시판 게시글 수</p>
+								<p>오늘 GPX공유게시판 등록 수</p>
 							</div>
 							<div class="icon">
 								<i class="fa fa-map-o"></i>
@@ -80,9 +79,9 @@
 						<!-- small box -->
 						<div class="small-box bg-green">
 							<div class="inner">
-								<h3>53</h3>
+								<h3>${freeBoardCount }</h3>
 
-								<p>오늘 자유게시판 게시글 수</p>
+								<p>오늘 자유게시판 등록 수</p>
 							</div>
 							<div class="icon">
 								<i class="fa  fa-file-text-o"></i>

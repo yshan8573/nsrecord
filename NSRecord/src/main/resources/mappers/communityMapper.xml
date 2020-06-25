@@ -254,14 +254,20 @@
 
 	
 	<select id="selectAdminNoticeList" resultType="com.nsrecord.dto.Notice">
-	SELECT *
-	FROM (
-	SELECT ROWNUM RW, N.*, UI.U_NAME
-	FROM NOTICE N JOIN USER_INFO UI
-	ON (UI.U_SEQ = N.U_SEQ)
-	ORDER BY N_SEQ DESC
-	)
-	WHERE RW BETWEEN 1 AND 5
+		SELECT *
+		FROM (
+		SELECT ROWNUM RW, N.*, UI.U_NAME
+		FROM NOTICE N JOIN USER_INFO UI
+		ON (UI.U_SEQ = N.U_SEQ)
+		ORDER BY N_SEQ DESC
+		)
+		WHERE RW BETWEEN 1 AND 5
+	</select>
+	
+	<select id="selectFBCount" resultType="_int">
+		SELECT COUNT(*)
+		    FROM BOARD
+		    WHERE TO_CHAR(SYSDATE, 'YYYYMMDD') = TO_CHAR(B_DATE, 'YYYYMMDD')
 	</select>
 
 

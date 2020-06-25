@@ -90,5 +90,9 @@ public interface ICommunityService {
 	public List<FreeBoardDto> selectAdminFreeList(); 
 	
 	//adminHome 공지사항 리스트
-	 public List<Notice> selectAdminNoticeList();
+	public List<Notice> selectAdminNoticeList();
+	
+	// adminHome 자유게시판 Count
+	public int selectFBCount();
+		
 }

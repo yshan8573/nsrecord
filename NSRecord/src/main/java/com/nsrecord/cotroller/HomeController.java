@@ -79,11 +79,11 @@ public class HomeController {
 		logger.info("this is a userHome Method");
 		
 		List<GpxDto> gpxAdminList = gpxService.selectAdminList();
-		System.out.println("Controller"+gpxAdminList);
+//		System.out.println("Controller"+gpxAdminList);
 		model.addAttribute("adminList", gpxAdminList);
 		
 		List<FreeBoardDto> selectAdminFreeList = communityService.selectAdminFreeList();
-		System.out.println("Controller"+selectAdminFreeList);
+//		System.out.println("Controller"+selectAdminFreeList);
 		model.addAttribute("selectAdminFreeList", selectAdminFreeList);
 
 		List<Notice> selectAdminNoticeList = communityService.selectAdminNoticeList();
@@ -119,11 +119,11 @@ public class HomeController {
 		logger.info("this is a adminHome Method");
 		
 		List<GpxDto> gpxAdminList = gpxService.selectAdminList();
-		System.out.println("Controller"+gpxAdminList);
+//		System.out.println("Controller"+gpxAdminList);
 		model.addAttribute("adminList", gpxAdminList);
 		
 		List<FreeBoardDto> selectAdminFreeList = communityService.selectAdminFreeList();
-		System.out.println("Controller"+selectAdminFreeList);
+//		System.out.println("Controller"+selectAdminFreeList);
 		model.addAttribute("selectAdminFreeList", selectAdminFreeList);
 
 		List<Notice> selectAdminNoticeList = communityService.selectAdminNoticeList();
@@ -132,6 +132,19 @@ public class HomeController {
 		GrcDto grc = gpxService.selectGrcOneMain();
 		List<GurDto> gurList = gpxService.selectGurListAdmin(grc);
 		model.addAttribute("gurList", gurList);
+		
+		// 오늘 회원가입수
+		int userCount = service.selectUserCount();
+		model.addAttribute("userCount",userCount);
+		
+		// 오늘 GPX 공유 게시판 등록수
+		int gpxCount = gpxService.selectGpxCount();
+		model.addAttribute("gpxCount",gpxCount);
+		
+		// 오늘 자유 게시판 등록수
+		int freeBoardCount = communityService.selectFBCount();
+		model.addAttribute("freeBoardCount",freeBoardCount);
+		
 		
 		// 사이드 메뉴 'active' 설정 flag
 		model.addAttribute("categoryLoc", "home");

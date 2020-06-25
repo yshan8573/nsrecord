@@ -86,6 +86,9 @@ public interface GpxService {
 	// adminHome GrcOne 불러오기
 	public GrcDto selectGrcOneMain();
 	
+	// adminHome gpxCount 가져오기
+	public int selectGpxCount();
+	
 
 	
 }//inter end

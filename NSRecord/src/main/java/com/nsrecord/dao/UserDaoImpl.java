@@ -36,7 +36,6 @@ public class UserDaoImpl implements UserDao {
 	// 회원 추가
 	@Override
 	public void insertUser(UserInfo user) throws Exception {
-		System.out.println(user.toString());
 		session.insert("user.insertUser", user);
 	}
 	
@@ -73,5 +72,11 @@ public class UserDaoImpl implements UserDao {
 		// 
 		return session.selectOne(queryprefix+"selectUserListCount", searchDto);
 	}
+
+	@Override
+	public int selectUserCount() {
+		return session.selectOne(queryprefix+"selectUserCount");
+	}
+	
 
 }

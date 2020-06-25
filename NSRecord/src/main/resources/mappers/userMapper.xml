@@ -101,9 +101,10 @@
 	</sql>
 	
 	
-	<select id="userCount">
+	<select id="selectUserCount" resultType="_int">
 		SELECT COUNT(*)
-		FROM USER_INFO
-		WHERE DATE
+		    FROM USER_INFO
+		    WHERE TO_CHAR(SYSDATE, 'YYYYMMDD') = TO_CHAR(U_ENROLLDATE, 'YYYYMMDD')
 	</select>
+	
 </mapper>
