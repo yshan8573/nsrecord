@@ -244,7 +244,7 @@ function checkSubmit() {
 	
 	<div class="register-box-body">
 	<p class="login-box-msg">Register a new membership</p>
-	<form action="<%=contextPath%>/user/userSignInResult" method="post" name="form" onsubmit="return checkSubmit();">
+	<form action="<%=contextPath%>/user/userSignUpResult" method="post" name="form" onsubmit="return checkSubmit();">
 		<br>
 		<div class="form-group has-feedback">
 			<input type="text" class="form-control" id="u_email" name="u_email" placeholder="E_MAIL">
