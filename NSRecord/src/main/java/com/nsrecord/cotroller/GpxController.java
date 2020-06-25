@@ -329,7 +329,7 @@ public class GpxController {
 				// 파일 업로드----------------------------- end
 		} else {
 			dto.setG_ori(preG_ori);
-			dto.setG_re(preG_ori);
+			dto.setG_re(preG_re); 
 		}
 		
 	UserInfo user = (UserInfo) sesseion.getAttribute("loginUser");
