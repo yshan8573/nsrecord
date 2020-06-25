@@ -165,8 +165,8 @@
 				<form id='replySubmitEnd'>
 					<table>
 						<tr>
-						<td><textarea id="r_content" name="r_content" rows="3" cols="150" style="margin: 10px; width: 1490px; height: 100px" required></textarea></td>
-						<td><input type='button' id='replySubmit' class="btn btn-primary" style="padding: 2px 5px" value='등록'></td>
+						<td><textarea id="r_content" name="r_content" rows="3" cols="150" style="margin: 10px; width: 95%; height: 90px" required></textarea></td>
+						<td><input type='button' id='replySubmit' class="btn btn-primary" style="padding: 2px 5px; margin-top: -6.5%" value='등록'></td>
 						</tr>
 					</table>
 					<input type="hidden" name="b_seq" value="${FreeBoardDto.b_seq}">
