@@ -86,37 +86,41 @@
 							
 							<div class="row">
 								<div class="col-md-6">
-										<div id="gpxMap" class="gpxMapDiv" style="width: 100%; height: 332px;"></div>
+								<div><h5 class="box-title"><b>&nbsp;&nbsp;&nbsp;${grc.grc_title }</b></h5></div>
+								<div style="padding: 10px;">
+									<div id="gpxMap" class="gpxMapDiv" style="width: 100%; height: 300px;"></div>
+								</div>
 								</div>
 								<div class="col-md-6">
-								<table class="table table-condensed">
-									<tbody>
-										<tr>
-											<th style="width: 50px">순위</th>
-											<th>닉네임</th>
-											<th>시간</th>
-											<th>등록일시</th>
-										</tr>
-										<c:forEach var="gurList" items="${gurList }">
+								<div><h5 class="box-title"><b>&nbsp;</b></h5></div>
+									<table class="table table-condensed" onclick="javascript:location.href='<c:url value="/"/>gpx/gpxRanking'">
+										<tbody>
 											<tr>
-												<td>${gurList.ranking }</td>
-												<td onclick="javascript:location.href='<c:url value="/ "/>adminGpx/adminGpxRankingList'">${gurList.u_nickname }</td>
-												<td>${gurList.gur_times }</td>
-												<td>
-													<c:set var ="gur_date" value="${gurList.gur_date }"></c:set>
-													<c:choose>
-														<c:when test="${fn:length(gur_date) > 10}">
-															${fn:substring(gur_date,0,10) }
-														</c:when>
-														<c:otherwise>
-															${gur_date }
-														</c:otherwise>
-													</c:choose>
-												</td>
+												<th style="width: 50px">순위</th>
+												<th>닉네임</th>
+												<th>시간</th>
+												<th>등록일시</th>
 											</tr>
-										</c:forEach>
-									</tbody>
-								</table>
+											<c:forEach var="gurList" items="${gurList }">
+												<tr>
+													<td>${gurList.ranking }</td>
+													<td>${gurList.u_nickname }</td>
+													<td>${gurList.gur_times }</td>
+													<td>
+														<c:set var ="gur_date" value="${gurList.gur_date }"></c:set>
+														<c:choose>
+															<c:when test="${fn:length(gur_date) > 10}">
+																${fn:substring(gur_date,0,10) }
+															</c:when>
+															<c:otherwise>
+																${gur_date }
+															</c:otherwise>
+														</c:choose>
+													</td>
+												</tr>
+											</c:forEach>
+										</tbody>
+									</table>
 								</div>
 							</div>
 							
@@ -328,7 +332,6 @@
 		// 지도를 재설정할 범위정보를 가지고 있을 LatLngBounds 객체를 생성합니다
 		var bounds = new kakao.maps.LatLngBounds();
 
-
 		// gpx 경로 지도 표시 ----------------------------------- start
 
 		var points = [];
@@ -355,6 +358,33 @@
 		});
 
 		polyline.setMap(map);
+		
+		// mark 표시 -------------------------------- start
+		var startMarker = points[0];
+		var endMarker = points[points.length-1];
+		
+		var startIcon = new kakao.maps.MarkerImage(
+			    '<%= contextPath %>/img/start.png',
+			    new kakao.maps.Size(31, 35)
+			);
+		
+		var endIcon = new kakao.maps.MarkerImage(
+			    '<%= contextPath %>/img/end.png',
+			    new kakao.maps.Size(31, 35)
+			);
+		
+		new kakao.maps.Marker({
+		    position: startMarker,
+		    image: startIcon
+		}).setMap(map);
+		
+
+		new kakao.maps.Marker({
+		    position: endMarker,
+		    image: endIcon
+		}).setMap(map);
+		// mark 표시 -------------------------------- end
+		
 		// gpx 경로 지도 표시 --------------------------------- end
 
 		// LatLngBounds 객체에 추가된 좌표들을 기준으로 지도의 범위를 재설정합니다
