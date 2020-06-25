@@ -99,4 +99,11 @@
 		) A
 		)WHERE rn BETWEEN #{start} AND #{end}	
 	</sql>
+	
+	
+	<select id="userCount">
+		SELECT COUNT(*)
+		FROM USER_INFO
+		WHERE DATE
+	</select>
 </mapper>

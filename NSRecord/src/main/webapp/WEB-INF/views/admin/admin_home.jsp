@@ -52,12 +52,12 @@
 							<div class="inner">
 								<h3>3</h3>
 
-								<p>회원 가입 인원수</p>
+								<p>오늘 회원 가입 인원수</p>
 							</div>
 							<div class="icon">
 								<i class="ion ion-person-add"></i>
 							</div>
-							<a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+							<a href="javascript:location.href='<c:url value="/"/>adminUser/adminUserList'" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
 						</div>
 					</div>
 					<!-- ./col -->
@@ -72,7 +72,7 @@
 							<div class="icon">
 								<i class="fa fa-map-o"></i>
 							</div>
-							<a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+							<a href="javascript:location.href='<c:url value="/"/>adminGpx/adminGpxList'" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
 						</div>
 					</div>
 					<!-- ./col -->
@@ -87,7 +87,7 @@
 							<div class="icon">
 								<i class="fa  fa-file-text-o"></i>
 							</div>
-							<a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+							<a href="javascript:location.href='<c:url value="/"/>adminCommunity/adminFreeBoard'" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
 						</div>
 					</div>
 					<!-- ./col -->

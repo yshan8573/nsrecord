@@ -73,6 +73,5 @@ public class UserDaoImpl implements UserDao {
 		// 
 		return session.selectOne(queryprefix+"selectUserListCount", searchDto);
 	}
-	
-	
+
 }

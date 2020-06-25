@@ -36,15 +36,15 @@ public class UserController {
 	}
 	
 //	 회원가입 폼 페이지
-	@RequestMapping(value = "user/userSignIn")
+	@RequestMapping(value = "user/userSignUp")
 	public String userSignIn() {
 		logger.info("this is a userlogin Method");
 		
 		return "user/user/user_SignUp";
 	}
 	
-	@RequestMapping(value = "user/userSignInResult")
-	public String userSignIn(UserInfo user) throws Exception {
+	@RequestMapping(value = "user/userSignUpResult")
+	public String userSignUp(UserInfo user) throws Exception {
 		logger.info("this is a userlogin Method");
 		
 		service.insertUser(user);
