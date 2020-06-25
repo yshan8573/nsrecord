@@ -61,7 +61,7 @@
 				</a>
 				<ul class="treeview-menu">
 					<li><a href="javascript:location.href='<c:url value="/"/>adminUser/adminUserList'">회원 리스트</a></li>
-					<li><a href="javascript:location.href='<c:url value="/"/>adminUser/adminUserLeaveList'">회원탈퇴 리스트</a></li>
+					<%-- <li><a href="javascript:location.href='<c:url value="/"/>adminUser/adminUserLeaveList'">회원탈퇴 리스트</a></li> --%>
 				</ul>
 			</li>
 			<li class="gpx treeview">
@@ -83,7 +83,7 @@
 				</a>
 				<ul class="treeview-menu">
 					<li><a href="javascript:location.href='<c:url value="/"/>adminCommunity/adminNoticeBoard'">공지사항 관리</a></li>
-					<li><a href="javascript:location.href='<c:url value="/"/>adminCommunity/adminQnaBoard'">Q&A 관리</a></li>
+					<%-- <li><a href="javascript:location.href='<c:url value="/"/>adminCommunity/adminQnaBoard'">Q&A 관리</a></li> --%>
 					<li><a href="javascript:location.href='<c:url value="/"/>adminCommunity/adminFreeBoard'">자유게시판 관리</a></li>
 				</ul>
 			</li>

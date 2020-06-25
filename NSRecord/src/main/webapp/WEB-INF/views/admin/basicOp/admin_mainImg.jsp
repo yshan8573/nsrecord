@@ -86,7 +86,7 @@
 										<div class="box box-primary">
 											<div class="box-body">
 												<div>
-													<label for="exampleInputFile">메인 이미지 -2</label>
+													<label for="exampleInputFile">메인 이미지 슬라이드 -2</label>
 													<input type="file" id="inputFileImg2" name="upFile2" accept="image/*" onchange="" required="required">
 													<p class="help-block"></p>
 												</div>
@@ -101,7 +101,7 @@
 										<div class="box box-primary">
 											<div class="box-body">
 												<div>
-													<label for="exampleInputFile">메인 이미지 -3</label>
+													<label for="exampleInputFile">메인 이미지 슬라이드 -3</label>
 													<input type="file" id="inputFileImg3" name="upFile3" accept="image/*" onchange="" required="required">
 													<p class="help-block"></p>
 												</div>

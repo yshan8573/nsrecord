@@ -61,7 +61,7 @@
 								</a>
 								<ul class="treeview-menu" style="display: none;">
 									<li><a href="javascript:location.href='<c:url value="/"/>myPage/myGpxBoard'">마이 GPX 공유 관리</a></li>
-									<li><a href="javascript:location.href='<c:url value="/"/>myPage/myGpxRanking'">마이 GPX 랭킹 등록 관리</a></li>
+									<%-- <li><a href="javascript:location.href='<c:url value="/"/>myPage/myGpxRanking'">마이 GPX 랭킹 등록 관리</a></li> --%>
 								</ul>
 							</li>
 							<li class="myCommunity treeview">
@@ -97,7 +97,7 @@
 				</a>
 				<ul class="treeview-menu">
 					<li><a href="javascript:location.href='<c:url value="/"/>community/noticeBoard'">공지사항</a></li>
-					<li><a href="javascript:location.href='<c:url value="/"/>community/qnaBoard'">Q&A</a></li>
+					<%-- <li><a href="javascript:location.href='<c:url value="/"/>community/qnaBoard'">Q&A</a></li> --%>
 					<li><a href="javascript:location.href='<c:url value="/"/>community/freeBoard'">자유게시판</a></li>
 				</ul>
 			</li>
