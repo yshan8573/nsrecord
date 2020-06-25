@@ -64,9 +64,6 @@
 									<div class="col flexBox" style="justify-content: flex-start; padding: 0 16px;">
 										<h3 class="box-title">GPX Ranking 코스</h3>
 										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-										<button type="button" class="btn btn-primary"
-											onclick="javascript:location.href='<%= contextPath %>/adminGpx/adminGrcInsert'">코스
-											추가</button>
 									</div>
 								</div>
 							</div>
