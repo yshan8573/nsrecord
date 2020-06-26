@@ -93,7 +93,7 @@
 							</button>
 						</div>
 					</c:if>
-					<div class="col-xs-6">
+					<div class="col-xs-12">
 
 						<button type="button" class="btn btn-danger pull-right"
 							onclick="javascript:location.href='<%=contextPath%>/adminCommunity/adminNoticeBoardDelete?n_seq=${notice.n_seq }'">
