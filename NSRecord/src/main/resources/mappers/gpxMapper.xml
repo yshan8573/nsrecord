@@ -42,8 +42,9 @@
 				   G_STATUS
 			FROM GPX
 			WHERE 1 = 1
-			ORDER BY G_DATE DESC
+			
 		<include refid="search"></include>
+		ORDER BY G_DATE DESC
 		<include refid="pagingFooter"></include>
 	</select>
 
