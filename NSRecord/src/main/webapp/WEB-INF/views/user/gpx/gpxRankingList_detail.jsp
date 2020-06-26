@@ -262,6 +262,32 @@
 
 			polyline.setMap(map);
 			// gpx 경로 지도 표시 --------------------------------- end
+			
+			// mark 표시 -------------------------------- start
+				var startMarker = points[0];
+				var endMarker = points[points.length-1];
+				
+				var startIcon = new kakao.maps.MarkerImage(
+					    '<%= contextPath %>/img/start.png',
+					    new kakao.maps.Size(31, 35)
+					);
+				
+				var endIcon = new kakao.maps.MarkerImage(
+					    '<%= contextPath %>/img/end.png',
+					    new kakao.maps.Size(31, 35)
+					);
+				
+				new kakao.maps.Marker({
+				    position: startMarker,
+				    image: startIcon
+				}).setMap(map);
+				
+		
+				new kakao.maps.Marker({
+				    position: endMarker,
+				    image: endIcon
+				}).setMap(map);
+		// mark 표시 -------------------------------- end
 
 			// LatLngBounds 객체에 추가된 좌표들을 기준으로 지도의 범위를 재설정합니다
 			// 이때 지도의 중심좌표와 레벨이 변경될 수 있습니다

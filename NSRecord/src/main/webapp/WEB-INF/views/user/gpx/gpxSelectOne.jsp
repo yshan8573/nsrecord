@@ -57,11 +57,11 @@ function gpxReplyUpdate(gr_seq, gr_content, g_seq) {
 		  var btnLocation = '.GpxreplyUpdateButton' + gr_seq;
 		$(btnLocation).html('<input type="button" class="rBtnStyle" value="수정 완료" onclick="replyUpdateEnd(' + gr_seq+', \''+gr_content+'\', '+g_seq + ')">')
 	 }
- function replyUpdateEnd(gr_seq, gr_content, g_seq){
+function replyUpdateEnd(gr_seq, gr_content, g_seq){
 	var loc = '#'+gr_seq;
 	var value = document.getElementById(loc).value;
 	location.href = '<%=contextPath%>/gpx/gpxUpdateReply?gr_seq=' + gr_seq + '&gr_content=' + value + '&g_seq=' + g_seq;
-				   }
+}
 
  
  //댓글 삭제
@@ -240,8 +240,8 @@ function fileDownload(path,oName,rName) {
                 <c:when test="${GpxReply.u_seq eq  user.u_seq}">
 				<input type="button" class="btn btn-info btn-flat"  value="수정"  onclick="gpxReplyUpdate(${GpxReply.gr_seq },'${GpxReply.gr_content }',${GpxDto.g_seq })">
 				 <input type="button" class="btn btn-warning" id="gpxReplyDeleteButton"  value="삭제" onclick="deleteGpxReply(${GpxReply.gr_seq}, ${GpxDto.g_seq })">
-				   </c:when>
-				         </c:choose> 
+				 </c:when>
+				 </c:choose> 
 				  </div>
              
                   </div>
@@ -303,6 +303,33 @@ function fileDownload(path,oName,rName) {
 			});
 
 			polyline.setMap(map);
+			
+			// mark 표시 -------------------------------- start
+			var startMarker = points[0];
+			var endMarker = points[points.length-1];
+			
+			var startIcon = new kakao.maps.MarkerImage(
+				    '<%= contextPath %>/img/start.png',
+				    new kakao.maps.Size(31, 35)
+				);
+			
+			var endIcon = new kakao.maps.MarkerImage(
+				    '<%= contextPath %>/img/end.png',
+				    new kakao.maps.Size(31, 35)
+				);
+			
+			new kakao.maps.Marker({
+			    position: startMarker,
+			    image: startIcon
+			}).setMap(map);
+			
+	
+			new kakao.maps.Marker({
+			    position: endMarker,
+			    image: endIcon
+			}).setMap(map);
+			// mark 표시 -------------------------------- end
+	
 			// gpx 경로 지도 표시 --------------------------------- end
 
 			// LatLngBounds 객체에 추가된 좌표들을 기준으로 지도의 범위를 재설정합니다

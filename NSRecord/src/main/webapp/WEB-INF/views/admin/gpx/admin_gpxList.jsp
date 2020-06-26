@@ -60,8 +60,7 @@
 				<ol class="breadcrumb">
 					<li><a href="javascript:location.href='<c:url value=" /" />userHome"><i class="fa fa-home"></i>
 						Home</a></li>
-					<li><a href="javascript:location.href='<c:url value=" /" />nsrecord/gpx/gpxInsertForm'">GPX Board</a></li>
-					<li class="active">Write</li>
+					<li class="active">GPX Board</li>
 				</ol>
 			</section>
 

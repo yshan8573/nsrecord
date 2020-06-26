@@ -58,9 +58,10 @@
 			<mapping path="/myPage/**" />
 			<mapping path="/gpx/gpxBoardSelectOne"/>
 			<mapping path="/gpx/userGpxRankingListDetail"/>
+			<mapping path="/gpx/gpxInsertForm"/>
 			<mapping path="/preFreeBoardContent" />
 			<mapping path="/freeBoardContent" />
-			<mapping path="/community/freeBoardWriter" />
+			<mapping path="/community/freeBoardWriter"/>
 			<beans:bean id="loggerInterceptor" class="com.nsrecord.common.LoginCheckInterceptor" />
 		</interceptor>
 		

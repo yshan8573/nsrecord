@@ -329,7 +329,7 @@ public class GpxController {
 				// 파일 업로드----------------------------- end
 		} else {
 			dto.setG_ori(preG_ori);
-			dto.setG_re(preG_ori);
+			dto.setG_re(preG_re);
 		}
 		
 	UserInfo user = (UserInfo) sesseion.getAttribute("loginUser");
@@ -639,6 +639,9 @@ public class GpxController {
 
 		// 검색 객체 값 넣기
 		SearchDto searchDto = new SearchDto(searchSort, searchVal);
+		
+		System.out.println(searchDto.getSearchSort());
+		System.out.println(searchDto.getSearchVal());
 		
 		// grc 리스트 레코드 갯수 가져오기
 		int grcCount = gpxService.selectGrcCount(searchDto);

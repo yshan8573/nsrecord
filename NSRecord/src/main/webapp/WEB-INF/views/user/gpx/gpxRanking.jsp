@@ -36,7 +36,7 @@
 	function searchBoxFn() {
 		searchSort = $('#searchSort').val();
 		searchVal = $('#searchVal').val();
-		noticeBoardAjaxfn(1);
+		gpxRankingListAjaxfn(1);
 	}
 
 </script>
@@ -79,8 +79,8 @@
 														<div class="input-group input-group-sm">
 															<div class="flexBox">
 																<select class="form-control" name="searchSort" id="searchSort">
-																	<option value="n_seq">번호</option>
-																	<option value="n_title">제목</option>
+																	<option value="grc_seq">번호</option>
+																	<option value="grc_title">제목</option>
 																</select>
 																<input type="text" name="searchVal" id="searchVal"
 																	class="form-control pull-right" placeholder="Search">

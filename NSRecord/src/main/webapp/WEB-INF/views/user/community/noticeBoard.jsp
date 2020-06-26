@@ -58,9 +58,9 @@
 			<!-- Main content -->
 			<section class="content container-fluid">
 
-				<div class="row">
+				<div class="row" style="padding: 30px;">
 					<div class="col-xs-12">
-						<div class="box">
+						<div class="box" style="padding: 30px;">
 							<div class="box-header">
 								<div class="row">
 									<div class="col flexBox"
@@ -76,28 +76,27 @@
 									<div class="row">
 										<div class="col-sm-6"></div>
 										<div class="col-sm-6">
+										
+										
 											<div id="example1_filter" class="dataTables_filter">
 												<form action="javascript:searchBoxFn()">
 													<div class="box-tools">
-														<select class="form-control" name="searchSort"
-															id="searchSort">
-															<option value="n_seq">번호</option>
-															<option value="n_title">제목</option>
-														</select>
-														<div class="input-group input-group-sm"
-															style="width: 150px;">
-															<input type="text" name="searchVal" id="searchVal"
-																class="form-control pull-right" placeholder="Search">
-															<div class="input-group-btn">
-																<button type="submit" class="btn btn-default">
-																	<i class="fa fa-search"></i>
-																</button>
+														<div class="input-group input-group-sm">
+															<div class="flexBox">
+																<select class="form-control" name="searchSort" id="searchSort">
+																	<option value="n_seq">번호</option>
+																	<option value="n_title">제목</option>
+																</select>
+																<input type="text" name="searchVal" id="searchVal"
+																	class="form-control pull-right" placeholder="Search">
+																<div class="input-group-btn">
+																	<button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+																</div>
 															</div>
 														</div>
 													</div>
 												</form>
 											</div>
-
 										</div>
 									</div>
 
