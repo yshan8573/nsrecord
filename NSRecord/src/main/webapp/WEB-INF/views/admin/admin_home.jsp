@@ -105,7 +105,7 @@
 										<tr>
 											<th style="width: 50px">NO</th>
 											<th>제목</th>
-											<th style="width: 60px;">작성자</th>
+											<th style="width: 100px;">작성자</th>
 											<th>등록일시</th>
 										</tr>
 										<c:forEach var="selectAdminNoticeList" items="${selectAdminNoticeList }">
@@ -197,7 +197,7 @@
 										<tr>
 											<th style="width: 50px">NO</th>
 											<th>제목</th>
-											<th style="width: 60px;">작성자</th>
+											<th style="width: 100px;">작성자</th>
 											<th>등록일시</th>
 										</tr>
 										<c:forEach var="adminList" items="${adminList }">
@@ -248,7 +248,7 @@
 										<tr>
 											<th style="width: 50px">NO</th>
 											<th>제목</th>
-											<th style="width: 60px;">작성자</th>
+											<th style="width: 100px;">작성자</th>
 											<th>등록일시</th>
 										</tr>
 										<c:forEach var="selectAdminFreeList" items="${selectAdminFreeList }">
