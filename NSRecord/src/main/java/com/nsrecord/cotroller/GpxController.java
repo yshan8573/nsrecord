@@ -329,7 +329,7 @@ public class GpxController {
 				// 파일 업로드----------------------------- end
 		} else {
 			dto.setG_ori(preG_ori);
-			dto.setG_re(preG_ori);
+			dto.setG_re(preG_re);
 		}
 		
 	UserInfo user = (UserInfo) sesseion.getAttribute("loginUser");
@@ -382,7 +382,7 @@ public class GpxController {
 	//댓글 수정
 	@RequestMapping(value = "gpx/gpxUpdateReply")
 	public String gpxReplyUpdate(@RequestParam HashMap<String, String> paramMap, RedirectAttributes redirectAttribute, HttpSession session) {
-
+		gpxServiceImpl.gpxReplyUpdate(paramMap);
 		redirectAttribute.addAttribute("g_seq", paramMap.get("g_seq"));
 		return "redirect:/gpx/gpxBoardSelectOne";
 	}
@@ -639,6 +639,9 @@ public class GpxController {
 
 		// 검색 객체 값 넣기
 		SearchDto searchDto = new SearchDto(searchSort, searchVal);
+		
+		System.out.println(searchDto.getSearchSort());
+		System.out.println(searchDto.getSearchVal());
 		
 		// grc 리스트 레코드 갯수 가져오기
 		int grcCount = gpxService.selectGrcCount(searchDto);

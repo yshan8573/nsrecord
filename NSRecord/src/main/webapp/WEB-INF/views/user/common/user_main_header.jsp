@@ -37,7 +37,7 @@
 								<li class="user user-menu">
 									<a href="#">
 										<img src="<c:url value="/"/>dist/img/profile.png" class="user-image" alt="User Image" style="background-color: white;">
-										<span class="hidden-xs">${loginUser.u_email }</span>
+										<span class="hidden-xs">${loginUser.u_nickname }</span>
 									</a>
 								</li>
 								<li>

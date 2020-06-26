@@ -72,18 +72,20 @@
 
 				<!-- this row will not appear when printing -->
 				<div class="row no-print">
-					<div class="col-xs-6 flexBox" style="justify-content: flex-start;">
-						<div>
-							<b>첨부파일 :</b> ${notice.n_ori } &nbsp;&nbsp;&nbsp;
+					<c:if test="${notice.n_ori != null }">
+						<div class="col-xs-6 flexBox" style="justify-content: flex-start;">
+							<div>
+								<b>첨부파일 :</b> ${notice.n_ori } &nbsp;&nbsp;&nbsp;
+							</div>
+							<button type="button" class="btn btn-primary pull-right"
+								style="margin-right: 5px;"
+								onclick="fileDownload('notice','${notice.n_ori}','${notice.n_re}');">
+								<i class="fa fa-download"></i> Download
+							</button>
 						</div>
-						<button type="button" class="btn btn-primary pull-right"
-							style="margin-right: 5px;"
-							onclick="fileDownload('notice','${notice.n_ori}','${notice.n_re}');">
-							<i class="fa fa-download"></i> Download
-						</button>
-					</div>
+					</c:if>
 					<div class="col-xs-6">
-
+					
 
 					</div>
 				</div>

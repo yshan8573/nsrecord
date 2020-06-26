@@ -11,27 +11,27 @@
 </script>
 <div class="row">
 	<div class="col-sm-12">
-		<table id="userNoticeBoard" class="table table-bordered table-hover dataTable" role="grid">
+		<table id="userNoticeBoard" class="table table-bordered table-hover dataTable" role="grid" style="text-align: center;">
 			<thead>
 				<tr role="row">
 					<th class="" tabindex="0" aria-controls="adminNoticeBoard" rowspan="1" colspan="1"
 						aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending"
-						style="width: 185px;">NO</th>
+						style="width: 150px; text-align: center;">NO</th>
 					<th class="" tabindex="0" aria-controls="adminNoticeBoard" rowspan="1" colspan="1"
-						aria-label="Platform(s): activate to sort column ascending" style="width: 202px;">제목
+						aria-label="Platform(s): activate to sort column ascending" style="width: 700px; text-align: center;">제목
 					</th>
 					<th class="" tabindex="0" aria-controls="adminNoticeBoard" rowspan="1" colspan="1"
-						aria-label="Engine version: activate to sort column ascending" style="width: 158px;">작성자
+						aria-label="Engine version: activate to sort column ascending" style="width: 150px; text-align: center;">작성자
 					</th>
 					<th class="" tabindex="0" aria-controls="adminNoticeBoard" rowspan="1" colspan="1"
-						aria-label="CSS grade: activate to sort column ascending" style="width: 115px;">조회수</th>
+						aria-label="CSS grade: activate to sort column ascending" style="width: 150px; text-align: center;">조회수</th>
 					<th class="" tabindex="0" aria-controls="adminNoticeBoard" rowspan="1" colspan="1"
-						aria-label="Browser: activate to sort column ascending" style="width: 228px;">작성일시</th>
+						aria-label="Browser: activate to sort column ascending" style="width: 150px; text-align: center;">작성일시</th>
 				</tr>
 			</thead>
 			<tbody>
 				<c:forEach var="noticeList" items="${noticeList }">
-					<tr role="row" onclick="javascript:location.href='<c:url value="/ "/>community/userNoticeBoardDetail?n_seq=${noticeList.n_seq }'">
+					<tr role="row" onclick="javascript:location.href='<c:url value="/ "/>community/userNoticeBoardDetail?n_seq=${noticeList.n_seq }'" style="cursor: pointer;">
 						<td class="">${noticeList.n_seq }</td>
 						<td>${noticeList.n_title }</td>
 						<td>${noticeList.u_name }</td>

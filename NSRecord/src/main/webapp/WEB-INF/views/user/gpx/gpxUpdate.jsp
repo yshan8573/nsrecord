@@ -74,17 +74,6 @@
 
 		<!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper">
-			<!-- Content Header (Page header) -->
-			<section class="content-header">
-				<h1>
-					GPX 게시글 조회<small>GPX 게시글 조회</small></h1>
-				<ol class="breadcrumb">
-					<li><a href="javascript:location.href='<c:url value=" /" />nsrecord/gpx/gpxBoard'"><i
-							class="fa fa-home"></i>Home</a></li>
-					<li><a href="javascript:location.href='<c:url value=" /" />nsrecord/gpx/gpxInsertForm'">GPX Board</a></li>
-					<li class="active">Write</li>
-				</ol>
-			</section>
 
 
 			<!-- Main content -->
@@ -226,11 +215,12 @@
 			map.setBounds(bounds);
 
 		</script>
-		<!-- Main Footer -->
-		  <%@ include file="../common/user_main_footer.jsp" %>
+
 
 	</div>
 	<!-- ./wrapper -->
+	<!-- Main Footer -->
+  <%@ include file="../common/user_main_footer.jsp" %>
 
 </body>
 
