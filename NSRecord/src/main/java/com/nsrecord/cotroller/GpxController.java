@@ -382,7 +382,7 @@ public class GpxController {
 	//댓글 수정
 	@RequestMapping(value = "gpx/gpxUpdateReply")
 	public String gpxReplyUpdate(@RequestParam HashMap<String, String> paramMap, RedirectAttributes redirectAttribute, HttpSession session) {
-
+		gpxServiceImpl.gpxReplyUpdate(paramMap);
 		redirectAttribute.addAttribute("g_seq", paramMap.get("g_seq"));
 		return "redirect:/gpx/gpxBoardSelectOne";
 	}
