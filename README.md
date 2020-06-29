@@ -7,7 +7,7 @@
  - Oracle Database 11g Express Edition
  - Encoding : UTF-8
 
-# Content
+# Info
 ![NS_Record_1](https://user-images.githubusercontent.com/64110645/85995200-f9cb3300-ba38-11ea-9f04-afb3fc9de9c0.jpg)
 ![NS_Record_3](https://user-images.githubusercontent.com/64110645/85995253-08194f00-ba39-11ea-8666-89ccdecaa65b.jpg)
 ![NS_Record_4](https://user-images.githubusercontent.com/64110645/85995263-0a7ba900-ba39-11ea-9c62-5cdadfcc9956.jpg)
